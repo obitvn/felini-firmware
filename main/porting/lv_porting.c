@@ -1,9 +1,9 @@
 #include "lv_porting.h"
 #include "lvgl.h"
 
-#define MONITOR_HOR_RES 800
-#define MONITOR_VER_RES 480
-#define MONITOR_BUF_SIZE MONITOR_HOR_RES * 10
+#define MONITOR_HOR_RES 280
+#define MONITOR_VER_RES 240
+#define MONITOR_BUF_SIZE MONITOR_HOR_RES *MONITOR_VER_RES
 
 #ifdef ESP32S3_BUILD
 
