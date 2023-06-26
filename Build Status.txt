@@ -1,0 +1,5 @@
+12/05/2023
+
+Phiên bản này build bằng VScode chạy mô phỏng ok
+build bằng esp-idf chạy ok
+tuy nhiên, khi chuyển từ vscode sang esp-idf hoặc ngược lại, cần xóa folder build

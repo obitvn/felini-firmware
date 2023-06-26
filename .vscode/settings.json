@@ -1,0 +1,7 @@
+{
+    "cmake.configureOnOpen": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "files.associations": {
+        "lv_porting.h": "c"
+    }
+}
