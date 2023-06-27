@@ -1,32 +1,13 @@
-# _Sample project_
+# TinyBench
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
-
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+Một thiết bị nhỏ gọn bỏ túi, được tích hợp nhiều công cụ, với tham vọng thủ nhỏ cả một phòng lab nhúng trong balo của bạn. Thiết bị dành cho kỹ sư, sinh viên, những người hay phải di chuyển nhiều, thậm chí là cả các hobby, all in your hand.
 
 
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+## How to build
+- Để mô phỏng, sử dụng vscode cài sdl, chạy build trên vscode
+- Để build code esp32, sử dụng esp-idf 5.0
 
-## Example folder contents
+## How to use
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+xxxxxx

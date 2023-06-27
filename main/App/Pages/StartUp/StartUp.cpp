@@ -56,7 +56,7 @@ void Startup::onTimer(lv_timer_t *timer)
 {
     Startup *instance = (Startup *)timer->user_data;
 
-    instance->Manager->Push("Pages/PowerSupply");
+    instance->Manager->Push("Pages/MenuList");
     // instance->Manager->Push("Pages/Dialplate");
 }
 

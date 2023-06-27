@@ -1,10 +1,10 @@
-#include "PowerSupplyView.h"
+#include "MenuListView.h"
 #include <stdarg.h>
 #include <stdio.h>
 
 using namespace Page;
 
-lv_obj_t *PowerSupplyView::Btn_Create(lv_obj_t *par, const void *img_src, lv_coord_t x_ofs, lv_coord_t y_ofs)
+lv_obj_t *MenuListView::Btn_Create(lv_obj_t *par, const void *img_src, lv_coord_t x_ofs, lv_coord_t y_ofs)
 {
     lv_obj_t *obj = lv_btn_create(par);
 
@@ -21,7 +21,7 @@ lv_obj_t *PowerSupplyView::Btn_Create(lv_obj_t *par, const void *img_src, lv_coo
     return obj;
 }
 
-void PowerSupplyView::Create(lv_obj_t *root)
+void MenuListView::Create(lv_obj_t *root)
 {
 
     static lv_style_t style, style_hide;
@@ -91,18 +91,18 @@ void PowerSupplyView::Create(lv_obj_t *root)
     ui.control = obj_control;
 }
 
-void PowerSupplyView::ShowControlPanel()
+void MenuListView::ShowControlPanel()
 {
     lv_obj_clear_flag(ui.controlpanel, LV_OBJ_FLAG_HIDDEN);
 }
 
-void PowerSupplyView::SetDefaultControlPanel()
+void MenuListView::SetDefaultControlPanel()
 {
     lv_obj_add_flag(ui.controlpanel, LV_OBJ_FLAG_HIDDEN);
     lv_obj_set_pos(ui.control, 45, 217);
     lv_obj_clear_flag(ui.control, LV_OBJ_FLAG_HIDDEN);
 }
 
-void PowerSupplyView::Delete()
+void MenuListView::Delete()
 {
 }

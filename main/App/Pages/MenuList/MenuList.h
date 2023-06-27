@@ -1,13 +1,13 @@
-#ifndef __PowerSupply_PRESENTER_H
-#define __PowerSupply_PRESENTER_H
+#ifndef __MenuList_PRESENTER_H
+#define __MenuList_PRESENTER_H
 
-#include "PowerSupplyView.h"
-#include "PowerSupplyModel.h"
+#include "MenuListView.h"
+#include "MenuListModel.h"
 
 namespace Page
 {
 
-class PowerSupply : public PageBase
+class MenuList : public PageBase
 {
 public:
     typedef struct
@@ -17,8 +17,8 @@ public:
     } Param_t;
 
 public:
-    PowerSupply();
-    virtual ~PowerSupply();
+    MenuList();
+    virtual ~MenuList();
 
     virtual void onCustomAttrConfig();
     virtual void onViewLoad();
@@ -39,8 +39,8 @@ private:
     static void onEvent(lv_event_t* event);
 
 private:
-    PowerSupplyView View;
-    PowerSupplyModel Model;
+    MenuListView View;
+    MenuListModel Model;
     lv_timer_t* timer;
 };
 
