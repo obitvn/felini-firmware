@@ -7,6 +7,7 @@ Một thiết bị nhỏ gọn bỏ túi, được tích hợp nhiều công c�
 ## How to build
 - Để mô phỏng, sử dụng vscode cài sdl, chạy build trên vscode
 - Để build code esp32, sử dụng esp-idf 5.0
+- Để config pin LCD sử dụng idf.py menuconfig > lvgl_esp driver
 
 ## How to use
 

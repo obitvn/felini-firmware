@@ -26,8 +26,9 @@
 /*The LCD needs a bunch of command/argument values to be initialized. They are stored in this struct. */
 typedef struct {
     uint8_t cmd;
-    uint8_t data[16];
     uint8_t databytes; //No of data in data; bit 7 = delay after set; 0xFF = end of cmds.
+    uint8_t data[16];
+    
 } lcd_init_cmd_t;
 
 /**********************
@@ -74,46 +75,74 @@ void st7789_init(void)
 //         {0, {0}, 0x80}, //delay 100ms
 //         {0, {0}, 0xff},
 
-        {0xCF, {0x00, 0x83, 0X30}, 3},
-        {0, {0}, 0x80}, //delay 100ms
-        {0, {0}, 0x80}, //delay 100ms
-        {0xED, {0x64, 0x03, 0X12, 0X81}, 4},
-        {ST7789_PWCTRL2, {0x85, 0x01, 0x79}, 3},
-        {0xCB, {0x39, 0x2C, 0x00, 0x34, 0x02}, 5},
-        {0xF7, {0x20}, 1},
-        {0xEA, {0x00, 0x00}, 2},
-        {ST7789_LCMCTRL, {0x26}, 1},
-        {ST7789_IDSET, {0x11}, 1},
-        {ST7789_VCMOFSET, {0x35, 0x3E}, 2},
-        {ST7789_CABCCTRL, {0xBE}, 1},
-        {ST7789_MADCTL, {0x00}, 1}, // Set to 0x28 if your display is flipped
-        {ST7789_COLMOD, {0x55}, 1},
-        {0, {0}, 0x80}, //delay 100ms
-        {0, {0}, 0x80}, //delay 100ms
+//         {0xCF, {0x00, 0x83, 0X30}, 3},
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0xED, {0x64, 0x03, 0X12, 0X81}, 4},
+//         {ST7789_PWCTRL2, {0x85, 0x01, 0x79}, 3},
+//         {0xCB, {0x39, 0x2C, 0x00, 0x34, 0x02}, 5},
+//         {0xF7, {0x20}, 1},
+//         {0xEA, {0x00, 0x00}, 2},
+//         {ST7789_LCMCTRL, {0x26}, 1},
+//         {ST7789_IDSET, {0x11}, 1},
+//         {ST7789_VCMOFSET, {0x35, 0x3E}, 2},
+//         {ST7789_CABCCTRL, {0xBE}, 1},
+//         {ST7789_MADCTL, {0x00}, 1}, // Set to 0x28 if your display is flipped
+//         {ST7789_COLMOD, {0x55}, 1},
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0, {0}, 0x80}, //delay 100ms
 
-#if ST7789_INVERT_COLORS == 1
-        {ST7789_INVON, {0}, 0}, // set inverted mode
-#else
-        {ST7789_INVOFF, {0}, 0}, // set non-inverted mode
-#endif
-        {0, {0}, 0x80}, //delay 100ms
-        {0, {0}, 0x80}, //delay 100ms
-        {ST7789_RGBCTRL, {0x00, 0x1B}, 2},
-        {0xF2, {0x08}, 1},
-        {ST7789_GAMSET, {0x01}, 1},
-        {ST7789_PVGAMCTRL, {0xD0, 0x00, 0x02, 0x07, 0x0A, 0x28, 0x32, 0x44, 0x42, 0x06, 0x0E, 0x12, 0x14, 0x17}, 14},
-        {ST7789_NVGAMCTRL, {0xD0, 0x00, 0x02, 0x07, 0x0A, 0x28, 0x31, 0x54, 0x47, 0x0E, 0x1C, 0x17, 0x1B, 0x1E}, 14},
-        {ST7789_CASET, {0x00, 0x00, 0x00, 0xEF}, 4},
-        {ST7789_RASET, {0x00, 0x00, 0x01, 0x3f}, 4},
-        {ST7789_RAMWR, {0}, 0},
-        {ST7789_GCTRL, {0x07}, 1},
-        {0xB6, {0x0A, 0x82, 0x27, 0x00}, 4},
-        {ST7789_SLPOUT, {0}, 0x80},
-        {0, {0}, 0x80}, //delay 100ms
-        {0, {0}, 0x80}, //delay 100ms
-        {ST7789_DISPON, {0}, 0x80},
-        {0, {0}, 0x80}, //delay 100ms
-        {0, {0}, 0xff},
+// #if ST7789_INVERT_COLORS == 1
+//         {ST7789_INVON, {0}, 0}, // set inverted mode
+// #else
+//         {ST7789_INVOFF, {0}, 0}, // set non-inverted mode
+// #endif
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0, {0}, 0x80}, //delay 100ms
+//         {ST7789_RGBCTRL, {0x00, 0x1B}, 2},
+//         {0xF2, {0x08}, 1},
+//         {ST7789_GAMSET, {0x01}, 1},
+//         {ST7789_PVGAMCTRL, {0xD0, 0x00, 0x02, 0x07, 0x0A, 0x28, 0x32, 0x44, 0x42, 0x06, 0x0E, 0x12, 0x14, 0x17}, 14},
+//         {ST7789_NVGAMCTRL, {0xD0, 0x00, 0x02, 0x07, 0x0A, 0x28, 0x31, 0x54, 0x47, 0x0E, 0x1C, 0x17, 0x1B, 0x1E}, 14},
+//         {ST7789_CASET, {0x00, 0x00, 0x00, 0xEF}, 4},
+//         {ST7789_RASET, {0x00, 0x00, 0x01, 0x3f}, 4},
+//         {ST7789_RAMWR, {0}, 0},
+//         {ST7789_GCTRL, {0x07}, 1},
+//         {0xB6, {0x0A, 0x82, 0x27, 0x00}, 4},
+//         {ST7789_SLPOUT, {0}, 0x80},
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0, {0}, 0x80}, //delay 100ms
+//         {ST7789_DISPON, {0}, 0x80},
+//         {0, {0}, 0x80}, //delay 100ms
+//         {0, {0}, 0xff},
+        {0x11, 0, {0x00}},
+
+    #if CONFIG_LV_DISPLAY_ORIENTATION==0
+        {0x36, 1, {0x00}},
+    #elif CONFIG_LV_DISPLAY_ORIENTATION==1
+        {0x36, 1, {0xC0}},
+    #elif CONFIG_LV_DISPLAY_ORIENTATION==2
+        {0x36, 1, {0x70}},
+    #else
+        {0x36, 1, {0xA0}},
+    #endif
+
+        {0x3A, 1, {0x55}},
+        {0xB2, 7, {0x0c, 0x0c, 0x00, 0x33, 0x33, 0xb7, 0x75}},
+        {0xC2, 1, {0x01}},
+        {0xC3, 1, {0x16}},
+        {0xC4, 1, {0x20}},
+        {0xC6, 1, {0x0F}},
+        {0xD0, 2, {0xA4, 0xA1}},
+        {0xD6, 1, {0xA1}},
+        {0xBB, 1, {0x3B}},
+        {0xE0, 4, {0xf0, 0x0b, 0x11, 0x0e, 0x0d, 0x19, 0x36, 0x33, 0x4b, 0x07, 0x14, 0x14, 0x2c, 0x2e}},
+        {0xE1, 4, {0xf0, 0x0d, 0x12, 0x0b, 0x09, 0x03, 0x32, 0x44, 0x48, 0x39, 0x16, 0x16, 0x2d, 0x30}},
+        {0x2A, 4, {0x00, 0x00, 0x00, 239}}, //宽度
+        {0x2B, 4, {0x00, 000, 0x00, 239}},  //高度
+        {0x21, 0, {0x00}},
+        {0x29, 0, {0x00}},
+        {0x2C, 0, {0x00}},
     };
 
     //Initialize non-SPI GPIOs
@@ -128,17 +157,17 @@ void st7789_init(void)
     //Reset the display
 #if !defined(ST7789_SOFT_RST)
     gpio_set_level(ST7789_RST, 0);
-    vTaskDelay(100 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
     gpio_set_level(ST7789_RST, 1);
-    vTaskDelay(100 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
 #else
     st7789_send_cmd(ST7789_SWRESET);
 #endif
-
+    st7789_draw(0,0, 240, 320, 0); //CLEAR SCREEN
     printf("ST7789 initialization.\n");
 
     st7789_send_cmd(ST7789_SLPOUT);
-    vTaskDelay(255 / portTICK_RATE_MS);
+    vTaskDelay(255 / portTICK_PERIOD_MS);
     // st7789_send_cmd(ST7789_NORON);
 
     //display and color format setting//
@@ -149,13 +178,16 @@ void st7789_init(void)
         st7789_send_cmd(st7789_init_cmds[cmd].cmd);
         st7789_send_data(st7789_init_cmds[cmd].data, st7789_init_cmds[cmd].databytes&0x1F);
         if (st7789_init_cmds[cmd].databytes & 0x80) {
-                vTaskDelay(100 / portTICK_RATE_MS);
+                vTaskDelay(100 / portTICK_PERIOD_MS);
         }
         cmd++;
     }
-    vTaskDelay(100 / portTICK_RATE_MS);
-    st7789_set_orientation(CONFIG_LV_DISPLAY_ORIENTATION);
-    vTaskDelay(100 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+    st7789_draw(0,0, 240, 320, 0); //CLEAR SCREEN
+
+
+    // st7789_set_orientation(CONFIG_LV_DISPLAY_ORIENTATION);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
     
 }
 
@@ -184,6 +216,14 @@ void st7789_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * colo
     #elif (CONFIG_LV_DISPLAY_ORIENTATION_LANDSCAPE_INVERTED)
         offsety1 += 80;
         offsety2 += 80;
+    #endif
+#elif (LV_HOR_RES_MAX == 280) && (LV_VER_RES_MAX == 240)
+    #if (CONFIG_LV_DISPLAY_ORIENTATION_PORTRAIT)
+        offsetx1 += 20;
+        offsetx2 += 20;
+    #elif (CONFIG_LV_DISPLAY_ORIENTATION_LANDSCAPE_INVERTED)
+        offsety1 += 0;
+        offsety2 += 0;
     #endif
 #elif (LV_HOR_RES_MAX == 240) && (LV_VER_RES_MAX == 135)
     #if (CONFIG_LV_DISPLAY_ORIENTATION_PORTRAIT) || \

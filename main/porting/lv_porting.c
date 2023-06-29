@@ -5,14 +5,27 @@
 #define MONITOR_VER_RES 240
 #define MONITOR_BUF_SIZE MONITOR_HOR_RES *MONITOR_VER_RES
 
-#ifdef ESP32S3_BUILD
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+
+#include "lvgl_disp_port.h"
+// #include "lvgl_indev_port.h"
 
 void disp_drv_init(void);
 void indev_drv_init(void);
 
 void lv_porting_init(void)
 {
-    int a = 0;
+    // static void *lv_buf = NULL;
+    // lv_buf = heap_caps_malloc(240*280*2, MALLOC_CAP_DMA);
+    // printf("start up ++++++++++++++++++++++++++++++++++++++");
+    lv_init();
+    // heap_caps_free(lv_buf);
+    lv_port_disp_init();
+    // static lv_style_t style_screen;
+    // lv_style_init(&style_screen);
+    // lv_style_set_bg_color(&style_screen, lv_color_hex(0));
+    // lv_obj_add_style(lv_scr_act(), &style_screen,_LV_STYLE_STATE_CMP_SAME);
+    // lv_port_indev_init();
 }
 
 void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)
