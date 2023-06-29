@@ -54,6 +54,8 @@ idf_component_register(
     REQUIRES 
         lvgl
         lvgl_disp_port
+        lvgl_esp32_drivers
+        lvgl_indev_port
         driver
 )
 

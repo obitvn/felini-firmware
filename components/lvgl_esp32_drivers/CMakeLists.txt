@@ -73,6 +73,8 @@ if(CONFIG_LV_TOUCH_CONTROLLER)
         list(APPEND SOURCES "lvgl_touch/ra8875_touch.c")
     elseif(CONFIG_LV_TOUCH_CONTROLLER_GT911)
         list(APPEND SOURCES "lvgl_touch/gt911.c")
+    elseif(CONFIG_LV_TOUCH_CONTROLLER_CST816)
+        list(APPEND SOURCES "lvgl_touch/cst816s.c")
     endif()
 
     if(CONFIG_LV_TOUCH_DRIVER_PROTOCOL_SPI)
@@ -89,6 +91,8 @@ idf_component_register(SRCS ${SOURCES}
                        REQUIRES lvgl driver)
 
 target_compile_definitions(${COMPONENT_LIB} PUBLIC "-DLV_LVGL_H_INCLUDE_SIMPLE")
+target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-error=format)
+# https://github.com/espressif/esp-idf/issues/9511
 
 else()
     message(FATAL_ERROR "LVGL ESP32 drivers: ESP_PLATFORM is not defined. Try reinstalling ESP-IDF.")

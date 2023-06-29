@@ -21,6 +21,8 @@ extern "C" {
 
 // Only here to get the I2C_NUM_0 and I2C_NUM_1 defines.
 #include <driver/i2c.h>
+#include <inttypes.h>
+
 
 #define CONCATX(A, B) A ## B
 #define CONCAT(A, B) CONCATX(A, B)

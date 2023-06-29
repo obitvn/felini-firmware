@@ -24,25 +24,28 @@ extern "C"
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     void app_main(void)
+    {
 #else
     int main(int argc, char *argv[])
-#endif
     {
+#endif
+    
         lv_porting_init();
 
         lv_obj_t *label = lv_label_create(lv_scr_act());
-        lv_label_set_text(label, "obit tesla!!!!!!");
+            lv_label_set_text(label, "obit tesla!!!!!!");
         lv_obj_center(label);
         HAL::HAL_Init();
         App_Init();
 
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+        int a =9;
+#else
         while (1)
-        {
-            lv_timer_handler();
-            lv_porting_delay();
-            #ifdef CONFIG_IDF_TARGET_ESP32S3
-                vTaskDelay(10);
-            #endif
+        {            
+                lv_timer_handler();
+                lv_porting_delay();
         }
+#endif
     }
 }

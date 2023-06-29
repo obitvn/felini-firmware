@@ -2,24 +2,37 @@
 
 static void encoder_init(void);
 static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
+static void touch_init(void);
+static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
 
 lv_indev_t *indev_encoder;
+lv_indev_t *indev_touch;
 lv_group_t * group;
+
+lv_group_t * group_touch;
 
 void lv_port_indev_init(void)
 {
     static lv_indev_drv_t indev_drv;
+    static lv_indev_drv_t touch_drv;
 
-    encoder_init();
+    // encoder_init();
+    touch_init();
 
-    /*Register a encoder input device*/
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_ENCODER;
-    indev_drv.read_cb = encoder_read;
-    indev_encoder = lv_indev_drv_register(&indev_drv);
+    // /*Register a encoder input device*/
+    // lv_indev_drv_init(&indev_drv);
+    // indev_drv.type = LV_INDEV_TYPE_ENCODER;
+    // indev_drv.read_cb = encoder_read;
+    // indev_encoder = lv_indev_drv_register(&indev_drv);
+
+    /*Register a touch input device*/
+    lv_indev_drv_init(&touch_drv);
+    touch_drv.type = LV_INDEV_TYPE_POINTER;
+    touch_drv.read_cb = touch_read;
+    indev_touch = lv_indev_drv_register(&touch_drv);
 
     group = lv_group_create();
-    lv_indev_set_group(indev_encoder, group);
+    lv_indev_set_group(indev_touch, group);
     lv_group_set_default(group);
 }
 
@@ -28,7 +41,18 @@ static void encoder_init(void)
     encoder_config();
 }
 
+static void touch_init(void)
+{
+    touch_driver_init();
+}
+
+
 uint32_t timeout=0;
+
+static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
+{
+    touch_driver_read(indev_drv, data);
+}
 
 
 static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)

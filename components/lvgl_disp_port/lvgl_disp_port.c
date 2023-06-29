@@ -38,10 +38,12 @@ void lv_port_disp_init(void)
     lv_disp_drv_register(&disp_drv);
 
     esp_register_freertos_tick_hook((void *)lv_tick_task);
+    disp_task_create();
 }
 
 static void gui_task(void *pvParameter)
 {
+
     while(1)
     {
         vTaskDelay(pdMS_TO_TICKS(10));
@@ -56,6 +58,6 @@ static void gui_task(void *pvParameter)
 
 void disp_task_create(void)
 {
-    xTaskCreatePinnedToCore(gui_task, "disp task", 4096, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(gui_task, "disp task", 8192*3, NULL, 1, NULL, 1);
 }
 

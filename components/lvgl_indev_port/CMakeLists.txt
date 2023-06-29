@@ -7,4 +7,5 @@ idf_component_register(
 
     REQUIRES 
         lvgl
-        encoder)
+        encoder
+        lvgl_esp32_drivers)

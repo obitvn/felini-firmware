@@ -40,6 +40,8 @@ SOFTWARE.
 
 #include "i2c_manager.h"
 
+#include <inttypes.h>
+
 
 #if defined __has_include
 	#if __has_include ("esp_idf_version.h")

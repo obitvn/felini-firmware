@@ -163,7 +163,7 @@ void st7789_init(void)
 #else
     st7789_send_cmd(ST7789_SWRESET);
 #endif
-    st7789_draw(0,0, 240, 320, 0); //CLEAR SCREEN
+    st7789_draw(0,0, 320, 320, 0); //CLEAR SCREEN
     printf("ST7789 initialization.\n");
 
     st7789_send_cmd(ST7789_SLPOUT);
@@ -183,11 +183,12 @@ void st7789_init(void)
         cmd++;
     }
     vTaskDelay(100 / portTICK_PERIOD_MS);
-    st7789_draw(0,0, 240, 320, 0); //CLEAR SCREEN
+    st7789_draw(0,0, 320, 320, 0); //CLEAR SCREEN
 
 
     // st7789_set_orientation(CONFIG_LV_DISPLAY_ORIENTATION);
     vTaskDelay(100 / portTICK_PERIOD_MS);
+    st7789_draw(0,0, 320, 320, 0); //CLEAR SCREEN
     
 }
 
