@@ -31,7 +31,7 @@ void MenuListView::Create(lv_obj_t *root)
     /*Set a background color and a radius*/
     lv_style_set_radius(&style, 16);
     lv_style_set_bg_opa(&style, LV_OPA_20);
-    lv_style_set_bg_color(&style, lv_color_hex(0));
+    lv_style_set_bg_color(&style, lv_color_hex(0x00ff00));
 
     /*Add border to the bottom+right*/
     lv_style_set_border_color(&style, lv_color_hex(0xFEFEFE));

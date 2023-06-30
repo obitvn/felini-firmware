@@ -47,6 +47,15 @@ static esp_err_t _cst816_i2c_write8(uint8_t slave_addr, uint8_t register_addr, u
     return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, slave_addr, register_addr | I2C_REG_16, &buffer, 1);
 }
 
+uint8_t cst816t_read_len(uint16_t reg_addr,uint8_t *data,uint8_t len)
+{
+    uint8_t res=0;
+    res = i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, CST816_I2C_SLAVE_ADDR, &reg_addr, 1, data, len, 1000 / portTICK_PERIOD_MS);
+
+    return res;
+}
+
+
 /**
   * @brief  Initialize for cst816 communication via I2C
   * @param  dev_addr: Device address on communication Bus (I2C slave address of cst816).
@@ -61,20 +70,16 @@ void cst816_init(uint8_t dev_addr) {
         esp_err_t ret;
         ESP_LOGI(TAG, "Initializing cst816 0x%x", dev_addr);
         int i = 0;
-        while ((ret = _cst816_i2c_read(dev_addr, 0x15, &version, 1) != ESP_OK))
+        if ((ret = _cst816_i2c_read(dev_addr, 0x15, &version, 1) != ESP_OK))
         {
             ESP_LOGE(TAG, "Error reading version from device: %s",
             esp_err_to_name(ret));    // Only show error the first time
-            i++;
-            if(i > 100) break;
             // /return;
         }
-        while ((ret = _cst816_i2c_read(dev_addr, 0xA7, versionInfo, 3) != ESP_OK))
+        if ((ret = _cst816_i2c_read(dev_addr, 0xA7, versionInfo, 3) != ESP_OK))
         {
             ESP_LOGE(TAG, "Error reading versionInfo from device: %s",
             esp_err_to_name(ret));    // Only show error the first time
-            i++;
-            if(i > 100) break;
             // return;
         }
         ESP_LOGI(TAG, "CST816 version %d, versionInfo: %d.%d.%d", version, versionInfo[0], versionInfo[1], versionInfo[2]);
@@ -92,28 +97,25 @@ void cst816_init(uint8_t dev_addr) {
 #define INVERTX 1
 #define INVERTY 0
 
+bool cst816_is_touched(void)
+{
+    uint8_t touch_val = 1;
+    cst816t_read_len( 0x02, &touch_val, 1);
+     // printf("touch_val %d\r\n", touch_val);
+    return touch_val ? true : false;
+}
 
-
-bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+    bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 
     uint8_t data_raw[8];
-    _cst816_i2c_read(cst816_status.i2c_dev_addr, 0x01, data_raw, 6);
-
-
+    cst816t_read_len( 0x01, data_raw, 6);
 
     uint8_t gestureID = data_raw[0];
     uint8_t points = data_raw[1];
     uint8_t event = data_raw[2] >> 6;
     uint16_t point_x = 0;
     uint16_t point_y = 0;
-    if(points == 0)
-    {
-        data->state = LV_INDEV_STATE_RELEASED;
-        return false;
 
-    }
-
-    data->state = LV_INDEV_STATE_PRESSED;
     point_x = (data_raw[3] | ((data_raw[2] & 0x0F) << 8));
     point_y = (data_raw[5] | ((data_raw[4] & 0x0F) << 8));
 
@@ -131,9 +133,21 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 #if CONFIG_LV_INVERT_Y_CST816
     point_y = CONFIG_LV_TOUCH_Y_MAX_CST816 - point_y;
 #endif
+    if (points > 0){
+        data->state = LV_INDEV_STATE_PR;
+    }
+    else{
+        data->state = LV_INDEV_STATE_REL;
+    }
+    
+    if(point_x > CONFIG_LV_TOUCH_X_MAX_CST816) 
+        data->point.x = 0;
+    else data->point.x = point_x;
 
-    data->point.x = point_x;
-    data->point.y = point_y;
-    ESP_LOGI(TAG, "gestureID %d, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
+    if(point_y > CONFIG_LV_TOUCH_Y_MAX_CST816) 
+        data->point.y = 0;
+    else data->point.y = point_y;
+
+    // ESP_LOGI(TAG, "gestureID %d, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
     return false;
 }

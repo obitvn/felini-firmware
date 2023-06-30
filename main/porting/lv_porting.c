@@ -15,11 +15,11 @@ void indev_drv_init(void);
 
 void lv_porting_init(void)
 {
-    static void *lv_buf = NULL;
-    lv_buf = heap_caps_malloc(240*280*2, MALLOC_CAP_DMA);
-    printf("start up ++++++++++++++++++++++++++++++++++++++");
+    // static void *lv_buf = NULL;
+    // lv_buf = heap_caps_malloc(240*280*2, MALLOC_CAP_DMA);
+    // printf("start up ++++++++++++++++++++++++++++++++++++++");
     lv_init();
-    heap_caps_free(lv_buf);
+    // heap_caps_free(lv_buf);
     lv_port_disp_init();
 
 

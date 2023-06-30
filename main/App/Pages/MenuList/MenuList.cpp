@@ -112,8 +112,8 @@ void MenuList::onEvent(lv_event_t *event)
 
     if (obj == instance->View.ui.control)
     {
-        if (code == LV_EVENT_PRESSING)
-        {
+        // if (code == LV_EVENT_PRESSING)
+        // {
             lv_indev_t *indev = lv_indev_get_act();
             if (indev == NULL)
                 return;
@@ -133,7 +133,7 @@ void MenuList::onEvent(lv_event_t *event)
                 lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
                 instance->onShow();
             }
-        }
+        // }
     }
     if (obj == instance->View.ui.back)
     {

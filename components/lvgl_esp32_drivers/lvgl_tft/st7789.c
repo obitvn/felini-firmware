@@ -143,6 +143,7 @@ void st7789_init(void)
         {0x21, 0, {0x00}},
         {0x29, 0, {0x00}},
         {0x2C, 0, {0x00}},
+
     };
 
     //Initialize non-SPI GPIOs

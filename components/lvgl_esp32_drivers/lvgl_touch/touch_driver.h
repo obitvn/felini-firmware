@@ -53,6 +53,8 @@ void touch_driver_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 bool touch_driver_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 #endif
 
+bool is_touched(void);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

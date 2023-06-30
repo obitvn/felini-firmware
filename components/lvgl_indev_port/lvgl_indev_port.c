@@ -31,9 +31,9 @@ void lv_port_indev_init(void)
     touch_drv.read_cb = touch_read;
     indev_touch = lv_indev_drv_register(&touch_drv);
 
-    group = lv_group_create();
-    lv_indev_set_group(indev_touch, group);
-    lv_group_set_default(group);
+    // group = lv_group_create();
+    // lv_indev_set_group(indev_touch, group);
+    // lv_group_set_default(group);
 }
 
 static void encoder_init(void)
@@ -51,7 +51,17 @@ uint32_t timeout=0;
 
 static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
-    touch_driver_read(indev_drv, data);
+    if(is_touched())
+    {
+        touch_driver_read(indev_drv, data);
+        // data->state = LV_INDEV_STATE_PR;
+    }
+    else
+    {
+        data->state = LV_INDEV_STATE_RELEASED;
+        data->point.x = 0;
+        data->point.y = 0;
+    }
 }
 
 

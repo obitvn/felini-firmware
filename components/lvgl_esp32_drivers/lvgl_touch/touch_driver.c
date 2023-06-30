@@ -27,6 +27,17 @@ void touch_driver_init(void)
 #endif
 }
 
+
+bool is_touched(void)
+{
+    #if defined (CONFIG_LV_TOUCH_CONTROLLER_CST816)
+       return cst816_is_touched();
+    #elif
+        return 0;
+    #endif
+
+}
+
 #if LVGL_VERSION_MAJOR >= 8
 void touch_driver_read(lv_indev_drv_t *drv, lv_indev_data_t *data)
 #else

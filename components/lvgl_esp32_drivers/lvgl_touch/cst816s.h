@@ -57,6 +57,8 @@ void cst816_init(uint8_t dev_addr);
   */
 bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 
+bool cst816_is_touched(void);
+
 #ifdef __cplusplus
 }
 #endif
