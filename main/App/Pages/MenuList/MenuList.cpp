@@ -1,23 +1,23 @@
 #include <cstdio>
-#include "PowerSupply.h"
+#include "MenuList.h"
 
 using namespace Page;
 
-PowerSupply::PowerSupply()
+MenuList::MenuList()
 {
 }
 
-PowerSupply::~PowerSupply()
+MenuList::~MenuList()
 {
 }
 
-void PowerSupply::onCustomAttrConfig()
+void MenuList::onCustomAttrConfig()
 {
     SetCustomCacheEnable(false);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
 
-void PowerSupply::onViewLoad()
+void MenuList::onViewLoad()
 {
     
     Model.Init(); // DataCenter
@@ -34,11 +34,11 @@ void PowerSupply::onViewLoad()
     StatusBar::Appear(true);
 }
 
-void PowerSupply::onViewDidLoad()
+void MenuList::onViewDidLoad()
 {
 }
 
-void PowerSupply::onViewWillAppear()
+void MenuList::onViewWillAppear()
 {
     Param_t param;
     param.color = LV_COLOR_MAKE16(0, 0, 0);
@@ -50,27 +50,27 @@ void PowerSupply::onViewWillAppear()
     timer = lv_timer_create(onTimerUpdate, param.time, this);
 }
 
-void PowerSupply::onViewDidAppear()
+void MenuList::onViewDidAppear()
 {
     lv_timer_resume(timer);
 }
 
-void PowerSupply::onViewWillDisappear()
+void MenuList::onViewWillDisappear()
 {
 }
 
-void PowerSupply::onViewDidDisappear()
+void MenuList::onViewDidDisappear()
 {
     lv_timer_pause(timer);
 }
 
-void PowerSupply::onViewDidUnload()
+void MenuList::onViewDidUnload()
 {
     Model.Deinit();
     View.Delete();
 }
 
-void PowerSupply::AttachEvent(lv_obj_t *obj)
+void MenuList::AttachEvent(lv_obj_t *obj)
 {
     lv_obj_set_user_data(obj, this);
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
@@ -78,32 +78,32 @@ void PowerSupply::AttachEvent(lv_obj_t *obj)
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
-void PowerSupply::Update()
+void MenuList::Update()
 {
     // lv_label_set_text(View.ui.read_voltage, "12.01");
 }
 
-void PowerSupply::onTimerUpdate(lv_timer_t *timer)
+void MenuList::onTimerUpdate(lv_timer_t *timer)
 {
-    PowerSupply *instance = (PowerSupply *)timer->user_data;
+    MenuList *instance = (MenuList *)timer->user_data;
 
     instance->Update();
 }
 
-void PowerSupply::onShow()
+void MenuList::onShow()
 {
     View.ShowControlPanel();
 }
 
-void PowerSupply::settoDefault()
+void MenuList::settoDefault()
 {
     View.SetDefaultControlPanel();
 }
 
-void PowerSupply::onEvent(lv_event_t *event)
+void MenuList::onEvent(lv_event_t *event)
 {
 
-    PowerSupply *instance = (PowerSupply *)lv_event_get_user_data(event);
+    MenuList *instance = (MenuList *)lv_event_get_user_data(event);
     LV_ASSERT_NULL(instance);
 
     lv_obj_t *obj = lv_event_get_current_target(event);
@@ -112,8 +112,8 @@ void PowerSupply::onEvent(lv_event_t *event)
 
     if (obj == instance->View.ui.control)
     {
-        if (code == LV_EVENT_PRESSING)
-        {
+        // if (code == LV_EVENT_PRESSING)
+        // {
             lv_indev_t *indev = lv_indev_get_act();
             if (indev == NULL)
                 return;
@@ -133,7 +133,7 @@ void PowerSupply::onEvent(lv_event_t *event)
                 lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
                 instance->onShow();
             }
-        }
+        // }
     }
     if (obj == instance->View.ui.back)
     {

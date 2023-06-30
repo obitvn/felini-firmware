@@ -23,10 +23,10 @@ extern "C" {
  *      DEFINES
  *********************/
 
-#define LV_HOR_RES_MAX  240
+#define LV_HOR_RES_MAX  280
 #define LV_VER_RES_MAX  240
-#define CONFIG_LV_DISPLAY_ORIENTATION   2
-#define SPI_HOST_MAX 3
+#define CONFIG_LV_DISPLAY_ORIENTATION   4
+// #define SPI_HOST_MAX 3
 
 
 /* DISP_BUF_SIZE value doesn't have an special meaning, but it's the size
@@ -44,7 +44,7 @@ extern "C" {
 #define DISP_BUF_SIZE   CONFIG_CUSTOM_DISPLAY_BUFFER_BYTES
 #else
 #if defined (CONFIG_LV_TFT_DISPLAY_CONTROLLER_ST7789)
-#define DISP_BUF_SIZE  (LV_HOR_RES_MAX * 40)
+#define DISP_BUF_SIZE  (240 * 10)
 #elif defined CONFIG_LV_TFT_DISPLAY_CONTROLLER_ST7735S
 #define DISP_BUF_SIZE  (LV_HOR_RES_MAX * 40)
 #elif defined CONFIG_LV_TFT_DISPLAY_CONTROLLER_ST7796S

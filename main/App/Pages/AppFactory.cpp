@@ -23,7 +23,7 @@
 #include "AppFactory.hpp"
 #include "_Template/Template.h"
 #include "StartUp/StartUp.h"
-#include "PowerSupply/PowerSupply.h"
+#include "MenuList/MenuList.h"
 #include "Dialplate/Dialplate.h"
 #include "IICDiscovery/IICDiscovery.h"
 
@@ -39,7 +39,7 @@ PageBase* AppFactory::CreatePage(const char* name)
 {
     APP_CLASS_MATCH(Template);
     APP_CLASS_MATCH(Startup);
-    APP_CLASS_MATCH(PowerSupply);
+    APP_CLASS_MATCH(MenuList);
     APP_CLASS_MATCH(Dialplate);
     APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
 

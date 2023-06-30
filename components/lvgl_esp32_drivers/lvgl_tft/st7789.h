@@ -32,7 +32,8 @@ extern "C"
   #define ST7789_SOFT_RST
 #endif
 
-#define ST7789_INVERT_COLORS            CONFIG_LV_INVERT_COLORS
+// #define ST7789_INVERT_COLORS            CONFIG_LV_INVERT_COLORS
+#define ST7789_INVERT_COLORS            0
 
 /* ST7789 commands */
 #define ST7789_NOP      0x00

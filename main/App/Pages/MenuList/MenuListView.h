@@ -1,12 +1,12 @@
-#ifndef __PowerSupply_VIEW_H
-#define __PowerSupply_VIEW_H
+#ifndef __MenuList_VIEW_H
+#define __MenuList_VIEW_H
 
 #include "../Page.h"
 
 namespace Page
 {
 
-    class PowerSupplyView
+    class MenuListView
     {
     public:
         void Create(lv_obj_t *root);

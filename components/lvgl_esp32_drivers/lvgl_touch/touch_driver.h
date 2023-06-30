@@ -34,6 +34,8 @@ extern "C" {
 #include "ra8875_touch.h"
 #elif defined (CONFIG_LV_TOUCH_CONTROLLER_GT911)
 #include "gt911.h"
+#elif defined (CONFIG_LV_TOUCH_CONTROLLER_CST816)
+#include "cst816s.h"
 #endif
 
 /*********************
@@ -50,6 +52,8 @@ void touch_driver_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 #else
 bool touch_driver_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 #endif
+
+bool is_touched(void);
 
 #ifdef __cplusplus
 } /* extern "C" */

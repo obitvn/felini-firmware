@@ -82,7 +82,7 @@ extern "C" void App_Init()
     StatusBar::Init(lv_layer_top());
     // Lưu ý cần đúng tên class, sai tên load không ra, không chạy
     manager.Install("Startup", "Pages/Startup");
-    manager.Install("PowerSupply", "Pages/PowerSupply");
+    manager.Install("MenuList", "Pages/MenuList");
     manager.Install("Template", "Pages/_Template");
     manager.Install("Dialplate", "Pages/Dialplate");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
