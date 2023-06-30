@@ -26,7 +26,10 @@ void lv_port_disp_init(void)
     static lv_color_t *lv_buf_1 = NULL;
     static lv_color_t *lv_buf_2 = NULL;
 
-    lv_buf = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
+
+    lv_buf = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
+    assert(lv_buf != NULL);
+
     
     // lv_buf_1 = (lv_color_t *)heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
     // assert(lv_buf_1 != NULL);

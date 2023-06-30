@@ -50,7 +50,7 @@ static esp_err_t _cst816_i2c_write8(uint8_t slave_addr, uint8_t register_addr, u
 uint8_t cst816t_read_len(uint16_t reg_addr,uint8_t *data,uint8_t len)
 {
     uint8_t res=0;
-    res = i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, CST816_I2C_SLAVE_ADDR, &reg_addr, 1, data, len, 1000 / portTICK_PERIOD_MS);
+    res = i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, CST816_I2C_SLAVE_ADDR, &reg_addr, 1, data, len, 5 / portTICK_PERIOD_MS);
 
     return res;
 }

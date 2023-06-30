@@ -124,7 +124,7 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     # set(CMAKE_BUILD_DIRECTORY ${CMAKE_BINARY_DIR})
     # add macro definition
     add_definitions(-DUSE_SDL)
-    add_definitions(-DLV_MEM_CUSTOM=0)
+    #add_definitions(-DLV_MEM_CUSTOM=0)
     # Add header file directory
     include_directories(main)
     include_directories(" main/App")
