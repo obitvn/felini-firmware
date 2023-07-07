@@ -45,6 +45,7 @@ LV_ATTRIBUTE_FAST_MEM void lv_color_fill(lv_color_t * buf, lv_color_t color, uin
 
     uint32_t c32 = (uint32_t)color.full + ((uint32_t)color.full << 16);
     uint32_t * buf32 = (uint32_t *)buf;
+    LV_LOG_WARN("Invalid palette: %ld", buf32);
 
     while(px_num > 16) {
         *buf32 = c32;

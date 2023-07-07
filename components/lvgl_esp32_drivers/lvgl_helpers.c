@@ -171,7 +171,7 @@ bool lvgl_spi_driver_init(int host,
         .sclk_io_num = sclk_pin,
         .quadwp_io_num = quadwp_pin,
         .quadhd_io_num = quadhd_pin,
-        .max_transfer_sz = max_transfer_sz
+        .max_transfer_sz = max_transfer_sz*2
     };
 
     ESP_LOGI(TAG, "Initializing SPI bus...");

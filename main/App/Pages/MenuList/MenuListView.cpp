@@ -9,8 +9,8 @@ lv_obj_t *MenuListView::Btn_Create(lv_obj_t *par, const void *img_src, lv_coord_
     lv_obj_t *obj = lv_btn_create(par);
 
     lv_obj_remove_style_all(obj);
-    lv_obj_set_width(obj, 32);
-    lv_obj_set_height(obj, 32);
+    lv_obj_set_width(obj, 64);
+    lv_obj_set_height(obj, 64);
     lv_obj_set_x(obj, x_ofs);
     lv_obj_set_y(obj, y_ofs);
     lv_obj_set_align(obj, LV_ALIGN_TOP_LEFT);
@@ -39,13 +39,16 @@ void MenuListView::Create(lv_obj_t *root)
     lv_style_set_border_opa(&style, LV_OPA_100);
     lv_style_set_border_side(&style, LV_BORDER_SIDE_FULL);
 
+    lv_obj_remove_style_all(root);
+    lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
+
     lv_obj_t *control_panel = lv_obj_create(root);
     lv_obj_remove_style_all(control_panel);
     lv_obj_set_align(control_panel, LV_ALIGN_CENTER);
     lv_obj_add_style(control_panel, &style, 0);
-    lv_obj_set_pos(control_panel, 0, 0);
-    lv_obj_set_width(control_panel, 220);
-    lv_obj_set_height(control_panel, 52);
+    lv_obj_set_pos(control_panel, 280/2-72/2-5, 0);
+    lv_obj_set_width(control_panel, 72);
+    lv_obj_set_height(control_panel, 72*3);
     lv_obj_add_flag(control_panel, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_clear_flag(control_panel, LV_OBJ_FLAG_SCROLLABLE); /// Flags
     ui.controlpanel = control_panel;
@@ -61,11 +64,16 @@ void MenuListView::Create(lv_obj_t *root)
     // lv_obj_clear_flag(back_button, LV_OBJ_FLAG_SCROLLABLE);    /// Flags
     // lv_obj_set_style_bg_img_src(back_button, ResourcePool::GetImage("back_blue_png"), LV_STATE_DEFAULT);
 
+    // ui.back = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 10);
+    // ui.list_menu = Btn_Create(control_panel, ResourcePool::GetImage("list_menu_blue_png"), 74, 10);
+    // ui.home = Btn_Create(control_panel, ResourcePool::GetImage("home_blue_png"), 74+64, 10);
+    // ui.settings = Btn_Create(control_panel, ResourcePool::GetImage("settings_blue_png"), 136, 10);
+    // ui.remove = Btn_Create(control_panel, ResourcePool::GetImage("remove_blue_png"), 74+64*2, 10);
+
     ui.back = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 10);
-    ui.list_menu = Btn_Create(control_panel, ResourcePool::GetImage("list_menu_blue_png"), 52, 10);
-    ui.home = Btn_Create(control_panel, ResourcePool::GetImage("home_blue_png"), 94, 10);
-    ui.settings = Btn_Create(control_panel, ResourcePool::GetImage("settings_blue_png"), 136, 10);
-    ui.remove = Btn_Create(control_panel, ResourcePool::GetImage("remove_blue_png"), 178, 10);
+    ui.home = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 72+10);
+    ui.setting = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 72*2+10);
+    
 
     lv_obj_add_flag(ui.controlpanel, LV_OBJ_FLAG_HIDDEN);
 
@@ -84,10 +92,10 @@ void MenuListView::Create(lv_obj_t *root)
     lv_obj_remove_style_all(obj_control);
     // lv_obj_set_align(obj_control, LV_ALIGN_CENTER);
     lv_obj_add_style(obj_control, &style_hide, 0);
-    lv_obj_set_width(obj_control, 160);
-    lv_obj_set_height(obj_control, 16);
-    lv_obj_set_x(obj_control, 45);
-    lv_obj_set_y(obj_control, 217); //stop at 124
+    lv_obj_set_width(obj_control, 16);
+    lv_obj_set_height(obj_control, 160);
+    lv_obj_set_x(obj_control, 270);//stop at 240- 124
+    lv_obj_set_y(obj_control, 40); 
     ui.control = obj_control;
 }
 
