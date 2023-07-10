@@ -143,6 +143,7 @@ void st7789_init(void)
         {0x21, 0, {0x00}},
         {0x29, 0, {0x00}},
         {0x2C, 0, {0x00}},
+        {0x00, 0xff, {0x00}},
 
     };
 
@@ -158,9 +159,9 @@ void st7789_init(void)
     //Reset the display
 #if !defined(ST7789_SOFT_RST)
     gpio_set_level(ST7789_RST, 0);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(100));
     gpio_set_level(ST7789_RST, 1);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(100));
 #else
     st7789_send_cmd(ST7789_SWRESET);
 #endif
@@ -168,28 +169,28 @@ void st7789_init(void)
     printf("ST7789 initialization.\n");
 
     st7789_send_cmd(ST7789_SLPOUT);
-    vTaskDelay(255 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(300));
     // st7789_send_cmd(ST7789_NORON);
 
     //display and color format setting//
     //Send all the commands
-
     uint16_t cmd = 0;
     while (st7789_init_cmds[cmd].databytes!=0xff) {
         st7789_send_cmd(st7789_init_cmds[cmd].cmd);
         st7789_send_data(st7789_init_cmds[cmd].data, st7789_init_cmds[cmd].databytes&0x1F);
         if (st7789_init_cmds[cmd].databytes & 0x80) {
-                vTaskDelay(100 / portTICK_PERIOD_MS);
+                vTaskDelay(pdMS_TO_TICKS(100));
         }
         cmd++;
     }
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(100));
     st7789_draw(0,0, 320, 320, 0); //CLEAR SCREEN
 
 
     // st7789_set_orientation(CONFIG_LV_DISPLAY_ORIENTATION);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(pdMS_TO_TICKS(100));
     st7789_draw(0,0, 320, 320, 0); //CLEAR SCREEN
+    printf("ST7789 init done\n");
     
 }
 

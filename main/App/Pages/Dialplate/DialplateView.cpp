@@ -23,7 +23,7 @@ void DialplateView::Create(lv_obj_t *root)
     scroll_panel.cont = cont;
     lv_obj_remove_style_all(cont);
     lv_obj_add_style(cont, &style, 0);
-    lv_obj_set_size(cont, 280, 240);
+    lv_obj_set_size(cont, 240, 240);
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_scroll_dir(cont, LV_DIR_VER);
@@ -56,6 +56,10 @@ void DialplateView::Create(lv_obj_t *root)
 void DialplateView::UpdatePosItem(lv_obj_t *cont)
 {
     lv_area_t cont_a;
+
+    static lv_style_t style;
+    lv_style_init(&style);
+
     lv_obj_get_coords(cont, &cont_a);
     lv_coord_t cont_y_center = cont_a.y1 + lv_area_get_height(&cont_a) / 2 + 3;
 
@@ -141,12 +145,13 @@ void DialplateView::Item_Create(item_t *item, lv_obj_t *par, const char *name, c
 
     // creat panel for text
     lv_obj_t *label = lv_label_create(cont);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFFFFFF), 0);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("SFCompact22bpp8"), 0);
     lv_obj_set_width(label, LV_SIZE_CONTENT);  
     lv_obj_set_height(label, LV_SIZE_CONTENT); 
     lv_obj_set_x(label, 32);
     lv_obj_set_y(label, 0);
-    lv_obj_set_x(label, 32 + 10);
+    lv_obj_set_x(label, 32 + 32);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_label_set_text(label, name);
     item->labelInfo = label;

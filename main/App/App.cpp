@@ -29,6 +29,7 @@
 
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
+#include "Pages/MenuList/MenuList.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -79,7 +80,7 @@ extern "C" void App_Init()
 
     ResourcePool::Init();
 
-    StatusBar::Init(lv_layer_top());
+    // MenuList::Init(lv_layer_top());
     // Lưu ý cần đúng tên class, sai tên load không ra, không chạy
     manager.Install("Startup", "Pages/Startup");
     manager.Install("MenuList", "Pages/MenuList");

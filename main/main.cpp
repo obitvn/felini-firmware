@@ -32,9 +32,9 @@ extern "C"
     
         lv_porting_init();
 
-        lv_obj_t *label = lv_label_create(lv_scr_act());
-            lv_label_set_text(label, "obit tesla!!!!!!");
-        lv_obj_center(label);
+        // lv_obj_t *label = lv_label_create(lv_scr_act());
+        // lv_label_set_text(label, "obit tesla!!!!!!");
+        // lv_obj_center(label);
         HAL::HAL_Init();
         App_Init();
 

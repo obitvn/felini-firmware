@@ -21,6 +21,16 @@ lv_obj_t *MenuListView::Btn_Create(lv_obj_t *par, const void *img_src, lv_coord_
     return obj;
 }
 
+static void set_width(void *var, int32_t v)
+{
+    lv_obj_set_width((lv_obj_t *)var, v);
+}
+
+static void set_height(void *var, int32_t v)
+{
+    lv_obj_set_height((lv_obj_t *)var, v);
+}
+
 void MenuListView::Create(lv_obj_t *root)
 {
 
@@ -52,6 +62,18 @@ void MenuListView::Create(lv_obj_t *root)
     lv_obj_add_flag(control_panel, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_clear_flag(control_panel, LV_OBJ_FLAG_SCROLLABLE); /// Flags
     ui.controlpanel = control_panel;
+
+    static lv_anim_timeline_t *anim_timeline = NULL;
+
+    static lv_obj_t *obj1 = NULL;
+    lv_anim_t a1;
+    lv_anim_init(&a1);
+    lv_anim_set_var(&a1, obj1);
+    lv_anim_set_values(&a1, 0, 72);
+    lv_anim_set_early_apply(&a1, false);
+    lv_anim_set_exec_cb(&a1, (lv_anim_exec_xcb_t)set_width);
+    lv_anim_set_path_cb(&a1, lv_anim_path_overshoot);
+    lv_anim_set_time(&a1, 300);
 
     // lv_obj_t *back_button = lv_btn_create(control_panel);
     // lv_obj_remove_style_all(back_button);

@@ -130,8 +130,8 @@ void MenuList::onEvent(lv_event_t *event)
 
             if(x < 200)
             {
-                lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
-                instance->onShow();
+                // lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
+                // instance->onShow();
             }
         // }
     }

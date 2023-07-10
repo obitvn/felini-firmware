@@ -6,8 +6,9 @@ using namespace Page;
 
 void IICDiscoveryView::Create(lv_obj_t *root)
 {
+    lv_obj_remove_style_all(root);
     /*Change the active screen's background color*/
-    lv_obj_set_style_bg_color(root, lv_color_hex(0x003a57), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     /*Create a white label, set its text and align it to the center*/
     lv_obj_t *label = lv_label_create(lv_scr_act());
