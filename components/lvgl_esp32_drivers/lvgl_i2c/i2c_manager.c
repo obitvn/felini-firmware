@@ -52,6 +52,7 @@ SOFTWARE.
 	#endif
 #endif
 
+#define I2C_NUM_0 0
 
 static const char* TAG = I2C_TAG;
 

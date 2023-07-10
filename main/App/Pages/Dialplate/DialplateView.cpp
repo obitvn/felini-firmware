@@ -7,10 +7,23 @@ using namespace Page;
 void DialplateView::Create(lv_obj_t *root)
 {
 
+    static lv_style_t style, style_hide;
+    lv_style_init(&style);
+    lv_style_init(&style_hide);
+
+    /*Set a background color and a radius*/
+    lv_style_set_radius(&style, 16);
+    lv_style_set_bg_opa(&style, LV_OPA_100);
+    lv_style_set_bg_color(&style, lv_color_hex(0));
+
+    lv_obj_remove_style_all(root);
+    lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
+
     lv_obj_t *cont = lv_obj_create(root);
     scroll_panel.cont = cont;
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 280, 240);
+    lv_obj_add_style(cont, &style, 0);
+    lv_obj_set_size(cont, 240, 240);
     lv_obj_center(cont);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_scroll_dir(cont, LV_DIR_VER);
@@ -38,13 +51,19 @@ void DialplateView::Create(lv_obj_t *root)
     UpdatePosItem(cont);
 }
 
+
+
 void DialplateView::UpdatePosItem(lv_obj_t *cont)
 {
     lv_area_t cont_a;
+
+    static lv_style_t style;
+    lv_style_init(&style);
+
     lv_obj_get_coords(cont, &cont_a);
     lv_coord_t cont_y_center = cont_a.y1 + lv_area_get_height(&cont_a) / 2 + 3;
 
-    lv_coord_t r = lv_obj_get_height(cont) * 6 / 10;
+    lv_coord_t r = lv_obj_get_height(cont) * 6.2 / 10;
     uint32_t i;
     uint32_t child_cnt = lv_obj_get_child_cnt(cont);
     for (i = 0; i < child_cnt; i++)
@@ -92,11 +111,11 @@ void DialplateView::Item_Create(item_t *item, lv_obj_t *par, const char *name, c
 
     /*Set a background color and a radius*/
     lv_style_set_radius(&style, 16);
-    lv_style_set_bg_opa(&style, LV_OPA_20);
+    lv_style_set_bg_opa(&style, LV_OPA_100);
     lv_style_set_bg_color(&style, lv_color_hex(0));
 
     /*Add border to the bottom+right*/
-    lv_style_set_border_color(&style, lv_color_hex(0xff2100));
+    lv_style_set_border_color(&style, lv_color_hex(0));
     lv_style_set_border_width(&style, 1);
     lv_style_set_border_opa(&style, LV_OPA_100);
     lv_style_set_border_side(&style, LV_BORDER_SIDE_FULL);
@@ -107,7 +126,7 @@ void DialplateView::Item_Create(item_t *item, lv_obj_t *par, const char *name, c
     item->app_src = app_src;
     lv_obj_remove_style_all(cont);
     lv_obj_set_width(cont, 180);
-    lv_obj_set_height(cont, 40);
+    lv_obj_set_height(cont, 80);
     // lv_obj_set_x(cont, lv_pct(0));
     // lv_obj_set_y(cont, lv_pct(0)); 
     lv_obj_add_style(cont, &style, 0);
@@ -126,12 +145,13 @@ void DialplateView::Item_Create(item_t *item, lv_obj_t *par, const char *name, c
 
     // creat panel for text
     lv_obj_t *label = lv_label_create(cont);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFFFFFF), 0);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("SFCompact22bpp8"), 0);
     lv_obj_set_width(label, LV_SIZE_CONTENT);  
     lv_obj_set_height(label, LV_SIZE_CONTENT); 
     lv_obj_set_x(label, 32);
     lv_obj_set_y(label, 0);
-    lv_obj_set_x(label, 32 + 10);
+    lv_obj_set_x(label, 32 + 32);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_label_set_text(label, name);
     item->labelInfo = label;

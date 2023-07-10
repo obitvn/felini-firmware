@@ -27,7 +27,7 @@
 
 #include "cst816s.h"
 #include "lvgl_i2c/i2c_manager.h"
-
+#include "driver/gpio.h"
 
 // #include "band_es8388.h"
 
@@ -68,6 +68,18 @@ void cst816_init(uint8_t dev_addr) {
         uint8_t version;
         uint8_t versionInfo[3];
         esp_err_t ret;
+
+        //Initialize non-IIC GPIOs
+        esp_rom_gpio_pad_select_gpio(CST816_TOUCH_RST_PIN);
+        gpio_set_direction(CST816_TOUCH_RST_PIN, GPIO_MODE_OUTPUT);
+
+        //Reset and wake cst816
+        gpio_set_level(CST816_TOUCH_RST_PIN, 0);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+        gpio_set_level(CST816_TOUCH_RST_PIN, 1);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+
+
         ESP_LOGI(TAG, "Initializing cst816 0x%x", dev_addr);
         int i = 0;
         if ((ret = _cst816_i2c_read(dev_addr, 0x15, &version, 1) != ESP_OK))

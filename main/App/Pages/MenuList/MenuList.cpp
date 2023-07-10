@@ -25,10 +25,10 @@ void MenuList::onViewLoad()
 
     AttachEvent(root);
     AttachEvent(View.ui.back);
-    AttachEvent(View.ui.list_menu);
+    // AttachEvent(View.ui.list_menu);
     AttachEvent(View.ui.home);
-    AttachEvent(View.ui.settings);
-    AttachEvent(View.ui.remove);
+    // AttachEvent(View.ui.settings);
+    // AttachEvent(View.ui.remove);
     AttachEvent(View.ui.control);
     
     StatusBar::Appear(true);
@@ -123,23 +123,23 @@ void MenuList::onEvent(lv_event_t *event)
             lv_indev_get_vect(indev, &vect);
             lv_coord_t get_x = lv_obj_get_x(obj);
             lv_coord_t get_y = lv_obj_get_y(obj);
-            x = get_x; 
-            y = get_y + vect.y;
+            y = get_y; 
+            x = get_x + vect.x;
             printf("x %d y %d get_x %d get_y %d vect_x %d vecty %d\r\n", x, y, get_x, get_y, vect.x, vect.y);
             lv_obj_set_pos(obj, x, y);
 
-            if(y < 140)
+            if(x < 200)
             {
-                lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
-                instance->onShow();
+                // lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
+                // instance->onShow();
             }
         // }
     }
-    if (obj == instance->View.ui.back)
-    {
-        if (code == LV_EVENT_PRESSING)
-            instance->settoDefault();
-    }
+    // if (obj == instance->View.ui.back)
+    // {
+    //     if (code == LV_EVENT_PRESSING)
+    //         instance->settoDefault();
+    // }
 
     if (obj == instance->View.ui.home)
     {
@@ -150,7 +150,7 @@ void MenuList::onEvent(lv_event_t *event)
         }
     }
 
-    if (obj == instance->View.ui.list_menu)
+    if (obj == instance->View.ui.setting)
     {
         if (code == LV_EVENT_PRESSING)
         {
@@ -159,7 +159,7 @@ void MenuList::onEvent(lv_event_t *event)
         }
     }
 
-    if (obj == instance->View.ui.remove)
+    if (obj == instance->View.ui.back)
     {
         if (code == LV_EVENT_PRESSING)
         {

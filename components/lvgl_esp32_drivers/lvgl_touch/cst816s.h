@@ -33,6 +33,7 @@ extern "C" {
 #endif
 
 #define CST816_I2C_SLAVE_ADDR   0x15 
+#define CST816_TOUCH_RST_PIN    15 
 
 #define CST816_PRODUCT_ID_LEN   4
 

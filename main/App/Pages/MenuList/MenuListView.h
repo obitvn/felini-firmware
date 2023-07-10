@@ -16,13 +16,16 @@ namespace Page
 
         public : struct
         {
-            lv_obj_t *back;
-            lv_obj_t *list_menu;
-            lv_obj_t *home;
-            lv_obj_t *settings;
-            lv_obj_t *remove;
+            // lv_obj_t *back;
+            // lv_obj_t *list_menu;
+            // lv_obj_t *home;
+            // lv_obj_t *settings;
+            // lv_obj_t *remove;
             lv_obj_t *control;
             lv_obj_t *controlpanel;
+            lv_obj_t *setting;
+            lv_obj_t *home;
+            lv_obj_t *back;
         } ui;
 
     private:

@@ -171,14 +171,14 @@ bool lvgl_spi_driver_init(int host,
         .sclk_io_num = sclk_pin,
         .quadwp_io_num = quadwp_pin,
         .quadhd_io_num = quadhd_pin,
-        .max_transfer_sz = max_transfer_sz
+        .max_transfer_sz = max_transfer_sz*2
     };
 
     ESP_LOGI(TAG, "Initializing SPI bus...");
-    #if defined (CONFIG_IDF_TARGET_ESP32S3)
-    dma_channel = SPI_DMA_CH_AUTO;
-    #endif
-    esp_err_t ret = spi_bus_initialize(host, &buscfg, (spi_dma_chan_t)dma_channel);
+    // #if defined (CONFIG_IDF_TARGET_ESP32S3)
+    // dma_channel = SPI_DMA_CH_AUTO;
+    // #endif
+    esp_err_t ret = spi_bus_initialize(host, &buscfg, SPI_DMA_CH_AUTO);
     assert(ret == ESP_OK);
 
     return ESP_OK != ret;
