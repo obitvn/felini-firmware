@@ -39,7 +39,8 @@ extern "C"
         App_Init();
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
-        int a =9;
+        extern int dap_main(void);
+        dap_main();
 #else
         while (1)
         {            

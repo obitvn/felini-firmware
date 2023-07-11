@@ -125,7 +125,7 @@ static void gui_task(void *pvParameter)
 
     while(1)
     {
-        vTaskDelay(pdMS_TO_TICKS(50));
+        vTaskDelay(pdMS_TO_TICKS(10));
 
         if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
         {
