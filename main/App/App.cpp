@@ -30,6 +30,7 @@
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
 #include "Pages/MenuList/MenuList.h"
+#include "Pages/AppInfos/AppInfos.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -80,17 +81,18 @@ extern "C" void App_Init()
 
     ResourcePool::Init();
 
-    // MenuList::Init(lv_layer_top());
+    StatusBar::Init(lv_layer_top());
     // Lưu ý cần đúng tên class, sai tên load không ra, không chạy
     manager.Install("Startup", "Pages/Startup");
     manager.Install("MenuList", "Pages/MenuList");
     manager.Install("Template", "Pages/_Template");
     manager.Install("Dialplate", "Pages/Dialplate");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
+    manager.Install("AppInfos", "Pages/AppInfos");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/Startup");
+    manager.Push("Pages/AppInfos");
 }
 
 extern "C" void App_Uninit()

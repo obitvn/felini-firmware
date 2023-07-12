@@ -27,7 +27,7 @@ void MenuList::onViewLoad()
     AttachEvent(View.ui.back);
     // AttachEvent(View.ui.list_menu);
     AttachEvent(View.ui.home);
-    // AttachEvent(View.ui.settings);
+    AttachEvent(View.ui.setting);
     // AttachEvent(View.ui.remove);
     AttachEvent(View.ui.control);
     
@@ -126,12 +126,20 @@ void MenuList::onEvent(lv_event_t *event)
             y = get_y; 
             x = get_x + vect.x;
             printf("x %d y %d get_x %d get_y %d vect_x %d vecty %d\r\n", x, y, get_x, get_y, vect.x, vect.y);
+            if(x>281 && y>281)
+            {
+                x = 280;
+                y = 280;
+            }
+
+
             lv_obj_set_pos(obj, x, y);
+
 
             if(x < 200)
             {
-                // lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
-                // instance->onShow();
+                lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
+                instance->onShow();
             }
         // }
     }
@@ -155,7 +163,7 @@ void MenuList::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSING)
         {
             printf("dialplate\r\n");
-            instance->Manager->Push("Pages/Dialplate"); //load page mới
+            instance->Manager->Push("Pages/Dialplate"); // load page mới
         }
     }
 

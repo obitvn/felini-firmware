@@ -92,10 +92,9 @@ void MenuListView::Create(lv_obj_t *root)
     // ui.settings = Btn_Create(control_panel, ResourcePool::GetImage("settings_blue_png"), 136, 10);
     // ui.remove = Btn_Create(control_panel, ResourcePool::GetImage("remove_blue_png"), 74+64*2, 10);
 
-    ui.back = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 10);
-    ui.home = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 72+10);
-    ui.setting = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 72*2+10);
-    
+    ui.back = Btn_Create(control_panel, ResourcePool::GetImage("back_blue_png"), 10, 72 * 2 +10);
+    ui.home = Btn_Create(control_panel, ResourcePool::GetImage("home_blue_png"), 10, 72 + 10);
+    ui.setting = Btn_Create(control_panel, ResourcePool::GetImage("settings_blue_png"), 10, 10);
 
     lv_obj_add_flag(ui.controlpanel, LV_OBJ_FLAG_HIDDEN);
 

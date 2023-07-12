@@ -136,7 +136,10 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     include_directories(" main/App/Pages/_Template")
     include_directories(" main/App/Pages/StartUp")
     include_directories(" main/App/Pages/StatusBar")
-    include_directories(" main/App/Pages/Weather")
+    include_directories(" main/App/Pages/MenuList")
+    include_directories(" main/App/Pages/AppInfos")
+    include_directories(" main/App/Pages/IICDiscovery")
+    include_directories(" main/App/Pages/Dialplate")
     include_directories(" main/App/Resource")
     include_directories(" main/App/Resource/Font")
     include_directories(" main/App/Resource/Image")
@@ -151,12 +154,14 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     include_directories(" main/App/Utils/lv_poly_line")
     include_directories(" main/App/Utils/PageManager")
     include_directories(" main/HAL")
+    include_directories(" main/porting")
     # Add sub-library compilation
     add_subdirectory("lvgl")
     add_subdirectory("lv_drivers")
     # Add source files (recursively included)
-    file(GLOB_RECURSE src_source "main/*.c" 
+    file(GLOB_RECURSE src_source 
     "main/main.cpp"  
+    "main/porting/*.c"
     "main/App/*.c"
     "main/App/*.cpp"
     "main/App/Common/**/*.c"

@@ -30,13 +30,13 @@ public:
         item_t a;
         item_t b;
         item_t c;
-        item_t d;
-        item_t e;
-        item_t f;
-        item_t g;
-        item_t h;
-        item_t i;
-        item_t k;
+        // item_t d;
+        // item_t e;
+        // item_t f;
+        // item_t g;
+        // item_t h;
+        // item_t i;
+        // item_t k;
     } ui_t;
 
 public:
@@ -46,6 +46,14 @@ public:
     void UpdatePosItem(lv_obj_t *cont);
 
 private:
+    struct
+    {
+        lv_style_t icon;
+        lv_style_t focus;
+        lv_style_t info;
+        lv_style_t data;
+    } style;
+    
 };
 
 }

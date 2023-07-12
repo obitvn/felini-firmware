@@ -14,84 +14,13 @@ static void lv_tick_task(void *arg)
     lv_tick_inc(portTICK_PERIOD_MS);
 }
 
-// Profile fun! microseconds to seconds
-double GetTime() { return (double)lv_tick_get() * 1000; }
-
-int RamTest()
-    {
-    int rs[] = { 1,2,4,8,16,32,64,128,256,512,1024,2048,4000 };
-    printf("Ram Speed Test!\n\n");
-    char xx = 0;
-    for (int a = 0; a < 13; a++)
-        {
-            printf("Read Speed 8bit ArraySize %4dkb ", rs[a]);
-            int ramsize = rs[a] * 1024;
-            char * rm = (char*)heap_caps_malloc(ramsize, MALLOC_CAP_SPIRAM);
-
-            int iters = 10; // Just enuff to boot the dog
-            if (rs[a] < 512) iters = 50;
-            double st = GetTime();
-            for (int b = 0; b < iters; b++)
-                for (int c = 0; c < ramsize; c++)
-                {
-                    rm[c] = b;
-                    xx |= rm[c];
-                }
-            st = GetTime() - st;
-            vTaskDelay(1); // Dog it!
-            double speed = ((double)(iters*ramsize ) / (1024 * 1024)) / (st);
-            printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
-            heap_caps_free(rm);
-        }
-    printf("\n");
-    for (int a = 0; a < 13; a++)
-        {
-        printf("Read Speed 16bit ArraySize %4dkb ", rs[a]);
-        int ramsize = rs[a] * 1024;
-        short * rm = (short*)heap_caps_malloc(ramsize, MALLOC_CAP_SPIRAM);
-
-        int iters = 10; // Just enuff to boot the dog
-        if (rs[a] < 512) iters = 50;
-        double st = GetTime();
-        for (int b = 0; b < iters; b++)
-            for (int c = 0; c < ramsize/2; c++)
-                xx |= rm[c];
-        st = GetTime() - st;
-        vTaskDelay(1); // Dog it!
-        double speed = ((double)(iters*ramsize) / (1024 * 1024)) / (st);
-        printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
-        heap_caps_free(rm);
-        }
-    printf("\n");
-    for (int a = 0; a < 13; a++)
-        {
-        printf("Read Speed 32bit ArraySize %4dkb ", rs[a]);
-        int ramsize = rs[a] * 1024;
-        int * rm = (int*)heap_caps_malloc(ramsize, MALLOC_CAP_SPIRAM);
-
-        int iters = 10; // Just enuff to boot the dog
-        if (rs[a] < 512) iters = 50;
-        double st = GetTime();
-        for (int b = 0; b < iters; b++)
-            for (int c = 0; c < ramsize/4; c++)
-                xx |= rm[c];
-        st = GetTime() - st;
-        vTaskDelay(1); // Dog it!
-        double speed = ((double)(iters*ramsize) / (1024 * 1024)) / (st);
-        printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
-        heap_caps_free(rm);
-        }
-    printf("Test done!\n");
-    return xx;
-    }
-
 static lv_disp_draw_buf_t disp_buf;    
 
 void lv_port_disp_init(void)
 {
     lvgl_mutex = xSemaphoreCreateMutex();
 
-    // RamTest();
+ 
     // heap_caps_dump_all();
     lvgl_driver_init();
 
