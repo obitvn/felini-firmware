@@ -25,7 +25,7 @@ extern "C" {
 
 #define LV_HOR_RES_MAX  280
 #define LV_VER_RES_MAX  240
-#define CONFIG_LV_DISPLAY_ORIENTATION   4
+#define CONFIG_LV_DISPLAY_ORIENTATION   2
 // #define SPI_HOST_MAX 3
 
 
