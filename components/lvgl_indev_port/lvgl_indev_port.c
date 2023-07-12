@@ -31,9 +31,9 @@ void lv_port_indev_init(void)
     touch_drv.read_cb = touch_read;
     indev_touch = lv_indev_drv_register(&touch_drv);
 
-    // group = lv_group_create();
-    // lv_indev_set_group(indev_touch, group);
-    // lv_group_set_default(group);
+    group = lv_group_create();
+    lv_indev_set_group(indev_touch, group);
+    lv_group_set_default(group);
 }
 
 static void encoder_init(void)
