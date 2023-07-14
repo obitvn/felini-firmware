@@ -17,6 +17,7 @@
     #include "esp_system.h"
     #include "driver/gpio.h"
     #include "driver/uart.h"
+    #include "axp173.h"
 #endif
 
 extern "C"
@@ -25,6 +26,9 @@ extern "C"
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     void app_main(void)
     {
+                // extern int dap_main(void);
+        // dap_main();
+        axp_init();
 #else
     int main(int argc, char *argv[])
     {
@@ -39,8 +43,26 @@ extern "C"
         App_Init();
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
-        extern int dap_main(void);
-        dap_main();
+
+
+
+    // float vbus, bat, charge_current, discharge_current, temp, ts;
+
+    // for(int i=0; i<10; i++)
+    // {
+    //     axp_read_adc_data(DATA_VBUS_VOLT, &vbus);
+    //     axp_read_adc_data(DATA_BAT_VOLT, &bat);
+    //     axp_read_adc_data(DATA_BAT_CHARGE_CURRENT, &charge_current);
+    //     axp_read_adc_data(DATA_BAT_DISCHARGE_CURRENT, &discharge_current);
+    //     axp_read_adc_data(DATA_INTEL_TEMP, &temp);
+    //     axp_read_adc_data(DATA_TS_ADC, &ts);
+    //     printf( "VBUS volt: %.2f | BAT volt: %.2f | Charge_current: %.2f | Discharge_current: %.2f | temp: %.2f | ts: %.2f", vbus, bat, charge_current, discharge_current, temp, ts);
+
+    //     // axp_read_columb_data(&columb);
+    //     // ESP_LOGI(TAG, "Columb %.5f", columb);
+
+    //     vTaskDelay(pdMS_TO_TICKS(100));
+    // }
 #else
         while (1)
         {            

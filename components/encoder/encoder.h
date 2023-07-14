@@ -12,9 +12,9 @@ typedef enum key_state {
     KEY_DOWN,                               /* 编码器按键按下状态 */
 }key_state_t;
 
-#define ENCODER_A_PIN       33          /* 编码器A端 */
-#define ENCODER_B_PIN       34          /* 编码器B端 */
-#define ENCODER_PUSH_PIN    35          /* 编码器KEY端 */
+#define ENCODER_A_PIN       38          /* 编码器A端 */
+#define ENCODER_B_PIN       39          /* 编码器B端 */
+#define ENCODER_PUSH_PIN    0          /* 编码器KEY端 */
 #define ENCODER_PUSH_GPIO_PIN_SEL   (1ULL << ENCODER_PUSH_PIN)      /* 编码器KEY GPIO bit 掩码 */
 
 void encoder_config(void);              /* 编码器配置 */

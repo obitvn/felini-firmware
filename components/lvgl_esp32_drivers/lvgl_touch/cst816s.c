@@ -106,7 +106,7 @@ void cst816_init(uint8_t dev_addr) {
   * @retval Always false
   */
 #define SWAPXY 0
-#define INVERTX 1
+#define INVERTX 0
 #define INVERTY 0
 
 bool cst816_is_touched(void)

@@ -5,4 +5,5 @@ idf_component_register(
         "."
     REQUIRES 
         lvgl 
-        lvgl_esp32_drivers)
+        lvgl_esp32_drivers
+        )

@@ -88,5 +88,8 @@ idf_component_register(
         lvgl_indev_port
         driver
         usb
+        axp173
 )
+
+
 

@@ -25,9 +25,9 @@ void lv_port_disp_init(void)
     lvgl_driver_init();
 
     static lv_color_t *lv_buf =  NULL;
-    lv_color_t* buf_1 = heap_caps_malloc(DISP_BUF_SIZE*2,  MALLOC_CAP_SPIRAM);
+    lv_color_t* buf_1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
     assert(buf_1 != NULL);
-    lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE*2,  MALLOC_CAP_SPIRAM);
+    lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
     assert(buf_2 != NULL);
 
     lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
