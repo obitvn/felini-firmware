@@ -92,7 +92,7 @@ extern "C" void App_Init()
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/AppInfos");
+    manager.Push("Pages/Startup");
 }
 
 extern "C" void App_Uninit()

@@ -153,7 +153,7 @@ static void st7789v_gpio_init(void) {
       .speed_mode = LEDC_LOW_SPEED_MODE,
       .channel = LEDC_CHANNEL_0,  // PWM通道的编号为0
       .timer_sel = LEDC_TIMER_0,  // PWM定时器的编号为0
-      .duty = 500,                // PWM信号的占空比为50%
+      .duty = 0,                // PWM信号的占空比为50%
       .hpoint = 0,                // PWM信号的高电平持续时间为0
   };
   ledc_channel_config(&ch_conf);

@@ -51,7 +51,15 @@ void lv_port_disp_init(void)
     // heap_caps_dump_all();
 
     esp_register_freertos_tick_hook((void *)lv_tick_task);
+
+    // clear screen
+    static lv_style_t style_screen;
+    lv_style_init(&style_screen);
+    lv_style_set_bg_color(&style_screen, lv_color_hex(0));
+    lv_obj_add_style(lv_scr_act(), &style_screen,_LV_STYLE_STATE_CMP_SAME);
     disp_task_create();
+    vTaskDelay(pdMS_TO_TICKS(100));
+    st7789v_backlight_set(500); // 50%
 }
 
 static void gui_task(void *pvParameter)
