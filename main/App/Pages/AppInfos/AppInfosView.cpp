@@ -7,8 +7,12 @@ using namespace Page;
 
 void AppInfosView::Create(lv_obj_t* root)
 {
-    lv_obj_set_style_pad_ver(root, ITEM_PAD, 0);
 
+    lv_obj_set_style_border_width(root, 0, 0);
+
+
+    lv_obj_set_style_pad_ver(root, ITEM_PAD, 0);
+    lv_obj_set_style_bg_color(root, lv_color_hex(0), NULL);
     lv_obj_set_flex_flow(root, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(
         root,
@@ -16,6 +20,9 @@ void AppInfosView::Create(lv_obj_t* root)
         LV_FLEX_ALIGN_START,
         LV_FLEX_ALIGN_CENTER
     );
+
+
+    
 
     Style_Init();
 
@@ -181,7 +188,7 @@ void AppInfosView::Style_Init()
     lv_style_set_width(&style.focus, 70);
     lv_style_set_border_side(&style.focus, LV_BORDER_SIDE_RIGHT);
     lv_style_set_border_width(&style.focus, 2);
-    lv_style_set_border_color(&style.focus, lv_color_hex(0xff931e));
+    lv_style_set_border_color(&style.focus, lv_color_hex(0x4682B4));
 
     static const lv_style_prop_t style_prop[] =
     {

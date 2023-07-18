@@ -1,5 +1,5 @@
 #include "AppInfos.h"
-
+#include <cstdio>
 
 using namespace Page;
 
@@ -14,11 +14,13 @@ AppInfos::~AppInfos()
 
 void AppInfos::onCustomAttrConfig()
 {
-
+    SetCustomCacheEnable(false);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
 
 void AppInfos::onViewLoad()
 {
+
     Model.Init();
     View.Create(root);
     AttachEvent(root);
@@ -38,13 +40,14 @@ void AppInfos::onViewDidLoad()
 
 void AppInfos::onViewWillAppear()
 {
+
     lv_obj_set_style_bg_color(root, lv_color_hex(0), NULL);
     Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_BLACK);
     timer = lv_timer_create(onTimerUpdate, 1000, this);
     lv_timer_ready(timer);
 
     View.SetScrollToY(root, -LV_VER_RES, LV_ANIM_OFF);
-    lv_obj_set_style_opa(root, LV_OPA_TRANSP, 0);
+    lv_obj_set_style_opa(root, LV_OPA_TRANSP, 100);
     lv_obj_fade_in(root, 300, 0);
 }
 
@@ -155,25 +158,27 @@ void AppInfos::onTimerUpdate(lv_timer_t* timer)
 
 void AppInfos::onEvent(lv_event_t* event)
 {
-    AppInfos* instance = (AppInfos*)lv_event_get_user_data(event);
-    LV_ASSERT_NULL(instance);
+    // AppInfos* instance = (AppInfos*)lv_event_get_user_data(event);
+    // LV_ASSERT_NULL(instance);
 
-    lv_obj_t* obj = lv_event_get_current_target(event);
-    lv_event_code_t code = lv_event_get_code(event);
+    // lv_obj_t* obj = lv_event_get_current_target(event);
+    // lv_event_code_t code = lv_event_get_code(event);
 
-    if (code == LV_EVENT_PRESSED)
-    {
-        if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
-        {
-            instance->Manager->Pop();
-        }
-    }
+    // if (code == LV_EVENT_PRESSED)
+    // {
+    //     if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
+    //     {
+    //         // instance->Manager->Pop();
+    //         printf("LV_STATE_FOCUSED\r\n");
+    //     }
+    // }
 
-    if (obj == instance->root)
-    {
-        if (code == LV_EVENT_LEAVE)
-        {
-            instance->Manager->Pop();
-        }
-    }
+    // if (obj == instance->root)
+    // {
+    //     if (code == LV_EVENT_LEAVE)
+    //     {
+    //         printf("LV_EVENT_LEAVE\r\n");
+    //         // instance->Manager->Pop();
+    //     }
+    // }
 }

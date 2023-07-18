@@ -6,7 +6,7 @@
 
 using namespace Page;
 
-#define COLOR_ORANGE lv_color_hex(0xff931e)
+#define COLOR_ORANGE lv_color_hex(0x4682B4)
 
 void StartupView::Create(lv_obj_t *root)
 {
