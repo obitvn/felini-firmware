@@ -29,7 +29,7 @@ void AppInfos::onViewLoad()
 
     for (int i = 0; i < sizeof(View.ui) / sizeof(AppInfosView::item_t); i++)
     {
-        AttachEvent(item_grp[i].icon);
+        AttachEvent(item_grp[i].cont);
     }
 }
 
@@ -158,11 +158,11 @@ void AppInfos::onTimerUpdate(lv_timer_t* timer)
 
 void AppInfos::onEvent(lv_event_t* event)
 {
-    // AppInfos* instance = (AppInfos*)lv_event_get_user_data(event);
-    // LV_ASSERT_NULL(instance);
+    AppInfos* instance = (AppInfos*)lv_event_get_user_data(event);
+    LV_ASSERT_NULL(instance);
 
-    // lv_obj_t* obj = lv_event_get_current_target(event);
-    // lv_event_code_t code = lv_event_get_code(event);
+    lv_obj_t* obj = lv_event_get_current_target(event);
+    lv_event_code_t code = lv_event_get_code(event);
 
     // if (code == LV_EVENT_PRESSED)
     // {
@@ -181,4 +181,19 @@ void AppInfos::onEvent(lv_event_t* event)
     //         // instance->Manager->Pop();
     //     }
     // }
+
+    AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
+    
+    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(AppInfosView::item_t); i++)
+    {
+        if (obj == item_grp[i].cont) //
+        {
+            if (code == LV_EVENT_PRESSED)
+            {
+                printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
+                // instance->Manager->Pop(); //đóng page và quay về page trước đó
+                instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
+            }
+        }
+    }
 }

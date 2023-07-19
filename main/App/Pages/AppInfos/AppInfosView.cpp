@@ -28,21 +28,22 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item Sport */
     Item_Create(
+        "Pages/AnalogViewer",
         &ui.sport,
         root,
-        "Sport",
+        "AnalogViewer",
         "bicycle",
 
         "Total trip\n"
         "Total time\n"
-        "Max speed"
-    );
+        "Max speed");
 
     /* Item GPS */
     Item_Create(
+        "Pages/ColorWheel",
         &ui.gps,
         root,
-        "GPS",
+        "ColorWheel",
         "map_location",
 
         "Latitude\n"
@@ -50,27 +51,27 @@ void AppInfosView::Create(lv_obj_t* root)
         "Altitude\n"
         "UTC Time\n\n"
         "Course\n"
-        "Speed"
-    );
+        "Speed");
 
     /* Item MAG */
     Item_Create(
+        "Pages/HappyBirthday",
         &ui.mag,
         root,
-        "MAG",
+        "HappyBirthday",
         "compass",
 
         "Compass\n"
         "X\n"
         "Y\n"
-        "Z"
-    );
+        "Z");
 
     /* Item IMU */
     Item_Create(
+        "Pages/IICDiscovery",
         &ui.imu,
         root,
-        "IMU",
+        "IICDiscovery",
         "gyroscope",
 
         "Step\n"
@@ -79,50 +80,50 @@ void AppInfosView::Create(lv_obj_t* root)
         "Az\n"
         "Gx\n"
         "Gy\n"
-        "Gz"
-    );
+        "Gz");
 
     /* Item RTC */
     Item_Create(
+        "Pages/PowerSupply",
         &ui.rtc,
         root,
-        "RTC",
+        "PowerSupply",
         "time_info",
 
         "Date\n"
-        "Time"
-    );
+        "Time");
 
     /* Item Battery */
     Item_Create(
+        "Pages/ServoCtrl",
         &ui.battery,
         root,
-        "Battery",
+        "ServoCtrl",
         "battery_info",
 
         "Usage\n"
         "Voltage\n"
-        "Status"
-    );
+        "Status");
 
     /* Item Storage */
     Item_Create(
+        "Pages/HappyBirthday",
         &ui.storage,
         root,
-        "Storage",
+        "HappyBirthday",
         "storage",
 
         "Status\n"
         "Size\n"
         "Type\n"
-        "Version"
-    );
+        "Version");
 
     /* Item System */
     Item_Create(
+        "Pages/ColorWheel",
         &ui.system,
         root,
-        "System",
+        "ColorWheel",
         "system_info",
 
         "Firmware\n"
@@ -130,8 +131,7 @@ void AppInfosView::Create(lv_obj_t* root)
         "LVGL\n"
         "SysTick\n"
         "Compiler\n\n"
-        "Build\n"
-    );
+        "Build\n");
 
     Group_Init();
 }
@@ -226,13 +226,14 @@ void AppInfosView::Style_Reset()
 }
 
 void AppInfosView::Item_Create(
-    item_t* item,
-    lv_obj_t* par,
-    const char* name,
-    const char* img_src,
-    const char* infos
-)
+    const char *app_src,
+    item_t * item,
+    lv_obj_t *par,
+    const char *name,
+    const char *img_src,
+    const char *infos)
 {
+    item->app_src = app_src;
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_enable_style_refresh(false);
     lv_obj_remove_style_all(cont);

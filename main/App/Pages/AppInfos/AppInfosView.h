@@ -19,6 +19,7 @@ public:
         lv_obj_t* icon;
         lv_obj_t* labelInfo;
         lv_obj_t* labelData;
+        const char *app_src;
     } item_t;
 
     struct
@@ -97,12 +98,12 @@ private:
     void Style_Init();
     void Style_Reset();
     void Item_Create(
-        item_t* item,
-        lv_obj_t* par,
-        const char* name,
-        const char* img_src,
-        const char* infos
-    );
+        const char *app_src,
+        item_t * item,
+        lv_obj_t *par,
+        const char *name,
+        const char *img_src,
+        const char *infos);
 };
 
 }

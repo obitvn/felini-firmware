@@ -102,7 +102,7 @@
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/HappyBirthday");
+    manager.Push("Pages/Startup");
 }
 
 extern "C" void App_Uninit()
