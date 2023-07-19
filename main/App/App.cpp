@@ -91,10 +91,11 @@ extern "C" void App_Init()
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
     manager.Install("AppInfos", "Pages/AppInfos");
     manager.Install("PowerSupply", "Pages/PowerSupply");
+    manager.Install("ServoCtrl", "Pages/ServoCtrl");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/PowerSupply");
+    manager.Push("Pages/ServoCtrl");
 }
 
 extern "C" void App_Uninit()

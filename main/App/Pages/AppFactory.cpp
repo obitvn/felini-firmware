@@ -28,6 +28,7 @@
 #include "IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
+#include "Pages/ServoCtrl/ServoCtrl.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -46,6 +47,8 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(AppInfos);
     APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
     APP_CLASS_MATCH(PowerSupply);
+    APP_CLASS_MATCH(ServoCtrl);
+
 
     return nullptr;
 }

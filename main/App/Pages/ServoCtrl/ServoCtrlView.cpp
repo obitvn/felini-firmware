@@ -1,0 +1,79 @@
+#include "ServoCtrlView.h"
+#include <cstdio>
+
+using namespace Page;
+
+
+void ServoCtrlView::Create(lv_obj_t *root)
+{
+    /*Change the active screen's background color*/
+    lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
+
+    lv_obj_t *ui_ArcServo = lv_arc_create(root);
+    lv_obj_set_width(ui_ArcServo, 170);
+    lv_obj_set_height(ui_ArcServo, 170);
+    lv_obj_set_x(ui_ArcServo, -4);
+    lv_obj_set_y(ui_ArcServo, -10);
+    lv_obj_set_align(ui_ArcServo, LV_ALIGN_CENTER);
+
+    lv_obj_t *ui_ServoAngle = lv_label_create(root);
+    lv_obj_set_width(ui_ServoAngle, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_ServoAngle, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_ServoAngle, -8);
+    lv_obj_set_y(ui_ServoAngle, -29);
+    lv_obj_set_align(ui_ServoAngle, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_ServoAngle, "160");
+    lv_obj_set_style_text_color(ui_ServoAngle, lv_color_hex(0x079DF9), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_ServoAngle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_ServoAngle, ResourcePool::GetFont("alibabasans_regular_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *ui_TitleApp = lv_label_create(root);
+    lv_obj_set_width(ui_TitleApp, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_TitleApp, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_TitleApp, -6);
+    lv_obj_set_y(ui_TitleApp, 18);
+    lv_obj_set_align(ui_TitleApp, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_TitleApp, "Servo\ncontroler");
+    lv_obj_set_style_text_color(ui_TitleApp, lv_color_hex(0xEAF3F4), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_TitleApp, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TitleApp, ResourcePool::GetFont("alibabasans_regular_17"), LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *ui_PinMap = lv_label_create(root);
+    lv_obj_set_width(ui_PinMap, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_PinMap, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_PinMap, -110);
+    lv_obj_set_y(ui_PinMap, 88);
+    lv_obj_set_align(ui_PinMap, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_PinMap, "ROW1");
+    lv_obj_set_style_text_color(ui_PinMap, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_PinMap, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *ui_Title = lv_label_create(root);
+    lv_obj_set_width(ui_Title, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_Title, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_Title, -95);
+    lv_obj_set_y(ui_Title, 108);
+    lv_obj_set_align(ui_Title, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Title, "Servo pins");
+    lv_obj_set_style_text_color(ui_Title, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Title, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *ui_PinMapIMG = lv_img_create(root);
+    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("sd_card"));
+    lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_PinMapIMG, 19);
+    lv_obj_set_y(ui_PinMapIMG, 95);
+    lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
+    lv_obj_clear_flag(ui_PinMapIMG, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+}
+
+
+
+
+void ServoCtrlView::Delete()
+{
+    printf("ServoCtrlView::Delete()");
+}
+
