@@ -52,6 +52,7 @@ extern "C"
         IMPORT_IMG(wifi_connect);
 
         IMPORT_IMG(back_blue_png);
+        IMPORT_IMG(hpbd_png);
         IMPORT_IMG(home_blue_png);
         IMPORT_IMG(list_menu_blue_png);
         IMPORT_IMG(remove_blue_png);

@@ -34,6 +34,7 @@
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
+#include "HappyBirthday/HappyBirthday.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -97,10 +98,11 @@
     manager.Install("ServoCtrl", "Pages/ServoCtrl");
     manager.Install("AnalogViewer", "Pages/AnalogViewer");
     manager.Install("ColorWheel", "Pages/ColorWheel");
+    manager.Install("HappyBirthday", "Pages/HappyBirthday");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/ColorWheel");
+    manager.Push("Pages/HappyBirthday");
 }
 
 extern "C" void App_Uninit()

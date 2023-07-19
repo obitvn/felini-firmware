@@ -31,6 +31,7 @@
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
+#include "HappyBirthday/HappyBirthday.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -40,7 +41,8 @@ do{\
     }\
 }while(0)
 
-PageBase* AppFactory::CreatePage(const char* name)
+                   PageBase *
+                   AppFactory::CreatePage(const char *name)
 {
     APP_CLASS_MATCH(Template);
     APP_CLASS_MATCH(Startup);
@@ -52,6 +54,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(ServoCtrl);
     APP_CLASS_MATCH(AnalogViewer);
     APP_CLASS_MATCH(ColorWheel);
+    APP_CLASS_MATCH(HappyBirthday);
 
     return nullptr;
 }
