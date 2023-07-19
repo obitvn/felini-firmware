@@ -30,6 +30,7 @@
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
+#include "Pages/ColorWheel/ColorWheel.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -50,6 +51,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(PowerSupply);
     APP_CLASS_MATCH(ServoCtrl);
     APP_CLASS_MATCH(AnalogViewer);
+    APP_CLASS_MATCH(ColorWheel);
 
     return nullptr;
 }

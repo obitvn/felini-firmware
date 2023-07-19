@@ -33,6 +33,7 @@
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
+#include "Pages/ColorWheel/ColorWheel.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -95,10 +96,11 @@
     manager.Install("PowerSupply", "Pages/PowerSupply");
     manager.Install("ServoCtrl", "Pages/ServoCtrl");
     manager.Install("AnalogViewer", "Pages/AnalogViewer");
+    manager.Install("ColorWheel", "Pages/ColorWheel");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/AnalogViewer");
+    manager.Push("Pages/ColorWheel");
 }
 
 extern "C" void App_Uninit()

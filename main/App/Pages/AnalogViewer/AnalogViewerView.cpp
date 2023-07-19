@@ -6,6 +6,7 @@ using namespace Page;
 
 void AnalogViewerView::Create(lv_obj_t *root)
 {
+    lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
     /*Change the active screen's background color*/
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
