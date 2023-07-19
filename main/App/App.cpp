@@ -32,6 +32,7 @@
 #include "Pages/MenuList/MenuList.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
+#include "Pages/AnalogViewer/AnalogViewer.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -50,7 +51,8 @@
         DataProc::Center()->AccountMain.Notify(#ACT, &info, sizeof(info)); \
     } while (0)
 
-extern "C" void App_Init()
+    extern "C" void
+    App_Init()
 {
     static AppFactory factory;
     static PageManager manager(&factory);
@@ -92,10 +94,11 @@ extern "C" void App_Init()
     manager.Install("AppInfos", "Pages/AppInfos");
     manager.Install("PowerSupply", "Pages/PowerSupply");
     manager.Install("ServoCtrl", "Pages/ServoCtrl");
+    manager.Install("AnalogViewer", "Pages/AnalogViewer");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/ServoCtrl");
+    manager.Push("Pages/AnalogViewer");
 }
 
 extern "C" void App_Uninit()
