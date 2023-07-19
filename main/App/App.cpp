@@ -31,6 +31,7 @@
 #include "Pages/StatusBar/StatusBar.h"
 #include "Pages/MenuList/MenuList.h"
 #include "Pages/AppInfos/AppInfos.h"
+#include "Pages/PowerSupply/PowerSupply.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -89,10 +90,11 @@ extern "C" void App_Init()
     manager.Install("Dialplate", "Pages/Dialplate");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
     manager.Install("AppInfos", "Pages/AppInfos");
+    manager.Install("PowerSupply", "Pages/PowerSupply");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/Startup");
+    manager.Push("Pages/PowerSupply");
 }
 
 extern "C" void App_Uninit()

@@ -27,6 +27,7 @@
 #include "Dialplate/Dialplate.h"
 #include "IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
+#include "Pages/PowerSupply/PowerSupply.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -44,6 +45,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(Dialplate);
     APP_CLASS_MATCH(AppInfos);
     APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
+    APP_CLASS_MATCH(PowerSupply);
 
     return nullptr;
 }
