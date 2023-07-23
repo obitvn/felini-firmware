@@ -51,13 +51,13 @@ esp_err_t axp_init() {
 
     /* set voltage */
     axp_set_volt(DC1_SET_VOLT, 3300);
-    axp_set_volt(DC1_SET_VOLT, 2275);
-    axp_set_volt(LDO2_SET_VOLT, 3300);
-    axp_set_volt(LDO3_SET_VOLT, 3300);
-    axp_set_volt(LDO4_SET_VOLT, 3300);
+    // axp_set_volt(DC1_SET_VOLT, 2275);
+    axp_set_volt(LDO2_SET_VOLT, 3200);
+    axp_set_volt(LDO3_SET_VOLT, 3200);
+    axp_set_volt(LDO4_SET_VOLT, 3200);
 
     /* PEK Button parameter setting */
-    axp_pek_setting(1,1,0);
+    axp_pek_setting(0,2,0);
 
     axp_info_t info;
     // memset(&info, -1, sizeof(axp_info_t));

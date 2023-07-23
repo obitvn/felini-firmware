@@ -34,7 +34,7 @@
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
-#include "HappyBirthday/HappyBirthday.h"
+#include "Pages/HappyBirthday/HappyBirthday.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"

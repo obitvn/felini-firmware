@@ -32,7 +32,7 @@ void lv_port_indev_init(void)
     indev_touch = lv_indev_drv_register(&touch_drv);
 
     group = lv_group_create();
-    lv_indev_set_group(indev_touch, group);
+    lv_indev_set_group(indev_encoder, group);
     lv_group_set_default(group);
 }
 
@@ -79,22 +79,22 @@ static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
         last_state = is_push;
     }
 
-    if(encoder_get_is_push() == 1)
-    {
-        timeout++;
-        if(timeout>100)
-        {
-            //shut down
-            printf("shut down");
-            gpio_set_level((gpio_num_t)12, 0);
-            gpio_set_level((gpio_num_t)12, 0);
-            gpio_set_level((gpio_num_t)12, 0);
-        }
-    }
-    else
-    {
-        timeout = 0;
-    }
+    // if(encoder_get_is_push() == 1)
+    // {
+    //     timeout++;
+    //     if(timeout>100)
+    //     {
+    //         //shut down
+    //         printf("shut down");
+    //         gpio_set_level((gpio_num_t)12, 0);
+    //         gpio_set_level((gpio_num_t)12, 0);
+    //         gpio_set_level((gpio_num_t)12, 0);
+    //     }
+    // }
+    // else
+    // {
+    //     timeout = 0;
+    // }
 }
 
 lv_indev_t* get_indev(void)

@@ -10,10 +10,14 @@ static bool encoder_diff_disable = false;   /* 获取编码器数值，true为�
 
 key_state_t encoder_push_state;
 
+void input_task_create(void);
+
 /* 编码器配置 */
 void encoder_config(void)
 {
     uint32_t pcnt_unit = 0;
+
+    input_task_create();
 
     mutex = xSemaphoreCreateMutex();
 
@@ -35,6 +39,8 @@ void encoder_config(void)
     ESP_ERROR_CHECK(encoder->start(encoder));
 
     last_cnt = encoder->get_counter_value(encoder);             /* 获取编码器初值 */
+
+    
 }
 
 static key_state_t encoder_push_scan(void)
@@ -89,7 +95,7 @@ static void encoder_task(void *pvParameter)
 
 void input_task_create(void)
 {
-    xTaskCreatePinnedToCore(encoder_task, "input task", 1024, NULL, 1, NULL, 1);
+    xTaskCreate(encoder_task, "input task", 1024, NULL, 1, NULL);
 }
 
 int32_t encoder_get_diff(void)

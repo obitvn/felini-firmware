@@ -82,13 +82,14 @@ void AnalogViewer::onTimer(lv_timer_t *timer)
 void AnalogViewer::onEvent(lv_event_t *event)
 {
 
-    // AnalogViewer *instance = (AnalogViewer *)lv_event_get_user_data(event);
-    // LV_ASSERT_NULL(instance);
+    AnalogViewer *instance = (AnalogViewer *)lv_event_get_user_data(event);
+    LV_ASSERT_NULL(instance);
+    lv_obj_t *obj = lv_event_get_current_target(event);
+    lv_event_code_t code = lv_event_get_code(event);
 
-
-    // lv_obj_t *obj = lv_event_get_current_target(event);
-    // lv_event_code_t code = lv_event_get_code(event);
-
-
-
+    if (code == LV_EVENT_PRESSED)
+    {
+        // printf("LV_EVENT_PRESSED\r\n");
+        instance->Manager->Pop();
+    }
 }

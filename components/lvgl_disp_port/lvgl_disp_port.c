@@ -1,17 +1,24 @@
 #include "lvgl_disp_port.h"
 #include "esp_heap_caps.h"
 #include "st7789v.h"
+#include "esp_timer.h"
 
 static SemaphoreHandle_t lvgl_mutex = NULL;
 
 
 static IRAM_ATTR void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
 
-static void lv_tick_task(void *arg)
-{
-    (void) arg;
+// static void lv_tick_task(void *arg)
+// {
+//     (void) arg;
 
-    lv_tick_inc(portTICK_PERIOD_MS);
+//     lv_tick_inc(portTICK_PERIOD_MS);
+// }
+
+static void lv_tick_task(void *arg) {
+  (void)arg;
+
+  lv_tick_inc(1);
 }
 
 
@@ -32,10 +39,11 @@ void lv_port_disp_init(void)
     static lv_color_t *lv_buf =  NULL;
     lv_color_t* buf_1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
     assert(buf_1 != NULL);
-    lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
-    assert(buf_2 != NULL);
+    // lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
+    // assert(buf_2 != NULL);
 
-    lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
+    lv_disp_draw_buf_init(&disp_buf, buf_1, NULL, DISP_BUF_SIZE);
+    // lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
 
     /* 创建显示器 */
     static lv_disp_drv_t disp_drv;
@@ -50,7 +58,12 @@ void lv_port_disp_init(void)
 
     // heap_caps_dump_all();
 
-    esp_register_freertos_tick_hook((void *)lv_tick_task);
+    // esp_register_freertos_tick_hook((void *)lv_tick_task);
+    const esp_timer_create_args_t periodic_timer_args = {
+      .callback = &lv_tick_task, .name = "periodic_gui"};
+    esp_timer_handle_t periodic_timer;
+    ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
+    ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1 * 1000));
 
     // clear screen
     static lv_style_t style_screen;
@@ -67,7 +80,7 @@ static void gui_task(void *pvParameter)
 
     while(1)
     {
-        vTaskDelay(pdMS_TO_TICKS(5));
+        vTaskDelay(pdMS_TO_TICKS(1));
 
         if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
         {
@@ -79,7 +92,7 @@ static void gui_task(void *pvParameter)
 
 void disp_task_create(void)
 {
-    xTaskCreatePinnedToCore(gui_task, "disp task", 1024*16, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(gui_task, "disp task", 1024*32, NULL, 1, NULL, 1);
 }
 
 esp_err_t lv_port_sem_take(void)

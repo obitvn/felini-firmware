@@ -7,4 +7,5 @@ idf_component_register(
         lvgl 
         lvgl_esp32_drivers
         st7789v
+        driver
         )

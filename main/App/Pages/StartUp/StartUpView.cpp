@@ -25,9 +25,9 @@ void StartupView::Create(lv_obj_t *root)
     ui.cont = cont;
 
     lv_obj_t *label = lv_label_create(cont);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("SFCompact12bpp8"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("alibabasans_regular_32"), 0);
     lv_obj_set_style_text_color(label, lv_color_white(), 0);
-    lv_label_set_text(label, "Tiny Bench");
+    lv_label_set_text(label, "Tien Thinh");
     lv_obj_center(label);
     ui.labelLogo = label;
 

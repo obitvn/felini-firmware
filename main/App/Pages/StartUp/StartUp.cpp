@@ -20,13 +20,13 @@ void Startup::onViewLoad()
 {
     Model.Init();
     View.Create(root);
-    lv_timer_t *timer = lv_timer_create(onTimer, 2000, this);
+    lv_timer_t *timer = lv_timer_create(onTimer, 3000, this);
     lv_timer_set_repeat_count(timer, 1);
 }
 
 void Startup::onViewDidLoad()
 {
-    lv_obj_fade_out(root, 500, 1500);
+    lv_obj_fade_out(root, 500, 2500);
 }
 
 void Startup::onViewWillAppear()
@@ -56,7 +56,7 @@ void Startup::onTimer(lv_timer_t *timer)
 {
     Startup *instance = (Startup *)timer->user_data;
 
-    instance->Manager->Push("Pages/AppInfos");
+    instance->Manager->Push("Pages/HappyBirthday");
     // instance->Manager->Push("Pages/Dialplate");
 }
 

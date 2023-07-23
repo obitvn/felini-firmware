@@ -111,7 +111,7 @@ void Dialplate::onEvent(lv_event_t *event)
         {
             if (code == LV_EVENT_CLICKED)
             {
-                printf("pressing at button %d app_src %s\r\n", i, item_grp[i].labelInfo);
+                // printf("pressing at button %d app_src %s\r\n", i, item_grp[i].labelInfo);
                 // instance->Manager->Pop(); //đóng page và quay về page trước đó
                 // instance->Manager->Push("Pages/IICDiscovery"); // load page mới, đang lỗi chưa load được
             }

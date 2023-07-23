@@ -190,10 +190,19 @@ void AppInfos::onEvent(lv_event_t* event)
         {
             if (code == LV_EVENT_PRESSED)
             {
-                printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
+                // printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
                 // instance->Manager->Pop(); //đóng page và quay về page trước đó
                 instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
             }
+        }
+    }
+
+    if (obj == instance->root)
+    {
+        if (code == LV_EVENT_LEAVE)
+        {
+            // printf("LV_EVENT_LEAVE\r\n");
+            instance->Manager->Pop();
         }
     }
 }

@@ -131,20 +131,20 @@ bool cst816_is_touched(void)
     point_x = (data_raw[3] | ((data_raw[2] & 0x0F) << 8));
     point_y = (data_raw[5] | ((data_raw[4] & 0x0F) << 8));
 
-#if CONFIG_LV_SWAPXY_CST816
+// #if CONFIG_LV_SWAPXY_CST816
     int temp;
     temp = point_y;
     point_y = point_x;
     point_x = temp;
-#endif
+// #endif
 
-#if CONFIG_LV_INVERT_X_CST816  
-    point_x = CONFIG_LV_TOUCH_X_MAX_CST816 - point_x;
-#endif
+// #if CONFIG_LV_INVERT_X_CST816  
+    // point_x = CONFIG_LV_TOUCH_X_MAX_CST816 - point_x;
+// #endif
 
-#if CONFIG_LV_INVERT_Y_CST816
+// #if CONFIG_LV_INVERT_Y_CST816
     point_y = CONFIG_LV_TOUCH_Y_MAX_CST816 - point_y;
-#endif
+// #endif
     if (points > 0){
         data->state = LV_INDEV_STATE_PR;
     }
