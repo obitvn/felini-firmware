@@ -29,7 +29,7 @@
 
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
-#include "Pages/MenuList/MenuList.h"
+// #include "Pages/MenuList/MenuList.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
@@ -89,9 +89,9 @@
     StatusBar::Init(lv_layer_top());
     // Lưu ý cần đúng tên class, sai tên load không ra, không chạy
     manager.Install("Startup", "Pages/Startup");
-    manager.Install("MenuList", "Pages/MenuList");
+    // manager.Install("MenuList", "Pages/MenuList");
     manager.Install("Template", "Pages/_Template");
-    manager.Install("Dialplate", "Pages/Dialplate");
+    // manager.Install("Dialplate", "Pages/Dialplate");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
     manager.Install("AppInfos", "Pages/AppInfos");
     manager.Install("PowerSupply", "Pages/PowerSupply");

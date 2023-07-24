@@ -36,14 +36,22 @@ void lv_port_disp_init(void)
  
     disp_init();
 
+    // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
+
     static lv_color_t *lv_buf =  NULL;
     lv_color_t* buf_1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
     assert(buf_1 != NULL);
-    // lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
-    // assert(buf_2 != NULL);
+    lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t),  MALLOC_CAP_SPIRAM);
+    assert(buf_2 != NULL);
 
-    lv_disp_draw_buf_init(&disp_buf, buf_1, NULL, DISP_BUF_SIZE);
-    // lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
+    memset(buf_1, 0, DISP_BUF_SIZE * sizeof(lv_color_t));
+    memset(buf_2, 0, DISP_BUF_SIZE * sizeof(lv_color_t));
+
+    // lv_disp_draw_buf_init(&disp_buf, buf_1, NULL, DISP_BUF_SIZE);
+    lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
+
+    // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
+    // heap_caps_print_heap_info(MALLOC_CAP_DMA);
 
     /* 创建显示器 */
     static lv_disp_drv_t disp_drv;
@@ -66,13 +74,13 @@ void lv_port_disp_init(void)
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1 * 1000));
 
     // clear screen
-    static lv_style_t style_screen;
-    lv_style_init(&style_screen);
-    lv_style_set_bg_color(&style_screen, lv_color_hex(0));
-    lv_obj_add_style(lv_scr_act(), &style_screen,_LV_STYLE_STATE_CMP_SAME);
+    // static lv_style_t style_screen;
+    // lv_style_init(&style_screen);
+    // lv_style_set_bg_color(&style_screen, lv_color_hex(0));
+    // lv_obj_add_style(lv_scr_act(), &style_screen,_LV_STYLE_STATE_CMP_SAME);
     disp_task_create();
-    vTaskDelay(pdMS_TO_TICKS(100));
-    st7789v_backlight_set(500); // 50%
+    // vTaskDelay(pdMS_TO_TICKS(100));
+    // st7789v_backlight_set(500); // 50%
 }
 
 static void gui_task(void *pvParameter)
@@ -92,7 +100,7 @@ static void gui_task(void *pvParameter)
 
 void disp_task_create(void)
 {
-    xTaskCreatePinnedToCore(gui_task, "disp task", 1024*32, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(gui_task, "disp task", 1024*16, NULL, configMAX_PRIORITIES - 1, NULL, 1);
 }
 
 esp_err_t lv_port_sem_take(void)
