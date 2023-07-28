@@ -28,7 +28,7 @@ extern "C"
     {
                 // extern int dap_main(void);
         // dap_main();
-        axp_init();
+        // axp_init(); //don't use
 #else
     int main(int argc, char *argv[])
     {
@@ -46,17 +46,17 @@ extern "C"
 
 
 
-    float vbus, bat, charge_current, discharge_current, temp, ts;
+    // float vbus, bat, charge_current, discharge_current, temp, ts;
 
     // while(1)
     // {
-        axp_read_adc_data(DATA_VBUS_VOLT, &vbus);
-        axp_read_adc_data(DATA_BAT_VOLT, &bat);
-        axp_read_adc_data(DATA_BAT_CHARGE_CURRENT, &charge_current);
-        axp_read_adc_data(DATA_BAT_DISCHARGE_CURRENT, &discharge_current);
-        axp_read_adc_data(DATA_INTEL_TEMP, &temp);
-        axp_read_adc_data(DATA_TS_ADC, &ts);
-        printf( "VBUS volt: %.2f | BAT volt: %.2f | Charge_current: %.2f | Discharge_current: %.2f | temp: %.2f | ts: %.2f\r\n", vbus, bat, charge_current, discharge_current, temp, ts);
+        // axp_read_adc_data(DATA_VBUS_VOLT, &vbus);
+        // axp_read_adc_data(DATA_BAT_VOLT, &bat);
+        // axp_read_adc_data(DATA_BAT_CHARGE_CURRENT, &charge_current);
+        // axp_read_adc_data(DATA_BAT_DISCHARGE_CURRENT, &discharge_current);
+        // axp_read_adc_data(DATA_INTEL_TEMP, &temp);
+        // axp_read_adc_data(DATA_TS_ADC, &ts);
+        // printf( "VBUS volt: %.2f | BAT volt: %.2f | Charge_current: %.2f | Discharge_current: %.2f | temp: %.2f | ts: %.2f\r\n", vbus, bat, charge_current, discharge_current, temp, ts);
 
         // axp_read_columb_data(&columb);
         // ESP_LOGI(TAG, "Columb %.5f", columb);

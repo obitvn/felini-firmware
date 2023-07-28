@@ -19,16 +19,16 @@
 
 // #define AXP_GENERATE_BYTE()
 
-esp_err_t axp_read_byte(uint8_t reg, uint8_t *data){
-    return lvgl_i2c_read(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg | I2C_REG_16,  data, 1);
+esp_err_t axp_read_byte(uint16_t reg, uint8_t *data){
+    return lvgl_i2c_read(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg  | I2C_REG_16,  data, 1);
 }
 
 esp_err_t axp_read_bytes(uint8_t reg, uint8_t *data, size_t len){
-    return i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, &reg, 1, data, len, 5 / portTICK_PERIOD_MS);
+    return i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, &reg , 1, data, len, 5 / portTICK_PERIOD_MS);
 }
 
-esp_err_t axp_write_byte(uint8_t reg, const uint8_t data){
-    return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg | I2C_REG_16, &data, 1);
+esp_err_t axp_write_byte(uint16_t reg, const uint8_t data){
+    return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg  | I2C_REG_16 , &data, 1);
 }
 
 
@@ -39,7 +39,7 @@ esp_err_t axp_init() {
     /* Power output control */
     axp_write_byte(0x12, axp_op_generate_byte(true, true, true, true, true, true));
 
-    axp_en_ctrl(EN_OP_DC2, true);
+    // axp_en_ctrl(EN_OP_DC2, true);
     axp_en_ctrl(EN_OP_DC1, true);
     axp_en_ctrl(EN_OP_LDO2, true);
     axp_en_ctrl(EN_OP_LDO3, true);
@@ -52,19 +52,19 @@ esp_err_t axp_init() {
     /* set voltage */
     axp_set_volt(DC1_SET_VOLT, 3300);
     // axp_set_volt(DC1_SET_VOLT, 2275);
-    axp_set_volt(LDO2_SET_VOLT, 3200);
-    axp_set_volt(LDO3_SET_VOLT, 3200);
-    axp_set_volt(LDO4_SET_VOLT, 3200);
+    axp_set_volt(LDO2_SET_VOLT, 3300);
+    axp_set_volt(LDO3_SET_VOLT, 3300);
+    axp_set_volt(LDO4_SET_VOLT, 3300);
 
     /* PEK Button parameter setting */
-    axp_pek_setting(0,2,0);
+    axp_pek_setting(1,1,0);
 
     axp_info_t info;
     // memset(&info, -1, sizeof(axp_info_t));
     axp_read_info(&info);
     axp_show_info(&info);
 
-    ESP_LOGI(TAG, "Init axp173 over.");
+    ESP_LOGI(TAG, "Init axp173 done!!!!.");
     return ESP_OK;
 }
 
@@ -150,7 +150,7 @@ esp_err_t axp_read_info(axp_info_t *info) {
     ESP_LOGI(TAG, "Reading axp info.");
     uint8_t tmp;
     axp_read_byte(0x00, &tmp);
-    // ESP_LOGI(TAG, "0x00 tmp: %d", tmp);
+    ESP_LOGI(TAG, "0x00 tmp: %d", tmp);
     AXP_READ_STATUS(info->acin_exist, tmp, 7);
     AXP_READ_STATUS(info->vbus_exist, tmp, 5);
 
@@ -158,14 +158,14 @@ esp_err_t axp_read_info(axp_info_t *info) {
 
 
     axp_read_byte(0x01, &tmp);
-    // ESP_LOGI(TAG, "0x01 tmp: %d", tmp);
+    ESP_LOGI(TAG, "0x01 tmp: %d", tmp);
     AXP_READ_STATUS(info->axp_over_temp, tmp, 7);
     AXP_READ_STATUS(info->charge_idct, tmp, 6);
     AXP_READ_STATUS(info->bat_exist, tmp, 5);
 
 
     axp_read_byte(0x12, &tmp);
-    // ESP_LOGI(TAG, "0x12 tmp: %d", tmp);
+    ESP_LOGI(TAG, "0x12 tmp: %d", tmp);
     AXP_READ_STATUS(info->exten, tmp, 6);
     AXP_READ_STATUS(info->dcdc2, tmp, 4);
     AXP_READ_STATUS(info->ldo3, tmp, 3);
@@ -174,7 +174,20 @@ esp_err_t axp_read_info(axp_info_t *info) {
     AXP_READ_STATUS(info->dcdc1, tmp, 0);
 
 
-    // axp_show_info(info);
+    axp_show_info(info);
+
+
+        float vbus, bat, charge_current, discharge_current, temp, ts, acbus;
+
+        axp_read_adc_data(DATA_ACIN_VOLT, &acbus);
+        axp_read_adc_data(DATA_VBUS_VOLT, &vbus);
+        axp_read_adc_data(DATA_BAT_VOLT, &bat);
+        axp_read_adc_data(DATA_BAT_CHARGE_CURRENT, &charge_current);
+        axp_read_adc_data(DATA_BAT_DISCHARGE_CURRENT, &discharge_current);
+        axp_read_adc_data(DATA_INTEL_TEMP, &temp);
+        axp_read_adc_data(DATA_TS_ADC, &ts);
+        ESP_LOGI(TAG, "ACIN volt: %.2f | VBUS volt: %.2f | BAT volt: %.2f | Charge_current: %.2f | Discharge_current: %.2f | temp: %.2f | ts: %.2f\r\n", acbus, vbus, bat, charge_current, discharge_current, temp, ts);
+
     
     ESP_LOGI(TAG, "End to read axp info.");
     return ESP_OK;

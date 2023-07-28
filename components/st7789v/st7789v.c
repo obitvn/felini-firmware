@@ -54,8 +54,8 @@
 // #define MAX_ROWS 60
 // #endif
 
-// #define MAX_TRANSFER_SIZE (280 * 50 * 2)
-#define MAX_TRANSFER_SIZE (26880)
+#define MAX_TRANSFER_SIZE (280 * 50)
+// #define MAX_TRANSFER_SIZE (9000)
 
 /*The LCD needs a bunch of command/argument values to be initialized. They are
  * stored in this struct. */
@@ -157,13 +157,13 @@ static void st7789v_gpio_init(void) {
                              .sclk_io_num = ST7789V_PIN_SCL,
                              .quadwp_io_num = -1,
                              .quadhd_io_num = -1,
-                             .max_transfer_sz = MAX_TRANSFER_SIZE + 8};
+                             .max_transfer_sz = MAX_TRANSFER_SIZE + 32};
 
   spi_device_interface_config_t devcfg = {
       .clock_speed_hz = ST7789V_SPI_SPEED_MHZ,
       .mode = 0,
       .spics_io_num = ST7789V_PIN_CS,
-      .queue_size = 30,
+      .queue_size = 17,
       .pre_cb = spi_pre_transfer_callback,
   };
 
@@ -181,7 +181,7 @@ static void st7789v_gpio_init(void) {
 
   ledc_timer_config_t timer_conf = {
       .duty_resolution = LEDC_TIMER_10_BIT,  // PWM信号的分辨率为10位
-      .freq_hz = 1000,                       // PWM信号的频率为1kHz
+      .freq_hz = 2000,                       // PWM信号的频率为1kHz
       .speed_mode = LEDC_LOW_SPEED_MODE,  // PWM模块的工作模式为高速模式
       .timer_num = LEDC_TIMER_0,          // PWM定时器的编号为0
       .clk_cfg = LEDC_AUTO_CLK,           // PWM时钟分频器为自动选择
@@ -274,8 +274,8 @@ void st7789v_init(void) {
   st7789v_backlight_set(500); // 50%
 }
 void st7789v_backlight_set(uint16_t brightness) {
-  if (brightness > 1000) {
-    brightness = 1000;
+  if (brightness > 2000) {
+    brightness = 2000;
   }
   ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, brightness);
   ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
@@ -312,9 +312,13 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   uint32_t remain_lines = (y2 - y1 + 1) % chunk_lines;
   uint32_t chunk_total = chunk_num + (remain_lines > 0 ? 1 : 0);
 
-  ESP_LOGW(TAG, "chunk_total %lu, size_per_chunk %lu", chunk_total, size_per_chunk);
+  // ESP_LOGW(TAG, "chunk_total %lu, size_per_chunk %lu", chunk_total, size_per_chunk);
 
-  static spi_transaction_t trans[6][6] = {0};
+  //Transaction descriptors. Declared static so they're not allocated on the stack; we need this memory even when this
+  //function is finished because the SPI driver needs access to it even while we're already calculating the next line.
+  static spi_transaction_t trans[16][6] = {0};
+  //In theory, it's better to initialize trans and data only once and hang on to the initialized
+  //variables. We allocate them on the stack, so we need to re-init them each call.
   for (int i = 0; i < chunk_total; i++) {
     for (int x = 0; x < 6; x++) {
       memset(&trans[i][x], 0, sizeof(spi_transaction_t));
@@ -336,7 +340,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   // Split data, each transfer is up to MAX_TRANSFER_SIZE
   for (int i = 0; i < chunk_total; i++) {
     if (i < chunk_num) {
-      trans[i][0].tx_data[0] = ST7789V_CASET;
+      trans[i][0].tx_data[0] = ST7789V_CASET;     //Column Address Set
       trans[i][1].tx_data[0] = (x1 >> 8) & 0xFF;  // Start Col High
       trans[i][1].tx_data[1] = (x1)&0xFF;         // Start Col Low
       trans[i][1].tx_data[2] = (x2 >> 8) & 0xFF;  // End Col High
@@ -371,14 +375,19 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
       trans[i][5].flags = 0;
     }
   }
-
+  //Queue all transactions.
   for (int i = 0; i < chunk_total; i++) {
     for (int x = 0; x < 6; x++) {
       esp_err_t ret = spi_device_queue_trans(spi, &trans[i][x], portMAX_DELAY);
       assert(ret == ESP_OK);
+      // ESP_LOGW(TAG, "+");
       transfer_num++;
     }
   }
+  //When we are here, the SPI driver is busy (in the background) getting the transactions sent. That happens
+    //mostly using DMA, so the CPU doesn't have much to do here. We're not going to wait for the transaction to
+    //finish because we may as well spend the time calculating the next line. When that is done, we can call
+    //send_line_finish, which will wait for the transfers to be done and check their status.
 }
 
 

@@ -38,13 +38,13 @@ cst816_status_t cst816_status;
 //[BJ] TODO: Below functions are ADF specific, if I am to contribute to main repo this needs to be resolved!
 static esp_err_t _cst816_i2c_read(uint8_t slave_addr, uint8_t register_addr, uint8_t *data_buf, uint8_t len) {
     // return band_i2c_read(slave_addr, register_addr, data_buf, len);
-    return lvgl_i2c_read(CONFIG_LV_I2C_TOUCH_PORT, slave_addr, register_addr | I2C_REG_16, data_buf, len);
+    return lvgl_i2c_read(CONFIG_LV_I2C_TOUCH_PORT, slave_addr, register_addr , data_buf, len);
 }
 
 static esp_err_t _cst816_i2c_write8(uint8_t slave_addr, uint8_t register_addr, uint8_t data) {
     uint8_t buffer = data;
     // return band_i2c_write(slave_addr, register_addr, &data, 1);
-    return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, slave_addr, register_addr | I2C_REG_16, &buffer, 1);
+    return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, slave_addr, register_addr , &buffer, 1);
 }
 
 uint8_t cst816t_read_len(uint16_t reg_addr,uint8_t *data,uint8_t len)
