@@ -1,6 +1,8 @@
 #include "StartUpView.h"
 
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#pragma GCC diagnostic ignored "-Wcast-function-type"
 
 using namespace Page;
 
@@ -51,3 +53,5 @@ void StartupView::Delete()
         ui.anim_timeline = nullptr;
     }
 }
+
+#pragma GCC diagnostic pop

@@ -71,9 +71,6 @@ static const char *TAG = "ST7789V";
 static spi_device_handle_t spi;
 static bool s_is_st7789v_inited = false;
 
-void st7789v_fill_rect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
-
-
 static void st7789v_send_cmd(uint8_t cmd) {
   esp_err_t ret;
   spi_transaction_t t;
@@ -81,42 +78,6 @@ static void st7789v_send_cmd(uint8_t cmd) {
   t.length = 8;
   t.tx_buffer = &cmd;
   t.user = (void *)0;
-  ret = spi_device_polling_transmit(spi, &t);
-  assert(ret == ESP_OK);
-}
-
-static void st7789v_send_addr(uint16_t addr1, uint16_t addr2) {
-  static uint8_t addr_data[4];
-  addr_data[0] = (addr1 >> 8) & 0xFF;
-  addr_data[1] = addr1 & 0xFF;
-  addr_data[2] = (addr2 >> 8) & 0xFF;
-  addr_data[3] = addr2 & 0xFF;
-
-  esp_err_t ret;
-  spi_transaction_t t;
-  memset(&t, 0, sizeof(t));
-  t.length = 32;
-  t.tx_buffer = &addr_data;
-  t.user = (void *)1;        // D/C needs to be set to 1
-  ret = spi_device_polling_transmit(spi, &t);
-  assert(ret == ESP_OK);
-}
-
-
-static void st7789v_send_color( uint16_t color, uint16_t size) {
-  static uint8_t color_data[1024];
-  int index = 0;
-  for(int i=0;i<size;i++) {
-    color_data[index++] = (color >> 8) & 0xFF;
-    color_data[index++] = color & 0xFF;
-  }
-
-  esp_err_t ret;
-  spi_transaction_t t;
-  memset(&t, 0, sizeof(t));
-  t.length = size*2*8;
-  t.tx_buffer = &color_data;
-  t.user = (void *)1;        // D/C needs to be set to 1
   ret = spi_device_polling_transmit(spi, &t);
   assert(ret == ESP_OK);
 }
@@ -142,8 +103,6 @@ static void st7789v_set_orientation(uint8_t orientation) {
   st7789v_send_cmd(ST7789V_MADCTL);
   st7789v_send_data(&data[orientation], 1);
 }
-
-
 
 static void spi_pre_transfer_callback(spi_transaction_t *t) {
   int dc = (int)t->user;
@@ -202,6 +161,7 @@ static void st7789v_gpio_init(void) {
 
 
 
+static void st7789v_clear_screen();
 
 void st7789v_init(void) {
   if (s_is_st7789v_inited) {
@@ -256,8 +216,6 @@ void st7789v_init(void) {
   gpio_set_level(ST7789V_PIN_RES, 1);
   vTaskDelay(pdMS_TO_TICKS(100));
 
-  st7789v_fill_rect(0,0,320,320, 0);//clear screen
-
   uint16_t cmd = 0;
   while (st7789v_init_cmds[cmd].databytes != 0xff) {
     st7789v_send_cmd(st7789v_init_cmds[cmd].cmd);
@@ -269,7 +227,7 @@ void st7789v_init(void) {
     cmd++;
   }
   st7789v_set_orientation(ORIENTATION);
-  st7789v_fill_rect(0,0,320,320, 0);//clear screen
+  st7789v_clear_screen();
   vTaskDelay(pdMS_TO_TICKS(100));
   st7789v_backlight_set(500); // 50%
 }
@@ -281,7 +239,12 @@ void st7789v_backlight_set(uint16_t brightness) {
   ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
 }
 
+static uint8_t sByte[700];
 
+static void st7789v_clear_screen()
+{
+
+}
 
 void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
                    void *color_map) {
@@ -312,6 +275,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   uint32_t remain_lines = (y2 - y1 + 1) % chunk_lines;
   uint32_t chunk_total = chunk_num + (remain_lines > 0 ? 1 : 0);
 
+<<<<<<< HEAD
   // ESP_LOGW(TAG, "chunk_total %lu, size_per_chunk %lu", chunk_total, size_per_chunk);
 
   //Transaction descriptors. Declared static so they're not allocated on the stack; we need this memory even when this
@@ -319,6 +283,9 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   static spi_transaction_t trans[16][6] = {0};
   //In theory, it's better to initialize trans and data only once and hang on to the initialized
   //variables. We allocate them on the stack, so we need to re-init them each call.
+=======
+  static spi_transaction_t trans[6][6] = {0};
+>>>>>>> parent of 4bf7158 (add clear screen affter init)
   for (int i = 0; i < chunk_total; i++) {
     for (int x = 0; x < 6; x++) {
       memset(&trans[i][x], 0, sizeof(spi_transaction_t));
@@ -337,7 +304,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
 
   uint8_t *color_map_ptr = (uint8_t *)color_map;
   uint32_t data_offset = 0;
-  // Split data, each transfer is up to MAX_TRANSFER_SIZE
+  // 分割数据，每次传输最大为MAX_TRANSFER_SIZE
   for (int i = 0; i < chunk_total; i++) {
     if (i < chunk_num) {
       trans[i][0].tx_data[0] = ST7789V_CASET;     //Column Address Set
@@ -388,33 +355,4 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
     //mostly using DMA, so the CPU doesn't have much to do here. We're not going to wait for the transaction to
     //finish because we may as well spend the time calculating the next line. When that is done, we can call
     //send_line_finish, which will wait for the transfers to be done and check their status.
-}
-
-
-// Draw rectangle of filling
-// x1:Start X coordinate
-// y1:Start Y coordinate
-// x2:End X coordinate
-// y2:End Y coordinate
-// color:color
-void st7789v_fill_rect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
-  if (x1 >= 320) return;
-  if (x2 >= 320) x2=320-1;
-  if (y1 >= 320) return;
-  if (y2 >= 320) y2=320-1;
-
-  uint16_t _x1 = x1 + 20;
-  uint16_t _x2 = x2 + 20;
-  uint16_t _y1 = y1 + 20;
-  uint16_t _y2 = y2 + 20;
-
-  st7789v_send_cmd(0x2A);  // set column(x) address
-  st7789v_send_addr(_x1, _x2);
-  st7789v_send_cmd(0x2B);  // set Page(y) address
-  st7789v_send_addr(_y1, _y2);
-  st7789v_send_cmd(0x2C);  //  Memory Write
-  for(int i=_x1;i<=_x2;i++){
-    uint16_t size = _y2-_y1+1;
-    st7789v_send_color(color, size);
-  }
 }

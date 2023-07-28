@@ -55,9 +55,14 @@
     #define LV_MEM_ADR 0     /*0: unused*/
     /*Instead of an address give a memory allocator that will be called to get a memory pool for LVGL. E.g. my_malloc*/
     #if LV_MEM_ADR == 0
+<<<<<<< HEAD
         #define LV_MEM_POOL_INCLUDE "esp_heap_caps.h"
         #define LV_MEM_POOL_ALLOC(size) heap_caps_malloc((size), MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT)
         #define LV_MEM_CUSTOM_FREE    heap_caps_free
+=======
+        #undef LV_MEM_POOL_INCLUDE   <esp32-hal-psram.h>
+        #undef LV_MEM_POOL_ALLOC(size)    heap_caps_malloc(size, MALLOC_CAP_SPIRAM)
+>>>>>>> parent of 4bf7158 (add clear screen affter init)
     #endif
 
 #else       /*LV_MEM_CUSTOM*/

@@ -21,13 +21,10 @@ void lv_porting_init(void)
     // printf("start up ++++++++++++++++++++++++++++++++++++++");
     lv_init();
     // heap_caps_free(lv_buf);
-
     lv_port_disp_init();
 
+
     lv_port_indev_init();
-
-
-    
 }
 
 void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)

@@ -23,8 +23,8 @@
 #include "AppFactory.hpp"
 #include "_Template/Template.h"
 #include "StartUp/StartUp.h"
-// #include "MenuList/MenuList.h"
-// #include "Dialplate/Dialplate.h"
+#include "MenuList/MenuList.h"
+#include "Dialplate/Dialplate.h"
 #include "IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
@@ -46,8 +46,8 @@ do{\
 {
     APP_CLASS_MATCH(Template);
     APP_CLASS_MATCH(Startup);
-    // APP_CLASS_MATCH(MenuList);
-    // APP_CLASS_MATCH(Dialplate);
+    APP_CLASS_MATCH(MenuList);
+    APP_CLASS_MATCH(Dialplate);
     APP_CLASS_MATCH(AppInfos);
     APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
     APP_CLASS_MATCH(PowerSupply);

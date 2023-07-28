@@ -28,7 +28,6 @@ private:
     void Update();
     void AttachEvent(lv_obj_t *obj);
     void ViewUpdatePos(lv_event_t *event);
-    void Buzz_Tone(int freq, int duration);
     static void onTimer(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
 
