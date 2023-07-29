@@ -42,6 +42,9 @@ extern "C"
         HAL::HAL_Init();
         App_Init();
 
+    // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
+    // heap_caps_print_heap_info(MALLOC_CAP_DMA);
+
 // #ifdef CONFIG_IDF_TARGET_ESP32S3
 
 

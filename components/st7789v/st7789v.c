@@ -55,7 +55,7 @@
 // #endif
 
 // #define MAX_TRANSFER_SIZE (280 * 50*2)
-#define MAX_TRANSFER_SIZE (26880)
+#define MAX_TRANSFER_SIZE (32768)
 
 /*The LCD needs a bunch of command/argument values to be initialized. They are
  * stored in this struct. */
@@ -157,7 +157,7 @@ static void st7789v_gpio_init(void) {
                              .sclk_io_num = ST7789V_PIN_SCL,
                              .quadwp_io_num = -1,
                              .quadhd_io_num = -1,
-                             .max_transfer_sz = MAX_TRANSFER_SIZE + 32};
+                             .max_transfer_sz = MAX_TRANSFER_SIZE};
 
   spi_device_interface_config_t devcfg = {
       .clock_speed_hz = ST7789V_SPI_SPEED_MHZ,
