@@ -2,6 +2,12 @@
     "cmake.configureOnOpen": true,
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "files.associations": {
-        "lv_porting.h": "c"
+        "lv_porting.h": "c",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "format": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp"
     }
 }

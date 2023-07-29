@@ -56,13 +56,9 @@ void Startup::onTimer(lv_timer_t *timer)
 {
     Startup *instance = (Startup *)timer->user_data;
 
-<<<<<<< HEAD
     instance->Manager->Push("Pages/AppInfos");
     // instance->Manager->Push("Pages/HappyBirthday");
-=======
-    instance->Manager->Push("Pages/HappyBirthday");
-    // instance->Manager->Push("Pages/Dialplate");
->>>>>>> parent of 4bf7158 (add clear screen affter init)
+
 }
 
 void Startup::onEvent(lv_event_t *event)

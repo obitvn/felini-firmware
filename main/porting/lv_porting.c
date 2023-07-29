@@ -13,6 +13,13 @@
 void disp_drv_init(void);
 void indev_drv_init(void);
 
+static void lv_tick_task(void *arg)
+{
+    (void) arg;
+
+    lv_tick_inc(portTICK_PERIOD_MS);
+}
+
 void lv_porting_init(void)
 {
     // static void *lv_buf = NULL;
@@ -20,6 +27,7 @@ void lv_porting_init(void)
     // assert(lv_buf != NULL);
     // printf("start up ++++++++++++++++++++++++++++++++++++++");
     lv_init();
+    esp_register_freertos_tick_hook((void *)lv_tick_task);
     // heap_caps_free(lv_buf);
     lv_port_disp_init();
 
@@ -47,9 +55,10 @@ void indev_drv_init(void)
     int a = 0;
 }
 
-void inline lv_porting_delay(void)
+void lv_porting_delay(void)
 {
-    int a = 0;
+    // int a = 0;
+    vTaskDelay(pdMS_TO_TICKS(5));
 }
 
 #else

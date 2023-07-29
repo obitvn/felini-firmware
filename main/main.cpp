@@ -42,7 +42,7 @@ extern "C"
         HAL::HAL_Init();
         App_Init();
 
-#ifdef CONFIG_IDF_TARGET_ESP32S3
+// #ifdef CONFIG_IDF_TARGET_ESP32S3
 
 
 
@@ -63,12 +63,15 @@ extern "C"
 
     //     vTaskDelay(pdMS_TO_TICKS(500));
     // }
-#else
+// #else
+        int i=0;
         while (1)
         {            
-                lv_timer_handler();
+                // lv_timer_handler();
+                lv_task_handler();
                 lv_porting_delay();
+                printf("%d\r\n", i++);
         }
-#endif
+// #endif
     }
 }
