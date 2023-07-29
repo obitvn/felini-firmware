@@ -70,8 +70,10 @@ void cst816_init(uint8_t dev_addr) {
         esp_err_t ret;
 
         //Initialize non-IIC GPIOs
-        esp_rom_gpio_pad_select_gpio(CST816_TOUCH_RST_PIN);
+        // esp_rom_gpio_pad_select_gpio(CST816_TOUCH_RST_PIN);
+        // gpio_set_direction(CST816_TOUCH_RST_PIN, GPIO_MODE_OUTPUT);
         gpio_set_direction(CST816_TOUCH_RST_PIN, GPIO_MODE_OUTPUT);
+        gpio_set_pull_mode(CST816_TOUCH_RST_PIN, GPIO_PULLUP_ONLY);
 
         //Reset and wake cst816
         gpio_set_level(CST816_TOUCH_RST_PIN, 0);
@@ -117,7 +119,7 @@ bool cst816_is_touched(void)
     return touch_val ? true : false;
 }
 
-    bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 
     uint8_t data_raw[8];
     cst816t_read_len( 0x01, data_raw, 6);

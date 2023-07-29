@@ -54,8 +54,8 @@
 // #define MAX_ROWS 60
 // #endif
 
-#define MAX_TRANSFER_SIZE (280 * 50*2)
-// #define MAX_TRANSFER_SIZE (9000)
+// #define MAX_TRANSFER_SIZE (280 * 50*2)
+#define MAX_TRANSFER_SIZE (26880)
 
 /*The LCD needs a bunch of command/argument values to be initialized. They are
  * stored in this struct. */
