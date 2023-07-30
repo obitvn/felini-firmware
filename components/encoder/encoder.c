@@ -98,6 +98,11 @@ void input_task_create(void)
     xTaskCreate(encoder_task, "input task", 1024, NULL, 1, NULL);
 }
 
+void encoder_set_diff(int value)
+{
+    encoder_diff = encoder_diff + value;
+}
+
 int32_t encoder_get_diff(void)
 {
     int32_t diff = encoder_diff;

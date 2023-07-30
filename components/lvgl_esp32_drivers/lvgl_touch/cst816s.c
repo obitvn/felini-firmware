@@ -162,6 +162,32 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->point.y = 0;
     else data->point.y = point_y;
 
-    // ESP_LOGI(TAG, "gestureID %d, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
+    // NONE = 0x00,
+    // SWIPE_UP = 0x01,
+    // SWIPE_DOWN = 0x02,
+    // SWIPE_LEFT = 0x03,
+    // SWIPE_RIGHT = 0x04,
+    // SINGLE_CLICK = 0x05,
+    // DOUBLE_CLICK = 0x0B, 11
+    // LONG_PRESS = 0x0C, 12
+
+    if(gestureID == 0x04)
+    {
+        data->key = LV_KEY_UP;
+    }
+    else if (gestureID == 0x03)
+    {
+        data->key = LV_KEY_DOWN;
+    }
+    else if (gestureID == 0x02)
+    {
+        data->key = LV_KEY_LEFT;
+    }
+    else if (gestureID == 0x01)
+    {
+        data->key = LV_KEY_RIGHT;
+    }
+
+    ESP_LOGI(TAG, "gestureID %x, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
     return false;
 }

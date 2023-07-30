@@ -21,5 +21,6 @@ void encoder_config(void);              /* 编码器配置 */
 void input_task_create(void);         /* 编码器任务创建 */
 int32_t encoder_get_diff(void);         /* 获取编码器值 */
 bool encoder_get_is_push(void);         /* 获取编码器KEY是否按下值 */
+void encoder_set_diff(int value);
 
 #endif

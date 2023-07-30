@@ -54,7 +54,15 @@ static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
     if(is_touched())
     {
         touch_driver_read(indev_drv, data);
-        // data->state = LV_INDEV_STATE_PR;
+        data->state = LV_INDEV_STATE_PR;
+        if(data->key == LV_KEY_DOWN)
+        {
+            encoder_set_diff(-1);
+        }
+        if (data->key == LV_KEY_UP)
+        {
+            encoder_set_diff(1);
+        }
     }
     else
     {
