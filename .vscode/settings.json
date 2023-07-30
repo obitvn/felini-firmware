@@ -9,5 +9,7 @@
         "format": "cpp",
         "initializer_list": "cpp",
         "span": "cpp"
-    }
+    },
+    "idf.adapterTargetName": "esp32s3",
+    "idf.portWin": "COM11"
 }

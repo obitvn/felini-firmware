@@ -55,8 +55,10 @@
     #define LV_MEM_ADR 0     /*0: unused*/
     /*Instead of an address give a memory allocator that will be called to get a memory pool for LVGL. E.g. my_malloc*/
     #if LV_MEM_ADR == 0
+    #ifdef CONFIG_IDF_TARGET_ESP32S3
         #define LV_MEM_POOL_INCLUDE     "esp_heap_caps.h"
         #define LV_MEM_POOL_ALLOC(size) heap_caps_malloc(size, MALLOC_CAP_SPIRAM)
+    #endif
     #endif
 
 #else       /*LV_MEM_CUSTOM*/
