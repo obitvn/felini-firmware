@@ -71,7 +71,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.imu,
         root,
         "I2C",
-        "i2cscan",
+        "i2cnetwork",
 
         "Scan Device\n"
         "Check version\n"
@@ -83,7 +83,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.rtc,
         root,
         "Power",
-        "servo",
+        "power",
 
         "Power Supply\n"
         "Support USB PD\n"

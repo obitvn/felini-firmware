@@ -52,6 +52,7 @@ extern "C"
         IMPORT_IMG(wifi_connect);
 
         IMPORT_IMG(analog);
+        IMPORT_IMG(power);
         IMPORT_IMG(box3d);
         IMPORT_IMG(canbus);
         IMPORT_IMG(chip);
