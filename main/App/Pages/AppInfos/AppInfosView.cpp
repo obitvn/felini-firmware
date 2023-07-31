@@ -31,8 +31,8 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/AnalogViewer",
         &ui.sport,
         root,
-        "Analog",
-        "settings_blue_png",
+        "ADC",
+        "analog",
 
         "View Analog Signal\n"
         "0 - 3300mV\n"
@@ -43,8 +43,8 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/ColorWheel",
         &ui.gps,
         root,
-        "Color",
-        "remove_blue_png",
+        "LED",
+        "color",
 
         "Control LED RGB\n"
         "LED WS2812\n"
@@ -57,8 +57,8 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/HappyBirthday",
         &ui.mag,
         root,
-        "Show",
-        "compass",
+        "IMG",
+        "scan",
 
         "Compass\n"
         "X\n"
@@ -70,8 +70,8 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/IICDiscovery",
         &ui.imu,
         root,
-        "I2CScan",
-        "bacl_blue_png",
+        "I2C",
+        "i2cscan",
 
         "Scan Device\n"
         "Check version\n"
@@ -83,7 +83,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.rtc,
         root,
         "Power",
-        "list_menu_blue_png",
+        "servo",
 
         "Power Supply\n"
         "Support USB PD\n"
@@ -95,7 +95,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.battery,
         root,
         "Servo",
-        "home_blue_png",
+        "volang",
 
         "Servo Testing\n"
         "PwM generator\n"
@@ -106,8 +106,8 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/HappyBirthday",
         &ui.storage,
         root,
-        "Pulse",
-        "storage",
+        "UART",
+        "updown",
         "Pulse Generator\n"
         "0 - 40 Mhz\n"
         "Square pulse\n"
@@ -119,7 +119,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.system,
         root,
         "DAPLink",
-        "pause",
+        "link",
         "DAP Link debugger\n"
         "V2.2.3\n"
         "USB UART\n");
