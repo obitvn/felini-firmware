@@ -31,34 +31,33 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/AnalogViewer",
         &ui.sport,
         root,
-        "AnalogViewer",
-        "bicycle",
+        "Analog",
+        "settings_blue_png",
 
-        "Total trip\n"
-        "Total time\n"
-        "Max speed");
+        "View Analog Signal\n"
+        "0 - 3300mV\n"
+        "View signal");
 
     /* Item GPS */
     Item_Create(
         "Pages/ColorWheel",
         &ui.gps,
         root,
-        "ColorWheel",
-        "map_location",
+        "Color",
+        "remove_blue_png",
 
-        "Latitude\n"
-        "Longitude\n"
-        "Altitude\n"
-        "UTC Time\n\n"
-        "Course\n"
-        "Speed");
+        "Control LED RGB\n"
+        "LED WS2812\n"
+        "LED FullColor\n"
+        "DMX\n"
+        );
 
     /* Item MAG */
     Item_Create(
         "Pages/HappyBirthday",
         &ui.mag,
         root,
-        "HappyBirthday",
+        "Show",
         "compass",
 
         "Compass\n"
@@ -71,67 +70,59 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/IICDiscovery",
         &ui.imu,
         root,
-        "IICDiscovery",
-        "gyroscope",
+        "I2CScan",
+        "bacl_blue_png",
 
-        "Step\n"
-        "Ax\n"
-        "Ay\n"
-        "Az\n"
-        "Gx\n"
-        "Gy\n"
-        "Gz");
+        "Scan Device\n"
+        "Check version\n"
+        "Read sensor\n");
 
     /* Item RTC */
     Item_Create(
         "Pages/PowerSupply",
         &ui.rtc,
         root,
-        "PowerSupply",
-        "time_info",
+        "Power",
+        "list_menu_blue_png",
 
-        "Date\n"
-        "Time");
+        "Power Supply\n"
+        "Support USB PD\n"
+        "Support USB PPS\n");
 
     /* Item Battery */
     Item_Create(
         "Pages/ServoCtrl",
         &ui.battery,
         root,
-        "ServoCtrl",
-        "battery_info",
+        "Servo",
+        "home_blue_png",
 
-        "Usage\n"
-        "Voltage\n"
-        "Status");
+        "Servo Testing\n"
+        "PwM generator\n"
+        "V1.24");
 
     /* Item Storage */
     Item_Create(
         "Pages/HappyBirthday",
         &ui.storage,
         root,
-        "HappyBirthday",
+        "Pulse",
         "storage",
-
-        "Status\n"
-        "Size\n"
-        "Type\n"
-        "Version");
+        "Pulse Generator\n"
+        "0 - 40 Mhz\n"
+        "Square pulse\n"
+        "PWM");
 
     /* Item System */
     Item_Create(
         "Pages/ColorWheel",
         &ui.system,
         root,
-        "ColorWheel",
-        "system_info",
-
-        "Firmware\n"
-        "Author\n"
-        "LVGL\n"
-        "SysTick\n"
-        "Compiler\n\n"
-        "Build\n");
+        "DAPLink",
+        "pause",
+        "DAP Link debugger\n"
+        "V2.2.3\n"
+        "USB UART\n");
 
     Group_Init();
 }
@@ -178,7 +169,7 @@ void AppInfosView::onFocus(lv_group_t* g)
 void AppInfosView::Style_Init()
 {
     lv_style_init(&style.icon);
-    lv_style_set_width(&style.icon, 220);
+    lv_style_set_width(&style.icon, 260);
     lv_style_set_bg_color(&style.icon, lv_color_black());
     lv_style_set_bg_opa(&style.icon, LV_OPA_COVER);
     lv_style_set_text_font(&style.icon, ResourcePool::GetFont("SFCompact22bpp8"));
@@ -187,7 +178,7 @@ void AppInfosView::Style_Init()
     lv_style_init(&style.focus);
     lv_style_set_width(&style.focus, 70);
     lv_style_set_border_side(&style.focus, LV_BORDER_SIDE_RIGHT);
-    lv_style_set_border_width(&style.focus, 2);
+    lv_style_set_border_width(&style.focus, 3);
     lv_style_set_border_color(&style.focus, lv_color_hex(0x4682B4));
 
     static const lv_style_prop_t style_prop[] =
@@ -279,10 +270,10 @@ void AppInfosView::Item_Create(
 
     /* datas */
     label = lv_label_create(cont);
-    lv_obj_enable_style_refresh(false);
-    lv_label_set_text(label, "-");
-    lv_obj_add_style(label, &style.data, 0);
-    lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
+    // lv_obj_enable_style_refresh(false);
+    // lv_label_set_text(label, "-");
+    // lv_obj_add_style(label, &style.data, 0);
+    // lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
     item->labelData = label;
 
     lv_obj_move_foreground(icon);
