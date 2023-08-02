@@ -1,4 +1,6 @@
 #include "HAL.h"
+#include <time.h>
+#include <stdio.h>
 
 #define TAG "HAL_CLOCK"
 // i2c_dev_t bm8563_dev; // thread safe
@@ -10,35 +12,31 @@ void HAL::Clock_Init()
 
 void HAL::Clock_GetInfo(Clock_Info_t *info)
 {
-    // struct tm time;
-    // bool valid;
-    // // bm8563_get_time(&bm8563_dev, &time, &valid);
+    struct tm *t;
+    time_t tt;
+    time(&tt);
+    t = localtime(&tt);
 
-    // info->year = time.tm_yday;
-    // info->month = time.tm_mon;
-    // info->day = time.tm_mday;
-    // info->week = time.tm_wday;
-    // info->hour = time.tm_hour;
-    // info->minute = time.tm_min;
-    // info->second = time.tm_sec;
-    // info->millisecond = 0;
+    info->year = t->tm_year + 1900;
+    info->month = t->tm_mon + 1;
+    info->day = t->tm_mday;
+    info->week = t->tm_wday;
+    info->hour = t->tm_hour;
+    info->minute = t->tm_min;
+    info->second = t->tm_sec;
+    info->millisecond = t->tm_sec;
 }
 
 void HAL::Clock_SetInfo(const Clock_Info_t *info)
 {
-    // struct tm time;
-
-    // time.tm_year = info->year,     // years since 1900
-    //     time.tm_mon = info->month, // months since January
-    //     time.tm_mday = info->day,
-    // time.tm_hour = info->hour,
-    // time.tm_min = info->minute,
-    // time.tm_sec = info->second,
-    // time.tm_wday = 0, // days since Sunday
-    //     time.tm_yday = 0,
-    // time.tm_isdst = 0,
-
-    // bm8563_set_time(&bm8563_dev, &time);
+    printf(
+        "\nClock set: %04d-%02d-%02d %02d:%02d:%02d\n",
+        info->year,
+        info->month,
+        info->day,
+        info->hour,
+        info->minute,
+        info->second);
 }
 
 const char *HAL::Clock_GetWeekString(uint8_t week)
