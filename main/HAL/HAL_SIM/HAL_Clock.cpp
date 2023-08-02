@@ -2,12 +2,10 @@
 #include <time.h>
 #include <stdio.h>
 
-#define TAG "HAL_CLOCK"
-// i2c_dev_t bm8563_dev; // thread safe
 
 void HAL::Clock_Init()
 {
-    // bm8563_init_desc(&bm8563_dev, 0, (gpio_num_t)21, (gpio_num_t)22);
+
 }
 
 void HAL::Clock_GetInfo(Clock_Info_t *info)

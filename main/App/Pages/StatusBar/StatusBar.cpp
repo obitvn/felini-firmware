@@ -305,7 +305,7 @@ void StatusBar::Init(lv_obj_t *par)
 // 一定要记得初始化！！！  => DP_LIST.inc
 DATA_PROC_INIT_DEF(StatusBar)
 {
-    account->Subscribe("Power");
+    account->Subscribe("PowerPMIC");
     account->Subscribe("Clock");
     account->SetEventCallback(onEvent);
 
