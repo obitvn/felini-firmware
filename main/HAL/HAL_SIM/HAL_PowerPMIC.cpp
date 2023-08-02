@@ -5,16 +5,9 @@
 #define BATT_MAX_VOLTAGE 4200
 #define BATT_FULL_CHARGE_VOLTAGE 4100
 
-typedef struct
-{
-    uint32_t LastHandleTime;
-    uint16_t AutoLowPowerTimeout;
-    bool AutoLowPowerEnable;
-    bool IsShutdown;
-    volatile uint16_t ADCValue;
-} PowerSupply_t;
 
-void HAL::PowerSupply_Init()
+
+void HAL::PowerPMIC_Init()
 {
     // /* Initialize your hardware. */
     // axp192_init((const axp192_t *)i2c_hal(0));
@@ -29,7 +22,7 @@ void HAL::PowerSupply_Init()
     // vTaskDelay(100 / portTICK_PERIOD_MS);
 }
 
-void HAL::PowerSupply_GetInfo(Power_Info_t *info)
+void HAL::PowerPMIC_GetInfo(PowerPMIC_Info_t *info)
 {
     // static float axp_voltage = 0;
     // axp192_read((const axp192_t *)i2c_hal(0), AXP192_BATTERY_VOLTAGE, &axp_voltage);

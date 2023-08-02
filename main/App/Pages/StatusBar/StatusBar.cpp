@@ -130,7 +130,7 @@ static void StatusBar_Update(lv_timer_t *timer)
     lv_label_set_text_fmt(ui.labelClock, "%02d:%02d", clock.hour, clock.minute);
 
     /* battery */
-    HAL::Power_Info_t power;
+    HAL::PowerPMIC_Info_t power;
     actStatusBar->Pull("Power", &power, sizeof(power));
     lv_label_set_text_fmt(ui.battery.label, "%d", power.usage);
 

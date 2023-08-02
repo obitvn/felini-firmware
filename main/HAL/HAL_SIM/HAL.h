@@ -20,45 +20,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef __HAL_H
-#define __HAL_H
+#ifndef __HAL_INTERNAL_H
+#define __HAL_INTERNAL_H
+
+#include "App/Common/HAL/HAL.h"
+
+#include "CommonMacro.h"
+// #include "i2c_manager.h"
+
+// #include "esp_err.h"
+// #include "esp_log.h"
 
 #ifdef __cplusplus
-
-#include <stdint.h>
-#include "HAL_Def.h"
-
-namespace HAL
+extern "C"
 {
+#endif
 
-    typedef bool (*CommitFunc_t)(void *info, void *userData);
+    void Hal_init(void);
+    void Hal_update(void);
 
-    void HAL_Init();
-    void HAL_Update();
-
-    /* IMU */
-    void IMU_Init();
-    void IMU_SetCommitCallback(CommitFunc_t func, void *userData);
-    void IMU_Update();
-
-    /* Power Delivery*/
-    void PowerPD_Init();
-    void PowerPD_GetInfo(PowerPD_Info_t *info);
-    void PowerPD_SetUp(PowerPD_Info_t *info);
-
-    /* Power PMIC*/
-    void PowerPMIC_Init();
-    void PowerPMIC_GetInfo(PowerPMIC_Info_t *info);
-
-    /* Clock */
-    void Clock_Init();
-    void Clock_GetInfo(Clock_Info_t *info);
-    void Clock_SetInfo(const Clock_Info_t *info);
-    const char *Clock_GetWeekString(uint8_t week);
-
-
-
+#ifdef __cplusplus
 }
+#endif
 
-#endif // !__cplusplus
 #endif

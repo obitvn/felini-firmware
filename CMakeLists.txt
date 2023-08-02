@@ -180,8 +180,8 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     "main/App/Resource/**/*.cpp"
     "main/App/Utils/**.c"
     "main/App/Utils/**.cpp"
-    "main/HAL/*.c"
-    "main/HAL/*.cpp")
+    "main/HAL/HAL_SIM/*.c"
+    "main/HAL/HAL_SIM/*.cpp")
     # Compile the executable
     add_executable(${PROJECT_NAME} ${src_source})
     # link library

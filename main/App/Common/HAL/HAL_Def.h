@@ -31,37 +31,28 @@ namespace HAL
         int16_t steps;
     } IMU_Info_t;
 
-    /* Power */
+    /* Power Delivery*/
+    typedef struct
+    {
+        uint16_t min_voltage;
+        uint16_t max_voltage;
+        uint16_t max_current;
+        uint16_t max_power;
+        uint16_t pd_type;
+    } PowerPD_Info_t;
+
+    /* Power PMIC*/
     typedef struct
     {
         uint16_t voltage;
         uint8_t usage;
         bool isCharging;
-    } Power_Info_t;
+        float charge_current;
+        float discharge_current;
+        float temp;
+    } PowerPMIC_Info_t;
 
-    /* WiFi */
-    typedef struct
-    {
-        bool isConnected;
-        char ip_str[32];
-    } WiFi_Info_t;
 
-    /* Weather */
-    typedef struct
-    {
-        int8_t code;
-        char summary[16];
-        float temperature;
-        char last_update[128];
-    } Weather_Info_t;
-
-    typedef struct
-    {
-        int8_t code;
-        char summary[16];
-        float temperature;
-        char last_update[128];
-    } PowerSupply_Info_t;
 }
 
 #endif
