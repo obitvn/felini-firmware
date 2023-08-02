@@ -70,6 +70,8 @@ extern "C"
         IMPORT_IMG(terminal);
         IMPORT_IMG(updown);
         IMPORT_IMG(volang);
+        IMPORT_IMG(pinmap_servo);
+        IMPORT_IMG(catb);
     }
 
 } /* extern "C" */

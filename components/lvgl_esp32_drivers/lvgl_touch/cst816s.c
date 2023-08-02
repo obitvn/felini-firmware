@@ -187,6 +187,10 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     {
         data->key = LV_KEY_RIGHT;
     }
+    else if (gestureID == 0x0c)
+    {
+        data->key = LV_KEY_HOME;
+    }
 
     ESP_LOGI(TAG, "gestureID %x, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
     return false;

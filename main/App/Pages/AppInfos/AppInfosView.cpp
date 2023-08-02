@@ -108,6 +108,7 @@ void AppInfosView::Create(lv_obj_t* root)
         root,
         "UART",
         "updown",
+
         "Pulse Generator\n"
         "0 - 40 Mhz\n"
         "Square pulse\n"
@@ -120,6 +121,7 @@ void AppInfosView::Create(lv_obj_t* root)
         root,
         "DAPLink",
         "link",
+        
         "DAP Link debugger\n"
         "V2.2.3\n"
         "USB UART\n");
@@ -176,7 +178,7 @@ void AppInfosView::Style_Init()
     lv_style_set_text_color(&style.icon, lv_color_white());
 
     lv_style_init(&style.focus);
-    lv_style_set_width(&style.focus, 70);
+    lv_style_set_width(&style.focus, 95);
     lv_style_set_border_side(&style.focus, LV_BORDER_SIDE_RIGHT);
     lv_style_set_border_width(&style.focus, 3);
     lv_style_set_border_color(&style.focus, lv_color_hex(0x4682B4));
@@ -228,7 +230,7 @@ void AppInfosView::Item_Create(
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_enable_style_refresh(false);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_width(cont, 220);
+    lv_obj_set_width(cont, 260);
 
     lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
     item->cont = cont;
@@ -265,16 +267,16 @@ void AppInfosView::Item_Create(
     lv_obj_enable_style_refresh(false);
     lv_label_set_text(label, infos);
     lv_obj_add_style(label, &style.info, 0);
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 75, 0);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 115, 0);
     item->labelInfo = label;
 
-    /* datas */
-    label = lv_label_create(cont);
+    // /* datas */
+    // label = lv_label_create(cont);
     // lv_obj_enable_style_refresh(false);
     // lv_label_set_text(label, "-");
     // lv_obj_add_style(label, &style.data, 0);
     // lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
-    item->labelData = label;
+    // item->labelData = label;
 
     lv_obj_move_foreground(icon);
     lv_obj_enable_style_refresh(true);

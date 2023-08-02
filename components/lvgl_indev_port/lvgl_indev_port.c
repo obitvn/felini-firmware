@@ -63,6 +63,10 @@ static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
         {
             encoder_set_diff(1);
         }
+        // if (data->key == LV_KEY_HOME)
+        // {
+        //     data->state = LV_INDEV_STATE_PR;
+        // }
     }
     else
     {

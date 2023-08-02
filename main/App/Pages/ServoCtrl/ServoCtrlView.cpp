@@ -7,6 +7,7 @@ using namespace Page;
 void ServoCtrlView::Create(lv_obj_t *root)
 {
     /*Change the active screen's background color*/
+    lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     lv_obj_t *ui_ArcServo = lv_arc_create(root);
@@ -41,7 +42,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_t *ui_PinMap = lv_label_create(root);
     lv_obj_set_width(ui_PinMap, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMap, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_PinMap, -110);
+    lv_obj_set_x(ui_PinMap, -100);
     lv_obj_set_y(ui_PinMap, 88);
     lv_obj_set_align(ui_PinMap, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PinMap, "ROW1");
@@ -51,7 +52,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_t *ui_Title = lv_label_create(root);
     lv_obj_set_width(ui_Title, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Title, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Title, -95);
+    lv_obj_set_x(ui_Title, -85);
     lv_obj_set_y(ui_Title, 108);
     lv_obj_set_align(ui_Title, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Title, "Servo pins");
@@ -59,10 +60,11 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_Title, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_PinMapIMG = lv_img_create(root);
-    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("sd_card"));
+    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pinmap_servo"));
+    lv_img_set_zoom(ui_PinMapIMG, 280);
     lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_PinMapIMG, 19);
+    lv_obj_set_x(ui_PinMapIMG, 40);
     lv_obj_set_y(ui_PinMapIMG, 95);
     lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags

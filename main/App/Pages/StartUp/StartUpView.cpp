@@ -13,6 +13,14 @@ void StartupView::Create(lv_obj_t *root)
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
 
+    lv_obj_t *cont_bg = lv_obj_create(root);
+    lv_obj_remove_style_all(cont_bg);
+    lv_obj_set_size(cont_bg, 280, 280);
+    lv_obj_clear_flag(cont_bg, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+    lv_obj_set_style_border_opa(root, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(cont_bg, ResourcePool::GetImage("catb"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_center(cont_bg);
+
     lv_obj_t *cont = lv_obj_create(root);
     lv_obj_remove_style_all(cont);
     lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
@@ -23,6 +31,15 @@ void StartupView::Create(lv_obj_t *root)
     lv_obj_set_style_border_post(cont, true, 0);
     lv_obj_center(cont);
     ui.cont = cont;
+
+    // lv_obj_t *ui_Image1 = lv_img_create(cont);
+    // lv_img_set_src(ui_Image1, ResourcePool::GetImage("catb"));
+    // lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);  /// 1
+    // lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT); /// 1
+    // lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
+    // lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
+    // lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+
 
     lv_obj_t *label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("alibabasans_regular_32"), 0);

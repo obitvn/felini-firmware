@@ -82,13 +82,19 @@ void ServoCtrl::onTimer(lv_timer_t *timer)
 void ServoCtrl::onEvent(lv_event_t *event)
 {
 
-    // ServoCtrl *instance = (ServoCtrl *)lv_event_get_user_data(event);
-    // LV_ASSERT_NULL(instance);
+    ServoCtrl *instance = (ServoCtrl *)lv_event_get_user_data(event);
+    LV_ASSERT_NULL(instance);
 
 
-    // lv_obj_t *obj = lv_event_get_current_target(event);
-    // lv_event_code_t code = lv_event_get_code(event);
+    lv_obj_t *obj = lv_event_get_current_target(event);
+    lv_event_code_t code = lv_event_get_code(event);
 
-
-
+    if (obj == instance->root)
+    {
+        if (code == LV_EVENT_LONG_PRESSED)
+        {
+            // printf("LV_EVENT_LEAVE\r\n");
+            instance->Manager->Pop();
+        }
+    }
 }

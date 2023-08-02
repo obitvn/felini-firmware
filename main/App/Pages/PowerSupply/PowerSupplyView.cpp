@@ -7,6 +7,7 @@ using namespace Page;
 void PowerSupplyView::Create(lv_obj_t *root)
 {
     /*Change the active screen's background color*/
+    lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     lv_obj_t *ui_VoltMeasure = lv_label_create(root);
