@@ -116,7 +116,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item System */
     Item_Create(
-        "Pages/ColorWheel",
+        "Pages/DAPLink",
         &ui.system,
         root,
         "DAPLink",

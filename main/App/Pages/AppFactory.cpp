@@ -32,6 +32,7 @@
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
 #include "HappyBirthday/HappyBirthday.h"
+#include "DAPLink/DAPLink.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -55,6 +56,7 @@ do{\
     APP_CLASS_MATCH(AnalogViewer);
     APP_CLASS_MATCH(ColorWheel);
     APP_CLASS_MATCH(HappyBirthday);
+    APP_CLASS_MATCH(DAPLink);
 
     return nullptr;
 }

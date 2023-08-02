@@ -72,6 +72,12 @@ extern "C"
         IMPORT_IMG(volang);
         IMPORT_IMG(pinmap_servo);
         IMPORT_IMG(catb);
+        IMPORT_IMG(dap_bug);
+        IMPORT_IMG(dap_connected);
+        IMPORT_IMG(dap_disconnect);
+        IMPORT_IMG(down_dap);
+        IMPORT_IMG(pin_daplink);
+
     }
 
 } /* extern "C" */

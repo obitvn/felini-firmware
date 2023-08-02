@@ -35,6 +35,7 @@
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
 #include "Pages/HappyBirthday/HappyBirthday.h"
+#include "Pages/DAPLink/DAPLink.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -99,6 +100,7 @@
     manager.Install("AnalogViewer", "Pages/AnalogViewer");
     manager.Install("ColorWheel", "Pages/ColorWheel");
     manager.Install("HappyBirthday", "Pages/HappyBirthday");
+    manager.Install("DAPLink", "Pages/DAPLink");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
