@@ -23,7 +23,7 @@ void DAPLink::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    // AttachEvent(View.scroll_panel.cont);
+    AttachEvent(View.switch_cont);
 
 
 }
@@ -76,6 +76,12 @@ void DAPLink::onTimer(lv_timer_t *timer)
 
 }
 
+static int value = 0;
+
+void DAPLink::enableHW(int value)
+{
+    Model.DAPCommand(value );
+}
 
 
 
@@ -87,9 +93,16 @@ void DAPLink::onEvent(lv_event_t *event)
     lv_obj_t *obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
-    if (code == LV_EVENT_PRESSED)
+    // if (code == LV_EVENT_PRESSED)
+    // {
+    //     // printf("LV_EVENT_PRESSED\r\n");
+    //     instance->Manager->Pop();
+    // }
+
+    if (code == LV_EVENT_VALUE_CHANGED)
     {
-        // printf("LV_EVENT_PRESSED\r\n");
-        instance->Manager->Pop();
+        value++;
+        printf("State changed\n");
+        instance->enableHW(value);
     }
 }

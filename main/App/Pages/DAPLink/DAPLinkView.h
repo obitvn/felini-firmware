@@ -13,7 +13,7 @@ public:
     void Delete();
 
 public:
-
+    lv_obj_t *switch_cont;
 
 public:
 

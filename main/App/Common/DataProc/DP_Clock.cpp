@@ -54,4 +54,5 @@ static int onEvent(Account *account, Account::EventParam_t *param)
 DATA_PROC_INIT_DEF(Clock)
 {
     account->SetEventCallback(onEvent);
+    account->SetTimerPeriod(500);
 }

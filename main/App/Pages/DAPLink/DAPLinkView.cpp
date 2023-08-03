@@ -68,6 +68,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Switch1, -103);
     lv_obj_set_y(ui_Switch1, 17);
     lv_obj_set_align(ui_Switch1, LV_ALIGN_CENTER);
+    switch_cont = ui_Switch1;
 
     lv_obj_t *ui_Label3 = lv_label_create(root);
     lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);  /// 1
