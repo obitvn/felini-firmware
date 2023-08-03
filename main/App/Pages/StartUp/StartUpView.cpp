@@ -19,32 +19,25 @@ void StartupView::Create(lv_obj_t *root)
     lv_obj_clear_flag(cont_bg, LV_OBJ_FLAG_SCROLLABLE); /// Flags
     lv_obj_set_style_border_opa(root, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_src(cont_bg, ResourcePool::GetImage("catb"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_opa(cont_bg, 64, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_center(cont_bg);
 
     lv_obj_t *cont = lv_obj_create(root);
     lv_obj_remove_style_all(cont);
     lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_size(cont, 220, 50);
+    lv_obj_set_pos(cont, 0, 124);
+    lv_obj_set_size(cont, 200, 50);
     lv_obj_set_style_border_color(cont, COLOR_ORANGE, 0);
     lv_obj_set_style_border_side(cont, LV_BORDER_SIDE_BOTTOM, 0);
     lv_obj_set_style_border_width(cont, 3, 0);
     lv_obj_set_style_border_post(cont, true, 0);
-    lv_obj_center(cont);
+    // lv_obj_center(cont);
     ui.cont = cont;
-
-    // lv_obj_t *ui_Image1 = lv_img_create(cont);
-    // lv_img_set_src(ui_Image1, ResourcePool::GetImage("catb"));
-    // lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);  /// 1
-    // lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT); /// 1
-    // lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
-    // lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
-    // lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-
 
     lv_obj_t *label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("alibabasans_regular_32"), 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
-    lv_label_set_text(label, "Tien Thinh");
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFF5400), 0);
+    lv_label_set_text(label, "F E L I N I");
     lv_obj_center(label);
     ui.labelLogo = label;
 

@@ -86,67 +86,7 @@ void AppInfos::AttachEvent(lv_obj_t* obj)
 
 void AppInfos::Update()
 {
-    const char buf[64]="buf test 12\r\n";
-
-    /* Sport */
-    float trip;
-    float maxSpd;
-    // Model.GetSportInfo(&trip, buf, sizeof(buf), &maxSpd);
-    // View.SetSport(98.21, buf, 32.8);
-
-    /* GPS */
-    float lat;
-    float lng;
-    float alt;
-    float course;
-    float speed;
-    // Model.GetGPSInfo(&lat, &lng, &alt, buf, sizeof(buf), &course, &speed);
-    // View.SetGPS(23.67, 78.21, 92.54, buf, 2.86, 72.4);
-
-    /* MAG */
-    float dir;
-    int x;
-    int y;
-    int z;
-    // Model.GetMAGInfo(&dir, &x, &y, &z);
-    // View.SetMAG(1.2, 254, 866, 421);
-
-    /* IMU */
-    int steps;
-    // Model.GetIMUInfo(&steps, buf, sizeof(buf));
-    // View.SetIMU(1241, buf);
-
-    /* RTC */
-    // Model.GetRTCInfo(buf, sizeof(buf));
-    // View.SetRTC(buf);
-
-    /* Power */
-    int usage;
-    float voltage;
-    // Model.GetBatteryInfo(&usage, &voltage, buf, sizeof(buf));
-    // View.SetBattery(78, 3.763, buf);
-
-    /* Storage */
-    bool detect;
-    const char* type = "-";
-    // Model.GetStorageInfo(&detect, &type, buf, sizeof(buf));
-    // View.SetStorage(
-    //     "OK",
-    //     buf,
-    //     type,
-    //     "tes"
-    // );
-
-    /* System */
-    // DataProc::MakeTimeString(lv_tick_get(), buf, sizeof(buf));
-    // View.SetSystem(
-    //     "1.3.4" " " "8ab3",
-    //     "tienthinh",
-    //     "8xxx",
-    //     buf,
-    //     "ninja esp",
-    //     "200723"
-    // );
+ 
 }
 
 void AppInfos::onTimerUpdate(lv_timer_t* timer)

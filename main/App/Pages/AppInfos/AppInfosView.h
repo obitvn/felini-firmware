@@ -35,51 +35,6 @@ public:
     } ui;
 
 public:
-    void SetSport(
-        float trip,
-        const char* time,
-        float maxSpd
-    );
-    void SetGPS(
-        float lat,
-        float lng,
-        float alt,
-        const char* utc,
-        float course,
-        float speed
-    );
-    void SetMAG(
-        float dir,
-        int x,
-        int y,
-        int z
-    );
-    void SetIMU(
-        int step,
-        const char* info
-    );
-    void SetRTC(
-        const char* dateTime
-    );
-    void SetBattery(
-        int usage,
-        float voltage,
-        const char* state
-    );
-    void SetStorage(
-        const char* detect,
-        const char* size,
-        const char* type,
-        const char* version
-    );
-    void SetSystem(
-        const char* firmVer,
-        const char* authorName,
-        const char* lvglVer,
-        const char* bootTime,
-        const char* compilerName,
-        const char* bulidTime
-    );
 
     void SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en);
     static void onFocus(lv_group_t* e);

@@ -36,7 +36,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_img_set_src(ui_Image1, ResourcePool::GetImage("dap_connected"));
     lv_obj_set_width(ui_Image1, LV_SIZE_CONTENT);  /// 36
     lv_obj_set_height(ui_Image1, LV_SIZE_CONTENT); /// 36
-    lv_obj_set_x(ui_Image1, -110);
+    lv_obj_set_x(ui_Image1, -104);
     lv_obj_set_y(ui_Image1, -33);
     lv_obj_set_align(ui_Image1, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
@@ -47,7 +47,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_set_width(ui_Image2, LV_SIZE_CONTENT);  /// 48
     lv_obj_set_height(ui_Image2, LV_SIZE_CONTENT); /// 48
     lv_obj_set_x(ui_Image2, 105);
-    lv_obj_set_y(ui_Image2, -29);
+    lv_obj_set_y(ui_Image2, -33);
     lv_obj_set_align(ui_Image2, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Image2, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
     lv_obj_clear_flag(ui_Image2, LV_OBJ_FLAG_SCROLLABLE); /// Flags
@@ -57,7 +57,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_set_width(ui_Image3, LV_SIZE_CONTENT);  /// 48
     lv_obj_set_height(ui_Image3, LV_SIZE_CONTENT); /// 48
     lv_obj_set_x(ui_Image3, 105);
-    lv_obj_set_y(ui_Image3, 14);
+    lv_obj_set_y(ui_Image3, 10);
     lv_obj_set_align(ui_Image3, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
     lv_obj_clear_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE); /// Flags
@@ -73,7 +73,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Label3, -42);
-    lv_obj_set_y(ui_Label3, 18);
+    lv_obj_set_y(ui_Label3, 17);
     lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label3, "SWD");
     lv_obj_set_style_text_color(ui_Label3, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -100,7 +100,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_label_set_text(ui_Label4, "connection pins is row 2");
     lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFB0808), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label4, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label4, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 
