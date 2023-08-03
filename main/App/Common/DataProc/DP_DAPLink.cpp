@@ -11,6 +11,8 @@ static void onTimer(Account* account)
 static int onEvent(Account* account, Account::EventParam_t* param)
 {
     printf("DAP App call Hardware\r\n");
+    
+    HAL::DAPLink_Init();
     return 0;
 }
 

@@ -52,7 +52,13 @@ namespace HAL
         float temp;
     } PowerPMIC_Info_t;
 
-
+    /* DAPLink*/
+    typedef struct
+    {
+        uint16_t baudrate;
+        uint8_t status;
+        bool connect;
+    } DAPLink_Info_t;
 }
 
 #endif

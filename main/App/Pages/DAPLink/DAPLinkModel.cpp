@@ -18,9 +18,6 @@ void DAPLinkModel::Deinit()
 void DAPLinkModel::DAPCommand(int cmd)
 {
     account->Notify("DAPLinkHardware", &cmd, sizeof(cmd));
-    // account->Pull("DAPLinkHardware", &cmd, sizeof(cmd));
-
-    // printf("command\r\n");
 }
 
 

@@ -56,8 +56,10 @@ namespace HAL
     void Clock_SetInfo(const Clock_Info_t *info);
     const char *Clock_GetWeekString(uint8_t week);
 
-
-
+    /* DAP Link*/
+    void DAPLink_Init();
+    void DAPLink_GetInfo(DAPLink_Info_t *info);
+    void DAPLink_Denit();
 }
 
 #endif // !__cplusplus
