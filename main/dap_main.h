@@ -6,7 +6,8 @@ extern "C"
 {
 #endif
 
-    int dap_main(void);
+    int daplink_start(void);
+    int daplink_stop(void);
 
 #ifdef __cplusplus
 }

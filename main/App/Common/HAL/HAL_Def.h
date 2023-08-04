@@ -53,6 +53,12 @@ namespace HAL
     } PowerPMIC_Info_t;
 
     /* DAPLink*/
+    // typedef enum daplink_cmd
+    // {
+    //     DAP_START = 0,
+    //     DAP_STOP,
+    // } daplink_cmd_t;
+
     typedef struct
     {
         uint16_t baudrate;

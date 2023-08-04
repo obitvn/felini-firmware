@@ -308,10 +308,18 @@ static void daplink_task(void *pvParameter)
     }
 }
 
-int dap_main(void)
+TaskHandle_t xHandle_DAPLink;
+
+int daplink_start(void)
 {
-    xTaskCreatePinnedToCore(daplink_task, "DAPLink task", 1024*2, NULL, 1, NULL, 0);
+    xTaskCreatePinnedToCore(daplink_task, "DAPLink task", 1024 * 2, NULL, 1, xHandle_DAPLink, 0);
     return 1;
+}
+
+int daplink_stop(void)
+{
+    printf("Delete DAPLink task!\n");
+    vTaskDelete(xHandle_DAPLink);
 }
 
 /************************ (C) COPYRIGHT 2021 LiGuo *****END OF FILE*************/
