@@ -49,6 +49,7 @@ static void touch_init(void)
 
 uint32_t timeout=0;
 
+
 static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
     if(is_touched())

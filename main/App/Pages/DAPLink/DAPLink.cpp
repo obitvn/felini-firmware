@@ -24,8 +24,7 @@ void DAPLink::onViewLoad()
     View.Create(root);
 
     AttachEvent(View.switch_cont);
-
-
+    // Model.DAPCommand(1); //crash
 }
 
 void DAPLink::onViewDidLoad()
@@ -54,6 +53,7 @@ void DAPLink::onViewDidDisappear()
 
 void DAPLink::onViewDidUnload()
 {
+    Model.DAPCommand(0);
     View.Delete();
     Model.Deinit();
 }
@@ -101,8 +101,9 @@ void DAPLink::onEvent(lv_event_t *event)
 
     if (code == LV_EVENT_VALUE_CHANGED)
     {
-        value++;
+        // value++;
         printf("State changed\n");
-        instance->enableHW(value);
+        // instance->enableHW(value);
+        instance->Manager->Pop(); //crash
     }
 }

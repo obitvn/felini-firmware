@@ -303,23 +303,31 @@ static void daplink_task(void *pvParameter)
         dap_process();
         dap_cdc_send_from_ringbuff();
         dap_uart_send_from_ringbuff();
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(5));
         // printf("-");
     }
 }
 
-TaskHandle_t xHandle_DAPLink;
+static TaskHandle_t *xHandle_DAPLink = NULL;
 
 int daplink_start(void)
 {
-    xTaskCreatePinnedToCore(daplink_task, "DAPLink task", 1024 * 2, NULL, 1, xHandle_DAPLink, 0);
+    if (xHandle_DAPLink != NULL)
+    {
+        vTaskDelete(xHandle_DAPLink);
+    }
+    xTaskCreatePinnedToCore(daplink_task, "DAPLink task", 1024 * 3, NULL, 3, xHandle_DAPLink, 0);
     return 1;
 }
 
 int daplink_stop(void)
 {
     printf("Delete DAPLink task!\n");
-    vTaskDelete(xHandle_DAPLink);
+    if (xHandle_DAPLink != NULL)
+    {
+        vTaskDelete(xHandle_DAPLink);
+    }
+    return 1;
 }
 
 /************************ (C) COPYRIGHT 2021 LiGuo *****END OF FILE*************/

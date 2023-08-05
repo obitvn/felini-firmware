@@ -18,6 +18,7 @@
     #include "driver/gpio.h"
     #include "driver/uart.h"
     #include "axp173.h"
+    #include "dap_main.h"
 #endif
 
 extern "C"
@@ -26,8 +27,9 @@ extern "C"
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     void app_main(void)
     {
-                // extern int dap_main(void);
+        // extern int dap_main(void);
         // dap_main();
+        // daplink_start();
         // axp_init(); //don't use
 #else
     int main(int argc, char *argv[])

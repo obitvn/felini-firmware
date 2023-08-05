@@ -55,6 +55,7 @@ static void rx_task(void *arg)
     esp_log_level_set(RX_TASK_TAG, ESP_LOG_INFO);
     int rxBytes = 0;
     size_t buffered_len;
+    ESP_LOGI(RX_TASK_TAG, "Read UART\r\n");
 
     uint8_t *data = (uint8_t *)malloc(BUF_SIZE + 1);
     while (1)
@@ -64,7 +65,7 @@ static void rx_task(void *arg)
         {
             uart_read_bytes(UART_NUM_1, data, buffered_len, 20 / portTICK_PERIOD_MS); 
             ring_buffer_queue_arr(&uart_ring_buffer, (const char *)data, buffered_len);
-            // ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
+            ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
             // ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
         }
         vTaskDelay(1);
@@ -92,16 +93,17 @@ void dap_uart_config(uint32_t baudrate, uint8_t databits, uint8_t parity, uint8_
          int intr_alloc_flags = 0;
     if(uart_is_driver_installed(UART_NUM_1))
         uart_driver_delete(UART_NUM_1);
+        
+
+    // Don't put printf, print log in here, device will crash!!!!!!!!!!!!!!!!!!!!!
 
     uart_driver_install(UART_NUM_1, uart_buffer_size, uart_buffer_size, 10, NULL, intr_alloc_flags);
     uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_pin(UART_NUM_1, 38, 39, 40, 41);
+    uart_set_pin(UART_NUM_1, 8, 9, 40, 41);
 
-    if(uart_task_handle == NULL)
-        xTaskCreate(rx_task, "uart_rx_task", 1024 * 8, NULL, 10, uart_task_handle);
-    else 
-        {
-            vTaskDelete(uart_task_handle);
-            xTaskCreate(rx_task, "uart_rx_task", 1024 * 8, NULL, 10, uart_task_handle);
-        }
+    if(uart_task_handle != NULL)
+    {
+        vTaskDelete(uart_task_handle);
+    }
+    xTaskCreate(rx_task, "uart_rx_task", 1024 * 8, NULL, 10, uart_task_handle);
 }

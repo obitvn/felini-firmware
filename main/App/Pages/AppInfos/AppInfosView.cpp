@@ -259,6 +259,7 @@ void AppInfosView::Item_Create(
 
     lv_obj_t* label = lv_label_create(icon);
     lv_obj_enable_style_refresh(false);
+    lv_obj_set_style_text_color(label, lv_color_hex(0x4682B4), 0);
     lv_label_set_text(label, name);
     item->icon = icon;
 
