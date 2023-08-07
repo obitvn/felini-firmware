@@ -53,7 +53,7 @@ void DAPLink::onViewDidDisappear()
 
 void DAPLink::onViewDidUnload()
 {
-    Model.DAPCommand(0);
+    // Model.DAPCommand(0);
     View.Delete();
     Model.Deinit();
 }
@@ -106,4 +106,5 @@ void DAPLink::onEvent(lv_event_t *event)
         // instance->enableHW(value);
         instance->Manager->Pop(); //crash
     }
+
 }

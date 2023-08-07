@@ -316,7 +316,7 @@ int daplink_start(void)
     {
         vTaskDelete(xHandle_DAPLink);
     }
-    xTaskCreatePinnedToCore(daplink_task, "DAPLink task", 1024 * 3, NULL, 3, xHandle_DAPLink, 0);
+    xTaskCreate(daplink_task, "DAPLink task", 1024 * 3, NULL, 3, xHandle_DAPLink);
     return 1;
 }
 
