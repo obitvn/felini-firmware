@@ -10,9 +10,22 @@ static void onTimer(Account* account)
 
 static int onEvent(Account* account, Account::EventParam_t* param)
 {
-
-    printf("DAP App call Hardware \r\n");
-    HAL::DAPLink_Init();
+    if (param->event == Account::EVENT_NOTIFY)
+    {
+        uint8_t data_val[12];
+        memcpy(param->data_p, &data_val, param->size);
+        printf("DAP App call Hardware value %d %s\r\n", data_val[0], data_val);
+        if(data_val[0] == 9)
+        {
+            HAL::DAPLink_Init();
+        }
+        else if(data_val[0] == 32)
+        {
+            HAL::DAPLink_Denit();
+        }
+    }
+    
+    // HAL::DAPLink_Init();
     return 0;
 }
 

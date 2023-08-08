@@ -44,6 +44,8 @@ extern "C"
         HAL::HAL_Init();
         App_Init();
 
+        // daplink_start();
+
     // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
     // heap_caps_print_heap_info(MALLOC_CAP_DMA);
 

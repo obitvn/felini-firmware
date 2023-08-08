@@ -288,7 +288,7 @@ static void daplink_task(void *pvParameter)
 
     dap_gpio_init();
     usbd_initialize();
-    printf("init!\n");
+    // printf("init!\n");
 
     while (!usb_device_is_configured())
     {
@@ -296,7 +296,7 @@ static void daplink_task(void *pvParameter)
         vTaskDelay(100);
     }
 
-    printf("Config done!\n");
+    // printf("Config done!\n");
 
     while (1)
     {
@@ -316,13 +316,13 @@ int daplink_start(void)
     {
         vTaskDelete(xHandle_DAPLink);
     }
-    xTaskCreate(daplink_task, "DAPLink task", 1024 * 3, NULL, 3, xHandle_DAPLink);
+    xTaskCreate(daplink_task, "DAPLink task", 1024 * 2, NULL, 5, xHandle_DAPLink);
     return 1;
 }
 
 int daplink_stop(void)
 {
-    printf("Delete DAPLink task!\n");
+    // printf("Delete DAPLink task!\n");
     if (xHandle_DAPLink != NULL)
     {
         vTaskDelete(xHandle_DAPLink);

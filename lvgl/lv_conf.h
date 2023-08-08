@@ -87,18 +87,28 @@
 
 /*Use a custom tick source that tells the elapsed time in milliseconds.
  *It removes the need to manually update the tick with `lv_tick_inc()`)*/
-#define LV_TICK_CUSTOM 0
-#if LV_TICK_CUSTOM
-    #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
-    #define LV_TICK_CUSTOM_SYS_TIME_EXPR (millis())    /*Expression evaluating to current system time in ms*/
-    /*If using lvgl as ESP32 component*/
-    // #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
-    // #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
-#endif   /*LV_TICK_CUSTOM*/
-
+#ifdef CONFIG_IDF_TARGET_ESP32S3
+    #define LV_TICK_CUSTOM 0
+    #if LV_TICK_CUSTOM
+        // #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
+        // #define LV_TICK_CUSTOM_SYS_TIME_EXPR (millis())    /*Expression evaluating to current system time in ms*/
+        /*If using lvgl as ESP32 component*/
+        #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
+        #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
+    #endif   /*LV_TICK_CUSTOM*/
+#elif
+    #define LV_TICK_CUSTOM 0
+    #if LV_TICK_CUSTOM
+        #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/
+        #define LV_TICK_CUSTOM_SYS_TIME_EXPR (millis())    /*Expression evaluating to current system time in ms*/
+        /*If using lvgl as ESP32 component*/
+        // #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
+        // #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
+    #endif   /*LV_TICK_CUSTOM*/
+#endif
 /*Default Dot Per Inch. Used to initialize default sizes such as widgets sized, style paddings.
  *(Not so important, you can adjust it to modify default sizes and spaces)*/
-#define LV_DPI_DEF 130     /*[px/inch]*/
+#define LV_DPI_DEF 218     /*[px/inch]*/
 
 /*=======================
  * FEATURE CONFIGURATION
@@ -232,7 +242,7 @@
  *-----------*/
 
 /*Enable the log module*/
-#define LV_USE_LOG 0
+#define LV_USE_LOG 1
 #if LV_USE_LOG
 
     /*How important log should be added:
@@ -281,7 +291,7 @@
  *-----------*/
 
 /*1: Show CPU usage and FPS count*/
-#define LV_USE_PERF_MONITOR 0
+#define LV_USE_PERF_MONITOR 1
 #if LV_USE_PERF_MONITOR
     #define LV_USE_PERF_MONITOR_POS LV_ALIGN_LEFT_MID
 #endif
