@@ -64,6 +64,7 @@ namespace HAL
         uint16_t baudrate;
         uint8_t status;
         bool connect;
+        bool running;
     } DAPLink_Info_t;
 }
 

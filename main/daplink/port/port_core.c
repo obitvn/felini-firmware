@@ -21,10 +21,10 @@ void dap_platform_init(void)
 
 void dap_gpio_init(void)
 {
-    gpio_write(LED_CONNECTED, 1U);
-    gpio_write(LED_RUNNING, 1U);
-    gpio_set_mode(LED_CONNECTED, GPIO_OUTPUT_MODE);
-    gpio_set_mode(LED_RUNNING, GPIO_OUTPUT_MODE);
+    // gpio_write(LED_CONNECTED, 1U);
+    // gpio_write(LED_RUNNING, 1U);
+    // gpio_set_mode(LED_CONNECTED, GPIO_OUTPUT_MODE);
+    // gpio_set_mode(LED_RUNNING, GPIO_OUTPUT_MODE);
 }
 
 void dap_uart_send_from_ringbuff(void)
@@ -55,7 +55,7 @@ static void rx_task(void *arg)
     esp_log_level_set(RX_TASK_TAG, ESP_LOG_INFO);
     int rxBytes = 0;
     size_t buffered_len;
-    ESP_LOGI(RX_TASK_TAG, "Read UART\r\n");
+    ESP_LOGI(RX_TASK_TAG, "Read UART task\r\n");
 
     uint8_t *data = (uint8_t *)malloc(BUF_SIZE + 1);
     while (1)
@@ -66,7 +66,7 @@ static void rx_task(void *arg)
             uart_read_bytes(UART_NUM_1, data, buffered_len, 20 / portTICK_PERIOD_MS); 
             ring_buffer_queue_arr(&uart_ring_buffer, (const char *)data, buffered_len);
             ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
-            // ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
+            ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
         }
         vTaskDelay(1);
     }
@@ -99,11 +99,35 @@ void dap_uart_config(uint32_t baudrate, uint8_t databits, uint8_t parity, uint8_
 
     uart_driver_install(UART_NUM_1, uart_buffer_size, uart_buffer_size, 10, NULL, intr_alloc_flags);
     uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_pin(UART_NUM_1, 8, 9, 40, 41);
+    uart_set_pin(UART_NUM_1, DAP_UART_TX, DAP_UART_RX, -1, -1);
 
     if(uart_task_handle != NULL)
     {
         vTaskDelete(uart_task_handle);
+        uart_task_handle = NULL;
     }
     xTaskCreate(rx_task, "uart_rx_task", 1024 * 8, NULL, 10, uart_task_handle);
+}
+
+uint32_t led_connect_val=0;
+uint32_t led_runnning_val = 0;
+
+void set_led_connect(uint32_t bit)
+{
+    led_connect_val = bit;
+}
+
+void set_led_running(uint32_t bit)
+{
+    led_runnning_val = bit;
+}
+
+uint32_t get_led_connect(void)
+{
+    return led_connect_val;
+}
+
+uint32_t get_led_running(void)
+{
+    return led_runnning_val;
 }

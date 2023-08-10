@@ -27,10 +27,19 @@
 #define LED_CONNECTED               GPIO_NUM_41
 #define LED_RUNNING                 GPIO_NUM_42
 
+#define DAP_UART_TX                 GPIO_NUM_8
+#define DAP_UART_RX                 GPIO_NUM_9
+
 #define DAP_CPU_CLOCK 0U
 
 void dap_platform_init(void);
 void dap_gpio_init(void);
+
+void set_led_connect(uint32_t bit);
+void set_led_running(uint32_t bit);
+uint32_t get_led_connect(void);
+uint32_t get_led_running(void);
+
 
 static inline uint32_t dap_get_time_stamp(void)
 {

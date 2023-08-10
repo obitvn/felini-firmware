@@ -322,12 +322,23 @@ int daplink_start(void)
 
 int daplink_stop(void)
 {
+     usbd_deinitialize();
     // printf("Delete DAPLink task!\n");
     if (xHandle_DAPLink != NULL)
     {
         vTaskDelete(xHandle_DAPLink);
     }
     return 1;
+}
+
+uint32_t is_daplink_connect(void)
+{
+    return (get_led_connect())  ? 1 : 0;
+}
+
+uint32_t is_daplink_running(void)
+{
+    return (get_led_running()) ? 1 : 0;
 }
 
 /************************ (C) COPYRIGHT 2021 LiGuo *****END OF FILE*************/

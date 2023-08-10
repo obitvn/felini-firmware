@@ -31,6 +31,7 @@
 #define __DAP_CONFIG_H__
 
 #include <stdint.h>
+#include <stdio.h>
 #include "port_common.h"
 
 
@@ -547,7 +548,9 @@ It is recommended to provide the following LEDs for status indication:
 */
 __STATIC_INLINE void LED_CONNECTED_OUT(uint32_t bit)
 {
-    gpio_write(LED_CONNECTED, !bit);
+    // gpio_write(LED_CONNECTED, !bit);
+    // printf("led conneted %lu\r\n", bit);
+    set_led_connect(bit);
 }
 
 /** Debug Unit: Set status Target Running LED.
@@ -557,7 +560,9 @@ __STATIC_INLINE void LED_CONNECTED_OUT(uint32_t bit)
 */
 __STATIC_INLINE void LED_RUNNING_OUT(uint32_t bit)
 {
-    gpio_write(LED_RUNNING, !bit);
+    // gpio_write(LED_RUNNING, !bit);
+    // printf("led running out %lu \r\n", bit);
+    set_led_running(bit);
 }
 
 ///@}

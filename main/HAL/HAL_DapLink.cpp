@@ -14,7 +14,8 @@ void HAL::DAPLink_GetInfo(DAPLink_Info_t *info)
 {
     info->baudrate = 921600;
     info->status = 12;
-    info->connect = 1;
+    info->connect = is_daplink_connect();
+    info->running = is_daplink_running();
 }
 
 void HAL::DAPLink_Denit()
