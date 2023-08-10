@@ -62,7 +62,7 @@ void lv_port_disp_init(void)
     disp_drv.flush_cb = disp_flush;
     disp_drv.hor_res = LV_HOR_RES_MAX;
     disp_drv.ver_res = LV_VER_RES_MAX;
-    // disp_drv.full_refresh = 1;
+    disp_drv.full_refresh = 1;
     lv_disp_drv_register(&disp_drv);
 
     // heap_caps_dump_all();

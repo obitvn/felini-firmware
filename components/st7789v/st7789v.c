@@ -293,15 +293,16 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
                    void *color_map) {
   static uint32_t transfer_num = 0;
   spi_transaction_t *rtrans;
-  // Get the result of the last transfer果
-  for (int x = 0; x < transfer_num; x++) {
-    esp_err_t ret = spi_device_get_trans_result(spi, &rtrans, portMAX_DELAY);
-    if (ret != ESP_OK) {
-      ESP_LOGW(TAG, "1. transfer_num = %lu", transfer_num);
-    }
-    assert(ret == ESP_OK);
-  }
-  transfer_num = 0;
+
+    // Get the result of the last transfer果
+    // for (int x = 0; x < transfer_num; x++) {
+    //   esp_err_t ret = spi_device_get_trans_result(spi, &rtrans, portMAX_DELAY);
+    //   if (ret != ESP_OK) {
+    //     ESP_LOGW(TAG, "1. transfer_num = %lu", transfer_num);
+    //   }
+    //   assert(ret == ESP_OK);
+    // }
+    // transfer_num = 0;
 
 #if defined(CONFIG_ST7789V_ORIENTATION_0) || \
     defined(CONFIG_ST7789V_ORIENTATION_180)
@@ -380,7 +381,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   //Queue all transactions.
   for (int i = 0; i < chunk_total; i++) {
     for (int x = 0; x < 6; x++) {
-      esp_err_t ret = spi_device_queue_trans(spi, &trans[i][x], 100);
+      esp_err_t ret = spi_device_transmit(spi, &trans[i][x]);
       assert(ret == ESP_OK);
       // ESP_LOGW(TAG, "+");
       transfer_num++;
