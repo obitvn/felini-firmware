@@ -19,13 +19,13 @@ void DAPLink::onCustomAttrConfig()
 
 void DAPLink::onViewLoad()
 {
-    // Model.DAPCommand(12); // crash
+    
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
 
     AttachEvent(View.switch_cont);
-    
+    Model.DAPCommand(12); // crash
 }
 
 void DAPLink::onViewDidLoad()
@@ -54,7 +54,7 @@ void DAPLink::onViewDidDisappear()
 
 void DAPLink::onViewDidUnload()
 {
-    // Model.DAPCommand(6);
+    Model.DAPCommand(6);
     View.Delete();
     Model.Deinit();
 }

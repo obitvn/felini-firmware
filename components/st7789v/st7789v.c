@@ -294,6 +294,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   static uint32_t transfer_num = 0;
   spi_transaction_t *rtrans;
 
+
     // Get the result of the last transfer果
     // for (int x = 0; x < transfer_num; x++) {
     //   esp_err_t ret = spi_device_get_trans_result(spi, &rtrans, portMAX_DELAY);
