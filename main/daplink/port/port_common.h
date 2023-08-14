@@ -24,8 +24,8 @@
 #define PIN_TDI                     GPIO_NUM_6
 #define PIN_TDO                     GPIO_NUM_7
 #define PIN_nRESET                  GPIO_NUM_1
-#define LED_CONNECTED               GPIO_NUM_41
-#define LED_RUNNING                 GPIO_NUM_42
+// #define LED_CONNECTED               GPIO_NUM_41
+// #define LED_RUNNING                 GPIO_NUM_42
 
 #define DAP_UART_TX                 GPIO_NUM_8
 #define DAP_UART_RX                 GPIO_NUM_9

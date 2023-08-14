@@ -12,14 +12,16 @@ AnalogViewer::~AnalogViewer()
 {
 }
 
-void AnalogViewer::onCustomAttrConfig()
+void AnalogViewer::onCustomAttrConfig() //run at install
 {
-    
+    SetCustomCacheEnable(false);
+
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 200, lv_anim_path_bounce);
 }
 
 void AnalogViewer::onViewLoad()
 {
-    StatusBar::Appear(false);
+    StatusBar::Appear(true);
     Model.Init();
     View.Create(root);
 

@@ -11,6 +11,10 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     lv_obj_t *ui_ArcServo = lv_arc_create(root);
+    lv_arc_set_angles(ui_ArcServo, 0, 180);
+    lv_arc_set_rotation(ui_ArcServo, 0);
+    lv_arc_set_range(ui_ArcServo, 0 , 180);
+
     lv_obj_set_width(ui_ArcServo, 170);
     lv_obj_set_height(ui_ArcServo, 170);
     lv_obj_set_x(ui_ArcServo, -4);
@@ -23,7 +27,9 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_ServoAngle, -8);
     lv_obj_set_y(ui_ServoAngle, -29);
     lv_obj_set_align(ui_ServoAngle, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_ServoAngle, "160");
+    // lv_label_set_text(ui_ServoAngle, "160");
+    uint16_t valu = 98;
+    lv_label_set_text_fmt(ui_ServoAngle, "%d", valu);
     lv_obj_set_style_text_color(ui_ServoAngle, lv_color_hex(0x079DF9), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_ServoAngle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_ServoAngle, ResourcePool::GetFont("alibabasans_regular_48"), LV_PART_MAIN | LV_STATE_DEFAULT);

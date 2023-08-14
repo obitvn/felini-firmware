@@ -96,7 +96,7 @@
         #define LV_TICK_CUSTOM_INCLUDE "esp_timer.h"
         #define LV_TICK_CUSTOM_SYS_TIME_EXPR ((esp_timer_get_time() / 1000LL))
     #endif   /*LV_TICK_CUSTOM*/
-#elif
+#else
     #define LV_TICK_CUSTOM 0
     #if LV_TICK_CUSTOM
         #define LV_TICK_CUSTOM_INCLUDE "Arduino.h"         /*Header for the system time function*/

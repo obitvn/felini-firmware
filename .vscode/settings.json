@@ -8,7 +8,8 @@
         "string_view": "cpp",
         "format": "cpp",
         "initializer_list": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "inttypes.h": "c"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

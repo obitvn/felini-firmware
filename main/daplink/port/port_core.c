@@ -68,7 +68,7 @@ static void rx_task(void *arg)
             ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
             ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
         }
-        vTaskDelay(1);
+            vTaskDelay(1);
     }
     free(data);
 }

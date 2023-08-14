@@ -16,7 +16,7 @@ void AnalogViewerView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_AppLabel, -72);
     lv_obj_set_y(ui_AppLabel, -89);
     lv_obj_set_align(ui_AppLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_AppLabel, "ADC");
+    lv_label_set_text(ui_AppLabel, "12.3V");
     lv_obj_set_style_text_color(ui_AppLabel, lv_color_hex(0x02DBF8), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_AppLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_AppLabel, ResourcePool::GetFont("alibabasans_regular_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -27,7 +27,7 @@ void AnalogViewerView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_VoltMax, 36);
     lv_obj_set_y(ui_VoltMax, -101);
     lv_obj_set_align(ui_VoltMax, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_VoltMax, "10.145 mV");
+    lv_label_set_text(ui_VoltMax, "Analog");
     lv_obj_set_style_text_color(ui_VoltMax, lv_color_hex(0xFB0A0A), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_VoltMax, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_VoltMax, ResourcePool::GetFont("alibabasans_regular_16"), LV_PART_MAIN | LV_STATE_DEFAULT);

@@ -20,7 +20,6 @@ void AppInfos::onCustomAttrConfig()
 
 void AppInfos::onViewLoad()
 {
-
     Model.Init();
     View.Create(root);
     AttachEvent(root);
@@ -135,6 +134,15 @@ void AppInfos::onEvent(lv_event_t* event)
                 instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
             }
         }
+    }
+
+    
+
+    if (code == LV_EVENT_GESTURE)
+    {
+        printf("geasure\r\n");
+        lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+        printf("Dir: %d\n", dir);
     }
 
     if (obj == instance->root)
