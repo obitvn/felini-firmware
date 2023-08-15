@@ -24,6 +24,11 @@ void AppInfos::onViewLoad()
     View.Create(root);
     AttachEvent(root);
 
+    lv_obj_set_user_data(root, this);
+    lv_obj_add_event_cb(root, onEvent, LV_EVENT_GESTURE, this);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
+
     AppInfosView::item_t* item_grp = ((AppInfosView::item_t*)&View.ui);
 
     for (int i = 0; i < sizeof(View.ui) / sizeof(AppInfosView::item_t); i++)
@@ -88,6 +93,15 @@ void AppInfos::Update()
  
 }
 
+void AppInfos::onFoucusUp()
+{
+    View.SetFocus(-1);
+}
+void AppInfos::onFoucusDown()
+{
+    View.SetFocus(1);
+}
+
 void AppInfos::onTimerUpdate(lv_timer_t* timer)
 {
     AppInfos* instance = (AppInfos*)timer->user_data;
@@ -103,23 +117,6 @@ void AppInfos::onEvent(lv_event_t* event)
     lv_obj_t* obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
-    // if (code == LV_EVENT_PRESSED)
-    // {
-    //     if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
-    //     {
-    //         // instance->Manager->Pop();
-    //         printf("LV_STATE_FOCUSED\r\n");
-    //     }
-    // }
-
-    // if (obj == instance->root)
-    // {
-    //     if (code == LV_EVENT_LEAVE)
-    //     {
-    //         printf("LV_EVENT_LEAVE\r\n");
-    //         // instance->Manager->Pop();
-    //     }
-    // }
 
     AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
     
@@ -136,21 +133,19 @@ void AppInfos::onEvent(lv_event_t* event)
         }
     }
 
-    
-
-    if (code == LV_EVENT_GESTURE)
+    if (obj == instance->root) // for touch
     {
-        printf("geasure\r\n");
-        lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
-        printf("Dir: %d\n", dir);
-    }
-
-    if (obj == instance->root)
-    {
-        if (code == LV_EVENT_LEAVE)
+        if (LV_EVENT_GESTURE == code)
         {
-            // printf("LV_EVENT_LEAVE\r\n");
-            instance->Manager->Pop();
+            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+            if (LV_DIR_TOP == dir)
+            {
+                instance->onFoucusUp();
+            }
+            if (LV_DIR_BOTTOM == dir)
+            {
+                instance->onFoucusDown();
+            }
         }
     }
 }

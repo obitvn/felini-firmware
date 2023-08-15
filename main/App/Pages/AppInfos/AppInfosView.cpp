@@ -129,9 +129,11 @@ void AppInfosView::Create(lv_obj_t* root)
     Group_Init();
 }
 
+
+
 void AppInfosView::Group_Init()
 {
-    lv_group_t* group = lv_group_get_default();
+    lv_group_t *group = lv_group_get_default();
     lv_group_set_wrap(group, true);
     lv_group_set_focus_cb(group, onFocus);
 
@@ -144,6 +146,20 @@ void AppInfosView::Group_Init()
     }
 
     lv_group_focus_obj(item_grp[0].icon);
+}
+
+
+void AppInfosView::SetFocus(int dir)
+{
+    lv_group_t *group = lv_group_get_default();
+    if(dir > 0)
+    {
+        lv_group_focus_next(group);
+    }
+    else
+    {
+        lv_group_focus_prev(group);
+    }
 }
 
 void AppInfosView::Delete()

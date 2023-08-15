@@ -38,9 +38,9 @@ public:
 
     void SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en);
     static void onFocus(lv_group_t* e);
+    void SetFocus(int dir);
 
-private:
-    struct
+    private : struct
     {
         lv_style_t icon;
         lv_style_t focus;

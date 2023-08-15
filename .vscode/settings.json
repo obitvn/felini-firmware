@@ -9,7 +9,8 @@
         "format": "cpp",
         "initializer_list": "cpp",
         "span": "cpp",
-        "inttypes.h": "c"
+        "inttypes.h": "c",
+        "optional": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",
