@@ -23,9 +23,7 @@ void ServoCtrl::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    // AttachEvent(View.scroll_panel.cont);
-
-
+    AttachEvent(root);
 }
 
 void ServoCtrl::onViewDidLoad()
@@ -60,10 +58,10 @@ void ServoCtrl::onViewDidUnload()
 
 void ServoCtrl::AttachEvent(lv_obj_t *obj)
 {
-    // lv_obj_set_user_data(obj, this);
-    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_user_data(obj, this);
+    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 void ServoCtrl::Update()
@@ -81,20 +79,19 @@ void ServoCtrl::onTimer(lv_timer_t *timer)
 
 void ServoCtrl::onEvent(lv_event_t *event)
 {
-
-    ServoCtrl *instance = (ServoCtrl *)lv_event_get_user_data(event);
-    LV_ASSERT_NULL(instance);
-
-
-    lv_obj_t *obj = lv_event_get_current_target(event);
+    lv_obj_t *obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
+    ServoCtrl *instance = (ServoCtrl *)lv_obj_get_user_data(obj);
 
     if (obj == instance->root)
     {
-        if (code == LV_EVENT_LONG_PRESSED)
+        if (LV_EVENT_GESTURE == code)
         {
-            // printf("LV_EVENT_LEAVE\r\n");
-            instance->Manager->Pop();
+            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+            if (LV_DIR_TOP == dir)
+            {
+                instance->Manager->Pop();
+            }
         }
     }
 }

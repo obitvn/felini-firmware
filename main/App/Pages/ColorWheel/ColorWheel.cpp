@@ -23,9 +23,7 @@ void ColorWheel::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    // AttachEvent(View.scroll_panel.cont);
-
-
+    AttachEvent(root);
 }
 
 void ColorWheel::onViewDidLoad()
@@ -60,10 +58,10 @@ void ColorWheel::onViewDidUnload()
 
 void ColorWheel::AttachEvent(lv_obj_t *obj)
 {
-    // lv_obj_set_user_data(obj, this);
-    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_user_data(obj, this);
+    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 void ColorWheel::Update()
@@ -82,13 +80,19 @@ void ColorWheel::onTimer(lv_timer_t *timer)
 void ColorWheel::onEvent(lv_event_t *event)
 {
 
-    // ColorWheel *instance = (ColorWheel *)lv_event_get_user_data(event);
-    // LV_ASSERT_NULL(instance);
+    lv_obj_t *obj = lv_event_get_target(event);
+    lv_event_code_t code = lv_event_get_code(event);
+    ColorWheel *instance = (ColorWheel *)lv_obj_get_user_data(obj);
 
-
-    // lv_obj_t *obj = lv_event_get_current_target(event);
-    // lv_event_code_t code = lv_event_get_code(event);
-
-
-
+    if (obj == instance->root)
+    {
+        if (LV_EVENT_GESTURE == code)
+        {
+            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+            if (LV_DIR_TOP == dir)
+            {
+                instance->Manager->Pop();
+            }
+        }
+    }
 }

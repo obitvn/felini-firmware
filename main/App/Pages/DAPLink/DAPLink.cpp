@@ -23,8 +23,8 @@ void DAPLink::onViewLoad()
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
-
-    AttachEvent(View.switch_cont);
+    AttachEvent(root);
+    // AttachEvent(View.switch_cont);
     Model.DAPCommand(12); // crash
 }
 
@@ -62,10 +62,10 @@ void DAPLink::onViewDidUnload()
 
 void DAPLink::AttachEvent(lv_obj_t *obj)
 {
-    // lv_obj_set_user_data(obj, this);
-    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
-    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_user_data(obj, this);
+    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 void DAPLink::Update()
@@ -90,23 +90,19 @@ void DAPLink::enableHW(int value)
 void DAPLink::onEvent(lv_event_t *event)
 {
 
-    DAPLink *instance = (DAPLink *)lv_event_get_user_data(event);
-    LV_ASSERT_NULL(instance);
-    lv_obj_t *obj = lv_event_get_current_target(event);
+    lv_obj_t *obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
+    DAPLink *instance = (DAPLink *)lv_obj_get_user_data(obj);
 
-    // if (code == LV_EVENT_PRESSED)
-    // {
-    //     // printf("LV_EVENT_PRESSED\r\n");
-    //     instance->Manager->Pop();
-    // }
-
-    if (code == LV_EVENT_VALUE_CHANGED)
+    if (obj == instance->root)
     {
-        // value++;
-        printf("State changed\n");
-        // instance->enableHW(value);
-        instance->Manager->Pop(); //crash
+        if (LV_EVENT_GESTURE == code)
+        {
+            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+            if (LV_DIR_TOP == dir)
+            {
+                instance->Manager->Pop();
+            }
+        }
     }
-
 }
