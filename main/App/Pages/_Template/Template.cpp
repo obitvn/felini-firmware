@@ -14,6 +14,10 @@ Template::~Template()
 
 void Template::onCustomAttrConfig()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+
+
+
     SetCustomCacheEnable(true);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_RIGHT, 600, lv_anim_path_bounce);
 }

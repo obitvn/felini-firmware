@@ -13,6 +13,10 @@ MenuList::~MenuList()
 
 void MenuList::onCustomAttrConfig()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+
+
+
     SetCustomCacheEnable(false);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
@@ -67,6 +71,7 @@ void MenuList::onViewDidDisappear()
 void MenuList::onViewDidUnload()
 {
     Model.Deinit();
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
     View.Delete();
 }
 
@@ -154,7 +159,7 @@ void MenuList::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSING)
         {
             printf("home\r\n");
-            instance->Manager->BackHome(); // về home
+            instance->Manager->Pop(); // về home
         }
     }
 

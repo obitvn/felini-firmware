@@ -14,6 +14,10 @@ AppInfos::~AppInfos()
 
 void AppInfos::onCustomAttrConfig()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+
+
+
     SetCustomCacheEnable(false);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
@@ -74,6 +78,7 @@ void AppInfos::onViewDidDisappear()
 
 void AppInfos::onViewUnload()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }

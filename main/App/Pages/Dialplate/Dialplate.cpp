@@ -14,6 +14,10 @@ Dialplate::~Dialplate()
 
 void Dialplate::onCustomAttrConfig()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+
+
+
     
 }
 
@@ -58,6 +62,7 @@ void Dialplate::onViewDidDisappear()
 
 void Dialplate::onViewDidUnload()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }

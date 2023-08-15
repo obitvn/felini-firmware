@@ -14,6 +14,10 @@ IICDiscovery::~IICDiscovery()
 
 void IICDiscovery::onCustomAttrConfig()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+
+
+
     
 }
 
@@ -52,6 +56,7 @@ void IICDiscovery::onViewDidDisappear()
 
 void IICDiscovery::onViewDidUnload()
 {
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }
