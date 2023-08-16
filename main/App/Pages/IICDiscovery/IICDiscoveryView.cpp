@@ -19,7 +19,7 @@ void IICDiscoveryView::Create(lv_obj_t *root)
     lv_label_set_text(ui_IICAddress, "0x23");
     lv_obj_set_style_text_color(ui_IICAddress, lv_color_hex(0xF80505), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_IICAddress, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_IICAddress, ResourcePool::GetFont("alibabasans_regular_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IICAddress, ResourcePool::GetFont("sf_compact_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_BarScanProgess = lv_bar_create(root);
     lv_bar_set_value(ui_BarScanProgess, 25, LV_ANIM_OFF);
@@ -40,7 +40,7 @@ void IICDiscoveryView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_Status, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_PinMapIMG = lv_img_create(root);
-    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("sd_card"));
+    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pin_i2c"));
     lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_PinMapIMG, 17);

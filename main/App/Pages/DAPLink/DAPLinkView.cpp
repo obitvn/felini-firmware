@@ -19,7 +19,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_label_set_text(ui_Label1, "DAPLink");
     lv_obj_set_style_text_color(ui_Label1, lv_color_hex(0xFF6610), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label1, &lv_font_montserrat_40, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label1, ResourcePool::GetFont("sf_compact_42"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Label2 = lv_label_create(root);
     lv_obj_set_width(ui_Label2, LV_SIZE_CONTENT);  /// 1
@@ -30,7 +30,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_label_set_text(ui_Label2, "USB Connected");
     lv_obj_set_style_text_color(ui_Label2, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label2, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Image1 = lv_img_create(root);
     lv_img_set_src(ui_Image1, ResourcePool::GetImage("dap_connected"));
@@ -79,7 +79,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_label_set_text(ui_Label3, "SWD");
     lv_obj_set_style_text_color(ui_Label3, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label3, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label3, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label3, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *pindaplinkObj = lv_img_create(root);
     lv_img_set_src(pindaplinkObj, ResourcePool::GetImage("pin_daplink"));
@@ -101,7 +101,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_label_set_text(ui_Label4, "connection pins is row 2");
     lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFB0808), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label4, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label4, ResourcePool::GetFont("sf_compact_14"), LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 

@@ -225,16 +225,16 @@ void AppInfosView::onFocus(lv_group_t* g)
 void AppInfosView::Style_Init()
 {
     lv_style_init(&style.icon);
-    lv_style_set_width(&style.icon, 260);
+    lv_style_set_width(&style.icon, 270);
     lv_style_set_bg_color(&style.icon, lv_color_black());
     lv_style_set_bg_opa(&style.icon, LV_OPA_COVER);
-    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("sf_compact_22"));
+    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("sf_compact_medium_22"));
     lv_style_set_text_color(&style.icon, lv_color_white());
 
     lv_style_init(&style.focus);
-    lv_style_set_width(&style.focus, 95);
+    lv_style_set_width(&style.focus, 90);
     lv_style_set_border_side(&style.focus, LV_BORDER_SIDE_RIGHT);
-    lv_style_set_border_width(&style.focus, 3);
+    lv_style_set_border_width(&style.focus, 2);
     lv_style_set_border_color(&style.focus, lv_color_hex(0x0098fe));
 
     static const lv_style_prop_t style_prop[] =
@@ -256,11 +256,11 @@ void AppInfosView::Style_Init()
     lv_style_set_transition(&style.icon, &trans);
 
     lv_style_init(&style.info);
-    lv_style_set_text_font(&style.info, ResourcePool::GetFont("sf_compact_16"));
+    lv_style_set_text_font(&style.info, ResourcePool::GetFont("sf_compact_17"));
     lv_style_set_text_color(&style.info, lv_color_hex(0x999999));
 
     lv_style_init(&style.data);
-    lv_style_set_text_font(&style.data, ResourcePool::GetFont("sf_compact_16"));
+    lv_style_set_text_font(&style.data, ResourcePool::GetFont("sf_compact_17"));
     lv_style_set_text_color(&style.data, lv_color_white());
 }
 
@@ -322,7 +322,7 @@ void AppInfosView::Item_Create(
     lv_obj_enable_style_refresh(false);
     lv_label_set_text(label, infos);
     lv_obj_add_style(label, &style.info, 0);
-    lv_obj_align(label, LV_ALIGN_LEFT_MID, 115, 0);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 110, 0);
     item->labelInfo = label;
 
     // /* datas */

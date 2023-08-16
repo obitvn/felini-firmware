@@ -32,7 +32,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_label_set_text_fmt(ui_ServoAngle, "%d", valu);
     lv_obj_set_style_text_color(ui_ServoAngle, lv_color_hex(0x079DF9), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_ServoAngle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_ServoAngle, ResourcePool::GetFont("alibabasans_regular_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_ServoAngle, ResourcePool::GetFont("sf_compact_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_TitleApp = lv_label_create(root);
     lv_obj_set_width(ui_TitleApp, LV_SIZE_CONTENT);  /// 1
@@ -43,7 +43,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_label_set_text(ui_TitleApp, "Servo\ncontroler");
     lv_obj_set_style_text_color(ui_TitleApp, lv_color_hex(0xEAF3F4), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_TitleApp, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_TitleApp, ResourcePool::GetFont("alibabasans_regular_17"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TitleApp, ResourcePool::GetFont("sf_compact_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_PinMap = lv_label_create(root);
     lv_obj_set_width(ui_PinMap, LV_SIZE_CONTENT);  /// 1
@@ -66,7 +66,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_Title, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_PinMapIMG = lv_img_create(root);
-    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pinmap_servo"));
+    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pin_servoch"));
     lv_img_set_zoom(ui_PinMapIMG, 280);
     lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1

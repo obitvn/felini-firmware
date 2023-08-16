@@ -58,6 +58,7 @@ extern "C"
         IMPORT_FONT(sf_compact_42);
         IMPORT_FONT(sf_compact_48);
 
+        IMPORT_FONT(sf_compact_medium_21);
         IMPORT_FONT(sf_compact_medium_22);
         IMPORT_FONT(sf_compact_medium_23);
         IMPORT_FONT(sf_compact_medium_24);
@@ -102,8 +103,16 @@ extern "C"
         IMPORT_IMG(pin_daplink);
         IMPORT_IMG(pin_color_wheel);
 
+        IMPORT_IMG(alt_ldown);
+        IMPORT_IMG(arrow_down);
+        IMPORT_IMG(pin_canbus);
+        IMPORT_IMG(pin_color_wheel);
+        IMPORT_IMG(pin_daplink);
+        IMPORT_IMG(pin_i2c);
+        IMPORT_IMG(pin_servoch);
+        IMPORT_IMG(pin_uart);
+        IMPORT_IMG(up_double);
 
-        
     }
 
 } /* extern "C" */

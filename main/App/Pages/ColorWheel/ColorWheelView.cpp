@@ -26,7 +26,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_label_set_text(ui_LabelAPP, "LED");
     lv_obj_set_style_text_color(ui_LabelAPP, lv_color_hex(0x079EFB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LabelAPP, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelAPP, ResourcePool::GetFont("alibabasans_regular_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LabelAPP, ResourcePool::GetFont("sf_compact_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_LabelAppTag = lv_label_create(root);
     lv_obj_set_width(ui_LabelAppTag, LV_SIZE_CONTENT);  /// 1
@@ -67,7 +67,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_label_set_text(ui_LabelPin, "LED DATA pin");
     lv_obj_set_style_text_color(ui_LabelPin, lv_color_hex(0xFDFDFD), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LabelPin, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelPin, ResourcePool::GetFont("alibabasans_regular_13"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LabelPin, ResourcePool::GetFont("sf_compact_14"), LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 
