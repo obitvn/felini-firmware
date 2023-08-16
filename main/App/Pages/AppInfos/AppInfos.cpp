@@ -143,7 +143,7 @@ void AppInfos::onEvent(lv_event_t* event)
         if (LV_EVENT_GESTURE == code)
         {
             lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
-            if (LV_DIR_TOP == dir)
+            if (LV_DIR_RIGHT == dir)
             {
                 instance->onFoucusUp();
             }

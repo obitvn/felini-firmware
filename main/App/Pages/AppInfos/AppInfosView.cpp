@@ -29,7 +29,7 @@ void AppInfosView::Create(lv_obj_t* root)
     /* Item Sport */
     Item_Create(
         "Pages/AnalogViewer",
-        &ui.sport,
+        &ui.analog,
         root,
         "ADC",
         "analog",
@@ -41,7 +41,7 @@ void AppInfosView::Create(lv_obj_t* root)
     /* Item GPS */
     Item_Create(
         "Pages/ColorWheel",
-        &ui.gps,
+        &ui.ledcolor,
         root,
         "LED",
         "color",
@@ -54,21 +54,21 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item MAG */
     Item_Create(
-        "Pages/HappyBirthday",
-        &ui.mag,
+        "Pages/IICDiscovery",
+        &ui.timekeeper,
         root,
-        "IMG",
-        "scan",
+        "Interval",
+        "clock",
 
-        "Compass\n"
-        "X\n"
-        "Y\n"
-        "Z");
+        "Signal duration \n"
+        "Get pulse\n"
+        "View delay\n"
+        "v1.2.2");
 
     /* Item IMU */
     Item_Create(
         "Pages/IICDiscovery",
-        &ui.imu,
+        &ui.i2cscan,
         root,
         "I2C",
         "i2cnetwork",
@@ -80,7 +80,7 @@ void AppInfosView::Create(lv_obj_t* root)
     /* Item RTC */
     Item_Create(
         "Pages/PowerSupply",
-        &ui.rtc,
+        &ui.powerpd,
         root,
         "Power",
         "power",
@@ -92,19 +92,19 @@ void AppInfosView::Create(lv_obj_t* root)
     /* Item Battery */
     Item_Create(
         "Pages/ServoCtrl",
-        &ui.battery,
+        &ui.ccpmservo,
         root,
         "Servo",
         "volang",
 
-        "Servo Testing\n"
-        "PwM generator\n"
-        "V1.24");
+        "CCPM Servo / ESC\n"
+        "Consistency Master\n"
+        "V1.0.0");
 
     /* Item Storage */
     Item_Create(
         "Pages/HappyBirthday",
-        &ui.storage,
+        &ui.uartter,
         root,
         "UART",
         "updown",
@@ -117,7 +117,7 @@ void AppInfosView::Create(lv_obj_t* root)
     /* Item System */
     Item_Create(
         "Pages/DAPLink",
-        &ui.system,
+        &ui.daplink,
         root,
         "DAPLink",
         "link",
@@ -125,6 +125,44 @@ void AppInfosView::Create(lv_obj_t* root)
         "DAP Link debugger\n"
         "V2.2.3\n"
         "USB UART\n");
+
+    /* Item System */
+    Item_Create(
+        "Pages/DAPLink",
+        &ui.usbcanbus,
+        root,
+        "CAN Bus",
+        "canbus",
+
+        "USB to CAN\n"
+        "CandleLight\n"
+        "V2.2.3\n"
+        "Socket CAN\n");
+
+    /* Item System */
+    Item_Create(
+        "Pages/DAPLink",
+        &ui.frequency,
+        root,
+        "Hertz",
+        "chip",
+
+        "Measure Frequency\n"
+        "Cycle\n"
+        "V2.2.3\n"
+        "Frequency counter\n");
+
+    /* Item System */
+    Item_Create(
+        "Pages/DAPLink",
+        &ui.imu,
+        root,
+        "IMU",
+        "box3d",
+
+        "IMU Sensor\n"
+        "3d Viewer\n"
+        "V2.2.3\n");
 
     Group_Init();
 }

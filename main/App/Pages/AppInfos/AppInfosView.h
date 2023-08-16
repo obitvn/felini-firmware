@@ -24,14 +24,17 @@ public:
 
     struct
     {
-        item_t sport;
-        item_t gps;
-        item_t mag;
+        item_t analog;
+        item_t ledcolor;
+        item_t timekeeper;
+        item_t i2cscan;
+        item_t powerpd;
+        item_t ccpmservo;
+        item_t uartter;
+        item_t daplink;
+        item_t usbcanbus;
+        item_t frequency;
         item_t imu;
-        item_t rtc;
-        item_t battery;
-        item_t storage;
-        item_t system;
     } ui;
 
 public:
