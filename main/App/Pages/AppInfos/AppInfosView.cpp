@@ -228,7 +228,7 @@ void AppInfosView::Style_Init()
     lv_style_set_width(&style.icon, 260);
     lv_style_set_bg_color(&style.icon, lv_color_black());
     lv_style_set_bg_opa(&style.icon, LV_OPA_COVER);
-    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("SFCompact22bpp8"));
+    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("sf_compact_22"));
     lv_style_set_text_color(&style.icon, lv_color_white());
 
     lv_style_init(&style.focus);
@@ -256,11 +256,11 @@ void AppInfosView::Style_Init()
     lv_style_set_transition(&style.icon, &trans);
 
     lv_style_init(&style.info);
-    lv_style_set_text_font(&style.info, ResourcePool::GetFont("SFCompact22bpp8"));
+    lv_style_set_text_font(&style.info, ResourcePool::GetFont("sf_compact_16"));
     lv_style_set_text_color(&style.info, lv_color_hex(0x999999));
 
     lv_style_init(&style.data);
-    lv_style_set_text_font(&style.data, ResourcePool::GetFont("SFCompact22bpp8"));
+    lv_style_set_text_font(&style.data, ResourcePool::GetFont("sf_compact_16"));
     lv_style_set_text_color(&style.data, lv_color_white());
 }
 

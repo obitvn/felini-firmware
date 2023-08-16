@@ -33,13 +33,34 @@ extern "C"
         /* Import Fonts */
         IMPORT_FONT(alibabasans_medium_36);
         IMPORT_FONT(alibabasans_regular_13);
+        IMPORT_FONT(alibabasans_regular_14);
         IMPORT_FONT(alibabasans_regular_17);
         IMPORT_FONT(alibabasans_regular_26);
+        IMPORT_FONT(alibabasans_regular_28);
         IMPORT_FONT(alibabasans_regular_32);
         IMPORT_FONT(alibabasans_regular_48);
         IMPORT_FONT(alibabasans_regular_60);
 
-        IMPORT_FONT(sfcompact_8);
+        IMPORT_FONT(sf_compact_12);
+        IMPORT_FONT(sf_compact_14);
+        IMPORT_FONT(sf_compact_15);
+        IMPORT_FONT(sf_compact_16);
+        IMPORT_FONT(sf_compact_17);
+        IMPORT_FONT(sf_compact_18);
+        IMPORT_FONT(sf_compact_20);
+        IMPORT_FONT(sf_compact_22);
+        IMPORT_FONT(sf_compact_24);
+        IMPORT_FONT(sf_compact_26);
+        IMPORT_FONT(sf_compact_28);
+        IMPORT_FONT(sf_compact_32);
+        IMPORT_FONT(sf_compact_34);
+        IMPORT_FONT(sf_compact_36);
+        IMPORT_FONT(sf_compact_42);
+        IMPORT_FONT(sf_compact_48);
+
+        IMPORT_FONT(sf_compact_medium_22);
+        IMPORT_FONT(sf_compact_medium_23);
+        IMPORT_FONT(sf_compact_medium_24);
 
         /* Import Images */
         IMPORT_IMG(alarm);
