@@ -31,8 +31,13 @@
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
-#include "HappyBirthday/HappyBirthday.h"
-#include "DAPLink/DAPLink.h"
+#include "Pages/HappyBirthday/HappyBirthday.h"
+#include "Pages/DAPLink/DAPLink.h"
+#include "Pages/Interval/Interval.h"
+#include "Pages/UARTViewer/UARTViewer.h"
+#include "Pages/CandleLight/CandleLight.h"
+#include "Pages/Hertz/Hertz.h"
+#include "Pages/IMUSensor/IMUSensor.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -57,6 +62,11 @@ do{\
     APP_CLASS_MATCH(ColorWheel);
     APP_CLASS_MATCH(HappyBirthday);
     APP_CLASS_MATCH(DAPLink);
+    APP_CLASS_MATCH(Interval);
+    APP_CLASS_MATCH(UARTViewer);
+    APP_CLASS_MATCH(CandleLight);
+    APP_CLASS_MATCH(Hertz);
+    APP_CLASS_MATCH(IMUSensor);
 
     return nullptr;
 }

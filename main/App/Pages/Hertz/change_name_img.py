@@ -1,21 +1,24 @@
 import os
 
+lastname = "ColorWheel"
+replaceby = "Hertz"
+
 folder_path = "./"  # Đường dẫn đến thư mục chứa các tệp .c
 
 for filename in os.listdir(folder_path):
     if filename.endswith(".cpp"):
         file_path = os.path.join(folder_path, filename)
 
-        # Đọc nội dung tệp .cDialplate
+        # Đọc nội dung tệp .cIICDiscovery
         with open(file_path, 'r',  encoding="utf8") as file:
             content = file.read()
             
         # Thay thế chuỗi "ui_font" thành "font" trong tên file
-        new_filename = filename.replace("Dialplate", "IICDiscovery")
+        new_filename = filename.replace(lastname, replaceby)
 
         # Thay thế "#include "../ui.h"" bằng "#ifdef LV_LVGL_H_INCLUDE_SIMPLE\n#include "lvgl.h"\n#else\n#include "lvgl.h"\n#endif"
-        new_content = content.replace('Dialplate',
-                                       'IICDiscovery')
+        new_content = content.replace(lastname,
+                                       replaceby)
         # new_content = content.replace('ui_img',
         #                                'img_src')
 
@@ -32,11 +35,11 @@ for filename in os.listdir(folder_path):
             content = file.read()
 
         # Thay thế chuỗi "ui_font" thành "font" trong tên file
-        new_filename = filename.replace("Dialplate", "IICDiscovery")
+        new_filename = filename.replace(lastname, replaceby)
 
         # Thay thế "#include "../ui.h"" bằng "#ifdef LV_LVGL_H_INCLUDE_SIMPLE\n#include "lvgl.h"\n#else\n#include "lvgl.h"\n#endif"
-        new_content = content.replace('Dialplate',
-                                       'IICDiscovery')
+        new_content = content.replace(lastname,
+                                       replaceby)
         # new_content = content.replace('ui_img',
         #                                'img_src')
 

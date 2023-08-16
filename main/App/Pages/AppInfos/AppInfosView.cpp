@@ -54,7 +54,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item MAG */
     Item_Create(
-        "Pages/IICDiscovery",
+        "Pages/Interval",
         &ui.timekeeper,
         root,
         "Interval",
@@ -103,7 +103,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item Storage */
     Item_Create(
-        "Pages/HappyBirthday",
+        "Pages/UARTViewer",
         &ui.uartter,
         root,
         "UART",
@@ -128,7 +128,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item System */
     Item_Create(
-        "Pages/DAPLink",
+        "Pages/CandleLight",
         &ui.usbcanbus,
         root,
         "CAN Bus",
@@ -141,7 +141,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item System */
     Item_Create(
-        "Pages/DAPLink",
+        "Pages/Hertz",
         &ui.frequency,
         root,
         "Hertz",
@@ -154,7 +154,7 @@ void AppInfosView::Create(lv_obj_t* root)
 
     /* Item System */
     Item_Create(
-        "Pages/DAPLink",
+        "Pages/IMUSensor",
         &ui.imu,
         root,
         "IMU",

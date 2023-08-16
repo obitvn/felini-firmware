@@ -1,5 +1,8 @@
 import os
 
+lastname = "ColorWheel"
+replaceby = "Interval"
+
 folder_path = "./"  # Đường dẫn đến thư mục chứa các tệp .c
 
 for filename in os.listdir(folder_path):
@@ -11,11 +14,11 @@ for filename in os.listdir(folder_path):
             content = file.read()
             
         # Thay thế chuỗi "ui_font" thành "font" trong tên file
-        new_filename = filename.replace("IICDiscovery", "PowerSupply")
+        new_filename = filename.replace(lastname, replaceby)
 
         # Thay thế "#include "../ui.h"" bằng "#ifdef LV_LVGL_H_INCLUDE_SIMPLE\n#include "lvgl.h"\n#else\n#include "lvgl.h"\n#endif"
-        new_content = content.replace('IICDiscovery',
-                                       'PowerSupply')
+        new_content = content.replace(lastname,
+                                       replaceby)
         # new_content = content.replace('ui_img',
         #                                'img_src')
 
@@ -32,11 +35,11 @@ for filename in os.listdir(folder_path):
             content = file.read()
 
         # Thay thế chuỗi "ui_font" thành "font" trong tên file
-        new_filename = filename.replace("IICDiscovery", "PowerSupply")
+        new_filename = filename.replace(lastname, replaceby)
 
         # Thay thế "#include "../ui.h"" bằng "#ifdef LV_LVGL_H_INCLUDE_SIMPLE\n#include "lvgl.h"\n#else\n#include "lvgl.h"\n#endif"
-        new_content = content.replace('IICDiscovery',
-                                       'PowerSupply')
+        new_content = content.replace(lastname,
+                                       replaceby)
         # new_content = content.replace('ui_img',
         #                                'img_src')
 

@@ -30,12 +30,19 @@
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
 // #include "Pages/MenuList/MenuList.h"
+#include "IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
+#include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
 #include "Pages/HappyBirthday/HappyBirthday.h"
 #include "Pages/DAPLink/DAPLink.h"
+#include "Pages/Interval/Interval.h"
+#include "Pages/UARTViewer/UARTViewer.h"
+#include "Pages/CandleLight/CandleLight.h"
+#include "Pages/Hertz/Hertz.h"
+#include "Pages/IMUSensor/IMUSensor.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -101,6 +108,11 @@
     manager.Install("ColorWheel", "Pages/ColorWheel");
     manager.Install("HappyBirthday", "Pages/HappyBirthday");
     manager.Install("DAPLink", "Pages/DAPLink");
+    manager.Install("Interval", "Pages/Interval");
+    manager.Install("UARTViewer", "Pages/UARTViewer");
+    manager.Install("CandleLight", "Pages/CandleLight");
+    manager.Install("Hertz", "Pages/Hertz");
+    manager.Install("IMUSensor", "Pages/IMUSensor");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
