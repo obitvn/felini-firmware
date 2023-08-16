@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-with open(sys.argv[1], 'r') as file:
+with open(sys.argv[1], 'r', encoding="utf8") as file:
     s = file.read()
 
 b = bytearray()

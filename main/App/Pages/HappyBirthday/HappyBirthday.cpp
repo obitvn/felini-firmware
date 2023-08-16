@@ -14,7 +14,7 @@ HappyBirthday::~HappyBirthday()
 
 void HappyBirthday::onCustomAttrConfig()
 {
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
 
 
 
@@ -58,7 +58,7 @@ void HappyBirthday::onViewDidDisappear()
 
 void HappyBirthday::onViewDidUnload()
 {
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }

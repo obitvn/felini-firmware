@@ -14,7 +14,7 @@ DAPLink::~DAPLink()
 
 void DAPLink::onCustomAttrConfig()
 {
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 600, lv_anim_path_ease_in);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
 }
 
 void DAPLink::onViewLoad()
@@ -55,7 +55,7 @@ void DAPLink::onViewDidDisappear()
 void DAPLink::onViewDidUnload()
 {
     Model.DAPCommand(6);
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }

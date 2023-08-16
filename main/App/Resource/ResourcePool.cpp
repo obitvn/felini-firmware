@@ -39,6 +39,8 @@ extern "C"
         IMPORT_FONT(alibabasans_regular_48);
         IMPORT_FONT(alibabasans_regular_60);
 
+        IMPORT_FONT(sfcompact_8);
+
         /* Import Images */
         IMPORT_IMG(alarm);
         IMPORT_IMG(battery_red);
@@ -77,7 +79,10 @@ extern "C"
         IMPORT_IMG(dap_disconnect);
         IMPORT_IMG(down_dap);
         IMPORT_IMG(pin_daplink);
+        IMPORT_IMG(pin_color_wheel);
 
+
+        
     }
 
 } /* extern "C" */

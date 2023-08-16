@@ -15,7 +15,7 @@ AnalogViewer::~AnalogViewer()
 void AnalogViewer::onCustomAttrConfig() //run at install
 {
     SetCustomCacheEnable(false);
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 200, lv_anim_path_bounce);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
 }
 
 void AnalogViewer::onViewLoad()
@@ -55,7 +55,7 @@ void AnalogViewer::onViewDidDisappear()
 
 void AnalogViewer::onViewDidUnload()
 {
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 600, lv_anim_path_ease_in);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
 }

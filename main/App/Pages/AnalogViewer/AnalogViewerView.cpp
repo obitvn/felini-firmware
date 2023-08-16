@@ -24,10 +24,10 @@ void AnalogViewerView::Create(lv_obj_t *root)
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_PRIMARY_X, 10, 5, 5, 2, true, 50);
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 10, 2, 3, 2, true, 50);
     lv_chart_set_axis_tick(ui_Chart1, LV_CHART_AXIS_SECONDARY_Y, 10, 5, 5, 2, false, 25);
-    lv_chart_series_t *ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x808080),
+    lv_chart_series_t *ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x079aff),
                                                                 LV_CHART_AXIS_PRIMARY_Y);
-    static lv_coord_t ui_Chart1_series_1_array[] = {0, 3, 5, 8, 9, 12, 15, 4, 6, 9, 12, 22, 19, 18, 16};
-    lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, ui_Chart1_series_1_array);
+    // static lv_coord_t ui_Chart1_series_1_array[] = {0, 3, 5, 8, 9, 12, 15, 4, 6, 9, 12, 22, 19, 18, 16};
+    // lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, ui_Chart1_series_1_array);
 
     lv_obj_t *ui_Label6 = lv_label_create(root);
     lv_obj_set_width(ui_Label6, LV_SIZE_CONTENT);  /// 1

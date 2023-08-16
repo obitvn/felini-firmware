@@ -39,7 +39,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_LabelAppTag, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Pinmap = lv_img_create(root);
-    lv_img_set_src(ui_Pinmap, ResourcePool::GetImage("sd_card"));
+    lv_img_set_src(ui_Pinmap, ResourcePool::GetImage("pin_color_wheel"));
     lv_obj_set_width(ui_Pinmap, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Pinmap, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Pinmap, 55);
