@@ -109,10 +109,10 @@ void AppInfosView::Create(lv_obj_t* root)
         "UART",
         "updown",
 
-        "Pulse Generator\n"
-        "0 - 40 Mhz\n"
-        "Square pulse\n"
-        "PWM");
+        "UART Terminal \n"
+        "Live view\n"
+        "data on UART RX\n"
+        "V1.2.2");
 
     /* Item System */
     Item_Create(

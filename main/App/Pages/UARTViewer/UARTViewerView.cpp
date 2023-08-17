@@ -6,68 +6,59 @@ using namespace Page;
 
 void UARTViewerView::Create(lv_obj_t *root)
 {
-    lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
     /*Change the active screen's background color*/
+    lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
-    lv_obj_t *ui_Colorwheel1 = lv_colorwheel_create(root, true);
-    lv_obj_set_width(ui_Colorwheel1, 160);
-    lv_obj_set_height(ui_Colorwheel1, 160);
-    lv_obj_set_x(ui_Colorwheel1, 0);
-    lv_obj_set_y(ui_Colorwheel1, -15);
-    lv_obj_set_align(ui_Colorwheel1, LV_ALIGN_CENTER);
+    lv_obj_t *ui_IICAddress = lv_label_create(root);
+    lv_obj_set_width(ui_IICAddress, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_IICAddress, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_IICAddress, -70);
+    lv_obj_set_y(ui_IICAddress, -84);
+    lv_obj_set_align(ui_IICAddress, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_IICAddress, "UART");
+    lv_obj_set_style_text_color(ui_IICAddress, lv_color_hex(0xF80505), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_IICAddress, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IICAddress, ResourcePool::GetFont("sf_compact_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_LabelAPP = lv_label_create(root);
-    lv_obj_set_width(ui_LabelAPP, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_LabelAPP, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_LabelAPP, -3);
-    lv_obj_set_y(ui_LabelAPP, -21);
-    lv_obj_set_align(ui_LabelAPP, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelAPP, "LED");
-    lv_obj_set_style_text_color(ui_LabelAPP, lv_color_hex(0x079EFB), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelAPP, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelAPP, ResourcePool::GetFont("sf_compact_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_BarScanProgess = lv_bar_create(root);
+    lv_bar_set_value(ui_BarScanProgess, 25, LV_ANIM_OFF);
+    lv_obj_set_width(ui_BarScanProgess, 206);
+    lv_obj_set_height(ui_BarScanProgess, 10);
+    lv_obj_set_x(ui_BarScanProgess, -3);
+    lv_obj_set_y(ui_BarScanProgess, -46);
+    lv_obj_set_align(ui_BarScanProgess, LV_ALIGN_CENTER);
 
-    lv_obj_t *ui_LabelAppTag = lv_label_create(root);
-    lv_obj_set_width(ui_LabelAppTag, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_LabelAppTag, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_LabelAppTag, -2);
-    lv_obj_set_y(ui_LabelAppTag, 14);
-    lv_obj_set_align(ui_LabelAppTag, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelAppTag, "UARTViewer");
-    lv_obj_set_style_text_color(ui_LabelAppTag, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelAppTag, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_Status = lv_label_create(root);
+    lv_obj_set_width(ui_Status, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_Status, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_Status, 61);
+    lv_obj_set_y(ui_Status, -83);
+    lv_obj_set_align(ui_Status, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Status, "921600\n 8n1\n parity");
+    lv_obj_set_style_text_color(ui_Status, lv_color_hex(0x06FD5A), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Status, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_Pinmap = lv_img_create(root);
-    lv_img_set_src(ui_Pinmap, ResourcePool::GetImage("pin_color_wheel"));
-    lv_obj_set_width(ui_Pinmap, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_Pinmap, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Pinmap, 55);
-    lv_obj_set_y(ui_Pinmap, 97);
-    lv_obj_set_align(ui_Pinmap, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_Pinmap, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
-    lv_obj_clear_flag(ui_Pinmap, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+    
 
-    lv_obj_t *ui_MapPos = lv_label_create(root);
-    lv_obj_set_width(ui_MapPos, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_MapPos, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_MapPos, -112);
-    lv_obj_set_y(ui_MapPos, 69);
-    lv_obj_set_align(ui_MapPos, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_MapPos, "ROW2");
-    lv_obj_set_style_text_color(ui_MapPos, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_MapPos, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_PinMapIMG = lv_img_create(root);
+    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pin_uart"));
+    lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_PinMapIMG, 17);
+    lv_obj_set_y(ui_PinMapIMG, 105);
+    lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
+    lv_obj_clear_flag(ui_PinMapIMG, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-    lv_obj_t *ui_LabelPin = lv_label_create(root);
-    lv_obj_set_width(ui_LabelPin, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_LabelPin, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_LabelPin, -93);
-    lv_obj_set_y(ui_LabelPin, 101);
-    lv_obj_set_align(ui_LabelPin, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelPin, "LED DATA pin");
-    lv_obj_set_style_text_color(ui_LabelPin, lv_color_hex(0xFDFDFD), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelPin, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelPin, ResourcePool::GetFont("sf_compact_14"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_LogScani2c = lv_textarea_create(root);
+    lv_obj_set_width(ui_LogScani2c, 217);
+    lv_obj_set_height(ui_LogScani2c, 117);
+    lv_obj_set_x(ui_LogScani2c, -3);
+    lv_obj_set_y(ui_LogScani2c, 28);
+    lv_obj_set_align(ui_LogScani2c, LV_ALIGN_CENTER);
+    lv_textarea_set_text(ui_LogScani2c, "0x52 found at 122.32s\n0x22 found at version qwfe\n");
+    lv_textarea_set_placeholder_text(ui_LogScani2c, "Placeholder...");
 }
 
 

@@ -57,6 +57,7 @@ extern "C"
         IMPORT_FONT(sf_compact_36);
         IMPORT_FONT(sf_compact_42);
         IMPORT_FONT(sf_compact_48);
+        IMPORT_FONT(sf_compact_72);
 
         IMPORT_FONT(sf_compact_medium_21);
         IMPORT_FONT(sf_compact_medium_22);
