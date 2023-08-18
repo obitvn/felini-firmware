@@ -160,6 +160,11 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     include_directories(" main/App/Utils/PageManager")
     include_directories(" main/HAL")
     include_directories(" main/porting")
+    # include_directories(" components/rlottie/rlottie/inc")
+    # include_directories(" components/rlottie/rlottie/src/vector")
+    # include_directories(" components/rlottie/rlottie/src/vector/stb")
+    # include_directories(" components/rlottie/rlottie/src/vector/pixman")
+    # include_directories(" components/rlottie/rlottie/src/vector/freetype")
     # Add sub-library compilation
     add_subdirectory("lvgl")
     add_subdirectory("lv_drivers")
@@ -181,10 +186,16 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
     "main/App/Utils/**.c"
     "main/App/Utils/**.cpp"
     "main/HAL/HAL_SIM/*.c"
-    "main/HAL/HAL_SIM/*.cpp")
+    "main/HAL/HAL_SIM/*.cpp"
+    # "components/rlottie/rlottie/src/vector/*.cpp"
+    # "components/rlottie/rlottie/src/**/*.cpp"
+    # "components/rlottie/rlottie/src/**/**/*.cpp"
+    )
     # Compile the executable
     add_executable(${PROJECT_NAME} ${src_source})
     # link library
+    # target_link_libraries(rlottie ${CMAKE_DL_LIBS})
+    # target_link_libraries(${PROJECT_NAME} rlottie)
     target_link_libraries(${PROJECT_NAME} lvgl)
     target_link_libraries(${PROJECT_NAME} lv_drivers)
     target_link_libraries(${PROJECT_NAME} mingw32)
@@ -193,6 +204,7 @@ if("${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
 
 
     # Copy the SDL2.dll file to the build directory
+    file(COPY rlottie.dll DESTINATION ../build)
     file(COPY SDL2.dll DESTINATION ../build)
     set(CPACK_PROJECT_NAME ${PROJECT_NAME})
     set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

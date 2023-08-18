@@ -30,7 +30,7 @@
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
 // #include "Pages/MenuList/MenuList.h"
-#include "IICDiscovery/IICDiscovery.h"
+#include "Pages/IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/ServoCtrl/ServoCtrl.h"

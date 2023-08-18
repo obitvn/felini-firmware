@@ -3,6 +3,7 @@
 
 using namespace Page;
 
+// counting number of lec ws2812???
 
 void ColorWheelView::Create(lv_obj_t *root)
 {

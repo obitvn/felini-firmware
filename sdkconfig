@@ -2025,7 +2025,7 @@ CONFIG_LV_USE_GRID=y
 # CONFIG_LV_USE_GIF is not set
 # CONFIG_LV_USE_QRCODE is not set
 # CONFIG_LV_USE_FREETYPE is not set
-# CONFIG_LV_USE_RLOTTIE is not set
+CONFIG_LV_USE_RLOTTIE=y
 # CONFIG_LV_USE_FFMPEG is not set
 # end of 3rd Party Libraries
 
