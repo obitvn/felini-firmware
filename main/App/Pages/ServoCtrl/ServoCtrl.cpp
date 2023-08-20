@@ -121,8 +121,10 @@ void ServoCtrl::onEvent(lv_event_t *event)
         {
             if (code == LV_EVENT_VALUE_CHANGED) // update angle value
             {
-                lv_label_set_text_fmt(item_grp[i + 1].cont, "%d", lv_arc_get_value(obj));
-                printf("value changer %d\r\n", lv_arc_get_value(obj));
+                int16_t angle = lv_arc_get_value(obj);
+                lv_label_set_text_fmt(item_grp[i + 1].cont, "%d", angle);
+                printf("value changer %d\r\n", angle);
+                instance->Model.ServoUpdateAngle(angle);
             }
         }
     }

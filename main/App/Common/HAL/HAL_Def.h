@@ -41,6 +41,27 @@ namespace HAL
         uint16_t pd_type;
     } PowerPD_Info_t;
 
+    /*RC Servo*/
+    typedef enum
+    {
+        SERVO_CMD_INIT,
+        SERVO_CMD_UPDATE,
+        SERVO_CMD_DENIT,
+    } RCServo_Cmd_t;
+
+    typedef struct
+    {
+        RCServo_Cmd_t cmd;
+        int16_t angle;
+        uint8_t mode;
+        int16_t min_degree; // Minimum angle
+        int16_t max_degree;
+        uint16_t min_pulse_with; // Minimum pulse width in microsecond
+        uint16_t max_pulse_with;
+    } RCServo_Info_t;
+
+
+
     /* Power PMIC*/
     typedef struct
     {

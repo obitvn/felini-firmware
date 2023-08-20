@@ -12,9 +12,14 @@ class ServoCtrlModel
 public:
     void Init();
     void Deinit();
+    void ServoUpdateAngle(int16_t angle);
+
+private : 
+    Account *account;
+
 
 private:
-    Account* account;
+    static int onEvent(Account *account, Account::EventParam_t *param);
 };
 
 }

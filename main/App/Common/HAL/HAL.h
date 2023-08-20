@@ -60,6 +60,12 @@ namespace HAL
     void DAPLink_Init();
     void DAPLink_GetInfo(DAPLink_Info_t *info);
     void DAPLink_Denit();
+
+    /* DAP Link*/
+    void RCServo_Init();
+    void RCServo_GetInfo(RCServo_Info_t *info);
+    void RCServo_Update(RCServo_Info_t *info);
+    void RCServo_Denit();
 }
 
 #endif // !__cplusplus

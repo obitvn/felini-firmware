@@ -21,6 +21,10 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_y(ui_ArcServo, -10);
     lv_obj_set_align(ui_ArcServo, LV_ALIGN_CENTER);
 
+    lv_group_t *group = lv_group_get_default();
+    lv_group_set_wrap(group, true);
+    lv_group_add_obj(group, ui_ArcServo);
+
     ui.arc.cont = ui_ArcServo;
 
     lv_obj_t *ui_ServoAngle = lv_label_create(root);
@@ -73,7 +77,7 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_img_set_zoom(ui_PinMapIMG, 280);
     lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_PinMapIMG, 40);
+    lv_obj_set_x(ui_PinMapIMG, 95);
     lv_obj_set_y(ui_PinMapIMG, 95);
     lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
