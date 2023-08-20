@@ -27,7 +27,13 @@ void ServoCtrl::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    AttachEvent(root);
+    AttachGesture(root);
+    ServoCtrlView::item_t *item_grp = ((ServoCtrlView::item_t *)&View.ui);
+
+    for (int i = 0; i < sizeof(View.ui) / sizeof(ServoCtrlView::item_t); i++)
+    {
+        AttachEvent(item_grp[i].cont);
+    }
 }
 
 void ServoCtrl::onViewDidLoad()
@@ -61,11 +67,18 @@ void ServoCtrl::onViewDidUnload()
     Model.Deinit();
 }
 
-void ServoCtrl::AttachEvent(lv_obj_t *obj)
+void ServoCtrl::AttachGesture(lv_obj_t *obj)
 {
     lv_obj_set_user_data(obj, this);
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+}
+
+void ServoCtrl::AttachEvent(lv_obj_t *obj)
+{
+    lv_obj_set_user_data(obj, this);
+    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
@@ -96,6 +109,20 @@ void ServoCtrl::onEvent(lv_event_t *event)
             if (LV_DIR_RIGHT == dir)
             {
                 instance->Manager->Pop();
+            }
+        }
+    }
+
+    ServoCtrlView::item_t *item_grp = ((ServoCtrlView::item_t *)&instance->View.ui);
+
+    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(ServoCtrlView::item_t); i++)
+    {
+        if (obj == item_grp[i].cont) //
+        {
+            if (code == LV_EVENT_VALUE_CHANGED) // update angle value
+            {
+                lv_label_set_text_fmt(item_grp[i + 1].cont, "%d", lv_arc_get_value(obj));
+                printf("value changer %d\r\n", lv_arc_get_value(obj));
             }
         }
     }

@@ -10,6 +10,7 @@ namespace Page
 class ServoCtrl : public PageBase
 {
 public:
+    
 
 public:
     ServoCtrl();
@@ -26,6 +27,7 @@ public:
 
 private:
     void Update();
+    void AttachGesture(lv_obj_t *obj);
     void AttachEvent(lv_obj_t *obj);
     void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);

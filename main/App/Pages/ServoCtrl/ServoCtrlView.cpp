@@ -21,6 +21,8 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_y(ui_ArcServo, -10);
     lv_obj_set_align(ui_ArcServo, LV_ALIGN_CENTER);
 
+    ui.arc.cont = ui_ArcServo;
+
     lv_obj_t *ui_ServoAngle = lv_label_create(root);
     lv_obj_set_width(ui_ServoAngle, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_ServoAngle, LV_SIZE_CONTENT); /// 1
@@ -28,11 +30,12 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_obj_set_y(ui_ServoAngle, -29);
     lv_obj_set_align(ui_ServoAngle, LV_ALIGN_CENTER);
     // lv_label_set_text(ui_ServoAngle, "160");
-    uint16_t valu = 98;
+    uint16_t valu = 0;
     lv_label_set_text_fmt(ui_ServoAngle, "%d", valu);
     lv_obj_set_style_text_color(ui_ServoAngle, lv_color_hex(0x079DF9), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_ServoAngle, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_ServoAngle, ResourcePool::GetFont("sf_compact_48"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui.angle.cont = ui_ServoAngle;
 
     lv_obj_t *ui_TitleApp = lv_label_create(root);
     lv_obj_set_width(ui_TitleApp, LV_SIZE_CONTENT);  /// 1
