@@ -79,7 +79,7 @@ void ServoCtrl::AttachEvent(lv_obj_t *obj)
 {
     lv_obj_set_user_data(obj, this);
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
-    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    // lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 void ServoCtrl::Update()
@@ -100,6 +100,7 @@ void ServoCtrl::onEvent(lv_event_t *event)
     lv_obj_t *obj = lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
     ServoCtrl *instance = (ServoCtrl *)lv_obj_get_user_data(obj);
+
 
     if (obj == instance->root)
     {
@@ -125,6 +126,10 @@ void ServoCtrl::onEvent(lv_event_t *event)
                 lv_label_set_text_fmt(item_grp[i + 1].cont, "%d", angle);
                 printf("value changer %d\r\n", angle);
                 instance->Model.ServoUpdateAngle(angle);
+            }
+            if (code == LV_EVENT_KEY) // update angle value
+            {
+                printf("event pressed\r\n");
             }
         }
     }

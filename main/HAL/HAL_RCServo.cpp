@@ -22,6 +22,8 @@ static const char *TAG = "example";
 
 mcpwm_timer_handle_t timer = NULL;
 mcpwm_cmpr_handle_t comparator = NULL;
+mcpwm_oper_handle_t oper = NULL;
+mcpwm_gen_handle_t generator = NULL;
 
 static inline uint32_t example_angle_to_compare(int angle)
 {
@@ -44,7 +46,7 @@ void HAL::RCServo_Init()
     };
     ESP_ERROR_CHECK(mcpwm_new_timer(&timer_config, &timer));
 
-    mcpwm_oper_handle_t oper = NULL;
+    
     mcpwm_operator_config_t operator_config = {
         .group_id = 0, // operator must be in the same group to the timer
     };
@@ -64,7 +66,7 @@ void HAL::RCServo_Init()
     };
     ESP_ERROR_CHECK(mcpwm_new_comparator(oper, &comparator_config, &comparator));
 
-    mcpwm_gen_handle_t generator = NULL;
+    
     mcpwm_generator_config_t generator_config = {
         .gen_gpio_num = SERVO_PULSE_GPIO,
     };
@@ -104,5 +106,9 @@ void HAL::RCServo_Denit()
 {
     ESP_LOGI(TAG, "Denit timer servo");
     mcpwm_timer_disable(timer);
+    
+    mcpwm_del_comparator(comparator);
+    mcpwm_del_generator(generator);
+    mcpwm_del_operator(oper);
     mcpwm_del_timer(timer);
 }

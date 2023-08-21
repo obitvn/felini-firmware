@@ -14,18 +14,23 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_arc_set_angles(ui_ArcServo, 0, 180);
     lv_arc_set_rotation(ui_ArcServo, 0);
     lv_arc_set_range(ui_ArcServo, 0 , 180);
-
+    lv_obj_set_flex_flow(ui_ArcServo, LV_FLEX_FLOW_ROW);
     lv_obj_set_width(ui_ArcServo, 170);
     lv_obj_set_height(ui_ArcServo, 170);
     lv_obj_set_x(ui_ArcServo, -4);
     lv_obj_set_y(ui_ArcServo, -10);
     lv_obj_set_align(ui_ArcServo, LV_ALIGN_CENTER);
-
-    lv_group_t *group = lv_group_get_default();
-    lv_group_set_wrap(group, true);
-    lv_group_add_obj(group, ui_ArcServo);
+    lv_obj_add_flag(ui_ArcServo, LV_OBJ_FLAG_SCROLL_ON_FOCUS);
+    // lv_obj_set_scrollbar_mode(ui_ArcServo, LV_SCROLLBAR_MODE_OFF);
 
     ui.arc.cont = ui_ArcServo;
+
+    lv_group_t *arc_group = lv_group_get_default();
+    lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER), arc_group);
+    lv_group_add_obj(arc_group, ui.arc.cont);
+    lv_group_focus_obj(ui.arc.cont);
+
+    
 
     lv_obj_t *ui_ServoAngle = lv_label_create(root);
     lv_obj_set_width(ui_ServoAngle, LV_SIZE_CONTENT);  /// 1
