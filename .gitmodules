@@ -1,0 +1,3 @@
+[submodule "components/i2c_manager"]
+	path = components/i2c_manager
+	url = https://github.com/ropg/i2c_manager.git
