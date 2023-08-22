@@ -89,6 +89,7 @@ idf_component_register(
         driver
         usb
         axp173
+        fusb302
 )
 
 
