@@ -1,3 +1,6 @@
 [submodule "components/i2c_manager"]
 	path = components/i2c_manager
 	url = https://github.com/ropg/i2c_manager.git
+[submodule "main/usb_cherry/CherryUSB"]
+	path = main/usb_cherry/CherryUSB
+	url = https://github.com/cherry-embedded/CherryUSB.git
