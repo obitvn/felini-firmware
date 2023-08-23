@@ -59,10 +59,12 @@ extern "C"
         IMPORT_FONT(sf_compact_48);
         IMPORT_FONT(sf_compact_72);
 
+        IMPORT_FONT(sf_compact_medium_16);
         IMPORT_FONT(sf_compact_medium_21);
         IMPORT_FONT(sf_compact_medium_22);
         IMPORT_FONT(sf_compact_medium_23);
         IMPORT_FONT(sf_compact_medium_24);
+        IMPORT_FONT(sf_compact_medium_36);
 
         /* Import Images */
         IMPORT_IMG(alarm);
