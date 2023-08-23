@@ -2,7 +2,7 @@
 #define _AXP173_H_
 
 
-#include "lvgl_i2c/i2c_manager.h"
+#include "i2c_manager.h"
 #include "driver/gpio.h"
 #include "axp173_cm.h"
 #include "axp173_reg.h"

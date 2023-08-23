@@ -1,9 +1,12 @@
 #include "axp173.h"
-#include "lvgl_i2c/i2c_manager.h"
+// #include "lvgl_i2c/i2c_manager.h"
 #include "driver/gpio.h"
 #include <string.h>
 #include "esp_err.h"
 #include "esp_log.h"
+
+// #include <esp_log.h>
+#include "i2c_manager.h"
 
 #define TAG "axp"
 
@@ -20,15 +23,15 @@
 // #define AXP_GENERATE_BYTE()
 
 esp_err_t axp_read_byte(uint16_t reg, uint8_t *data){
-    return lvgl_i2c_read(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg  | I2C_REG_16,  data, 1);
+    return i2c_manager_read(I2C_NUM_0, AXP173_I2C_SLAVE_ADDR, reg | I2C_REG_16, data, 1);
 }
 
 esp_err_t axp_read_bytes(uint8_t reg, uint8_t *data, size_t len){
-    return i2c_master_write_read_device(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, &reg , 1, data, len, 5 / portTICK_PERIOD_MS);
+    return i2c_manager_read(I2C_NUM_0, AXP173_I2C_SLAVE_ADDR, reg | I2C_REG_16, data, len);
 }
 
 esp_err_t axp_write_byte(uint16_t reg, const uint8_t data){
-    return lvgl_i2c_write(CONFIG_LV_I2C_TOUCH_PORT, AXP173_I2C_SLAVE_ADDR, reg  | I2C_REG_16 , &data, 1);
+    return i2c_manager_write(I2C_NUM_0, AXP173_I2C_SLAVE_ADDR, reg | I2C_REG_16, &data, 1);
 }
 
 

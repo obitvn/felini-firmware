@@ -87,7 +87,7 @@ extern "C"
                 PD_UFP.run();
                 if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
                 {
-                    ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
+                    // ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
                 }
         }
 // #endif

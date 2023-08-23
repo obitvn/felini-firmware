@@ -7,7 +7,7 @@ extern "C" {
 
 #include "lvgl.h"
 #include "encoder.h"
-#include "touch_driver.h"
+#include "cst816s_touch_driver.h"
 
 void lv_port_indev_init(void);
 lv_indev_t* get_indev(void);

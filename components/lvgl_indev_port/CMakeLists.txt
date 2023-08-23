@@ -8,4 +8,4 @@ idf_component_register(
     REQUIRES 
         lvgl
         encoder
-        lvgl_esp32_drivers)
+        cst816s)
