@@ -15,10 +15,11 @@ PowerSupply::~PowerSupply()
 void PowerSupply::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-    btn_volt_state      =0;
-    btn_current_state   =0;
-    btn_power_state     =0;
-    btn_confirm_state   =0;
+    power.btn_state = 0;
+    volt.btn_state   =0;
+    current.btn_state     =0;
+    current.value = 0;
+    confirm.btn_state   =0;
 }
 
 void PowerSupply::onViewLoad()
@@ -114,29 +115,31 @@ void PowerSupply::onEvent(lv_event_t *event)
     {
         if (code == LV_EVENT_PRESSED)
         {
-            instance->Model.PDSetUp(0, 0, instance->btn_power_state, PowerSupplyModel::PD_PDM_ON_OFF);
-            instance->btn_power_state = !instance->btn_power_state;
+            instance->Model.PDSetUp(0, 0, instance->power.btn_state, PowerSupplyModel::PD_PDM_ON_OFF);
+            instance->power.btn_state = !instance->power.btn_state;
         }
     }
     if (obj == instance->View.ui.current.button)
     {
         if (code == LV_EVENT_PRESSED)
         {
-            
+            instance->View.EditLabel(instance->View.ui.current.label, instance->current.value, instance->current.btn_state);
+            instance->current.btn_state = !instance->current.btn_state;
+            instance->current.value++;
         }
     }
     if (obj == instance->View.ui.voltage.button)
     {
         if (code == LV_EVENT_PRESSED)
         {
-            
+            instance->volt.btn_state = !instance->volt.btn_state;
         }
     }
     if (obj == instance->View.ui.confirm.button)
     {
         if (code == LV_EVENT_PRESSED)
         {
-            
+            instance->confirm.btn_state = !instance->confirm.btn_state;
         }
     }
 }

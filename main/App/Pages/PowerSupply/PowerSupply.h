@@ -37,10 +37,17 @@ private:
 
 
 private:
-    bool btn_volt_state;
-    bool btn_current_state;
-    bool btn_power_state;
-    bool btn_confirm_state;
+    typedef struct
+    {
+        /* data */
+        bool btn_state;
+        uint16_t value;
+    } item_state;
+    
+    item_state volt;
+    item_state current;
+    item_state power;
+    item_state confirm;
 
 private:
 

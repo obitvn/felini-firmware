@@ -12,7 +12,7 @@ public:
     void Create(lv_obj_t* root);
     void Delete();
     void ExitEditLabel(lv_obj_t *label);
-    void EditLabel(lv_obj_t *label, float value);
+    void EditLabel(lv_obj_t *label, float value, bool btn_state);
 
 public:
 public:
