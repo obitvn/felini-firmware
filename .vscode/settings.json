@@ -11,7 +11,8 @@
         "span": "cpp",
         "inttypes.h": "c",
         "optional": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "*.inc": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

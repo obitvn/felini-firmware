@@ -102,9 +102,9 @@ void HAL::RCServo_Update(RCServo_Info_t *info)
     ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparator, example_angle_to_compare(info->angle-90)));
 }
 
-void HAL::RCServo_Denit()
+void HAL::RCServo_Deinit()
 {
-    ESP_LOGI(TAG, "Denit timer servo");
+    ESP_LOGI(TAG, "Deinit timer servo");
     mcpwm_timer_disable(timer);
     
     mcpwm_del_comparator(comparator);

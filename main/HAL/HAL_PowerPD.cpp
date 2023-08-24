@@ -1,53 +1,74 @@
 #include <cstdio>
 #include "HAL.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_freertos_hooks.h"
+#include "freertos/semphr.h"
+#include "esp_system.h"
+#include "driver/gpio.h"
+#include "PD_UFP.h"
 
-#define BATT_MIN_VOLTAGE 3300
-#define BATT_MAX_VOLTAGE 4200
-#define BATT_FULL_CHARGE_VOLTAGE 4100
+#define TAG "PD HAL"
+class PD_UFP_c PD_UFP;
 
-typedef struct
+TaskHandle_t usb_pd_task_handle;
+
+extern "C"
 {
-    uint32_t LastHandleTime;
-    uint16_t AutoLowPowerTimeout;
-    bool AutoLowPowerEnable;
-    bool IsShutdown;
-    volatile uint16_t ADCValue;
-} Power_t;
+
+    static void usb_pd_task(void *pvParameter)
+    {
+        ESP_LOGI(TAG, "power_pd_c task on \r\n");
+        gpio_set_direction((gpio_num_t)45, GPIO_MODE_OUTPUT);
+        gpio_set_level((gpio_num_t)45, 1);
+
+        PD_UFP.init(PD_POWER_OPTION_MAX_20V);
+        while (1)
+        {
+            /* code */
+            PD_UFP.run();
+            if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
+            {
+                ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
+            }
+            vTaskDelay(5);
+        }
+        
+    }
+}
 
 void HAL::PowerPD_Init()
 {
-    // /* Initialize your hardware. */
-    // axp192_init((const axp192_t *)i2c_hal(0));
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_GPIO0_SET_LEVEL, AXP192_HIGH); // M-Bus Power
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_GPIO1_SET_LEVEL, AXP192_LOW);  // Enable LED
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_GPIO2_SET_LEVEL, AXP192_LOW);  // Disable speaker
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_LDO2_SET_VOLTAGE, 3300);       // Set LDO2 LCD&TP voltage
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_LDO2_ENABLE);                  // Enable LDO2
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_GPIO4_SET_LEVEL, AXP192_LOW);  // LCD&TP Reset
-    // vTaskDelay(100 / portTICK_PERIOD_MS);
-    // axp192_ioctl((const axp192_t *)i2c_hal(0), AXP192_GPIO4_SET_LEVEL, AXP192_HIGH); // LCD&TP Hold
-    // vTaskDelay(100 / portTICK_PERIOD_MS);
+    ESP_LOGI(TAG, "power_pd_c init \r\n");
+    // if (usb_pd_task_handle != NULL)
+    // {
+    //     vTaskDelete(usb_pd_task_handle);
+    //     usb_pd_task_handle = NULL;
+    // }
+    xTaskCreate(usb_pd_task, "usb_pd_task", 1024 * 2, NULL, 10, &usb_pd_task_handle);
+}
+
+void HAL::PowerPD_Deinit()
+{
+    
+    ESP_LOGI(TAG, "endtask \r\n");
+    vTaskDelete(usb_pd_task_handle);
+    PD_UFP.stop();
+    usb_pd_task_handle = NULL;
+}
+
+void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
+{
+    
+}
+
+void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)
+{
+
 }
 
 void HAL::PowerPD_GetInfo(PowerPD_Info_t *info)
 {
-    // static float axp_voltage = 0;
-    // axp192_read((const axp192_t *)i2c_hal(0), AXP192_BATTERY_VOLTAGE, &axp_voltage);
 
-    // int voltage = (int)(axp_voltage * 1000.0);
-    // __LimitValue(voltage, BATT_MIN_VOLTAGE, BATT_MAX_VOLTAGE);
-
-    // int usage = __Map(
-    //                 voltage,
-    //                 BATT_MIN_VOLTAGE, BATT_FULL_CHARGE_VOLTAGE,
-    //                 0, 100
-    //             );
-
-    // __LimitValue(usage, 0, 100);
-
-    // uint8_t change_status = 0;
-    // axp192_read((const axp192_t *)i2c_hal(0), AXP192_CHARGE_STATUS, &change_status);
-    // info->usage = usage;
-    // info->isCharging = (change_status >> 7) & 0x01;
-    // info->voltage = voltage;
 }

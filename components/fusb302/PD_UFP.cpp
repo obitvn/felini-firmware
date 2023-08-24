@@ -85,6 +85,7 @@ PD_UFP_core_c::PD_UFP_core_c():
 
 void PD_UFP_core_c::init(enum PD_power_option_t power_option)
 {
+    // i2c_manager_init(I2C_NUM_0);
     init_PPS(0, 0, power_option);
 }
 
@@ -92,6 +93,7 @@ void PD_UFP_core_c::init_PPS(uint16_t PPS_voltage, uint8_t PPS_current, enum PD_
 {
     // Initialize FUSB302
     //pinMode(PIN_FUSB302_INT, INPUT_PULLUP); // Set FUSB302 int pin input ant pull up
+    // i2c_manager_init(I2C_NUM_0);
     gpio_set_direction(PIN_FUSB302_INT, GPIO_MODE_INPUT);
     gpio_set_pull_mode(PIN_FUSB302_INT, GPIO_PULLUP_ONLY);
 
@@ -121,6 +123,11 @@ void PD_UFP_core_c::init_PPS(uint16_t PPS_voltage, uint8_t PPS_current, enum PD_
     status_log_event(STATUS_LOG_DEV);
 }
 
+void PD_UFP_core_c::stop(void)
+{
+    i2c_manager_close(I2C_NUM_0);
+}
+
 void PD_UFP_core_c::run(void)
 {
     if (timer() ||0 == 0) {
@@ -130,6 +137,18 @@ void PD_UFP_core_c::run(void)
             handle_FUSB302_event(FUSB302_events);
         }
     }
+}
+
+
+// Get infor
+void PD_UFP_core_c::get_power_info(PD_power_info_t **info)
+{
+    for(int i=0; i< protocol.power_data_obj_count; i++)
+    {
+        PD_protocol_get_power_info(&protocol, i, &info[i][0]);
+    }
+    
+
 }
 
 bool PD_UFP_core_c::set_PPS(uint16_t PPS_voltage, uint8_t PPS_current)
@@ -720,10 +739,10 @@ void PD_UFP_log_c::print_status(int serial)
 {
     // // Wait for enough tx buffer in serial port to avoid blocking
     // if (serial && serial.availableForWrite() >= SERIAL_BUFFER_SIZE - 1) {
-    //     char buf[SERIAL_BUFFER_SIZE];
-    //     if (status_log_readline(buf, sizeof(buf) - 1)) {
-    //         // serial.print(buf);
-    //     }
+        char buf[128];
+        if (status_log_readline(buf, sizeof(buf) - 1)) {
+            // serial.print(buf);
+        }
     // }
 }
 
@@ -731,10 +750,10 @@ void PD_UFP_log_c::print_status(uint16_t serial)
 {
     // // Wait for enough tx buffer in serial port to avoid blocking
     // if (serial && serial.availableForWrite() >= SERIAL_BUFFER_SIZE - 1) {
-    //     char buf[SERIAL_BUFFER_SIZE];
-    //     if (status_log_readline(buf, sizeof(buf) - 1)) {
-    //         // serial.print(buf);
-    //     }
+        char buf[128];
+        if (status_log_readline(buf, sizeof(buf) - 1)) {
+            // serial.print(buf);
+        }
     // }
 }
 

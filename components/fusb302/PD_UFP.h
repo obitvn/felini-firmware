@@ -74,6 +74,10 @@ class PD_UFP_core_c
         void init_PPS(uint16_t PPS_voltage, uint8_t PPS_current, enum PD_power_option_t power_option = PD_POWER_OPTION_MAX_5V);
         // Task
         void run(void);
+        void stop(void);
+
+        // Get infor
+        void get_power_info(PD_power_info_t **info);
         // Status
         bool is_power_ready(void) { return status_power == STATUS_POWER_TYP; }
         bool is_PPS_ready(void)   { return status_power == STATUS_POWER_PPS; }

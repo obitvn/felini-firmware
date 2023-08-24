@@ -32,21 +32,46 @@ namespace HAL
     } IMU_Info_t;
 
     /* Power Delivery*/
+    typedef enum
+    {
+        PD_PDO_TYPE_FIXED_SUPPLY = 0,
+        PD_PDO_TYPE_BATTERY = 1,
+        PD_PDO_TYPE_VARIABLE_SUPPLY = 2, // USB PD PPS
+        PD_PDO_TYPE_AUGMENTED_PDO = 3,   /* USB PD 3.0 */
+        PD_PDO_NOT_CONNECT = 4
+    } PowerPD_type_t;
+
+    typedef enum
+    {
+        PD_PDO_OFF = 0,
+        PD_PDO_ON = 1,
+        PD_PDO_INIT = 2,
+        PD_PDO_DENIT = 3,
+        PD_PDO_SETUP = 4,
+        PD_PDO_UPDATE = 5       
+    } PowerPD_cmd_t;
+
+
     typedef struct
     {
         uint16_t min_voltage;
         uint16_t max_voltage;
         uint16_t max_current;
         uint16_t max_power;
-        uint16_t pd_type;
+        uint16_t set_voltage;
+        uint16_t set_current;
+        PowerPD_type_t pd_type;
+        PowerPD_cmd_t pd_cmd;
     } PowerPD_Info_t;
+
+    
 
     /*RC Servo*/
     typedef enum
     {
         SERVO_CMD_INIT,
         SERVO_CMD_UPDATE,
-        SERVO_CMD_DENIT,
+        SERVO_CMD_Deinit,
     } RCServo_Cmd_t;
 
     typedef struct

@@ -21,7 +21,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
         }
         else if(data_val[0] == 0)
         {
-            HAL::DAPLink_Denit();
+            HAL::DAPLink_Deinit();
         }
     }
     

@@ -15,10 +15,6 @@ PowerSupply::~PowerSupply()
 void PowerSupply::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-
-
-
-    
 }
 
 void PowerSupply::onViewLoad()
@@ -57,9 +53,10 @@ void PowerSupply::onViewDidDisappear()
 void PowerSupply::onViewDidUnload()
 {
 
-    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
+    
     View.Delete();
     Model.Deinit();
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
 }
 
 void PowerSupply::AttachEvent(lv_obj_t *obj)

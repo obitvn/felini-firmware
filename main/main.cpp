@@ -20,9 +20,8 @@
     #include "axp173.h"
     #include "dap_main.h"
     #include "esp_log.h"
-    #include "PD_UFP.h"
-#define TAG "main"
-class PD_UFP_c PD_UFP;
+    #define TAG "main"
+
 #endif
 
 extern "C"
@@ -42,9 +41,6 @@ extern "C"
     
         lv_porting_init();
 
-        gpio_set_direction((gpio_num_t)45, GPIO_MODE_OUTPUT);
-        gpio_set_level((gpio_num_t)45, 1);
-        PD_UFP.init(PD_POWER_OPTION_MAX_20V);
         // lv_obj_t *label = lv_label_create(lv_scr_act());
         // lv_label_set_text(label, "obit tesla!!!!!!");
         // lv_obj_center(label);
@@ -83,12 +79,7 @@ extern "C"
                 // lv_timer_handler();
                 lv_task_handler();
                 lv_porting_delay();
-
-                PD_UFP.run();
-                if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
-                {
-                    // ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
-                }
+                
         }
 // #endif
     }

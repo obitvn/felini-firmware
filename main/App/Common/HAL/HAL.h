@@ -43,8 +43,10 @@ namespace HAL
 
     /* Power Delivery*/
     void PowerPD_Init();
+    void PowerPD_Update(PowerPD_Info_t *pd_info);
+    void PowerPD_Config(PowerPD_Info_t *pd_info);
     void PowerPD_GetInfo(PowerPD_Info_t *info);
-    void PowerPD_SetUp(PowerPD_Info_t *info);
+    void PowerPD_Deinit();
 
     /* Power PMIC*/
     void PowerPMIC_Init();
@@ -59,13 +61,13 @@ namespace HAL
     /* DAP Link*/
     void DAPLink_Init();
     void DAPLink_GetInfo(DAPLink_Info_t *info);
-    void DAPLink_Denit();
+    void DAPLink_Deinit();
 
     /* DAP Link*/
     void RCServo_Init();
     void RCServo_GetInfo(RCServo_Info_t *info);
     void RCServo_Update(RCServo_Info_t *info);
-    void RCServo_Denit();
+    void RCServo_Deinit();
 }
 
 #endif // !__cplusplus

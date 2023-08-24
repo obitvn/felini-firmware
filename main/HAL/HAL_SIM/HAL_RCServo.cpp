@@ -23,8 +23,8 @@ void HAL::RCServo_Update(RCServo_Info_t *info)
 
 }
 
-void HAL::RCServo_Denit()
+void HAL::RCServo_Deinit()
 {
-    printf("dap denit\r\n");
+    printf("dap Deinit\r\n");
     // RCServo_stop();
 }

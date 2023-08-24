@@ -18,7 +18,7 @@ void ServoCtrlModel::Init()
 void ServoCtrlModel::Deinit()
 {
     HAL::RCServo_Info_t info_val;
-    info_val.cmd = HAL::SERVO_CMD_DENIT;
+    info_val.cmd = HAL::SERVO_CMD_Deinit;
     info_val.angle = 0;
     info_val.mode = 0;
     account->Notify("RCServoHardware", &info_val, sizeof(info_val));

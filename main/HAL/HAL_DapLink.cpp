@@ -18,8 +18,8 @@ void HAL::DAPLink_GetInfo(DAPLink_Info_t *info)
     info->running = is_daplink_running();
 }
 
-void HAL::DAPLink_Denit()
+void HAL::DAPLink_Deinit()
 {
-    printf("dap denit\r\n");
+    printf("dap Deinit\r\n");
     daplink_stop();
 }

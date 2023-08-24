@@ -16,7 +16,7 @@ void HAL::DAPLink_GetInfo(DAPLink_Info_t *info)
     info->running = 0;
 }
 
-void HAL::DAPLink_Denit()
+void HAL::DAPLink_Deinit()
 {
 
 }

@@ -139,7 +139,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_PowerButton, 60);
     lv_obj_set_x(ui_PowerButton, 21 - 20);
     lv_obj_set_y(ui_PowerButton, 156 - 20);
-    lv_obj_add_flag(ui_PowerButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
+    // lv_obj_add_flag(ui_PowerButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
     lv_obj_clear_flag(ui_PowerButton, LV_OBJ_FLAG_SCROLLABLE);    /// Flags
     lv_obj_set_style_bg_color(ui_PowerButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_PowerButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -186,7 +186,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbPowerConsume, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbPowerConsume, 27 - 20);
     lv_obj_set_y(ui_LbPowerConsume, 178 - 20);
-    lv_label_set_text(ui_LbPowerConsume, "65.23W");
+    lv_label_set_text(ui_LbPowerConsume, "65.23 W");
     lv_obj_set_style_text_color(ui_LbPowerConsume, lv_color_hex(0xDA5136), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbPowerConsume, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbPowerConsume, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -201,6 +201,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_LbVoltSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbVoltSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
+
     lv_obj_t *ui_LbCurrentSet = lv_label_create(root);
     lv_obj_set_width(ui_LbCurrentSet, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LbCurrentSet, LV_SIZE_CONTENT); /// 1
@@ -210,10 +211,23 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_color(ui_LbCurrentSet, lv_color_hex(0x13C0BE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbCurrentSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
+
 }
 
+void PowerSupplyView::EditLabel(lv_obj_t *label, float value)
+{
+    lv_label_set_text_fmt(label, "%.2f", value);
+    lv_obj_set_style_border_color(label, lv_color_hex(0x0A84FF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+}
 
-
+void PowerSupplyView::ExitEditLabel(lv_obj_t *label)
+{
+    lv_obj_set_style_border_opa(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+}
 
 void PowerSupplyView::Delete()
 {
