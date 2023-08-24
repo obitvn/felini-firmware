@@ -53,9 +53,23 @@ void HAL::PowerPD_Deinit()
 {
     
     ESP_LOGI(TAG, "endtask \r\n");
-    vTaskDelete(usb_pd_task_handle);
+    if (usb_pd_task_handle != NULL)
+    {
+        vTaskDelete(usb_pd_task_handle);
+        // usb_pd_task_handle = NULL;
+    }
     PD_UFP.stop();
-    usb_pd_task_handle = NULL;
+    // usb_pd_task_handle = NULL;
+}
+
+void HAL::PowerPD_PowerOn()
+{
+    gpio_set_level((gpio_num_t)45, 1);
+}
+
+void HAL::PowerPD_PowerOff()
+{
+    gpio_set_level((gpio_num_t)45, 0);
 }
 
 void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)

@@ -15,9 +15,21 @@ public:
     void EditLabel(lv_obj_t *label, float value);
 
 public:
-
-
 public:
+    typedef struct
+    {
+        lv_obj_t *button;
+        lv_obj_t *label;
+        const char *name;
+    } item_t;
+
+    struct
+    {
+        item_t voltage;
+        item_t current;
+        item_t power;
+        item_t confirm;
+    } ui;
 
 private:
 };

@@ -47,6 +47,8 @@ namespace HAL
     void PowerPD_Config(PowerPD_Info_t *pd_info);
     void PowerPD_GetInfo(PowerPD_Info_t *info);
     void PowerPD_Deinit();
+    void PowerPD_PowerOn();
+    void PowerPD_PowerOff();
 
     /* Power PMIC*/
     void PowerPMIC_Init();

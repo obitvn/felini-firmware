@@ -34,6 +34,16 @@ private:
 private:
     PowerSupplyView View;
     PowerSupplyModel Model;
+
+
+private:
+    bool btn_volt_state;
+    bool btn_current_state;
+    bool btn_power_state;
+    bool btn_confirm_state;
+
+private:
+
 };
 
 }

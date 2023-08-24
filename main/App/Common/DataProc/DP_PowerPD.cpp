@@ -39,6 +39,15 @@ static int onEvent(Account* account, Account::EventParam_t* param)
 
         case HAL::PD_PDO_DENIT:
             HAL::PowerPD_Deinit();
+            break;
+
+        case HAL::PD_PDO_OFF:
+            HAL::PowerPD_PowerOff();
+            break;
+
+        case HAL::PD_PDO_ON:
+            HAL::PowerPD_PowerOn();
+            break;
 
         default:
             break;

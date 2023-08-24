@@ -11,6 +11,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     lv_obj_t *ui_VoltageButton = lv_btn_create(root);
+    ui.voltage.button = ui_VoltageButton;
     lv_obj_set_width(ui_VoltageButton, 237);
     lv_obj_set_height(ui_VoltageButton, 60);
     lv_obj_set_x(ui_VoltageButton, 21 - 20);
@@ -78,6 +79,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_lbvset, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_CurrentButton = lv_btn_create(root);
+    ui.current.button = ui_CurrentButton;
     lv_obj_set_width(ui_CurrentButton, 237);
     lv_obj_set_height(ui_CurrentButton, 60);
     lv_obj_set_x(ui_CurrentButton, 20 - 20);
@@ -135,7 +137,8 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_LbCurrentRead, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_PowerButton = lv_btn_create(root);
-    lv_obj_set_width(ui_PowerButton, 237);
+    ui.power.button = ui_PowerButton;
+    lv_obj_set_width(ui_PowerButton, 138);
     lv_obj_set_height(ui_PowerButton, 60);
     lv_obj_set_x(ui_PowerButton, 21 - 20);
     lv_obj_set_y(ui_PowerButton, 156 - 20);
@@ -152,6 +155,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_shadow_spread(ui_PowerButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_lbpowerstate = lv_label_create(root);
+    ui.confirm.label = ui_lbpowerstate;
     lv_obj_set_width(ui_lbpowerstate, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_lbpowerstate, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_lbpowerstate, 170 - 20);
@@ -192,6 +196,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_LbPowerConsume, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_LbVoltSet = lv_label_create(root);
+    ui.voltage.label = ui_LbVoltSet;
     lv_obj_set_width(ui_LbVoltSet, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LbVoltSet, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbVoltSet, 203 - 20);
@@ -203,6 +208,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
 
 
     lv_obj_t *ui_LbCurrentSet = lv_label_create(root);
+    ui.current.label = ui_LbCurrentSet;
     lv_obj_set_width(ui_LbCurrentSet, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LbCurrentSet, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbCurrentSet, 207 - 20);
@@ -212,6 +218,20 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_LbCurrentSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    lv_obj_t *ui_ConfirmButton = lv_btn_create(root);
+    ui.confirm.button = ui_ConfirmButton;
+    lv_obj_set_width(ui_ConfirmButton, 102);
+    lv_obj_set_height(ui_ConfirmButton, 59);
+    lv_obj_set_x(ui_ConfirmButton, 163 - 20);
+    lv_obj_set_y(ui_ConfirmButton, 156 - 20);
+    lv_obj_add_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
+    lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE);    /// Flags
+    lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void PowerSupplyView::EditLabel(lv_obj_t *label, float value)

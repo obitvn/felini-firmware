@@ -24,6 +24,29 @@ void PowerSupplyModel::Deinit()
     account->Notify("PowerPD", &info_val, sizeof(info_val));
 }
 
+void PowerSupplyModel::PDSetUp(uint16_t voltage, uint16_t current, bool powctrl, PDSetUp_mode_t mode)
+{
+    HAL::PowerPD_Info_t info_val;
+    
+    switch (mode)
+    {
+        case PD_PDM_ON_OFF:
+            if (powctrl)
+            {
+                info_val.pd_cmd = HAL::PD_PDO_ON;
+            }
+            else
+            {
+                info_val.pd_cmd = HAL::PD_PDO_OFF;
+            }
+            break;
+        
+        default:
+            break;
+    }
+    account->Notify("PowerPD", &info_val, sizeof(info_val));
+}
+
 int PowerSupplyModel::onEvent(Account *account, Account::EventParam_t *param)
 {
     return 1;
