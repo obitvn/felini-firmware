@@ -12,7 +12,16 @@
         "inttypes.h": "c",
         "optional": "cpp",
         "regex": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "*.tcc": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

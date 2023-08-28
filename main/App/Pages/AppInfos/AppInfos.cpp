@@ -122,21 +122,11 @@ void AppInfos::onEvent(lv_event_t* event)
     lv_obj_t* obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
+    static uint32_t time_gesture;
 
     AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
     
-    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(AppInfosView::item_t); i++)
-    {
-        if (obj == item_grp[i].cont) //
-        {
-            if (code == LV_EVENT_PRESSED)
-            {
-                // printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
-                // instance->Manager->Pop(); //đóng page và quay về page trước đó
-                instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
-            }
-        }
-    }
+
 
     if (obj == instance->root) // for touch
     {
@@ -145,11 +135,29 @@ void AppInfos::onEvent(lv_event_t* event)
             lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
             if (LV_DIR_RIGHT == dir)
             {
+                time_gesture = lv_tick_get();
                 instance->onFoucusUp();
             }
             if (LV_DIR_BOTTOM == dir)
             {
+                time_gesture = lv_tick_get();
                 instance->onFoucusDown();
+            }
+        }
+    }
+    
+    if((lv_tick_get() - time_gesture) > 200)
+    {
+        for (int i = 0; i < sizeof(instance->View.ui) / sizeof(AppInfosView::item_t); i++)
+        {
+            if (obj == item_grp[i].cont) //
+            {
+                if (code == LV_EVENT_PRESSED)
+                {
+                    // printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
+                    // instance->Manager->Pop(); //đóng page và quay về page trước đó
+                    instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
+                }
             }
         }
     }

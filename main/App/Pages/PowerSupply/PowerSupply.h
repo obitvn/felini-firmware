@@ -37,6 +37,23 @@ private:
 
 
 private:
+    typedef enum
+    {
+        PD_SET_RELEASED = 0,
+        PD_SET_VOLT = 1,
+        PD_SET_CURRENT = 2,
+        PD_SET_CONFIRM = 3,
+        PD_SET_POWER_OFF = 4,
+        PD_SET_POWER_ON = 5
+    } setup_state_t;
+
+    typedef struct
+    {
+        /* data */
+        setup_state_t status;
+        uint16_t value;
+    } item_set_state;
+
     typedef struct
     {
         /* data */
@@ -44,10 +61,13 @@ private:
         uint16_t value;
     } item_state;
     
+    item_set_state config;
+
     item_state volt;
     item_state current;
     item_state power;
     item_state confirm;
+    item_state slider;
 
 private:
 

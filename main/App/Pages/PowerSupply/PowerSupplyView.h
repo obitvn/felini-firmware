@@ -11,7 +11,7 @@ class PowerSupplyView
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void ExitEditLabel(lv_obj_t *label);
+    void FocusEditLabel(lv_obj_t *label, bool state);
     void EditLabel(lv_obj_t *label, float value, bool btn_state);
 
 public:
@@ -29,6 +29,7 @@ public:
         item_t current;
         item_t power;
         item_t confirm;
+        item_t slider;
     } ui;
 
 private:
