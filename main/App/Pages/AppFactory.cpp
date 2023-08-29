@@ -38,6 +38,7 @@
 #include "Pages/CandleLight/CandleLight.h"
 #include "Pages/Hertz/Hertz.h"
 #include "Pages/IMUSensor/IMUSensor.h"
+#include "Pages/KaitoKey/KaitoKey.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -67,6 +68,7 @@ do{\
     APP_CLASS_MATCH(CandleLight);
     APP_CLASS_MATCH(Hertz);
     APP_CLASS_MATCH(IMUSensor);
+    APP_CLASS_MATCH(KaitoKey);
 
     return nullptr;
 }

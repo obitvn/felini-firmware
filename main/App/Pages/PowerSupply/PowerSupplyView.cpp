@@ -258,20 +258,69 @@ void PowerSupplyView::Create(lv_obj_t *root)
     ui.slider.button = slider;
 }
 
-void PowerSupplyView::FocusEditLabel(lv_obj_t *label, bool state)
+void PowerSupplyView::FocusEditLabel(lv_obj_t *label, uint8_t state, int *div)
 {
-    if (state)
+    switch (state)
     {
-        lv_obj_set_style_border_color(label, lv_color_hex(0x0A84FF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    case 0:
+    {
+        *div = (int)1;
+        lv_obj_set_style_border_opa(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
+    }
+    case 1: // x1
+    {
+        *div = (int)1;
+        lv_obj_set_style_border_color(label, lv_color_hex(0xfc8dc7), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
     }
-    else
+    case 2: //x10
     {
-        lv_obj_set_style_border_opa(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        *div = (int)10;
+        lv_obj_set_style_border_color(label, lv_color_hex(0xff938b), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
     }
+    case 3: //x50
+    {
+        *div = (int)50;
+        lv_obj_set_style_border_color(label, lv_color_hex(0xf69d50), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
+    }
+    case 4: //x100
+    {
+        *div = (int)100;
+        lv_obj_set_style_border_color(label, lv_color_hex(0xdaaa3f), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
+    }
+    case 5: //x1000
+    {
+        *div = (int)1000;
+        lv_obj_set_style_border_color(label, lv_color_hex(0x46954a), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+        break;
+    }
+
+
+    default:
+        break;
+    }
+
+    
 }
 
 void PowerSupplyView::EditLabel(lv_obj_t *label, float value, bool btn_state)

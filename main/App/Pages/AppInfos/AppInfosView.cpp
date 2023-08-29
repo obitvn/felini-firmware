@@ -163,6 +163,17 @@ void AppInfosView::Create(lv_obj_t* root)
         "IMU Sensor\n"
         "3d Viewer\n"
         "V2.2.3\n");
+    /* Item System */
+    Item_Create(
+        "Pages/KaitoKey",
+        &ui.imu,
+        root,
+        "FIDO2",
+        "terminal",
+
+        "KaitoKey\n"
+        "FIDO2 & U2F\n"
+        "V2.2.3\n");
 
     Group_Init();
 }

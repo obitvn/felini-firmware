@@ -11,7 +11,7 @@ class PowerSupplyView
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void FocusEditLabel(lv_obj_t *label, bool state);
+    void FocusEditLabel(lv_obj_t *label, uint8_t state, int *div);
     void EditLabel(lv_obj_t *label, float value, bool btn_state);
 
 public:

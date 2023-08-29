@@ -47,6 +47,15 @@ private:
         PD_SET_POWER_ON = 5
     } setup_state_t;
 
+    typedef enum
+    {
+        PD_STEP_RELEASED    = 0,
+        PD_STEP_10          = 10,
+        PD_STEP_50          = 50,
+        PD_STEP_100         = 100,
+        PD_STEP_1000        = 1000
+    } step_div_t;
+
     typedef struct
     {
         /* data */
@@ -57,11 +66,12 @@ private:
     typedef struct
     {
         /* data */
-        bool btn_state;
+        uint8_t btn_state;
         uint16_t value;
         uint16_t minval;
         uint16_t maxval;
         uint16_t step;
+        int div;
     } item_state;
     
     item_set_state config;

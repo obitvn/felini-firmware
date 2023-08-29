@@ -43,6 +43,7 @@
 #include "Pages/CandleLight/CandleLight.h"
 #include "Pages/Hertz/Hertz.h"
 #include "Pages/IMUSensor/IMUSensor.h"
+#include "Pages/KaitoKey/KaitoKey.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -113,6 +114,7 @@
     manager.Install("CandleLight", "Pages/CandleLight");
     manager.Install("Hertz", "Pages/Hertz");
     manager.Install("IMUSensor", "Pages/IMUSensor");
+    manager.Install("KaitoKey", "Pages/KaitoKey");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
