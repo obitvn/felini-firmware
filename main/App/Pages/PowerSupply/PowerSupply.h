@@ -59,6 +59,9 @@ private:
         /* data */
         bool btn_state;
         uint16_t value;
+        uint16_t minval;
+        uint16_t maxval;
+        uint16_t step;
     } item_state;
     
     item_set_state config;
