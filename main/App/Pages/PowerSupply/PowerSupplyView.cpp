@@ -45,6 +45,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_lbvolt, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_LbVoltRead = lv_label_create(root);
+    ui.voltage.set = ui_LbVoltRead;
     lv_obj_set_width(ui_LbVoltRead, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LbVoltRead, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbVoltRead, 28 - 20);
@@ -136,6 +137,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_lbcset, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_LbCurrentRead = lv_label_create(root);
+    ui.current.set = ui_LbCurrentRead;
     lv_obj_set_width(ui_LbCurrentRead, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LbCurrentRead, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbCurrentRead, 28 - 20);
@@ -256,71 +258,81 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_remove_style_all(slider);
     lv_slider_set_value(slider, 15, LV_ANIM_OFF);
     ui.slider.button = slider;
+
+    lv_obj_t *spinbox = lv_spinbox_create(root);
+    lv_obj_remove_style_all(spinbox);
+    lv_spinbox_set_digit_format(spinbox, 5, 2);
+    lv_spinbox_set_range(spinbox, 0, 9999);
+    lv_spinbox_set_step(spinbox, 1);
+    ui.spin.button = spinbox;
+
 }
 
-void PowerSupplyView::FocusEditLabel(lv_obj_t *label, uint8_t state, int *div)
+void PowerSupplyView::FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t state, int *div)
 {
     switch (state)
     {
     case 0:
     {
         *div = (int)1;
-        lv_obj_set_style_border_opa(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
     case 1: // x1
     {
         *div = (int)1;
-        lv_obj_set_style_border_color(label, lv_color_hex(0xfc8dc7), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_label_set_text(label, "x1");
+        lv_obj_set_style_border_color(set, lv_color_hex(0x4284e4), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(set, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
-    case 2: //x10
+    case 2: // x10
     {
         *div = (int)10;
-        lv_obj_set_style_border_color(label, lv_color_hex(0xff938b), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_label_set_text(label, "x10");
+        lv_obj_set_style_border_color(set, lv_color_hex(0x347d39), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(set, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
-    case 3: //x50
+    case 3: // x50
     {
         *div = (int)50;
-        lv_obj_set_style_border_color(label, lv_color_hex(0xf69d50), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_label_set_text(label, "x50");
+        lv_obj_set_style_border_color(set, lv_color_hex(0xcc6b2c), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(set, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
-    case 4: //x100
+    case 4: // x100
     {
         *div = (int)100;
-        lv_obj_set_style_border_color(label, lv_color_hex(0xdaaa3f), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_label_set_text(label, "x100");
+        lv_obj_set_style_border_color(set, lv_color_hex(0x986ee2), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(set, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
-    case 5: //x1000
+    case 5: // x1000
     {
         *div = (int)1000;
-        lv_obj_set_style_border_color(label, lv_color_hex(0x46954a), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_opa(label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_width(label, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_side(label, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+         lv_label_set_text(label, "x1000");
+        lv_obj_set_style_border_color(set, lv_color_hex(0xe5534b), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_side(set, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
         break;
     }
-
 
     default:
         break;
     }
-
-    
 }
 
 void PowerSupplyView::EditLabel(lv_obj_t *label, float value, bool btn_state)

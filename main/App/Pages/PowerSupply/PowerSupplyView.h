@@ -11,13 +11,14 @@ class PowerSupplyView
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void FocusEditLabel(lv_obj_t *label, uint8_t state, int *div);
+    void FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t state, int *div);
     void EditLabel(lv_obj_t *label, float value, bool btn_state);
 
 public:
 public:
     typedef struct
     {
+        lv_obj_t *set;
         lv_obj_t *button;
         lv_obj_t *label;
         const char *name;
@@ -30,6 +31,7 @@ public:
         item_t power;
         item_t confirm;
         item_t slider;
+        item_t spin;
     } ui;
 
 private:

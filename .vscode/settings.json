@@ -21,7 +21,8 @@
         "functional": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cmath": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",
