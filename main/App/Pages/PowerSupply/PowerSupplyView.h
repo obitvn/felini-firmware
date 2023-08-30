@@ -12,7 +12,7 @@ public:
     void Create(lv_obj_t* root);
     void Delete();
     void FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t state, int *div);
-    void EditLabel(lv_obj_t *label, float value, bool btn_state);
+    void OutFocusLabel(lv_obj_t *label);
 
 public:
 public:
@@ -30,7 +30,7 @@ public:
         item_t current;
         item_t power;
         item_t confirm;
-        item_t slider;
+        // item_t slider;
         item_t spin;
     } ui;
 

@@ -254,15 +254,17 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_LbCurrentSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *slider = lv_slider_create(root);
-    lv_obj_remove_style_all(slider);
-    lv_slider_set_value(slider, 15, LV_ANIM_OFF);
-    ui.slider.button = slider;
+    // lv_obj_t *slider = lv_slider_create(root);
+    // lv_obj_remove_style_all(slider);
+    // lv_slider_set_value(slider, 15, LV_ANIM_OFF);
+    // ui.slider.button = slider;
 
     lv_obj_t *spinbox = lv_spinbox_create(root);
     lv_obj_remove_style_all(spinbox);
+    lv_obj_set_x(spinbox, 320);
+    lv_obj_set_y(spinbox, 320);
     lv_spinbox_set_digit_format(spinbox, 5, 2);
-    lv_spinbox_set_range(spinbox, 0, 9999);
+    lv_spinbox_set_range(spinbox, 0, 29999);
     lv_spinbox_set_step(spinbox, 1);
     ui.spin.button = spinbox;
 
@@ -335,9 +337,9 @@ void PowerSupplyView::FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t sta
     }
 }
 
-void PowerSupplyView::EditLabel(lv_obj_t *label, float value, bool btn_state)
+void PowerSupplyView::OutFocusLabel(lv_obj_t *label)
 {
-
+    
 }
 
 void PowerSupplyView::Delete()

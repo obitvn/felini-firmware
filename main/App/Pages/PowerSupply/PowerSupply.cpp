@@ -52,7 +52,7 @@ void PowerSupply::onViewLoad()
     }
 
     // AttachEvent((View.ui.slider.button));
-    AttachEvent(View.ui.spin.button);
+    // AttachEvent(View.ui.spin.button);
 }
 
 void PowerSupply::onViewDidLoad()
@@ -132,27 +132,22 @@ void PowerSupply::onEvent(lv_event_t *event)
     {
         if (code == LV_EVENT_VALUE_CHANGED)
         {
-            printf("value change %d\r\n", lv_spinbox_get_value(instance->View.ui.spin.button));
-        }
-    }
-
-    if(obj == instance->View.ui.slider.button)
-    {
-        if (code == LV_EVENT_VALUE_CHANGED)
-        {
+            float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
+            printf("value change %f\r\n", level);
             switch (instance->config.status)
             {
-                
+
                 case PowerSupply::PD_SET_CURRENT:
                 {
-                    int32_t level = lv_slider_get_value(obj);
-                    lv_label_set_text_fmt(instance->View.ui.current.set, "%.2f", (float)(level * (instance->current.step* instance->current.div)) / 1000);
+                    
+                    lv_label_set_text_fmt(instance->View.ui.current.set, "%.2f", (float)(level / 1000));
+                    instance->current.value =  (float)(level / 1000);
                     break;
                 }
                 case PowerSupply::PD_SET_VOLT:
                 {
-                    int32_t level = lv_slider_get_value(obj);
-                    lv_label_set_text_fmt(instance->View.ui.voltage.set, "%.2f", (float)(level * (instance->volt.step * instance->volt.div)) / 1000);
+                    lv_label_set_text_fmt(instance->View.ui.voltage.set, "%.2f", (float)(level / 1000));
+                    instance->volt.value = (float)(level / 1000);
                     break;
                 }
                 case PowerSupply::PD_SET_POWER_ON:
@@ -165,6 +160,37 @@ void PowerSupply::onEvent(lv_event_t *event)
                     break;
             }
         }
+    }
+
+    // if(obj == instance->View.ui.slider.button)
+    // {
+        // if (code == LV_EVENT_VALUE_CHANGED)
+        // {
+        //     switch (instance->config.status)
+        //     {
+                
+        //         case PowerSupply::PD_SET_CURRENT:
+        //         {
+        //             int32_t level = lv_slider_get_value(obj);
+        //             lv_label_set_text_fmt(instance->View.ui.current.set, "%.2f", (float)(level * (instance->current.step* instance->current.div)) / 1000);
+        //             break;
+        //         }
+        //         case PowerSupply::PD_SET_VOLT:
+        //         {
+        //             int32_t level = lv_slider_get_value(obj);
+        //             lv_label_set_text_fmt(instance->View.ui.voltage.set, "%.2f", (float)(level * (instance->volt.step * instance->volt.div)) / 1000);
+        //             break;
+        //         }
+        //         case PowerSupply::PD_SET_POWER_ON:
+        //         {
+        //             printf("power on \r\n");
+        //             break;
+        //         }
+
+        //         default:
+        //             break;
+        //     }
+        // }
         // if (code == LV_EVENT_PRESSED)
         // {
         //     printf("presss\r\n");
@@ -220,7 +246,7 @@ void PowerSupply::onEvent(lv_event_t *event)
         //     }
         // }
 
-    }
+    // }
 
     if(obj == instance->View.ui.power.button)
     {
@@ -246,13 +272,14 @@ void PowerSupply::onEvent(lv_event_t *event)
             {
                 instance->current.btn_state = 0;
             }
+            instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
             instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, instance->current.btn_state, &instance->current.div);
             // printf("div %d\r\n", instance->current.div);
             if (instance->current.btn_state > 0)
             {
                 instance->config.status = PowerSupply::PD_SET_CURRENT;
-                lv_slider_set_range(instance->View.ui.slider.button, instance->current.minval / (instance->current.step * instance->current.div), instance->current.maxval / (instance->current.step * instance->current.div));
-                lv_slider_set_value(instance->View.ui.slider.button, lv_slider_get_value(instance->View.ui.slider.button), LV_ANIM_OFF);
+                // lv_slider_set_range(instance->View.ui.slider.button, instance->current.minval / (instance->current.step * instance->current.div), instance->current.maxval / (instance->current.step * instance->current.div));
+                // lv_slider_set_value(instance->View.ui.slider.button, lv_slider_get_value(instance->View.ui.slider.button), LV_ANIM_OFF);
                 // printf("setttt %d\r\n", instance->current.btn_state);
             }
             else
@@ -269,13 +296,14 @@ void PowerSupply::onEvent(lv_event_t *event)
             {
                 instance->volt.btn_state = 0;
             }
+            instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
             instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, instance->volt.btn_state, &instance->volt.div);
             if (instance->volt.btn_state > 0)
             {
                 instance->config.status = PowerSupply::PD_SET_VOLT;
-                lv_slider_set_range(instance->View.ui.slider.button, instance->volt.minval / (instance->volt.step * instance->volt.div), instance->volt.maxval / (instance->volt.step * instance->volt.div));
-                lv_slider_set_value(instance->View.ui.slider.button, lv_slider_get_value(instance->View.ui.slider.button), LV_ANIM_OFF);
-                printf("min %d max %d\r\n", instance->volt.minval / (instance->volt.step * instance->volt.div), instance->volt.maxval / (instance->volt.step * instance->volt.div));
+                // lv_slider_set_range(instance->View.ui.slider.button, instance->volt.minval / (instance->volt.step * instance->volt.div), instance->volt.maxval / (instance->volt.step * instance->volt.div));
+                // lv_slider_set_value(instance->View.ui.slider.button, lv_slider_get_value(instance->View.ui.slider.button), LV_ANIM_OFF);
+                // printf("min %d max %d\r\n", instance->volt.minval / (instance->volt.step * instance->volt.div), instance->volt.maxval / (instance->volt.step * instance->volt.div));
             }
             else
                 instance->config.status = PowerSupply::PD_SET_RELEASED;
@@ -286,6 +314,8 @@ void PowerSupply::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSED)
         {
             instance->confirm.btn_state = !instance->confirm.btn_state;
+            instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
+            instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
         }
     }
 }
