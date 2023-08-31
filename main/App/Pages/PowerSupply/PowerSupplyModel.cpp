@@ -1,4 +1,5 @@
 #include "PowerSupplyModel.h"
+#include "stdio.h"
 
 using namespace Page;
 
@@ -24,7 +25,7 @@ void PowerSupplyModel::Deinit()
     account->Notify("PowerPD", &info_val, sizeof(info_val));
 }
 
-void PowerSupplyModel::PDSetUp(uint16_t voltage, uint16_t current, bool powctrl, PDSetUp_mode_t mode)
+void PowerSupplyModel::PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode)
 {
     HAL::PowerPD_Info_t info_val;
     
@@ -34,6 +35,9 @@ void PowerSupplyModel::PDSetUp(uint16_t voltage, uint16_t current, bool powctrl,
             if (powctrl)
             {
                 info_val.pd_cmd = HAL::PD_PDO_ON;
+                printf("volt %.3f, current %.3f\r\n", voltage, current);
+                info_val.set_voltage = voltage*1000;
+                info_val.set_current = current*1000;
             }
             else
             {

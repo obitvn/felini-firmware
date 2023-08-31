@@ -33,6 +33,7 @@ public:
         item_t uartter;
         item_t daplink;
         item_t usbcanbus;
+        item_t kaitokey;
         item_t frequency;
         item_t imu;
     } ui;

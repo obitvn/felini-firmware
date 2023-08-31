@@ -21,7 +21,7 @@ public:
 public:
     void Init();
     void Deinit();
-    void PDSetUp(uint16_t voltage, uint16_t current, bool powctrl, PDSetUp_mode_t mode);
+    void PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode);
 
 private:
     Account* account;

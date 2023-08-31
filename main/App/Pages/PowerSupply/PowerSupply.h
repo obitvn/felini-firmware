@@ -67,7 +67,7 @@ private:
     {
         /* data */
         uint8_t btn_state;
-        uint16_t value;
+        float value;
         uint16_t minval;
         uint16_t maxval;
         uint16_t step;

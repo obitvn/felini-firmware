@@ -90,6 +90,7 @@ void AppInfos::onViewDidUnload()
 
 void AppInfos::AttachEvent(lv_obj_t* obj)
 {
+    lv_obj_set_user_data(obj, this);
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
 }
 
@@ -125,7 +126,8 @@ void AppInfos::onEvent(lv_event_t* event)
     static uint32_t time_gesture;
 
     AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
-    
+
+    printf("event %d\r\n", code);
 
 
     if (obj == instance->root) // for touch
@@ -144,9 +146,14 @@ void AppInfos::onEvent(lv_event_t* event)
                 instance->onFoucusDown();
             }
         }
+
+        if (LV_EVENT_KEY == code)
+        {
+            printf("qfwebnjbnđsfnb");
+        }
     }
     
-    if((lv_tick_get() - time_gesture) > 200)
+    if((lv_tick_get() - time_gesture) > 500)
     {
         for (int i = 0; i < sizeof(instance->View.ui) / sizeof(AppInfosView::item_t); i++)
         {
@@ -154,9 +161,7 @@ void AppInfos::onEvent(lv_event_t* event)
             {
                 if (code == LV_EVENT_PRESSED)
                 {
-                    // printf("pressing at button %d app_src %s\r\n", i, item_grp[i].app_src);
-                    // instance->Manager->Pop(); //đóng page và quay về page trước đó
-                    instance->Manager->Push(item_grp[i].app_src); // load page mới, đang lỗi chưa load được
+                    instance->Manager->Push(item_grp[i].app_src); // load page mới
                 }
             }
         }

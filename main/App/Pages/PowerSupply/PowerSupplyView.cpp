@@ -284,7 +284,7 @@ void PowerSupplyView::FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t sta
     case 1: // x1
     {
         *div = (int)1;
-         lv_label_set_text(label, "x1");
+        // lv_label_set_text(label, "x1");
         lv_obj_set_style_border_color(set, lv_color_hex(0x4284e4), LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_border_opa(set, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
         lv_obj_set_style_border_width(set, 2, LV_PART_MAIN | LV_STATE_DEFAULT);

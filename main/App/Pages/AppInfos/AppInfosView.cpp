@@ -139,6 +139,18 @@ void AppInfosView::Create(lv_obj_t* root)
         "V2.2.3\n"
         "Socket CAN\n");
 
+    Item_Create(
+        "Pages/KaitoKey",
+        &ui.kaitokey,
+        root,
+        "FIDO2",
+        "terminal",
+
+        "KaitoKey\n"
+        "FIDO2 & U2F\n"
+        "Passwordless\n"
+        "V-30-08-2023\n");
+
     /* Item System */
     Item_Create(
         "Pages/Hertz",
@@ -164,16 +176,7 @@ void AppInfosView::Create(lv_obj_t* root)
         "3d Viewer\n"
         "V2.2.3\n");
     /* Item System */
-    Item_Create(
-        "Pages/KaitoKey",
-        &ui.imu,
-        root,
-        "FIDO2",
-        "terminal",
-
-        "KaitoKey\n"
-        "FIDO2 & U2F\n"
-        "V2.2.3\n");
+    
 
     Group_Init();
 }
