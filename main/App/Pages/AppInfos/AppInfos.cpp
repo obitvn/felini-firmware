@@ -39,6 +39,7 @@ void AppInfos::onViewLoad()
     {
         AttachEvent(item_grp[i].cont);
     }
+
 }
 
 void AppInfos::onViewDidLoad()
@@ -127,7 +128,7 @@ void AppInfos::onEvent(lv_event_t* event)
 
     AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
 
-    printf("event %d\r\n", code);
+    // printf("event %d\r\n", code);
 
 
     if (obj == instance->root) // for touch
@@ -152,6 +153,11 @@ void AppInfos::onEvent(lv_event_t* event)
             printf("qfwebnjbnđsfnb");
         }
     }
+
+    // if(obj == instance->View.btn.cont)
+    // {
+    //     printf("btn   sfdjdjefwfewfewffewewf");
+    // }
     
     if((lv_tick_get() - time_gesture) > 500)
     {

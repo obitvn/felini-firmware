@@ -29,14 +29,12 @@
 
 #include "Pages/AppFactory.hpp"
 #include "Pages/StatusBar/StatusBar.h"
-// #include "Pages/MenuList/MenuList.h"
 #include "Pages/IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
-#include "Pages/HappyBirthday/HappyBirthday.h"
 #include "Pages/DAPLink/DAPLink.h"
 #include "Pages/Interval/Interval.h"
 #include "Pages/UARTViewer/UARTViewer.h"
@@ -98,16 +96,13 @@
     StatusBar::Init(lv_layer_top());
     // Lưu ý cần đúng tên class, sai tên load không ra, không chạy
     manager.Install("Startup", "Pages/Startup");
-    // manager.Install("MenuList", "Pages/MenuList");
     manager.Install("Template", "Pages/_Template");
-    // manager.Install("Dialplate", "Pages/Dialplate");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
     manager.Install("AppInfos", "Pages/AppInfos");
     manager.Install("PowerSupply", "Pages/PowerSupply");
     manager.Install("ServoCtrl", "Pages/ServoCtrl");
     manager.Install("AnalogViewer", "Pages/AnalogViewer");
     manager.Install("ColorWheel", "Pages/ColorWheel");
-    manager.Install("HappyBirthday", "Pages/HappyBirthday");
     manager.Install("DAPLink", "Pages/DAPLink");
     manager.Install("Interval", "Pages/Interval");
     manager.Install("UARTViewer", "Pages/UARTViewer");

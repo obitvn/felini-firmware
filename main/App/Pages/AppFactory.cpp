@@ -23,15 +23,12 @@
 #include "AppFactory.hpp"
 #include "_Template/Template.h"
 #include "StartUp/StartUp.h"
-// #include "MenuList/MenuList.h"
-// #include "Dialplate/Dialplate.h"
 #include "IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
 #include "Pages/ColorWheel/ColorWheel.h"
-#include "Pages/HappyBirthday/HappyBirthday.h"
 #include "Pages/DAPLink/DAPLink.h"
 #include "Pages/Interval/Interval.h"
 #include "Pages/UARTViewer/UARTViewer.h"
@@ -53,15 +50,13 @@ do{\
 {
     APP_CLASS_MATCH(Template);
     APP_CLASS_MATCH(Startup);
-    // APP_CLASS_MATCH(MenuList);
-    // APP_CLASS_MATCH(Dialplate);
+
     APP_CLASS_MATCH(AppInfos);
     APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
     APP_CLASS_MATCH(PowerSupply);
     APP_CLASS_MATCH(ServoCtrl);
     APP_CLASS_MATCH(AnalogViewer);
     APP_CLASS_MATCH(ColorWheel);
-    APP_CLASS_MATCH(HappyBirthday);
     APP_CLASS_MATCH(DAPLink);
     APP_CLASS_MATCH(Interval);
     APP_CLASS_MATCH(UARTViewer);

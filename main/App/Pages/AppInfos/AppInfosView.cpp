@@ -22,8 +22,6 @@ void AppInfosView::Create(lv_obj_t* root)
     );
 
 
-    
-
     Style_Init();
 
     /* Item Sport */

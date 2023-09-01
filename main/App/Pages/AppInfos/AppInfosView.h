@@ -38,6 +38,8 @@ public:
         item_t imu;
     } ui;
 
+    // item_t btn;
+
 public:
 
     void SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en);
