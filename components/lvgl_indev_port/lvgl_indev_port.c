@@ -22,6 +22,8 @@ void lv_port_indev_init(void)
     /*Register a encoder input device*/
     lv_indev_drv_init(&indev_drv);
     indev_drv.type = LV_INDEV_TYPE_ENCODER;
+    indev_drv.long_press_time = 2000;      
+    indev_drv.long_press_repeat_time = 500; 
     indev_drv.read_cb = encoder_read;
     indev_encoder = lv_indev_drv_register(&indev_drv);
 
@@ -56,18 +58,6 @@ static void touch_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
     {
         touch_driver_read(indev_drv, data);
         data->state = LV_INDEV_STATE_PR;
-        // if(data->key == LV_KEY_DOWN)
-        // {
-        //     encoder_set_diff(-1);
-        // }
-        // if (data->key == LV_KEY_UP)
-        // {
-        //     encoder_set_diff(1);
-        // }
-        // if (data->key == LV_KEY_HOME)
-        // {
-        //     data->state = LV_INDEV_STATE_PR;
-        // }
     }
     else
     {
@@ -91,23 +81,6 @@ static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
     {
         last_state = is_push;
     }
-
-    // if(encoder_get_is_push() == 1)
-    // {
-    //     timeout++;
-    //     if(timeout>100)
-    //     {
-    //         //shut down
-    //         printf("shut down");
-    //         gpio_set_level((gpio_num_t)12, 0);
-    //         gpio_set_level((gpio_num_t)12, 0);
-    //         gpio_set_level((gpio_num_t)12, 0);
-    //     }
-    // }
-    // else
-    // {
-    //     timeout = 0;
-    // }
 }
 
 lv_indev_t* get_indev(void)

@@ -186,6 +186,7 @@ void AppInfosView::Group_Init()
     lv_group_t *group = lv_group_get_default();
     lv_group_set_wrap(group, true);
     lv_group_set_focus_cb(group, onFocus);
+    lv_group_set_editing(group, true);
 
     item_t* item_grp = ((item_t*)&ui);
 
