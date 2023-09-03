@@ -74,7 +74,12 @@ void HAL::PowerPD_PowerOff()
 
 void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
 {
-    
+    if(PD_UFP.is_power_ready())
+        pd_info->pd_stt = STATUS_POWER_TYP;
+    else if(PD_UFP.is_PPS_ready())
+        pd_info->pd_stt = STATUS_POWER_PPS;
+    else
+        pd_info->pd_stt = STATUS_POWER_NA;
 }
 
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)

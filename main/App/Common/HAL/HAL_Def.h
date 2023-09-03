@@ -51,6 +51,12 @@ namespace HAL
         PD_PDO_UPDATE = 5       
     } PowerPD_cmd_t;
 
+    typedef enum
+    {
+        STATUS_POWER_NA = 0,
+        STATUS_POWER_TYP,
+        STATUS_POWER_PPS
+    } PowerPD_stt_t;
 
     typedef struct
     {
@@ -62,6 +68,7 @@ namespace HAL
         uint16_t set_current;
         PowerPD_type_t pd_type;
         PowerPD_cmd_t pd_cmd;
+        PowerPD_stt_t pd_stt;
     } PowerPD_Info_t;
 
     
