@@ -124,6 +124,21 @@ namespace HAL
         daplink_cmd_t cmd;
     } DAPLink_Info_t;
 
+    typedef enum ina2xx_cmd
+    {
+        INA_START = 0,
+        INA_UPDATE,
+        INA_STOP,
+    } ina2xx_cmd_t;
+
+    typedef struct 
+    {
+        float voltage;
+        float current;
+        float power;
+        uint16_t status;
+        ina2xx_cmd_t cmd;
+    } INA2xx_Info_t;
 
     typedef struct
     {

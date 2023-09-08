@@ -82,6 +82,8 @@ private:
     item_state confirm;
     item_state slider;
 
+    lv_timer_t *timer;
+
 private:
 
 };

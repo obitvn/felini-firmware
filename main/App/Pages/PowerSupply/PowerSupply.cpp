@@ -45,6 +45,9 @@ void PowerSupply::onViewLoad()
     lv_obj_clear_flag(root, LV_OBJ_FLAG_GESTURE_BUBBLE);
     // lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
 
+    timer = lv_timer_create(onTimer, 100, this);
+    lv_timer_set_repeat_count(timer, -1); //infinity
+
     PowerSupplyView::item_t *item_grp = ((PowerSupplyView::item_t *)&View.ui);
     for (int i = 0; i < sizeof(View.ui) / sizeof(PowerSupplyView::item_t); i++)
     {
@@ -83,6 +86,7 @@ void PowerSupply::onViewDidUnload()
 {
     Model.Deinit();
     View.Delete();
+    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
 }
 
@@ -94,12 +98,15 @@ void PowerSupply::AttachEvent(lv_obj_t *obj)
 
 void PowerSupply::Update()
 {
-
+    HAL::PowerPD_Info_t pd;
+    Model.GetPDInfo(&pd);
+    printf("update vol %d\n", pd.get_voltage);
 }
 
 void PowerSupply::onTimer(lv_timer_t *timer)
 {
-
+    PowerSupply *instance = (PowerSupply *)timer->user_data;
+    instance->Update();
 }
 
 
@@ -112,8 +119,6 @@ void PowerSupply::onEvent(lv_event_t *event)
     lv_event_code_t code = lv_event_get_code(event);
     uint32_t key = lv_event_get_key(event);
     PowerSupply *instance = (PowerSupply *)lv_event_get_user_data(event);
-
-
 
     if (obj == instance->root)
     {

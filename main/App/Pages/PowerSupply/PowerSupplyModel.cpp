@@ -8,6 +8,7 @@ void PowerSupplyModel::Init()
 {
     account = new Account("PowerPDModel", DataProc::Center(), 0, this);
     account->Subscribe("PowerPD");
+    account->Subscribe("INA2xxHardware");
     account->SetEventCallback(onEvent);
 
     HAL::PowerPD_Info_t info_val;
@@ -15,6 +16,10 @@ void PowerSupplyModel::Init()
     info_val.set_voltage = 5000;
     info_val.set_current = 1000;
     account->Notify("PowerPD", &info_val, sizeof(info_val));
+
+    HAL::INA2xx_Info_t ina_info;
+    ina_info.cmd = HAL::INA_START;
+    account->Notify("INA2xxHardware", &ina_info, sizeof(ina_info));
 }
 
 void PowerSupplyModel::Deinit()
@@ -24,6 +29,9 @@ void PowerSupplyModel::Deinit()
     info_val.set_voltage = 0;
     info_val.set_current = 0;
     account->Notify("PowerPD", &info_val, sizeof(info_val));
+    HAL::INA2xx_Info_t ina_info;
+    ina_info.cmd = HAL::INA_STOP;
+    account->Notify("INA2xxHardware", &ina_info, sizeof(ina_info));
 }
 
 void PowerSupplyModel::PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode)
@@ -60,10 +68,12 @@ void PowerSupplyModel::Update(HAL::PowerPD_Info_t *pd)
 void PowerSupplyModel::GetPDInfo(HAL::PowerPD_Info_t *pd)
 {
     memset(pd, 0, sizeof(HAL::PowerPD_Info_t));
-    if (account->Pull("GPS", pd, sizeof(HAL::PowerPD_Info_t)) != Account::ERROR_NONE)
+    HAL::INA2xx_Info_t ina;
+    if (account->Pull("INA2xxHardware", &ina, sizeof(HAL::INA2xx_Info_t)) != Account::ERROR_NONE)
     {
         return;
     }
+    pd->get_voltage = ina.voltage;
 }
 
 int PowerSupplyModel::onTimer(Account *account)

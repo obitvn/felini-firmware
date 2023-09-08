@@ -263,7 +263,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_remove_style_all(spinbox);
     lv_obj_set_x(spinbox, 320);
     lv_obj_set_y(spinbox, 320);
-    lv_spinbox_set_cursor_pos(spinbox, 1);
+    lv_spinbox_set_cursor_pos(spinbox, 5);
     lv_spinbox_set_digit_format(spinbox, 5, 2);
     lv_spinbox_set_range(spinbox, 0, 29999);
     lv_spinbox_set_step(spinbox, 1);
