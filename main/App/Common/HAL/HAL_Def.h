@@ -66,6 +66,8 @@ namespace HAL
         uint16_t max_power;
         uint16_t set_voltage;
         uint16_t set_current;
+        uint16_t get_voltage;
+        uint16_t get_current;
         PowerPD_type_t pd_type;
         PowerPD_cmd_t pd_cmd;
         PowerPD_stt_t pd_stt;
@@ -106,11 +108,12 @@ namespace HAL
     } PowerPMIC_Info_t;
 
     /* DAPLink*/
-    // typedef enum daplink_cmd
-    // {
-    //     DAP_START = 0,
-    //     DAP_STOP,
-    // } daplink_cmd_t;
+    typedef enum daplink_cmd
+    {
+        DAP_START = 0,
+        DAP_UPDATE,
+        DAP_STOP,
+    } daplink_cmd_t;
 
     typedef struct
     {
@@ -118,7 +121,19 @@ namespace HAL
         uint8_t status;
         bool connect;
         bool running;
+        daplink_cmd_t cmd;
     } DAPLink_Info_t;
+
+
+    typedef struct
+    {
+        float volt;
+        float current;
+        float power;
+        bool ready;
+        bool alert;
+        bool overflow;
+    } PowerMeasure_Info_t;
 }
 
 #endif

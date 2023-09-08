@@ -12,7 +12,7 @@ extern "C" {
 #include "esp_freertos_hooks.h"
 
 #include "lvgl.h"
-#include "lvgl_helpers.h"
+// #include "lvgl_helpers.h"
 
 void lv_port_disp_init(void);
 void disp_task_create(void);

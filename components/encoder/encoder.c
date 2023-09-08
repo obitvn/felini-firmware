@@ -1,18 +1,17 @@
 #include "encoder.h"
 
-static rotary_encoder_t *encoder = NULL;    /* 编码器 */
+static rotary_encoder_t *encoder = NULL; /* Encoder */
 static SemaphoreHandle_t mutex = NULL;
 
-static int32_t last_cnt;                    /* 编码器上一次计数值 */
-static int32_t encoder_diff = 0;            /* 编码器转动方向，0为静止，1为顺时针旋转，-1为逆时针旋转 */
-static bool encoder_diff_disable = false;   /* 获取编码器数值，true为使能，false为失能 */
-
+static int32_t last_cnt;                    /* Encoder last count value */
+static int32_t encoder_diff = 0;            /* Encoder rotation direction, 0 is stationary, 1 is clockwise rotation, -1 is counterclockwise rotation */
+static bool encoder_diff_disable = false;   /* Get the encoder value, true means enabled, false means disabled */
 
 key_state_t encoder_push_state;
 
 void input_task_create(void);
 
-/* 编码器配置 */
+/* Encoder configuration */
 void encoder_config(void)
 {
     uint32_t pcnt_unit = 0;
@@ -21,26 +20,24 @@ void encoder_config(void)
 
     mutex = xSemaphoreCreateMutex();
 
-    /* 1.配置编码器KEY GPIO */
+    /* 1. Configure encoder KEY GPIO */
     gpio_config_t io_conf = {
         .intr_type = GPIO_INTR_DISABLE,                
         .pin_bit_mask = ENCODER_PUSH_GPIO_PIN_SEL,
         .mode = GPIO_MODE_INPUT,
-        .pull_down_en = 1,                              /* 允许下拉 */
+        .pull_down_en = 1,                              /* Allow dropdown */
         .pull_up_en = 0,
     };
 
     gpio_config(&io_conf);
 
-    /* 2.配置编码器A、B */
+    /* 2. Configure encoders A and B */
     rotary_encoder_config_t config = ROTARY_ENCODER_DEFAULT_CONFIG((rotary_encoder_dev_t)pcnt_unit, ENCODER_A_PIN, ENCODER_B_PIN);
     ESP_ERROR_CHECK(rotary_encoder_new_ec11(&config, &encoder));
-    ESP_ERROR_CHECK(encoder->set_glitch_filter(encoder, 1));    /* 滤波器 */
+    ESP_ERROR_CHECK(encoder->set_glitch_filter(encoder, 1));    /* filter */
     ESP_ERROR_CHECK(encoder->start(encoder));
 
-    last_cnt = encoder->get_counter_value(encoder);             /* 获取编码器初值 */
-
-    
+    last_cnt = encoder->get_counter_value(encoder);             /* Get the initial value of the encoder */
 }
 
 static key_state_t encoder_push_scan(void)
@@ -65,23 +62,23 @@ static void encoder_task(void *pvParameter)
 
         if(pdTRUE == xSemaphoreTake(mutex, portMAX_DELAY))
         {
-            /* 1.KEY检测 */
+            /* 1.KEY detection */
             encoder_push_state = encoder_push_scan();
-            
-            /* 2.方向检测 */
+
+            /* 2. Direction detection */
             if(!encoder_diff_disable)
             {
                 int32_t dir = 0;
-                int32_t cnt = encoder->get_counter_value(encoder);      /* 获取编码器数值 */
-                
-                /* 方向判断 */
+                int32_t cnt = encoder->get_counter_value(encoder); /* Get encoder value */
+
+                /* Direction judgment */
                 if(cnt - last_cnt < 0 && cnt - last_cnt <= -3)
                 {
-                    dir = -1;                   /* 逆时针旋转 */
+                    dir = -1;                   /* Anticlockwise rotation */
                 }
                 else if(cnt - last_cnt > 0 && cnt - last_cnt >= 3)
                 {
-                    dir = 1;                    /* 顺时针旋转 */
+                    dir = 1;                    /* clockwise rotation */
                 }
 
                 encoder_diff += dir;
@@ -112,7 +109,7 @@ int32_t encoder_get_diff(void)
 
 bool encoder_get_is_push(void)
 {
-    /* 编码器KEY按下不再读取方向数值 */
+    /* The direction value will no longer be read when the encoder KEY is pressed */
     if(encoder_push_state == KEY_DOWN)
     {
         encoder_diff_disable = true;

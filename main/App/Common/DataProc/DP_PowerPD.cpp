@@ -7,11 +7,20 @@
 
 static void onTimer(Account* account)
 {
-
+    HAL::PowerPD_Info_t PDinfo;
+    HAL::PowerPD_Update(&PDinfo);
+    account->Commit(&PDinfo, sizeof(PDinfo));
+    account->Publish();
+    
 }
 
 static int onEvent(Account* account, Account::EventParam_t* param)
 {
+    if (param->event == Account::EVENT_TIMER)
+    {
+        onTimer(account);
+        return Account::ERROR_NONE;
+    }
     if (param->event != Account::EVENT_NOTIFY)
     {
         printf("Account::ERROR_UNSUPPORTED_REQUEST\r\n");
@@ -59,5 +68,5 @@ static int onEvent(Account* account, Account::EventParam_t* param)
 DATA_PROC_INIT_DEF(PowerPD)
 {
     account->SetEventCallback(onEvent);
-    // account->SetTimerPeriod(500);
+    account->SetTimerPeriod(100);
 }

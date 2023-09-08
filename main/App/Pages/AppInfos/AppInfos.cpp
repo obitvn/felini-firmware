@@ -128,7 +128,7 @@ void AppInfos::onEvent(lv_event_t* event)
 
     AppInfosView::item_t *item_grp = ((AppInfosView::item_t *)&instance->View.ui);
 
-    printf("event %d\r\n", code);
+    // printf("event %d\r\n", code);
 
 
     if (obj == instance->root) // for touch

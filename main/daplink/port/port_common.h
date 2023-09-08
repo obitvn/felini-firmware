@@ -27,8 +27,8 @@
 // #define LED_CONNECTED               GPIO_NUM_41
 // #define LED_RUNNING                 GPIO_NUM_42
 
-#define DAP_UART_TX                 GPIO_NUM_8
-#define DAP_UART_RX                 GPIO_NUM_9
+#define DAP_UART_TX                 GPIO_NUM_2
+#define DAP_UART_RX                 GPIO_NUM_3
 
 #define DAP_CPU_CLOCK 0U
 

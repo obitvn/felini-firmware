@@ -3,7 +3,7 @@
 
 #include "esp_log.h"
 
-// 和平台有关
+// depends on the platform
 #define log_info_interrupt_d(format_pc, ...) ESP_EARLY_LOGI(__FUNCTION__, format_pc, ##__VA_ARGS__)
 #define USB_BASE 0x60080000
 #define CONFIG_USB_DWC2_PORT FS_PORT

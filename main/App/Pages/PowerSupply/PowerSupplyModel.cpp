@@ -1,6 +1,7 @@
 #include "PowerSupplyModel.h"
 #include "stdio.h"
 
+
 using namespace Page;
 
 void PowerSupplyModel::Init()
@@ -48,10 +49,44 @@ void PowerSupplyModel::PDSetUp(float voltage, float current, bool powctrl, PDSet
         default:
             break;
     }
-    account->Notify("PowerPD", &info_val, sizeof(info_val));
+    account->Notify("PowerPD", &info_val, sizeof(HAL::PowerPD_Info_t));
+}
+
+void PowerSupplyModel::Update(HAL::PowerPD_Info_t *pd)
+{
+
+}
+
+void PowerSupplyModel::GetPDInfo(HAL::PowerPD_Info_t *pd)
+{
+    memset(pd, 0, sizeof(HAL::PowerPD_Info_t));
+    if (account->Pull("GPS", pd, sizeof(HAL::PowerPD_Info_t)) != Account::ERROR_NONE)
+    {
+        return;
+    }
+}
+
+int PowerSupplyModel::onTimer(Account *account)
+{
+    return 1;
 }
 
 int PowerSupplyModel::onEvent(Account *account, Account::EventParam_t *param)
 {
+    if (param->event == Account::EVENT_TIMER)
+    {
+            onTimer(account);
+            return Account::ERROR_NONE;
+    }
+    if (param->event != Account::EVENT_SUB_PULL)
+    {
+            return Account::ERROR_UNSUPPORTED_REQUEST;
+    }
+
+    if (param->size != sizeof(HAL::PowerPD_Info_t))
+    {
+            return Account::ERROR_SIZE_MISMATCH;
+    }
+
     return 1;
 }

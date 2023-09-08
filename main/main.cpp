@@ -41,7 +41,6 @@ extern "C"
         App_Init();
         while (1)
         {            
-                // lv_timer_handler();
                 lv_task_handler();
                 lv_porting_delay();
                 

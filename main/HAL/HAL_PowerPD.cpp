@@ -23,30 +23,25 @@ extern "C"
         gpio_set_direction((gpio_num_t)45, GPIO_MODE_OUTPUT);
         gpio_set_level((gpio_num_t)45, 1);
 
-        PD_UFP.init(PD_POWER_OPTION_MAX_20V);
+        // PD_UFP.init(PD_POWER_OPTION_MAX_20V);
+        PD_UFP.init_PPS(PPS_V(16.5), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);
         while (1)
         {
             /* code */
             PD_UFP.run();
             if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
             {
-                ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
+                // ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
             }
             vTaskDelay(5);
         }
-        
-    }
+        }
 }
 
 void HAL::PowerPD_Init()
 {
     ESP_LOGI(TAG, "power_pd_c init \r\n");
-    // if (usb_pd_task_handle != NULL)
-    // {
-    //     vTaskDelete(usb_pd_task_handle);
-    //     usb_pd_task_handle = NULL;
-    // }
-    xTaskCreate(usb_pd_task, "usb_pd_task", 1024 * 2, NULL, 10, &usb_pd_task_handle);
+    xTaskCreate(usb_pd_task, "usb_pd_task", 1024 * 8, NULL, 10, &usb_pd_task_handle);
 }
 
 void HAL::PowerPD_Deinit()
@@ -56,10 +51,8 @@ void HAL::PowerPD_Deinit()
     if (usb_pd_task_handle != NULL)
     {
         vTaskDelete(usb_pd_task_handle);
-        // usb_pd_task_handle = NULL;
     }
     PD_UFP.stop();
-    // usb_pd_task_handle = NULL;
 }
 
 void HAL::PowerPD_PowerOn()
@@ -74,12 +67,15 @@ void HAL::PowerPD_PowerOff()
 
 void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
 {
-    if(PD_UFP.is_power_ready())
-        pd_info->pd_stt = STATUS_POWER_TYP;
-    else if(PD_UFP.is_PPS_ready())
+    if (PD_UFP.is_PPS_ready())
         pd_info->pd_stt = STATUS_POWER_PPS;
+    else if (PD_UFP.is_power_ready())
+        pd_info->pd_stt = STATUS_POWER_TYP;
     else
         pd_info->pd_stt = STATUS_POWER_NA;
+
+    pd_info->get_voltage = PD_UFP.get_voltage();
+    pd_info->get_current = PD_UFP.get_current();
 }
 
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)

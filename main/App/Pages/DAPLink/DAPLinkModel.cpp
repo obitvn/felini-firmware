@@ -17,7 +17,17 @@ void DAPLinkModel::Deinit()
 
 void DAPLinkModel::DAPCommand(int cmd)
 {
-    account->Notify("DAPLinkHardware", &cmd, sizeof(cmd));
+    HAL::DAPLink_Info_t info;
+    if(cmd)
+    {
+        info.cmd = HAL::DAP_START;
+    } 
+    else 
+    {
+        info.cmd = HAL::DAP_STOP;
+        printf("dap stop cmd\n");
+    }
+    account->Notify("DAPLinkHardware", &info, sizeof(HAL::DAPLink_Info_t));
 }
 
 

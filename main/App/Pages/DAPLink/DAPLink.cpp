@@ -25,7 +25,7 @@ void DAPLink::onViewLoad()
     View.Create(root);
     AttachEvent(root);
     // AttachEvent(View.switch_cont);
-    Model.DAPCommand(12); // crash
+    Model.DAPCommand(1); // crash
 }
 
 void DAPLink::onViewDidLoad()
@@ -54,7 +54,7 @@ void DAPLink::onViewDidDisappear()
 
 void DAPLink::onViewDidUnload()
 {
-    Model.DAPCommand(6);
+    Model.DAPCommand(0);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();

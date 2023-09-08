@@ -65,11 +65,17 @@ namespace HAL
     void DAPLink_GetInfo(DAPLink_Info_t *info);
     void DAPLink_Deinit();
 
-    /* DAP Link*/
+    /* RCServo*/
     void RCServo_Init();
     void RCServo_GetInfo(RCServo_Info_t *info);
     void RCServo_Update(RCServo_Info_t *info);
     void RCServo_Deinit();
+
+    /* PowerMeasure*/
+    void PowerMeasure_Init();
+    void PowerMeasure_GetInfo(PowerMeasure_Info_t *info);
+    void PowerMeasure_Update(PowerMeasure_Info_t *info);
+    void PowerMeasure_Deinit();
 }
 
 #endif // !__cplusplus

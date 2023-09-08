@@ -5,15 +5,6 @@
 
 static SemaphoreHandle_t lvgl_mutex = NULL;
 
-
-
-// static void lv_tick_task(void *arg)
-// {
-//     (void) arg;
-
-//     lv_tick_inc(portTICK_PERIOD_MS);
-// }
-
 static void lv_tick_task(void *arg) {
   (void)arg;
 
@@ -32,57 +23,28 @@ void lv_port_disp_init(void)
 {
     lvgl_mutex = xSemaphoreCreateMutex();
 
- 
     disp_init();
 
-
-    // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
-
-        // static lv_color_t *lv_buf =  NULL;
-    lv_color_t* buf_1 = heap_caps_malloc(DISP_BUF_SIZE * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
+    lv_color_t* buf_1 = heap_caps_malloc(240 * 280 * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
     assert(buf_1 != NULL);
-    lv_color_t* buf_2 = heap_caps_malloc(DISP_BUF_SIZE * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
+    lv_color_t* buf_2 = heap_caps_malloc(240 * 280 * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
     assert(buf_2 != NULL);
 
-    memset(buf_1, 0, DISP_BUF_SIZE * 2);
-    memset(buf_2, 0, DISP_BUF_SIZE * 2);
+    memset(buf_1, 0, 240 * 280 * 2);
+    memset(buf_2, 0, 240 * 280 * 2);
 
-    // lv_disp_draw_buf_init(&disp_buf, buf_1, NULL, DISP_BUF_SIZE);
-    lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, DISP_BUF_SIZE);
+    lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, 240 * 280);
 
-    // heap_caps_print_heap_info(MALLOC_CAP_SPIRAM);
-    // heap_caps_print_heap_info(MALLOC_CAP_DMA);
-
-
-    /* 创建显示器 */
+    /* Create display */
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
     disp_drv.draw_buf = &disp_buf;
     /*Used to copy the buffer's content to the display*/
     disp_drv.flush_cb = disp_flush;
-    disp_drv.hor_res = LV_HOR_RES_MAX;
-    disp_drv.ver_res = LV_VER_RES_MAX;
+    disp_drv.hor_res = 280;
+    disp_drv.ver_res = 240;
     disp_drv.full_refresh = 1;
     lv_disp_drv_register(&disp_drv);
-
-    // heap_caps_dump_all();
-
-    // esp_register_freertos_tick_hook((void *)lv_tick_task);
-    // const esp_timer_create_args_t periodic_timer_args = {
-    //   .callback = &lv_tick_task, .name = "periodic_gui"};
-    // esp_timer_handle_t periodic_timer;
-    // ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
-    // ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1 * 1000));
-
-
-    // clear screen
-    // static lv_style_t style_screen;
-    // lv_style_init(&style_screen);
-    // lv_style_set_bg_color(&style_screen, lv_color_hex(0));
-    // lv_obj_add_style(lv_scr_act(), &style_screen,_LV_STYLE_STATE_CMP_SAME);
-    // disp_task_create();
-    // vTaskDelay(pdMS_TO_TICKS(100));
-    // st7789v_backlight_set(500); // 50%
 
 }
 

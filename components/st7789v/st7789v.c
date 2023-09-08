@@ -48,13 +48,6 @@
 #define ST7789V_SPI_HOST (SPI2_HOST)
 #define ORIENTATION (CONFIG_ST7789V_ORIENTATION_0)
 
-// #if ST7789V_HOR_RES > 240
-// #define MAX_ROWS 50
-// #else
-// #define MAX_ROWS 60
-// #endif
-
-// #define MAX_TRANSFER_SIZE (280 * 50*2)
 #define MAX_TRANSFER_SIZE (32768)
 
 /*The LCD needs a bunch of command/argument values to be initialized. They are
@@ -183,11 +176,11 @@ static void st7789v_gpio_init(void) {
   gpio_set_pull_mode(ST7789V_PIN_RES, GPIO_PULLUP_ONLY);
 
   ledc_timer_config_t timer_conf = {
-      .duty_resolution = LEDC_TIMER_10_BIT,  // PWM信号的分辨率为10位
-      .freq_hz = 2000,                       // PWM信号的频率为1kHz
-      .speed_mode = LEDC_LOW_SPEED_MODE,  // PWM模块的工作模式为高速模式
-      .timer_num = LEDC_TIMER_0,          // PWM定时器的编号为0
-      .clk_cfg = LEDC_AUTO_CLK,           // PWM时钟分频器为自动选择
+      .duty_resolution = LEDC_TIMER_10_BIT, // The resolution of the PWM signal is 10 bits
+      .freq_hz = 2000,                      // The frequency of the PWM signal is 1kHz
+      .speed_mode = LEDC_LOW_SPEED_MODE,    // The working mode of the PWM module is high-speed mode
+      .timer_num = LEDC_TIMER_0,            // The number of the PWM timer is 0
+      .clk_cfg = LEDC_AUTO_CLK,             // PWM clock divider is automatically selected
   };
   ledc_timer_config(&timer_conf);
 
@@ -195,10 +188,10 @@ static void st7789v_gpio_init(void) {
   ledc_channel_config_t ch_conf = {
       .gpio_num = ST7789V_PIN_BLK,
       .speed_mode = LEDC_LOW_SPEED_MODE,
-      .channel = LEDC_CHANNEL_0,  // PWM通道的编号为0
-      .timer_sel = LEDC_TIMER_0,  // PWM定时器的编号为0
-      .duty = 0,                // PWM信号的占空比为50%
-      .hpoint = 0,                // PWM信号的高电平持续时间为0
+      .channel = LEDC_CHANNEL_0, // The number of PWM channel is 0
+      .timer_sel = LEDC_TIMER_0, // The number of the PWM timer is 0
+      .duty = 0,                 // The duty cycle of the PWM signal is 50%
+      .hpoint = 0,               // The high level duration of the PWM signal is 0
   };
   ledc_channel_config(&ch_conf);
 }
@@ -294,17 +287,6 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
   static uint32_t transfer_num = 0;
   spi_transaction_t *rtrans;
 
-
-    // Get the result of the last transfer果
-    // for (int x = 0; x < transfer_num; x++) {
-    //   esp_err_t ret = spi_device_get_trans_result(spi, &rtrans, portMAX_DELAY);
-    //   if (ret != ESP_OK) {
-    //     ESP_LOGW(TAG, "1. transfer_num = %lu", transfer_num);
-    //   }
-    //   assert(ret == ESP_OK);
-    // }
-    // transfer_num = 0;
-
 #if defined(CONFIG_ST7789V_ORIENTATION_0) || \
     defined(CONFIG_ST7789V_ORIENTATION_180)
   x1 += 20;
@@ -341,7 +323,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
 
   uint8_t *color_map_ptr = (uint8_t *)color_map;
   uint32_t data_offset = 0;
-  // 分割数据，每次传输最大为MAX_TRANSFER_SIZE
+  // Split the data, each transmission is up to MAX_TRANSFER_SIZE
   for (int i = 0; i < chunk_total; i++) {
     if (i < chunk_num) {
       trans[i][0].tx_data[0] = ST7789V_CASET;     //Column Address Set

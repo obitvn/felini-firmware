@@ -21,13 +21,18 @@ public:
 public:
     void Init();
     void Deinit();
+    void Update(HAL::PowerPD_Info_t *pd);
+    void GetPDInfo(HAL::PowerPD_Info_t *pd);
     void PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode);
+public:
+    HAL::PowerPD_Info_t PDInfo;
 
 private:
     Account* account;
 
 private:
     static int onEvent(Account *account, Account::EventParam_t *param);
+    static int onTimer(Account *account);
 };
 
 }

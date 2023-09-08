@@ -29,7 +29,6 @@
 #include "i2c_manager.h"
 #include "driver/gpio.h"
 
-// #include "band_es8388.h"
 
 #define TAG "CST816"
 
@@ -37,13 +36,11 @@ cst816_status_t cst816_status;
 
 //[BJ] TODO: Below functions are ADF specific, if I am to contribute to main repo this needs to be resolved!
 static esp_err_t _cst816_i2c_read(uint8_t slave_addr, uint8_t register_addr, uint8_t *data_buf, uint8_t len) {
-    // return band_i2c_read(slave_addr, register_addr, data_buf, len);
     return i2c_manager_read(I2C_NUM_0, slave_addr, register_addr, data_buf, len);
 }
 
 static esp_err_t _cst816_i2c_write8(uint8_t slave_addr, uint8_t register_addr, uint8_t data) {
     uint8_t buffer = data;
-    // return band_i2c_write(slave_addr, register_addr, &data, 1);
     return i2c_manager_write(I2C_NUM_0, slave_addr, register_addr, &buffer, 1);
 }
 
@@ -70,8 +67,6 @@ void cst816_init(uint8_t dev_addr) {
         esp_err_t ret;
 
         //Initialize non-IIC GPIOs
-        // esp_rom_gpio_pad_select_gpio(CST816_TOUCH_RST_PIN);
-        // gpio_set_direction(CST816_TOUCH_RST_PIN, GPIO_MODE_OUTPUT);
         gpio_set_direction(CST816_TOUCH_RST_PIN, GPIO_MODE_OUTPUT);
         gpio_set_pull_mode(CST816_TOUCH_RST_PIN, GPIO_PULLUP_ONLY);
 
@@ -88,13 +83,11 @@ void cst816_init(uint8_t dev_addr) {
         {
             ESP_LOGE(TAG, "Error reading version from device: %s",
             esp_err_to_name(ret));    // Only show error the first time
-            // /return;
         }
         if ((ret = _cst816_i2c_read(dev_addr, 0xA7, versionInfo, 3) != ESP_OK))
         {
             ESP_LOGE(TAG, "Error reading versionInfo from device: %s",
             esp_err_to_name(ret));    // Only show error the first time
-            // return;
         }
         ESP_LOGI(TAG, "CST816 version %d, versionInfo: %d.%d.%d", version, versionInfo[0], versionInfo[1], versionInfo[2]);
         cst816_status.inited = true;
@@ -115,7 +108,6 @@ bool cst816_is_touched(void)
 {
     uint8_t touch_val = 1;
     cst816t_read_len( 0x02, &touch_val, 1);
-     // printf("touch_val %d\r\n", touch_val);
     return touch_val ? true : false;
 }
 
@@ -133,20 +125,12 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     point_x = (data_raw[3] | ((data_raw[2] & 0x0F) << 8));
     point_y = (data_raw[5] | ((data_raw[4] & 0x0F) << 8));
 
-// #if CONFIG_LV_SWAPXY_CST816
     int temp;
     temp = point_y;
     point_y = point_x;
     point_x = temp;
-// #endif
-
-// #if CONFIG_LV_INVERT_X_CST816  
-    // point_x = CONFIG_LV_TOUCH_X_MAX_CST816 - point_x;
-// #endif
-
-// #if CONFIG_LV_INVERT_Y_CST816
-    point_y = CONFIG_LV_TOUCH_Y_MAX_CST816 - point_y;
-// #endif
+    point_y = 280 - point_y;
+    
     if (points > 0){
         data->state = LV_INDEV_STATE_PR;
     }
@@ -154,11 +138,11 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->state = LV_INDEV_STATE_REL;
     }
     
-    if(point_x > CONFIG_LV_TOUCH_X_MAX_CST816) 
+    if(point_x > 240) 
         data->point.x = 0;
     else data->point.x = point_x;
 
-    if(point_y > CONFIG_LV_TOUCH_Y_MAX_CST816) 
+    if(point_y > 280) 
         data->point.y = 0;
     else data->point.y = point_y;
 
