@@ -29,6 +29,8 @@
 #include "i2c_manager.h"
 #include "driver/gpio.h"
 
+#define TOUCH_HORIZONTAL_X 280
+#define TOUCH_VERTICAL_Y   240
 
 #define TAG "CST816"
 
@@ -129,7 +131,7 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     temp = point_y;
     point_y = point_x;
     point_x = temp;
-    point_y = 280 - point_y;
+    point_y = TOUCH_VERTICAL_Y - point_y;
     
     if (points > 0){
         data->state = LV_INDEV_STATE_PR;
@@ -138,11 +140,11 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->state = LV_INDEV_STATE_REL;
     }
     
-    if(point_x > 240) 
+    if(point_x > TOUCH_HORIZONTAL_X) 
         data->point.x = 0;
     else data->point.x = point_x;
 
-    if(point_y > 280) 
+    if(point_y > TOUCH_VERTICAL_Y) 
         data->point.y = 0;
     else data->point.y = point_y;
 
