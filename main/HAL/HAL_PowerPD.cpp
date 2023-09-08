@@ -29,10 +29,11 @@ extern "C"
         {
             /* code */
             PD_UFP.run();
-            if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
-            {
-                // ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
-            }
+            // if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
+            // {
+            //     ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
+            //     PD_UFP.get_power_info(NULL);
+            // }
             vTaskDelay(5);
         }
         }
@@ -80,19 +81,20 @@ void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
 
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)
 {
-    
-    switch (pd_info->pd_type)
-    {
-    case PD_PDO_TYPE_FIXED_SUPPLY:
-        PD_UFP.init(PD_POWER_OPTION_MAX_20V);
-        break;
-    case PD_PDO_TYPE_VARIABLE_SUPPLY: 
-        PD_UFP.set_PPS(pd_info->set_voltage, pd_info->set_current);
-        break;
+    printf("config %d v %d A \n", pd_info->set_voltage, pd_info->set_voltage);
+    PD_UFP.set_PPS(PPS_V(pd_info->set_voltage/1000), PPS_A(pd_info->set_current/1000));
+    // switch (pd_info->pd_type)
+    // {
+    // case PD_PDO_TYPE_FIXED_SUPPLY:
+    //     PD_UFP.init(PD_POWER_OPTION_MAX_20V);
+    //     break;
+    // case PD_PDO_TYPE_VARIABLE_SUPPLY: 
+    //     PD_UFP.set_PPS(pd_info->set_voltage, pd_info->set_current);
+    //     break;
 
-        default:
-        break;
-    }
+    //     default:
+    //     break;
+    // }
 }
 
 void HAL::PowerPD_GetInfo(PowerPD_Info_t *info)

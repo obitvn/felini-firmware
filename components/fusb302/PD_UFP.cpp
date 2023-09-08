@@ -140,16 +140,6 @@ void PD_UFP_core_c::run(void)
 }
 
 
-// Get infor
-void PD_UFP_core_c::get_power_info(PD_power_info_t **info)
-{
-    for(int i=0; i< protocol.power_data_obj_count; i++)
-    {
-        PD_protocol_get_power_info(&protocol, i, &info[i][0]);
-    }
-    
-
-}
 
 bool PD_UFP_core_c::set_PPS(uint16_t PPS_voltage, uint8_t PPS_current)
 {
@@ -757,3 +747,28 @@ void PD_UFP_log_c::print_status(uint16_t serial)
     // }
 }
 
+// Get infor
+void PD_UFP_core_c::get_power_info(PD_info_list *info)
+{
+        PD_power_info_t p;
+        for (int i = 0; i < protocol.power_data_obj_count; i++)
+        {
+            PD_protocol_get_power_info(&protocol, i, &p);
+            const char *str_pps[] = {"", " BAT", " VAR", " PPS"}; /* PD_power_data_obj_type_t */
+            uint8_t selected = PD_protocol_get_selected_power(&protocol);
+            char min_v[16] = {0}, max_v[16] = {0}, power[32] = {0};
+            if (p.min_v)
+                SNPRINTF(min_v, sizeof(min_v) - 1, PSTR("%d.%02dV-"), p.min_v / 20, (p.min_v * 5) % 100);
+            if (p.max_v)
+                SNPRINTF(max_v, sizeof(max_v) - 1, PSTR("%d.%02dV"), p.max_v / 20, (p.max_v * 5) % 100);
+            if (p.max_i)
+            {
+                SNPRINTF(power, sizeof(power) - 1, PSTR("%d.%02dA"), p.max_i / 100, p.max_i % 100);
+            }
+            else
+            {
+                SNPRINTF(power, sizeof(power) - 1, PSTR("%d.%02dW"), p.max_p / 4, p.max_p * 25);
+            }
+            ESP_LOGI(TAG, "[%d] %s%s %s%s%s\n", i, min_v, max_v, power, str_pps[p.type], i == selected ? " *" : "");
+        }
+}

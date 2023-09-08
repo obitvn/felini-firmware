@@ -68,6 +68,19 @@ typedef uint8_t status_power_t;
 class PD_UFP_core_c
 {
     public:
+        typedef struct power_list
+        {
+            uint16_t voltage;
+            uint16_t current;
+        };
+
+        typedef struct PD_info_list
+        {
+            uint8_t type_pd;
+            power_list list[5];
+        };
+        
+
         PD_UFP_core_c();
         // Init
         void init(enum PD_power_option_t power_option = PD_POWER_OPTION_MAX_5V);
@@ -77,7 +90,7 @@ class PD_UFP_core_c
         void stop(void);
 
         // Get infor
-        void get_power_info(PD_power_info_t **info);
+        void get_power_info(PD_info_list *info);
         // Status
         bool is_power_ready(void) { return status_power == STATUS_POWER_TYP; }
         bool is_PPS_ready(void)   { return status_power == STATUS_POWER_PPS; }

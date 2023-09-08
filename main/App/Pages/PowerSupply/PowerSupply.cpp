@@ -117,7 +117,7 @@ void PowerSupply::onEvent(lv_event_t *event)
 
     if (obj == instance->root)
     {
-        printf("root code event %d\r\n", code);
+        // printf("root code event %d\r\n", code);
         if (LV_EVENT_GESTURE == code)
         {
             lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
@@ -136,7 +136,6 @@ void PowerSupply::onEvent(lv_event_t *event)
             printf("value change %f\r\n", level);
             switch (instance->config.status)
             {
-
                 case PowerSupply::PD_SET_CURRENT:
                 {
                     lv_label_set_text_fmt(instance->View.ui.current.set, "%.3f", (float)(level / 1000));
@@ -154,20 +153,17 @@ void PowerSupply::onEvent(lv_event_t *event)
                     printf("power on \r\n");
                     break;
                 }
-
                 default:
                     break;
             }
         }
     }
 
- 
-
     if(obj == instance->View.ui.power.button)
     {
         if (code == LV_EVENT_PRESSED)
         {
-            instance->Model.PDSetUp(0, 0, instance->power.btn_state, PowerSupplyModel::PD_PDM_ON_OFF);
+            instance->Model.PDSetUp(instance->volt.value, instance->current.value, instance->power.btn_state, PowerSupplyModel::PD_PDM_ON_OFF);
             instance->power.btn_state = !instance->power.btn_state;
             if (instance->volt.btn_state)
             {

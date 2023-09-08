@@ -80,11 +80,10 @@ void AppInfosView::Create(lv_obj_t* root)
         "Pages/PowerSupply",
         &ui.powerpd,
         root,
-        "Power",
+        "PD PPS",
         "power",
 
-        "Power Supply\n"
-        "Support USB PD\n"
+        "Power Supply ADJ\n"
         "Support USB PPS\n");
 
     /* Item Battery */
