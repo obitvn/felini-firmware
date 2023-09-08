@@ -24,7 +24,7 @@ extern "C"
         gpio_set_level((gpio_num_t)45, 1);
 
         // PD_UFP.init(PD_POWER_OPTION_MAX_20V);
-        PD_UFP.init_PPS(PPS_V(16.5), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);
+        PD_UFP.init_PPS(PPS_V(5), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);
         while (1)
         {
             /* code */
@@ -81,20 +81,8 @@ void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
 
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)
 {
-    printf("config %d v %d A \n", pd_info->set_voltage, pd_info->set_voltage);
+    printf("config %d v %d A \n", pd_info->set_voltage / 1000, pd_info->set_current / 1000);
     PD_UFP.set_PPS(PPS_V(pd_info->set_voltage/1000), PPS_A(pd_info->set_current/1000));
-    // switch (pd_info->pd_type)
-    // {
-    // case PD_PDO_TYPE_FIXED_SUPPLY:
-    //     PD_UFP.init(PD_POWER_OPTION_MAX_20V);
-    //     break;
-    // case PD_PDO_TYPE_VARIABLE_SUPPLY: 
-    //     PD_UFP.set_PPS(pd_info->set_voltage, pd_info->set_current);
-    //     break;
-
-    //     default:
-    //     break;
-    // }
 }
 
 void HAL::PowerPD_GetInfo(PowerPD_Info_t *info)

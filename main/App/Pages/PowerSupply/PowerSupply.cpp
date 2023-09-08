@@ -154,6 +154,7 @@ void PowerSupply::onEvent(lv_event_t *event)
                     break;
                 }
                 default:
+                    lv_spinbox_set_value(instance->View.ui.spin.button, 0);
                     break;
             }
         }
@@ -178,11 +179,6 @@ void PowerSupply::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSED)
         {
             instance->current.btn_state = !instance->current.btn_state;
-            // instance->current.btn_state ++;
-            // if (instance->current.btn_state > 5)
-            // {
-            //     instance->current.btn_state = 0;
-            // }
             instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
             instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, instance->current.btn_state, &instance->current.div);
             if (instance->current.btn_state > 0)
@@ -190,7 +186,11 @@ void PowerSupply::onEvent(lv_event_t *event)
                 instance->config.status = PowerSupply::PD_SET_CURRENT;
             }
             else
+            {
+                float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
+                lv_label_set_text_fmt(instance->View.ui.current.label, "%.3f", (float)(instance->current.value));
                 instance->config.status = PowerSupply::PD_SET_RELEASED;
+            }
         }
     }
     if (obj == instance->View.ui.voltage.button)
@@ -198,11 +198,6 @@ void PowerSupply::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSED)
         {
             instance->volt.btn_state = !instance->volt.btn_state;
-            // instance->volt.btn_state++;
-            // if (instance->volt.btn_state > 5) 
-            // {
-            //     instance->volt.btn_state = 0;
-            // }
             instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
             instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, instance->volt.btn_state, &instance->volt.div);
             if (instance->volt.btn_state > 0)
@@ -210,7 +205,11 @@ void PowerSupply::onEvent(lv_event_t *event)
                 instance->config.status = PowerSupply::PD_SET_VOLT;
             }
             else
+            {
+                float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
+                lv_label_set_text_fmt(instance->View.ui.voltage.label, "%.3f", (float)(instance->volt.value));
                 instance->config.status = PowerSupply::PD_SET_RELEASED;
+            }
         }
     }
     if (obj == instance->View.ui.confirm.button)
