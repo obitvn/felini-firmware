@@ -100,7 +100,7 @@ void PowerSupply::Update()
 {
     HAL::PowerPD_Info_t pd;
     Model.GetPDInfo(&pd);
-    printf("update vol %d\n", pd.get_voltage);
+    // printf("update vol %d\n", pd.get_voltage);
 }
 
 void PowerSupply::onTimer(lv_timer_t *timer)

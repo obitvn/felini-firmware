@@ -8,7 +8,7 @@ static void onTimer(Account* account)
     // printf("INA Hardware update to App\r\n");
     HAL::INA2xx_Info_t info;
     HAL::INA2xx_GetInfo(&info);
-    info.voltage = 11.23;
+    // info.voltage = 11.23;
     account->Commit(&info, sizeof(HAL::INA2xx_Info_t));
     account->Publish();
 }

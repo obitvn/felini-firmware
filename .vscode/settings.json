@@ -22,7 +22,8 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "i2c_manager.h": "c"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",
