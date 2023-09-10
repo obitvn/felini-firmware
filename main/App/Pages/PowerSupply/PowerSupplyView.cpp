@@ -149,7 +149,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_PowerButton = lv_obj_create(root);
     ui.power.button = ui_PowerButton;
-    lv_obj_set_width(ui_PowerButton, 138);
+    lv_obj_set_width(ui_PowerButton, 237);
     lv_obj_set_height(ui_PowerButton, 60);
     lv_obj_set_x(ui_PowerButton, 21 - 20);
     lv_obj_set_y(ui_PowerButton, 156 - 20);
@@ -168,30 +168,30 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_color(ui_PowerButton, lv_color_hex(0x282626), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(ui_PowerButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
-    lv_obj_t *ui_ConfirmButton = lv_obj_create(root);
-    ui.confirm.button = ui_ConfirmButton;
-    lv_obj_set_width(ui_ConfirmButton, 102);
-    lv_obj_set_height(ui_ConfirmButton, 60);
-    lv_obj_set_x(ui_ConfirmButton, 163 - 20);
-    lv_obj_set_y(ui_ConfirmButton, 156 - 20);
-    // lv_obj_add_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
-    // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-    // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-    lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_spread(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_radius(ui_ConfirmButton, 15, LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x282626), LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_opa(ui_ConfirmButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
+    // lv_obj_t *ui_ConfirmButton = lv_obj_create(root);
+    // ui.confirm.button = ui_ConfirmButton;
+    // lv_obj_set_width(ui_ConfirmButton, 102);
+    // lv_obj_set_height(ui_ConfirmButton, 60);
+    // lv_obj_set_x(ui_ConfirmButton, 163 - 20);
+    // lv_obj_set_y(ui_ConfirmButton, 156 - 20);
+    // // lv_obj_add_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
+    // // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+    // // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
+    // lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_bg_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_border_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_shadow_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_shadow_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_shadow_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_shadow_spread(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_radius(ui_ConfirmButton, 15, LV_PART_MAIN | LV_STATE_PRESSED);
+    // lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x282626), LV_PART_MAIN | LV_STATE_PRESSED);
+    // lv_obj_set_style_bg_opa(ui_ConfirmButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *ui_lbpowerstate = lv_label_create(root);
-    ui.confirm.label = ui_lbpowerstate;
+    ui.power.set = ui_lbpowerstate;
     lv_obj_set_width(ui_lbpowerstate, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_lbpowerstate, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_lbpowerstate, 170 - 20);

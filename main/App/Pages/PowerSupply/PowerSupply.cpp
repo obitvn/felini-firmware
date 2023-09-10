@@ -100,7 +100,7 @@ void PowerSupply::Update()
 {
     HAL::PowerPD_Info_t pd;
     Model.GetPDInfo(&pd);
-    // printf("update vol %d\n", pd.get_voltage);
+    printf("upd pdate vol %d\n", pd.get_voltage);
 }
 
 void PowerSupply::onTimer(lv_timer_t *timer)
@@ -170,13 +170,19 @@ void PowerSupply::onEvent(lv_event_t *event)
         if (code == LV_EVENT_PRESSED)
         {
             instance->Model.PDSetUp(instance->volt.value, instance->current.value, instance->power.btn_state, PowerSupplyModel::PD_PDM_ON_OFF);
-            instance->power.btn_state = !instance->power.btn_state;
-            if (instance->volt.btn_state)
+            if (instance->power.btn_state)
             {
                 instance->config.status = PowerSupply::PD_SET_POWER_ON;
+                lv_label_set_text_fmt(instance->View.ui.power.set, "ATIVATE");
+                lv_obj_set_style_text_color(instance->View.ui.power.set, lv_color_hex(0x15CC34), LV_PART_MAIN | LV_STATE_DEFAULT);
             }
             else
+            {
                 instance->config.status = PowerSupply::PD_SET_RELEASED;
+                lv_label_set_text_fmt(instance->View.ui.power.set, "DEATIVATE");
+                lv_obj_set_style_text_color(instance->View.ui.power.set, lv_color_hex(0xe5534b), LV_PART_MAIN | LV_STATE_DEFAULT);
+            }
+            instance->power.btn_state = !instance->power.btn_state;
         }
     }
     if (obj == instance->View.ui.current.button)
@@ -217,14 +223,14 @@ void PowerSupply::onEvent(lv_event_t *event)
             }
         }
     }
-    if (obj == instance->View.ui.confirm.button)
-    {
-        if (code == LV_EVENT_PRESSED)
-        {
-            instance->confirm.btn_state = !instance->confirm.btn_state;
-            instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
-            instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
-            instance->Model.PDSetUp(instance->volt.value, instance->current.value, 1, PowerSupplyModel::PD_PDM_ON_OFF);
-        }
-    }
+    // if (obj == instance->View.ui.confirm.button)
+    // {
+    //     if (code == LV_EVENT_PRESSED)
+    //     {
+    //         instance->confirm.btn_state = !instance->confirm.btn_state;
+    //         instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
+    //         instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
+    //         instance->Model.PDSetUp(instance->volt.value, instance->current.value, 1, PowerSupplyModel::PD_PDM_ON_OFF);
+    //     }
+    // }
 }

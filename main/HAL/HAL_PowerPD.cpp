@@ -21,7 +21,7 @@ extern "C"
     {
         ESP_LOGI(TAG, "power_pd_c task on \r\n");
         gpio_set_direction((gpio_num_t)45, GPIO_MODE_OUTPUT);
-        gpio_set_level((gpio_num_t)45, 1);
+        gpio_set_level((gpio_num_t)45, 0);
 
         // PD_UFP.init(PD_POWER_OPTION_MAX_20V);
         PD_UFP.init_PPS(PPS_V(5), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);

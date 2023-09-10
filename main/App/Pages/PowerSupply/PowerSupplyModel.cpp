@@ -69,11 +69,13 @@ void PowerSupplyModel::GetPDInfo(HAL::PowerPD_Info_t *pd)
 {
     memset(pd, 0, sizeof(HAL::PowerPD_Info_t));
     HAL::INA2xx_Info_t ina;
+    memset(&ina, 0, sizeof(HAL::INA2xx_Info_t));
     if (account->Pull("INA2xxHardware", &ina, sizeof(HAL::INA2xx_Info_t)) != Account::ERROR_NONE)
     {
         return;
     }
-    pd->get_voltage = ina.voltage;
+    pd->get_voltage = ina.voltage*1000;
+    pd->get_current = ina.current*1000;
 }
 
 int PowerSupplyModel::onTimer(Account *account)

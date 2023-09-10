@@ -29,7 +29,7 @@ public:
         item_t voltage;
         item_t current;
         item_t power;
-        item_t confirm;
+        // item_t confirm;
         // item_t slider;
         item_t spin;
     } ui;
