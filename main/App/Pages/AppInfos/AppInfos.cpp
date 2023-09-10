@@ -15,9 +15,6 @@ AppInfos::~AppInfos()
 void AppInfos::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-
-
-
     SetCustomCacheEnable(false);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
@@ -159,6 +156,7 @@ void AppInfos::onEvent(lv_event_t* event)
             {
                 if (code == LV_EVENT_PRESSED)
                 {
+                    instance->View.SetPosFocus(i);
                     instance->Manager->Push(item_grp[i].app_src); // load page mới
                 }
             }

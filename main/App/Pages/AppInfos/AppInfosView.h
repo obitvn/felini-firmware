@@ -38,6 +38,9 @@ public:
         item_t imu;
     } ui;
 
+private:
+    int16_t position;
+
     // item_t btn;
 
 public:
@@ -45,14 +48,16 @@ public:
     void SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en);
     static void onFocus(lv_group_t* e);
     void SetFocus(int dir);
+    void SetPosFocus(int16_t pos);
 
-    private : struct
-    {
-        lv_style_t icon;
-        lv_style_t focus;
-        lv_style_t info;
-        lv_style_t data;
-    } style;
+private :
+    struct
+        {
+            lv_style_t icon;
+            lv_style_t focus;
+            lv_style_t info;
+            lv_style_t data;
+        } style;
 
 private:
     void Group_Init();

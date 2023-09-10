@@ -178,7 +178,10 @@ void AppInfosView::Create(lv_obj_t* root)
     Group_Init();
 }
 
-
+void AppInfosView::SetPosFocus(int16_t pos)
+{
+    AppInfosView::position = pos;
+}
 
 void AppInfosView::Group_Init()
 {
@@ -195,7 +198,8 @@ void AppInfosView::Group_Init()
         lv_group_add_obj(group, item_grp[i].icon);
     }
 
-    lv_group_focus_obj(item_grp[(sizeof(ui) / sizeof(item_t))/2].icon);
+    // lv_group_focus_obj(item_grp[(sizeof(ui) / sizeof(item_t))/2].icon);
+    lv_group_focus_obj(item_grp[position].icon);
 }
 
 

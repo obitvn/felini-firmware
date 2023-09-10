@@ -32,6 +32,7 @@ private:
     void onFoucusDown();
     static void onTimerUpdate(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
+    static int16_t pos;
 
 private:
     AppInfosView View;
