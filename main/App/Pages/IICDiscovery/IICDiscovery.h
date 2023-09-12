@@ -34,6 +34,7 @@ private:
 private:
     IICDiscoveryView View;
     IICDiscoveryModel Model;
+    lv_timer_t *timer;
 };
 
 }

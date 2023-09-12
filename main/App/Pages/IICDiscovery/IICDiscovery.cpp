@@ -28,6 +28,15 @@ void IICDiscovery::onViewLoad()
     View.Create(root);
 
     AttachEvent(root);
+
+    timer = lv_timer_create(onTimer, 50, this);
+    lv_timer_set_repeat_count(timer, -1); // infinity
+
+    IICDiscoveryView::item_t *item_grp = ((IICDiscoveryView::item_t *)&View.ui);
+    for (int i = 0; i < sizeof(View.ui) / sizeof(IICDiscoveryView::item_t); i++)
+    {
+        AttachEvent(item_grp[i].cont);
+    }
 }
 
 void IICDiscovery::onViewDidLoad()
@@ -56,6 +65,7 @@ void IICDiscovery::onViewDidDisappear()
 
 void IICDiscovery::onViewDidUnload()
 {
+    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
@@ -74,9 +84,12 @@ void IICDiscovery::Update()
 
 }
 
+uint8_t add=0;
 void IICDiscovery::onTimer(lv_timer_t *timer)
 {
-
+    IICDiscovery *instance = (IICDiscovery *)timer->user_data;
+    lv_bar_set_value(instance->View.ui.bar.cont, add, LV_ANIM_OFF);
+    lv_label_set_text_fmt(instance->View.ui.addr.cont, "0x%02x", add++);
 }
 
 
