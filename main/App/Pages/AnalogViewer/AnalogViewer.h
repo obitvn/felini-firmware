@@ -25,15 +25,17 @@ public:
     virtual void onViewDidUnload();
 
 private:
-    void Update();
+    void Update(lv_timer_t *timer);
     void AttachEvent(lv_obj_t *obj);
-    void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
 
 private:
     AnalogViewerView View;
     AnalogViewerModel Model;
+
+private:
+    lv_timer_t *timer;
 };
 
 }

@@ -23,10 +23,9 @@ void AnalogViewer::onViewLoad()
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
-
     AttachEvent(root);
-
-
+    timer = lv_timer_create(onTimer, 100, this);
+    lv_timer_set_repeat_count(timer, -1); // infinity
 }
 
 void AnalogViewer::onViewDidLoad()
@@ -62,25 +61,26 @@ void AnalogViewer::onViewDidUnload()
 
 void AnalogViewer::AttachEvent(lv_obj_t *obj)
 {
-    // // lv_obj_set_user_data(obj, this);
-    // lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
-    // // lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
-    // // lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
-
     lv_obj_set_user_data(obj, this);
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
-void AnalogViewer::Update()
+void AnalogViewer::Update(lv_timer_t *timer)
 {
-
+    AnalogViewer *instance = (AnalogViewer *)timer->user_data;
+    static HAL::INA2xx_Info_t ina;
+    Model.GetPDInfo(&ina);
+    printf("upd pdate vol %f\n", ina.voltage);
+    lv_label_set_text_fmt(instance->View.ui.label.cont, "%.3f", (float)(ina.voltage));
+    lv_chart_set_next_value(instance->View.ui.chart.cont, instance->View.ui.chart.ser, (lv_coord_t)(ina.voltage));
 }
 
 void AnalogViewer::onTimer(lv_timer_t *timer)
 {
-
+    AnalogViewer *instance = (AnalogViewer *)timer->user_data;
+    instance->Update(timer);
 }
 
 

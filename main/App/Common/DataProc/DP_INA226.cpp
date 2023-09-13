@@ -5,13 +5,13 @@
 
 static void onTimer(Account* account)
 {
-    printf("INA Hardware update to App\r\n");
-    HAL::INA2xx_Info_t info;
-    info.cmd = HAL::INA_UPDATE;
-    HAL::INA2xx_GetInfo(&info);
-    // info.voltage = 11.23;
-    account->Commit(&info, sizeof(HAL::INA2xx_Info_t));
-    account->Publish();
+    // printf("INA Hardware update to App\r\n");
+    // HAL::INA2xx_Info_t info;
+    // info.cmd = HAL::INA_UPDATE;
+    // HAL::INA2xx_GetInfo(&info);
+    // // info.voltage = 11.23;
+    // account->Commit(&info, sizeof(HAL::INA2xx_Info_t));
+    // account->Publish();
 }
 
 static int onEvent(Account* account, Account::EventParam_t* param)
@@ -22,11 +22,11 @@ static int onEvent(Account* account, Account::EventParam_t* param)
         onTimer(account);
         return Account::ERROR_NONE;
     }
-    // if (param->event != Account::EVENT_NOTIFY)
-    // {
-    //     printf("Account::ERROR_UNSUPPORTED_REQUEST\r\n");
-    //     return Account::ERROR_UNSUPPORTED_REQUEST;
-    // }
+
+    if (param->event != Account::EVENT_SUB_PULL)
+    {
+        return Account::ERROR_UNSUPPORTED_REQUEST;
+    }
 
     if (param->size != sizeof(HAL::INA2xx_Info_t))
     {

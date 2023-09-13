@@ -15,20 +15,15 @@ public:
 public:
     typedef struct
     {
-        lv_obj_t *set;
-        lv_obj_t *button;
-        lv_obj_t *label;
+        lv_obj_t *cont;
+        lv_chart_series_t *ser;
         const char *name;
     } item_t;
 
     struct
     {
-        item_t voltage;
-        item_t current;
-        item_t power;
-        // item_t confirm;
-        // item_t slider;
-        item_t spin;
+        item_t label;
+        item_t chart;
     } ui;
 
 public:
