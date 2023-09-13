@@ -1,50 +1,75 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 Espressif Systems (Shanghai) CO LTD
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+#include "sdkconfig.h"
+#include "esp_idf_version.h"
 #include "esp_intr_alloc.h"
-#include "soc/usb_periph.h"
-#include "soc/periph_defs.h"
 #include "esp_private/usb_phy.h"
-#include "driver/usb_serial_jtag.h"
+#include "soc/periph_defs.h"
+#include "usb_config.h"
+#include "usb_log.h"
 
-uint32_t SystemCoreClock = 160 * 1000000; // dwc2 的一个参数
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+#define DEFAULT_CPU_FREQ_MHZ CONFIG_ESP32S2_DEFAULT_CPU_FREQ_MHZ
+#elif CONFIG_IDF_TARGET_ESP32S3
+#define DEFAULT_CPU_FREQ_MHZ CONFIG_ESP32S3_DEFAULT_CPU_FREQ_MHZ
+#else
+#define DEFAULT_CPU_FREQ_MHZ 160
+#endif
 
-static intr_handle_t interrupt_handle_ps; // esp32 中断要用
+uint32_t SystemCoreClock = (DEFAULT_CPU_FREQ_MHZ * 1000 * 1000);
+static usb_phy_handle_t s_phy_handle = NULL;
+static intr_handle_t s_interrupt_handle = NULL;
 
-void usb_dc_low_level_init(void)
-{
-    printf("install USB-SERIAL-JTAG driver\r\n");
-    void usb_interrupt_enable();
-
-    // esp32s2 phy
-    static usb_phy_handle_t handle_s;
-    usb_phy_config_t config_s = {
-        .controller = USB_PHY_CTRL_OTG,
-        .otg_mode = USB_OTG_MODE_DEVICE,
-        .target = USB_PHY_TARGET_INT};
-    usb_new_phy(&config_s, &handle_s);
-
-    usb_interrupt_enable();
-}
-
-void usb_dc_low_level_deinit(void)
-{
-    
-}
-
-// usb 中断
 static void usb_interrupt_cb(void *arg_pv)
 {
-    extern void OTG_FS_IRQHandler(); // dwc2 的中断处理函数
+    extern void OTG_FS_IRQHandler();
 
     OTG_FS_IRQHandler();
 }
 
-// usb 中断开启
-void usb_interrupt_enable()
+void usb_dc_low_level_init(void)
 {
-    esp_intr_alloc(ETS_USB_INTR_SOURCE, ESP_INTR_FLAG_LOWMED, (intr_handler_t)usb_interrupt_cb, 0, &interrupt_handle_ps);
+    usb_phy_config_t phy_config = {
+        .controller = USB_PHY_CTRL_OTG,
+        .otg_mode = USB_OTG_MODE_DEVICE,
+        .target = USB_PHY_TARGET_INT,
+    };
+
+    esp_err_t ret = usb_new_phy(&phy_config, &s_phy_handle);
+    if (ret != ESP_OK)
+    {
+        printf("USB Phy Init Failed!\r\n");
+        return;
+    }
+
+    // TODO: Check when to enable interrupt
+    ret = esp_intr_alloc(ETS_USB_INTR_SOURCE, ESP_INTR_FLAG_LEVEL2, usb_interrupt_cb, 0, &s_interrupt_handle);
+    if (ret != ESP_OK)
+    {
+        printf("USB Interrupt Init Failed!\r\n");
+        return;
+    }
 }
 
-// usb 中断关闭
-void usb_interrupt_disable()
+void usb_dc_low_level_deinit(void)
 {
-    esp_intr_free(interrupt_handle_ps);
+    if (s_interrupt_handle)
+    {
+        esp_intr_free(s_interrupt_handle);
+        s_interrupt_handle = NULL;
+    }
+    if (s_phy_handle)
+    {
+        usb_del_phy(s_phy_handle);
+        s_phy_handle = NULL;
+    }
 }
+
+// USB Host only support HS mode?
+// void usb_hc_low_level_init(void)
+
+// There is no usb_hc_deinit, deinit USB Host is not supported
+// void usb_hc_low_level_deinit(void)
