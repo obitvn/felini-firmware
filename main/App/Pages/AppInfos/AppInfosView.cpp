@@ -198,8 +198,10 @@ void AppInfosView::Group_Init()
         lv_group_add_obj(group, item_grp[i].icon);
     }
 
-    // lv_group_focus_obj(item_grp[(sizeof(ui) / sizeof(item_t))/2].icon);
-    lv_group_focus_obj(item_grp[position].icon);
+    if((position>0) && (position <(sizeof(ui) / sizeof(item_t) - 1) ))
+        lv_group_focus_obj(item_grp[position].icon);
+    else
+        lv_group_focus_obj(item_grp[(sizeof(ui) / sizeof(item_t))/2].icon);
 }
 
 

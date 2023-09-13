@@ -2,6 +2,7 @@
 #include "soc/usb_periph.h"
 #include "soc/periph_defs.h"
 #include "esp_private/usb_phy.h"
+#include "driver/usb_serial_jtag.h"
 
 uint32_t SystemCoreClock = 160 * 1000000; // dwc2 的一个参数
 
@@ -9,6 +10,7 @@ static intr_handle_t interrupt_handle_ps; // esp32 中断要用
 
 void usb_dc_low_level_init(void)
 {
+    printf("install USB-SERIAL-JTAG driver\r\n");
     void usb_interrupt_enable();
 
     // esp32s2 phy
@@ -20,6 +22,11 @@ void usb_dc_low_level_init(void)
     usb_new_phy(&config_s, &handle_s);
 
     usb_interrupt_enable();
+}
+
+void usb_dc_low_level_deinit(void)
+{
+    
 }
 
 // usb 中断

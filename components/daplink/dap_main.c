@@ -30,7 +30,10 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "usb_jtag_serial_esp32s3.h"
+
 #include <stdio.h>
+
 
 #define CDC_IN_EP 0x81
 #define CDC_OUT_EP 0x04
@@ -320,14 +323,16 @@ int daplink_start(void)
     return 1;
 }
 
+
 int daplink_stop(void)
 {
-     usbd_deinitialize();
-    // printf("Delete DAPLink task!\n");
+    printf("Delete DAPLink task!\n");
     if (xHandle_DAPLink != NULL)
     {
         vTaskDelete(xHandle_DAPLink);
     }
+    usbd_deinitialize();
+    usb_esp_jtag_serial_enable();
     return 1;
 }
 
