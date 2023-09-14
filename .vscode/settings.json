@@ -25,7 +25,10 @@
         "cmath": "cpp",
         "i2c_manager.h": "c",
         "wprogram.h": "c",
-        "lvgl.h": "c"
+        "lvgl.h": "c",
+        "usbd_cdc.h": "c",
+        "logic_analyzer.h": "c",
+        "logic_analyzer_cdc.h": "c"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

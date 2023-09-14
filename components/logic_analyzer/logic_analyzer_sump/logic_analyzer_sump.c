@@ -19,6 +19,8 @@
 #include "logic_analyzer_sump_definition.h"
 #include "logic_analyzer_sump.h"
 
+#include "logic_analyzer_cdc.h"
+
 static int first_trigger_pin = 0;
 static int first_trigger_val = 0;
 static int divider = 0;
@@ -31,6 +33,9 @@ static void sump_cmd_parser(uint8_t cmdByte);
 static void sump_get_metadata();
 static void sump_capture_and_send_samples();
 static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channel);
+
+void logic_analyzer_init(void);
+void logic_analyzer_denit(void);
 
 // for SUMP pin & cfg definition from menuconfig
 static logic_analyzer_config_t la_cfg = {
@@ -45,6 +50,8 @@ static logic_analyzer_config_t la_cfg = {
     .logic_analyzer_cb = sump_la_cb};
 // hw parametrs
 static logic_analyzer_hw_param_t la_hw;
+
+
 
 static void sump_capture_and_send_samples()
 {
@@ -134,40 +141,44 @@ static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channels)
 }
 static void sump_config_uart()
 {
-    /* Configure parameters of an UART driver,
-     * communication pins and install the driver */
-    uart_config_t uart_config = {
-        .baud_rate = SUMP_UART_BAUD_RATE,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-        .source_clk = UART_SCLK_DEFAULT,
-    };
-    int intr_alloc_flags = ESP_INTR_FLAG_IRAM;
+    // /* Configure parameters of an UART driver,
+    //  * communication pins and install the driver */
+    // uart_config_t uart_config = {
+    //     .baud_rate = SUMP_UART_BAUD_RATE,
+    //     .data_bits = UART_DATA_8_BITS,
+    //     .parity = UART_PARITY_DISABLE,
+    //     .stop_bits = UART_STOP_BITS_1,
+    //     .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+    //     .source_clk = UART_SCLK_DEFAULT,
+    // };
+    // int intr_alloc_flags = ESP_INTR_FLAG_IRAM;
 
-    ESP_ERROR_CHECK(uart_driver_install(SUMP_UART_PORT_NUM, UART_BUF_SIZE, UART_BUF_SIZE, 0, NULL, intr_alloc_flags));
-    ESP_ERROR_CHECK(uart_param_config(SUMP_UART_PORT_NUM, &uart_config));
-    ESP_ERROR_CHECK(uart_set_pin(SUMP_UART_PORT_NUM, SUMP_TEST_TXD, SUMP_TEST_RXD, SUMP_TEST_RTS, SUMP_TEST_CTS));
-    ESP_ERROR_CHECK(uart_set_sw_flow_ctrl(SUMP_UART_PORT_NUM, true, 16, 32)); // ??
+    // ESP_ERROR_CHECK(uart_driver_install(SUMP_UART_PORT_NUM, UART_BUF_SIZE, UART_BUF_SIZE, 0, NULL, intr_alloc_flags));
+    // ESP_ERROR_CHECK(uart_param_config(SUMP_UART_PORT_NUM, &uart_config));
+    // ESP_ERROR_CHECK(uart_set_pin(SUMP_UART_PORT_NUM, SUMP_TEST_TXD, SUMP_TEST_RXD, SUMP_TEST_RTS, SUMP_TEST_CTS));
+    // ESP_ERROR_CHECK(uart_set_sw_flow_ctrl(SUMP_UART_PORT_NUM, true, 16, 32)); // ??
 }
 static void sump_getCmd4(uint8_t *cmd)
 {
-    uart_read_bytes(SUMP_UART_PORT_NUM, cmd, 4, portMAX_DELAY);
+    // uart_read_bytes(SUMP_UART_PORT_NUM, cmd, 4, portMAX_DELAY);
+    logic_analyzer_cdc_read(cmd, 4);
 }
 static uint8_t sump_getCmd()
 {
-    uint8_t buf;
-    uart_read_bytes(SUMP_UART_PORT_NUM, &buf, 1, portMAX_DELAY);
+    uint8_t buf=0;
+    // uart_read_bytes(SUMP_UART_PORT_NUM, &buf, 1, portMAX_DELAY);
+    logic_analyzer_cdc_read((const uint8_t *)&buf, 1);
     return buf;
 }
 static void sump_write_data(uint8_t *buf, int len)
 {
-    uart_write_bytes(SUMP_UART_PORT_NUM, (const char *)buf, len);
+    // uart_write_bytes(SUMP_UART_PORT_NUM, (const char *)buf, len);
+    logic_analyzer_cdc_write((const uint8_t *)buf, len);
 }
 static void sump_writeByte(uint8_t byte)
 {
-    uart_write_bytes(SUMP_UART_PORT_NUM, &byte, 1);
+    // uart_write_bytes(SUMP_UART_PORT_NUM, &byte, 1);
+    logic_analyzer_cdc_write((const uint8_t *)&byte, 1);
 }
 
 // loop read sump command
@@ -185,9 +196,24 @@ static void logic_analyzer_sump_task(void *arg)
         sump_cmd_parser(cmd);
     }
 }
+
+static TaskHandle_t *xHandle_logic_analyzer_sump = NULL;
+
 void logic_analyzer_sump(void)
 {
-    xTaskCreate(logic_analyzer_sump_task, "sump_task", 2048 * 4, NULL, 1, NULL);
+    if (xHandle_logic_analyzer_sump != NULL)
+    {
+        vTaskDelete(xHandle_logic_analyzer_sump);
+    }
+    xTaskCreate(logic_analyzer_sump_task, "logic_analyzer_sump", 2048 * 4, NULL, 5, xHandle_logic_analyzer_sump);
+}
+
+void logic_analyzer_sump_denit(void)
+{
+    if (xHandle_logic_analyzer_sump != NULL)
+    {
+        vTaskDelete(xHandle_logic_analyzer_sump);
+    }
 }
 
 /*
@@ -311,4 +337,16 @@ static void sump_get_metadata()
     sump_writeByte((uint8_t)0x02);
     /* end of data */
     sump_writeByte((uint8_t)0x00);
+}
+
+void logic_analyzer_init(void)
+{
+    logic_analyzer_cdc_start();
+    logic_analyzer_sump();
+}
+
+void logic_analyzer_denit(void)
+{
+    logic_analyzer_cdc_stop();
+    logic_analyzer_sump_denit();
 }

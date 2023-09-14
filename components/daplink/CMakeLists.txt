@@ -4,7 +4,7 @@ file(GLOB_RECURSE SOURCES
     "dap_process.c"
     "winusb.c"
 
-    "daplink/ring_buffer/ringbuffer.c"
+    # "daplink/ring_buffer/ringbuffer.c"
     "daplink/port/port_core.c"
     "daplink/DAP/Source/DAP_vendor.c"
     "daplink/DAP/Source/DAP.c"
@@ -16,7 +16,7 @@ file(GLOB_RECURSE SOURCES
 
 set(includes 
     "."
-    "daplink/ring_buffer"
+    # "daplink/ring_buffer"
     "daplink/port"
     "daplink/DAP/Include"
 )
@@ -28,6 +28,7 @@ idf_component_register(
         driver
         usb
         usb_cherry
+        ring_buffer
 )
 
 

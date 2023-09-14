@@ -6,10 +6,9 @@ extern "C"
 #endif
 
     void logic_analyzer_sump(void);
-    void la_usb_init(void);
-    void la_usb_denit(void);
-    void la_usbcdc_write(void);
-    void la_usbcdc_read(void);
+    void logic_analyzer_sump_denit(void);
+    void logic_analyzer_init(void);
+    void logic_analyzer_denit(void);
 
 #ifdef __cplusplus
 }
