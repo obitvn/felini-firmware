@@ -343,11 +343,11 @@ static void sump_get_metadata()
 void logic_analyzer_init(void)
 {
     logic_analyzer_cdc_start();
-    logic_analyzer_sump();
+    // logic_analyzer_sump();
 }
 
 void logic_analyzer_denit(void)
 {
     logic_analyzer_cdc_stop();
-    logic_analyzer_sump_denit();
+    // logic_analyzer_sump_denit();
 }
