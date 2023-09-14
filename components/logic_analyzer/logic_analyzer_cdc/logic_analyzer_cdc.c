@@ -233,7 +233,7 @@ static void logic_analyzer_main_task(void *pvParameter)
     {
         // Send back the data received from the host
         la_cdc_acm_data_send_with_dtr_test();
-        vTaskDelay(1);
+        vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
 

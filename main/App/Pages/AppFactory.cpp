@@ -36,6 +36,7 @@
 #include "Pages/Hertz/Hertz.h"
 #include "Pages/IMUSensor/IMUSensor.h"
 #include "Pages/KaitoKey/KaitoKey.h"
+#include "Pages/LogicAnalyzer/LogicAnalyzer.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -45,14 +46,13 @@ do{\
     }\
 }while(0)
 
-                   PageBase *
-                   AppFactory::CreatePage(const char *name)
+PageBase *AppFactory::CreatePage(const char *name)
 {
     APP_CLASS_MATCH(Template);
     APP_CLASS_MATCH(Startup);
 
     APP_CLASS_MATCH(AppInfos);
-    APP_CLASS_MATCH(IICDiscovery); //nhớ include .h bên trên
+    APP_CLASS_MATCH(IICDiscovery);
     APP_CLASS_MATCH(PowerSupply);
     APP_CLASS_MATCH(ServoCtrl);
     APP_CLASS_MATCH(AnalogViewer);
@@ -64,6 +64,7 @@ do{\
     APP_CLASS_MATCH(Hertz);
     APP_CLASS_MATCH(IMUSensor);
     APP_CLASS_MATCH(KaitoKey);
+    APP_CLASS_MATCH(LogicAnalyzer);
 
     return nullptr;
 }

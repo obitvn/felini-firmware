@@ -47,10 +47,10 @@
 #define LA_PIN_15 (-1)
 #define LA_PIN_TRIGGER (-1)
 #define LA_PIN_EDGE (1)
-#define LA_SAMPLE_COUNT (1000)
+#define LA_SAMPLE_COUNT (10000)
 #define LA_SAMPLE_RATE (1000000)
 #define LA_DEFAULT_TiMEOUT (2000)
-#define LA_ANALYZER_CHANNELS (16)
-#define LA_ANALYZER_PSRAM (0)
+#define LA_ANALYZER_CHANNELS (8)
+#define LA_ANALYZER_PSRAM (1)
 
 #endif

@@ -42,6 +42,7 @@
 #include "Pages/Hertz/Hertz.h"
 #include "Pages/IMUSensor/IMUSensor.h"
 #include "Pages/KaitoKey/KaitoKey.h"
+#include "Pages/LogicAnalyzer/LogicAnalyzer.h"
 
 #if CONFIG_MAP_PNG_DECODE_ENABLE
 #include "Utils/lv_lib_png/lv_png.h"
@@ -110,6 +111,7 @@
     manager.Install("Hertz", "Pages/Hertz");
     manager.Install("IMUSensor", "Pages/IMUSensor");
     manager.Install("KaitoKey", "Pages/KaitoKey");
+    manager.Install("LogicAnalyzer", "Pages/LogicAnalyzer");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 

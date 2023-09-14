@@ -36,6 +36,7 @@ public:
         item_t kaitokey;
         item_t frequency;
         item_t imu;
+        item_t logicanalyzer;
     } ui;
 
 private:

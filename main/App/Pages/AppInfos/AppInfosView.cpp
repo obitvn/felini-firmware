@@ -122,6 +122,19 @@ void AppInfosView::Create(lv_obj_t* root)
         "DAP Link debugger\n"
         "V2.2.3\n"
         "USB UART\n");
+        
+    /* Item System */
+    Item_Create(
+        "Pages/LogicAnalyzer",
+        &ui.logicanalyzer,
+        root,
+        "USB LA",
+        "box3d",
+
+        "Logic Analyzer\n"
+        "USB SUMPS\n"
+        "V2.2.3\n");
+    
 
     /* Item System */
     Item_Create(
