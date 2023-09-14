@@ -1,0 +1,16 @@
+/.devcontainer
+/logic_analyzer_example/.vscode
+/logic_analyzer_example/.devcontainer
+/logic_analyzer_example/build
+/logic_analyzer_example/sdkconfig
+/logic_analyzer_example/sdkconfig.old
+
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+.vscode_tmp/c_cpp_properties.json
+.vscode_tmp/launch.json
+.vscode_tmp/settings.json
+.vscode_tmp/tasks.json
+logic_analyzer_example/logic_analyzer_example.code-workspace

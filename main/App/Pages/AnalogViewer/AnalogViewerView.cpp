@@ -12,6 +12,7 @@ void AnalogViewerView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_Chart1 = lv_chart_create(root);
     ui.chart.cont = ui_Chart1;
+    
     lv_obj_set_width(ui_Chart1, 216);
     lv_obj_set_height(ui_Chart1, 124);
     lv_obj_set_x(ui_Chart1, 3);

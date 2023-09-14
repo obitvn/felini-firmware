@@ -1,0 +1,239 @@
+menu "Logic Analyzer Configuration"
+
+    if IDF_TARGET_ESP32
+    
+        choice ANALYZER_USE_I2S_CHANNEL
+            prompt "I2S Channel Number"
+            default ANALYZER_USE_I2S_CHANNEL_0
+
+            config ANALYZER_USE_I2S_CHANNEL_0
+                bool "I2S0"
+
+            config ANALYZER_USE_I2S_CHANNEL_1
+                bool "I2S1"
+        endchoice
+
+    endif
+
+    if IDF_TARGET_ESP32S3
+
+        config ANALYZER_PCLK_PIN
+            int "GPIO NUM for PCLK"
+            range -1 48
+            default 40
+            help
+                RSP32S3 requires 1 free gpio to form a PCLK
+
+        config ANALYZER_USE_LEDC_TIMER_FOR_PCLK
+            bool "Use ledc timer for PCLK < 1 mHz"
+            default n
+            help
+                for PCLK from 1 mHz to 80 mHz, an internal divider  is used, if PCLK are needed less, we use a separate channel LEDC_PWM
+
+        if ANALYZER_USE_LEDC_TIMER_FOR_PCLK
+
+            config ANALYZER_LEDC_TIMER_NUMBER
+                int "LEDC_TIMER_NUMBER for PCLK"
+                range 0 3
+                default 3
+
+            config ANALYZER_LEDC_CHANNEL_NUMBER
+                int "LEDC_CHANNEL_NUMBER for PCLK"
+                range 0 7
+                default 7
+
+        endif
+
+    endif
+
+    if ESP_SYSTEM_CHECK_INT_LEVEL_4
+        config ANALYZER_USE_HI_LEVEL_INTERRUPT
+            bool "Use HI level interrupt"
+            default y
+            help
+                Use HI level interrupt.
+    endif
+
+    config ANALYZER_SEPARATE_MODE
+        bool "Separate mode"
+        depends on !IDF_TARGET_ESP32C3
+        default n
+        help
+            In-app or separate device mode.
+
+    config ANALYZER_USE_WS
+        bool "Logic analyzer output data to http websocket"
+        default y
+        help
+            logic analyzer output data to http websocket
+        
+    if  ANALYZER_USE_WS
+        config ANALYZER_START_WS_SERVER
+        bool "Start WS server"
+        default y
+            help
+                Start new WS server, or only register_uri_handlers on existing WS server.
+    endif
+        
+    config ANALYZER_USE_SUMP
+        bool "Direct connect to Sizrok PulseView"
+        default n
+        help
+            direct connect to Sigrok PulseView via sump protocol.
+        
+    if ANALYZER_USE_SUMP
+        
+        config ANALYZER_SUMP_UART_PORT_NUMBER
+            int "uart port number 0-2"
+            default 0
+            help
+                UART port number.
+        
+        config ANALYZER_SUMP_UART_PORT_BAUD_RATE
+            int "uart port baud rate"
+            default 921600
+            help
+                UART port baud rate.
+        
+        config ANALYZER_SUMP_UART_PORT_RX_PIN
+            int "uart port rx pin"
+            default 3
+            help
+                UART port port rx pin.
+        
+        config ANALYZER_SUMP_UART_PORT_TX_PIN
+            int "uart port tx pin"
+            default 1
+            help
+                UART port port tx pin.
+                
+    endif 
+
+    config ANALYZER_USE_PORT_ASSIGN
+        bool "Use GPIO assignments for channels"
+        default n
+        help
+            use GPIO assignments for channels.
+        
+    if ANALYZER_USE_PORT_ASSIGN
+
+        config ANALYZER_CHAN_0
+            int "GPIO for chahhel 0"
+            range -1 48
+            default -1
+
+        config ANALYZER_CHAN_1
+            int "GPIO for chahhel 1"
+            range -1 48
+            default -1
+
+        config ANALYZER_CHAN_2
+            int "GPIO for chahhel 2"
+            range -1 48
+            default -1
+
+        config ANALYZER_CHAN_3
+            int "GPIO for chahhel 3"
+            range -1 48
+            default -1
+
+        config ANALYZER_CHAN_4
+            int "GPIO for chahhel 4"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_5
+            int "GPIO for chahhel 5"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_6
+            int "GPIO for chahhel 6"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_7
+            int "GPIO for chahhel 7"
+            range -1 48
+            default -1
+                
+        config ANALYZER_CHAN_8
+            int "GPIO for chahhel 8"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_9
+            int "GPIO for chahhel 9"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_10
+            int "GPIO for chahhel 10"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_11
+            int "GPIO for chahhel 11"
+            range -1 48
+            default -1
+    
+        config ANALYZER_CHAN_12
+            int "GPIO for chahhel 12"
+            range -1 48
+            default -1
+        
+        config ANALYZER_CHAN_13
+            int "GPIO for chahhel 13"
+            range -1 48
+            default -1
+        
+        config ANALYZER_CHAN_14
+            int "GPIO for chahhel 14"
+            range -1 48
+            default -1
+        
+        config ANALYZER_CHAN_15
+            int "GPIO for chahhel 15"
+            range -1 48
+            default -1
+    
+        config ANALYZER_TRIG_PIN
+            int "GPIO for trigger pin"
+            range -1 48
+            default -1
+
+        config ANALYZER_TRIG_EDGE
+            int "trigger edge"
+            range 1 2
+            default 1
+            help
+                trigger EDGE: 1 - POS_EDGE 2 - NEG_EDGE
+
+        config ANALYZER_SAMPLES_COUNT
+            int "Samples count"
+            range 100 60000
+            default 1000
+
+        config ANALYZER_SAMPLE_RATE
+            int "Sample rate HZ"
+            range 5000 80000000
+            default 10000000
+
+        config ANALYZER_TIMEOUT
+            int "Meashured timeout Sek"
+            range -1 60
+            default 20
+
+        config ANALYZER_CHANNELS
+            int "Meashured channels 8/16"
+            range 4 16
+            default 16
+
+        config ANALYZER_PSRAM
+            int "Samples save to RAM (0) PSRAM (1)"
+            range 0 1
+            default 0
+
+    endif
+
+endmenu
