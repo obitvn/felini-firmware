@@ -34,11 +34,11 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     switch (info->cmd)
     {
         case HAL::LA_START:
-            printf("Dap start\n");
+            printf("Logic start\n");
             HAL::LogicAnalyzer_Init();
             break;
         case HAL::LA_STOP:
-            printf("DAP stop\n");
+            printf("Logic stop\n");
             HAL::LogicAnalyzer_Deinit();
             break;
         

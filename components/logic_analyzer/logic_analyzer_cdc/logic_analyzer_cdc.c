@@ -8,6 +8,7 @@
 #include "esp_log.h"
 #include "usbd_core.h"
 #include "usbd_cdc.h"
+#include "usb_jtag_serial_esp32s3.h"
 #include "logic_analyzer_cdc.h"
 
 #include "ringbuffer.h"
@@ -38,7 +39,7 @@ ring_buffer_t cdc_read_ring_buffer;
 static const uint8_t cdc_descriptor[] = {
     USB_DEVICE_DESCRIPTOR_INIT(USB_2_0, 0xEF, 0x02, 0x01, USBD_VID, USBD_PID, 0x0100, 0x01),
     USB_CONFIG_DESCRIPTOR_INIT(USB_CONFIG_SIZE, 0x02, 0x01, USB_CONFIG_BUS_POWERED, USBD_MAX_POWER),
-    CDC_ACM_DESCRIPTOR_INIT(0x00, CDC_INT_EP, CDC_OUT_EP, CDC_IN_EP, 0x02),
+    CDC_ACM_DESCRIPTOR_INIT(0x01, CDC_INT_EP, CDC_OUT_EP, CDC_IN_EP, 0x00),
     ///////////////////////////////////////
     /// string0 descriptor
     ///////////////////////////////////////
@@ -119,29 +120,7 @@ static int write_buffer_len = 0;
 
 volatile bool la_ep_tx_busy_flag = false;
 
-void usbd_event_handler(uint8_t event)
-{
-    switch (event)
-    {
-    case USBD_EVENT_RESET:
-        break;
-    case USBD_EVENT_CONNECTED:
-        break;
-    case USBD_EVENT_DISCONNECTED:
-        break;
-    case USBD_EVENT_RESUME:
-        break;
-    case USBD_EVENT_SUSPEND:
-        break;
-    case USBD_EVENT_CONFIGURED:
-        /* setup first out ep read transfer */
-        usbd_ep_start_read(CDC_OUT_EP, read_buffer, sizeof(read_buffer));
-        break;
 
-    default:
-        break;
-    }
-}
 
 static void la_usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes)
 {
@@ -164,11 +143,11 @@ static void la_usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
     }
 }
 
-struct usbd_endpoint cdc_out_ep = {
+struct usbd_endpoint la_cdc_out_ep = {
     .ep_addr = CDC_OUT_EP,
     .ep_cb = la_usbd_cdc_acm_bulk_out};
 
-struct usbd_endpoint cdc_in_ep = {
+struct usbd_endpoint la_cdc_in_ep = {
     .ep_addr = CDC_IN_EP,
     .ep_cb = la_usbd_cdc_acm_bulk_in};
 
@@ -184,9 +163,15 @@ static void cdc_acm_init(void)
     usbd_desc_register(cdc_descriptor);
     usbd_add_interface(usbd_cdc_acm_init_intf(&la_intf0));
     usbd_add_interface(usbd_cdc_acm_init_intf(&la_intf1));
-    usbd_add_endpoint(&cdc_out_ep);
-    usbd_add_endpoint(&cdc_in_ep);
+    usbd_add_endpoint(&la_cdc_out_ep);
+    usbd_add_endpoint(&la_cdc_in_ep);
     usbd_initialize();
+
+    while (!usb_device_is_configured())
+    {
+        printf(".");
+        vTaskDelay(100);
+    }
 }
 
 void la_usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)
@@ -232,7 +217,7 @@ static void logic_analyzer_main_task(void *pvParameter)
     while (1)
     {
         // Send back the data received from the host
-        la_cdc_acm_data_send_with_dtr_test();
+        // la_cdc_acm_data_send_with_dtr_test();
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
@@ -251,11 +236,12 @@ int logic_analyzer_cdc_start(void)
 
 int logic_analyzer_cdc_stop(void)
 {
-    usbd_deinitialize();
     if (xHandle_LA_CDC != NULL)
     {
         vTaskDelete(xHandle_LA_CDC);
     }
+    usbd_deinitialize();
+    usb_esp_jtag_serial_enable();
     return 1;
 }
 

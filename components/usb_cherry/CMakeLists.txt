@@ -4,6 +4,7 @@ file(GLOB_RECURSE SOURCES
     "CherryUSB/class/msc/usbd_msc.c"
     "CherryUSB/core/usbd_core.c"
     "CherryUSB/port/dwc2/usb_dc_dwc2.c"
+    "usb_jtag_serial_esp32s3.c"
 )
 
 set(includes 
