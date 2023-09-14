@@ -117,7 +117,7 @@ USB_NOCACHE_RAM_SECTION USB_MEM_ALIGNX uint8_t read_buffer[2048];
 USB_NOCACHE_RAM_SECTION USB_MEM_ALIGNX uint8_t write_buffer[2048];
 static int write_buffer_len = 0;
 
-volatile bool ep_tx_busy_flag = false;
+volatile bool la_ep_tx_busy_flag = false;
 
 void usbd_event_handler(uint8_t event)
 {
@@ -143,7 +143,7 @@ void usbd_event_handler(uint8_t event)
     }
 }
 
-static void usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes)
+static void la_usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes)
 {
     USB_LOG_RAW("actual out len:%d\r\n", nbytes);
     ring_buffer_queue_arr(&cdc_read_ring_buffer, (char *)read_buffer, nbytes);
@@ -151,7 +151,7 @@ static void usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes)
     usbd_ep_start_read(CDC_OUT_EP, read_buffer, sizeof(read_buffer));
 }
 
-static void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
+static void la_usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
 {
     USB_LOG_RAW("actual in len:%d\r\n", nbytes);
     if ((nbytes % CDC_MAX_MPS) == 0 && nbytes)
@@ -160,20 +160,20 @@ static void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
     }
     else
     {
-        ep_tx_busy_flag = false;
+        la_ep_tx_busy_flag = false;
     }
 }
 
 struct usbd_endpoint cdc_out_ep = {
     .ep_addr = CDC_OUT_EP,
-    .ep_cb = usbd_cdc_acm_bulk_out};
+    .ep_cb = la_usbd_cdc_acm_bulk_out};
 
 struct usbd_endpoint cdc_in_ep = {
     .ep_addr = CDC_IN_EP,
-    .ep_cb = usbd_cdc_acm_bulk_in};
+    .ep_cb = la_usbd_cdc_acm_bulk_in};
 
-struct usbd_interface intf0;
-struct usbd_interface intf1;
+struct usbd_interface la_intf0;
+struct usbd_interface la_intf1;
 
 static void cdc_acm_init(void)
 {
@@ -182,39 +182,39 @@ static void cdc_acm_init(void)
     memcpy(&write_buffer[0], data, 10);
 
     usbd_desc_register(cdc_descriptor);
-    usbd_add_interface(usbd_cdc_acm_init_intf(&intf0));
-    usbd_add_interface(usbd_cdc_acm_init_intf(&intf1));
+    usbd_add_interface(usbd_cdc_acm_init_intf(&la_intf0));
+    usbd_add_interface(usbd_cdc_acm_init_intf(&la_intf1));
     usbd_add_endpoint(&cdc_out_ep);
     usbd_add_endpoint(&cdc_in_ep);
     usbd_initialize();
 }
 
-void usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)
+void la_usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)
 {
     USB_LOG_INFO("intf:%u, dtr:%d\r\n", intf, dtr);
 }
 
-void usbd_cdc_acm_set_rts(uint8_t intf, bool rts)
+void la_usbd_cdc_acm_set_rts(uint8_t intf, bool rts)
 {
     USB_LOG_INFO("intf:%u, rts:%d\r\n", intf, rts);
 }
 
-static void cdc_acm_data_send_with_dtr_test(void)
+static void la_cdc_acm_data_send_with_dtr_test(void)
 {
     if (ring_buffer_is_empty(&cdc_write_ring_buffer))
     {
         return;
     }
 
-    if (ep_tx_busy_flag == false)
+    if (la_ep_tx_busy_flag == false)
     {
-        ep_tx_busy_flag = true;
+        la_ep_tx_busy_flag = true;
         /*!< Send */
         write_buffer_len = ring_buffer_num_items(&cdc_write_ring_buffer);
         ring_buffer_dequeue_arr(&cdc_write_ring_buffer, (char *)write_buffer, write_buffer_len);
         usbd_ep_start_write(CDC_IN_EP, write_buffer, write_buffer_len);
         write_buffer_len = 0;
-        while (ep_tx_busy_flag)
+        while (la_ep_tx_busy_flag)
         {
             vTaskDelay(1);
         }
@@ -232,7 +232,7 @@ static void logic_analyzer_main_task(void *pvParameter)
     while (1)
     {
         // Send back the data received from the host
-        cdc_acm_data_send_with_dtr_test();
+        la_cdc_acm_data_send_with_dtr_test();
         vTaskDelay(1);
     }
 }

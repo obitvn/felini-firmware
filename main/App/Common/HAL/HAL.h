@@ -65,6 +65,11 @@ namespace HAL
     void DAPLink_GetInfo(DAPLink_Info_t *info);
     void DAPLink_Deinit();
 
+    /* LogicAnalyzer*/
+    void LogicAnalyzer_Init();
+    void LogicAnalyzer_GetInfo(LogicAnalyzer_Info_t *info);
+    void LogicAnalyzer_Deinit();
+
     /* INA2xx Link*/
     void INA2xx_Init();
     void INA2xx_GetInfo(INA2xx_Info_t *info);

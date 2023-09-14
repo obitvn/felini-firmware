@@ -30,6 +30,7 @@ private:
     void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
+    void enableHW(int value);
 
 private:
     LogicAnalyzerView View;

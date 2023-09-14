@@ -15,19 +15,17 @@ LogicAnalyzer::~LogicAnalyzer()
 void LogicAnalyzer::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-
-
-
-    
 }
 
 void LogicAnalyzer::onViewLoad()
 {
+    
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
-
     AttachEvent(root);
+    // AttachEvent(View.switch_cont);
+    Model.LACommand(1); // crash
 }
 
 void LogicAnalyzer::onViewDidLoad()
@@ -56,6 +54,7 @@ void LogicAnalyzer::onViewDidDisappear()
 
 void LogicAnalyzer::onViewDidUnload()
 {
+    Model.LACommand(0);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
@@ -79,6 +78,12 @@ void LogicAnalyzer::onTimer(lv_timer_t *timer)
 
 }
 
+static int value = 0;
+
+void LogicAnalyzer::enableHW(int value)
+{
+    Model.LACommand(value );
+}
 
 
 

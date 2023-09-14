@@ -40,6 +40,7 @@ idf_component_register(
         ina226
         daplink
         usb_cherry
+        logic_analyzer
 )
 
 

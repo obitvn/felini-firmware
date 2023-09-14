@@ -124,6 +124,7 @@ namespace HAL
         daplink_cmd_t cmd;
     } DAPLink_Info_t;
 
+
     typedef enum ina2xx_cmd
     {
         INA_START = 0,
@@ -149,6 +150,23 @@ namespace HAL
         bool alert;
         bool overflow;
     } PowerMeasure_Info_t;
+
+    /* LogicAnalyzer*/
+    typedef enum
+    {
+        LA_START = 0,
+        LA_UPDATE,
+        LA_STOP,
+    } la_cmd_t;
+
+    typedef struct
+    {
+        uint16_t baudrate;
+        uint8_t status;
+        bool connect;
+        bool running;
+        la_cmd_t cmd;
+    } LogicAnalyzer_Info_t;
 }
 
 #endif
