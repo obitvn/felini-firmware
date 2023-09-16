@@ -205,7 +205,7 @@ static void cdc_acm_init(void)
 
 static void la_cdc_acm_data_send_with_dtr_test(void)
 {
-    if (ring_buffer_is_empty(&cdc_read_ring_buffer))
+    if (ring_buffer_is_empty(&cdc_write_ring_buffer))
     {
         return;
     }
@@ -214,8 +214,8 @@ static void la_cdc_acm_data_send_with_dtr_test(void)
     {
         la_ep_tx_busy_flag = true;
         /*!< Send */
-        write_buffer_len = ring_buffer_num_items(&cdc_read_ring_buffer);
-        ring_buffer_dequeue_arr(&cdc_read_ring_buffer, (char *)write_buffer, write_buffer_len);
+        write_buffer_len = ring_buffer_num_items(&cdc_write_ring_buffer);
+        ring_buffer_dequeue_arr(&cdc_write_ring_buffer, (char *)write_buffer, write_buffer_len);
         usbd_ep_start_write(CDC_IN_EP, write_buffer, write_buffer_len);
         write_buffer_len = 0;
         while (la_ep_tx_busy_flag)

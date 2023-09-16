@@ -34,6 +34,6 @@
         "cstdint": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
-    "idf.portWin": "COM11",
+    "idf.portWin": "COM18",
     "idf.flashType": "UART"
 }

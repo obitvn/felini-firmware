@@ -31,7 +31,7 @@ static int logic_analyzer_started = 0;              // flag start dma
 
 esp_err_t logic_analyzer_get_hw_param(logic_analyzer_hw_param_t *hw)
 {
-#ifdef LA_HW_PSRAM
+// #ifdef LA_HW_PSRAM
     if (esp_psram_is_initialized())
     {
         hw->available_psram = 1;
@@ -41,10 +41,10 @@ esp_err_t logic_analyzer_get_hw_param(logic_analyzer_hw_param_t *hw)
         hw->available_psram = 0;
         hw->current_psram = 0;
     }
-#else
-    hw->available_psram = 0;
-    hw->current_psram = 0;
-#endif
+// #else
+//     hw->available_psram = 0;
+//     hw->current_psram = 0;
+// #endif
     if (hw->current_psram > hw->available_psram)
     {
         hw->current_psram = hw->available_psram;
@@ -215,7 +215,7 @@ static void logic_analyzer_task(void *arg)
 #ifdef LA_HW_PSRAM
             if (cfg->samples_to_psram)
             {
-                int err = esp_cache_msync(la_frame.fb.buf, la_frame.fb.len, ESP_CACHE_MSYNC_FLAG_DIR_M2C);
+                int err = esp_cache_msync(la_frame.fb.buf, la_frame.fb.len, ESP_CACHE_MSYNC_FLAG_UNALIGNED);
                 if (err)
                     ESP_LOGE("CACHE", "ERR %x", err);
             }
