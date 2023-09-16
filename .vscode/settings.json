@@ -29,7 +29,9 @@
         "usbd_cdc.h": "c",
         "logic_analyzer.h": "c",
         "logic_analyzer_cdc.h": "c",
-        "usb_jtag_serial_esp32s3.h": "c"
+        "usb_jtag_serial_esp32s3.h": "c",
+        "ringbuffer.h": "c",
+        "cstdint": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

@@ -32,6 +32,7 @@ static void usb_interrupt_cb(void *arg_pv)
 
 void usb_dc_low_level_init(void)
 {
+    
     usb_phy_config_t phy_config = {
         .controller = USB_PHY_CTRL_OTG,
         .otg_mode = USB_OTG_MODE_DEVICE,
@@ -46,7 +47,7 @@ void usb_dc_low_level_init(void)
     }
 
     // TODO: Check when to enable interrupt
-    ret = esp_intr_alloc(ETS_USB_INTR_SOURCE, ESP_INTR_FLAG_LEVEL2, usb_interrupt_cb, 0, &s_interrupt_handle);
+    ret = esp_intr_alloc(ETS_USB_INTR_SOURCE, ESP_INTR_FLAG_LOWMED, (intr_handler_t)usb_interrupt_cb, 0, &s_interrupt_handle);
     if (ret != ESP_OK)
     {
         printf("USB Interrupt Init Failed!\r\n");

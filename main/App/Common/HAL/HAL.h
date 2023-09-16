@@ -75,6 +75,12 @@ namespace HAL
     void INA2xx_GetInfo(INA2xx_Info_t *info);
     void INA2xx_Deinit();
 
+    /*IIC Scan*/
+    void IIC_Init();
+    void IIC_Scan(IIC_Info_t *info);
+    void IIC_GetInfo(IIC_Info_t *info);
+    void IIC_Deinit();
+
     /* RCServo*/
     void RCServo_Init();
     void RCServo_GetInfo(RCServo_Info_t *info);

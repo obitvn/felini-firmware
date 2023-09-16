@@ -8,6 +8,7 @@
 void HAL::DAPLink_Init()
 {
     printf("dap init\r\n");
+    cdc_uart_enable(true);
     daplink_start();
 }
 void HAL::DAPLink_GetInfo(DAPLink_Info_t *info)

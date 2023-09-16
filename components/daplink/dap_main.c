@@ -35,6 +35,8 @@
 #include <stdio.h>
 
 
+bool mode_cdc = 0;
+
 #define CDC_IN_EP 0x81
 #define CDC_OUT_EP 0x04
 #define CDC_INT_EP 0x83
@@ -231,20 +233,26 @@ void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
 
 void usbd_cdc_acm_set_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    dap_line_coding.dwDTERate = line_coding->dwDTERate;
-    dap_line_coding.bDataBits = line_coding->bDataBits;
-    dap_line_coding.bParityType = line_coding->bParityType;
-    dap_line_coding.bCharFormat = line_coding->bCharFormat;
-    dap_uart_config(line_coding->dwDTERate, line_coding->bDataBits,
-                    line_coding->bParityType, line_coding->bCharFormat);
+    if(mode_cdc)
+    {
+        dap_line_coding.dwDTERate = line_coding->dwDTERate;
+        dap_line_coding.bDataBits = line_coding->bDataBits;
+        dap_line_coding.bParityType = line_coding->bParityType;
+        dap_line_coding.bCharFormat = line_coding->bCharFormat;
+        dap_uart_config(line_coding->dwDTERate, line_coding->bDataBits,
+                        line_coding->bParityType, line_coding->bCharFormat);
+    }
 }
 
 void usbd_cdc_acm_get_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    line_coding->dwDTERate = dap_line_coding.dwDTERate;
-    line_coding->bDataBits = dap_line_coding.bDataBits;
-    line_coding->bParityType = dap_line_coding.bParityType;
-    line_coding->bCharFormat = dap_line_coding.bCharFormat;
+    if (mode_cdc)
+    {
+        line_coding->dwDTERate = dap_line_coding.dwDTERate;
+        line_coding->bDataBits = dap_line_coding.bDataBits;
+        line_coding->bParityType = dap_line_coding.bParityType;
+        line_coding->bCharFormat = dap_line_coding.bCharFormat;
+    }
 }
 
 void usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)
@@ -311,6 +319,11 @@ static void daplink_task(void *pvParameter)
     }
 }
 
+void cdc_uart_enable(bool mode)
+{
+    mode_cdc  = mode;
+}
+
 static TaskHandle_t *xHandle_DAPLink = NULL;
 
 int daplink_start(void)
@@ -345,5 +358,6 @@ uint32_t is_daplink_running(void)
 {
     return (get_led_running()) ? 1 : 0;
 }
+
 
 /************************ (C) COPYRIGHT 2021 LiGuo *****END OF FILE*************/

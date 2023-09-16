@@ -8,6 +8,8 @@ extern "C" {
 
 void usb_esp_jtag_serial_enable(void);
 
+void usb_esp_jtag_serial_disable(void);
+
 #ifdef __cplusplus
 }
 #endif

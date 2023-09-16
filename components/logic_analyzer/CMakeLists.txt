@@ -89,6 +89,7 @@ idf_component_register(
         esp_mm
         esp_psram 
         ring_buffer
+        daplink
 
 )
 

@@ -124,6 +124,12 @@ namespace HAL
         daplink_cmd_t cmd;
     } DAPLink_Info_t;
 
+    typedef enum 
+    {
+        CMD_START = 0,
+        CMD_UPDATE,
+        CMD_STOP,
+    } hal_cmd_t;
 
     typedef enum ina2xx_cmd
     {
@@ -140,6 +146,13 @@ namespace HAL
         uint16_t status;
         ina2xx_cmd_t cmd;
     } INA2xx_Info_t;
+
+    typedef struct
+    {
+        uint8_t addr;
+        bool status;
+        hal_cmd_t cmd;
+    } IIC_Info_t;
 
     typedef struct
     {
