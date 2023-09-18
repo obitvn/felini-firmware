@@ -15,10 +15,8 @@ AppLumia::~AppLumia()
 void AppLumia::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-
-
-
-
+    SetCustomCacheEnable(false);
+    SetCustomLoadAnimType(PageManager::LOAD_ANIM_NONE);
 }
 
 void AppLumia::onViewLoad()
@@ -26,8 +24,20 @@ void AppLumia::onViewLoad()
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
-
     AttachEvent(root);
+
+    lv_obj_set_user_data(root, this);
+    lv_obj_add_event_cb(root, onEvent, LV_EVENT_GESTURE, this);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_GESTURE_BUBBLE);
+    lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
+
+    AppLumiaView::item_t *item_grp = ((AppLumiaView::item_t *)&View.ui);
+
+    for (int i = 0; i < sizeof(View.ui) / sizeof(AppLumiaView::item_t); i++)
+    {
+        AttachEvent(item_grp[i].btn);
+        AttachEvent(item_grp[i].btn_cell);
+    }
 }
 
 void AppLumia::onViewDidLoad()
@@ -64,9 +74,7 @@ void AppLumia::onViewDidUnload()
 void AppLumia::AttachEvent(lv_obj_t *obj)
 {
     lv_obj_set_user_data(obj, this);
-    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_GESTURE, this);
-    lv_obj_clear_flag(obj, LV_OBJ_FLAG_GESTURE_BUBBLE);
-    lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
 }
 
 void AppLumia::Update()
@@ -89,14 +97,29 @@ void AppLumia::onEvent(lv_event_t *event)
     lv_event_code_t code = lv_event_get_code(event);
     AppLumia *instance = (AppLumia *)lv_obj_get_user_data(obj);
 
-    if (obj == instance->root)
+    AppLumiaView::item_t *item_grp = ((AppLumiaView::item_t *)&instance->View.ui);
+
+    printf("event %d\r\n", code);
+
+    // if (obj == instance->root)
+    // {
+    //     if (LV_EVENT_GESTURE == code)
+    //     {
+    //         lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+    //         if (LV_DIR_RIGHT == dir)
+    //         {
+    //             instance->Manager->Pop();
+    //         }
+    //     }
+    // }
+
+    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(AppLumiaView::item_t); i++)
     {
-        if (LV_EVENT_GESTURE == code)
+        if ((obj == item_grp[i].btn) || (obj == item_grp[i].btn_cell))
         {
-            lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
-            if (LV_DIR_RIGHT == dir)
+            if (code == LV_EVENT_CLICKED)
             {
-                instance->Manager->Pop();
+                instance->Manager->Push(item_grp[i].app_src); // load page mới
             }
         }
     }
