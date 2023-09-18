@@ -90,7 +90,7 @@ extern "C"
         IMPORT_IMG(i2cnetwork);
         IMPORT_IMG(i2cscan);
         IMPORT_IMG(info);
-        IMPORT_IMG(link);
+        IMPORT_IMG(daplink);
         IMPORT_IMG(scan);
         IMPORT_IMG(servo);
         IMPORT_IMG(setting);
@@ -99,7 +99,10 @@ extern "C"
         IMPORT_IMG(volang);
         IMPORT_IMG(pinmap_servo);
         IMPORT_IMG(catb);
+        IMPORT_IMG(herzt);
         IMPORT_IMG(dap_bug);
+        IMPORT_IMG(logic_analyzer);
+        IMPORT_IMG(key);
         IMPORT_IMG(dap_connected);
         IMPORT_IMG(dap_disconnect);
         IMPORT_IMG(down_dap);

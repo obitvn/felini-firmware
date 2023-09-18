@@ -77,6 +77,7 @@ static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channels)
 {
     if (buf == NULL)
     {
+        printf(" buff null \n");
         return;
     }
     // sigrok - data send on reverse order
@@ -85,15 +86,18 @@ static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channels)
     int diff = readCount - cnt;
     if (channels == 8)
     {
+        printf("8 chanels \n");
         uint8_t *bufff = (uint8_t *)buf + readCount - 1 - diff;
         for (int i = 0; i < readCount; i++)
         {
             if (i < diff) // zero sample
             {
+                printf(" zero sample 8 \n");
                 sump_write_data((uint8_t *)(&zero_sample), 1);
             }
             else
             {
+                printf("send sample\n");
                 sump_write_data((uint8_t *)(bufff), 1);
                 bufff--;
             }
@@ -106,6 +110,7 @@ static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channels)
         {
             if (i < diff) // zero sample
             {
+                printf(" zero sample 16 \n");
                 sump_write_data((uint8_t *)(&zero_sample), 2);
             }
             else
@@ -122,6 +127,7 @@ static void sump_la_cb(uint8_t *buf, int cnt, int clk, int channels)
         {
             if (i < diff) // zero sample
             {
+                printf(" zero sample 4 \n");
                 sump_write_data((uint8_t *)(&zero_sample), 1);
             }
             else
@@ -195,6 +201,7 @@ static void logic_analyzer_sump_task(void *arg)
         uint8_t cmd = sump_getCmd();
         sump_cmd_parser(cmd);
         vTaskDelay(pdMS_TO_TICKS(5));
+        // printf("r\n");
     }
 }
 
@@ -234,14 +241,18 @@ static void sump_cmd_parser(uint8_t cmdByte)
     switch (cmdByte)
     {
     case SUMP_RESET:
+        // printf("sump reset\n");
         break;
     case SUMP_QUERY:
+        printf("sump query\n");
         sump_write_data((uint8_t *)"1ALS", 4);
         break;
     case SUMP_ARM:
+        printf("capture and send sample\n");
         sump_capture_and_send_samples();
         break;
     case SUMP_TRIGGER_MASK_CH_A:
+        printf("sump mask ch a\n");
         sump_getCmd4(cmd.u_cmd8);
         trigger = cmd.u_cmd32 & 0xffff;
         first_trigger_pin = -1; // trigger not defined
@@ -256,6 +267,7 @@ static void sump_cmd_parser(uint8_t cmdByte)
         }
         break;
     case SUMP_TRIGGER_VALUES_CH_A:
+        printf("sump value ch a\n");
         sump_getCmd4(cmd.u_cmd8);
         trigger_values = cmd.u_cmd32 & 0xffff;
         first_trigger_val = 0;
@@ -312,10 +324,10 @@ static void sump_get_metadata()
     logic_analyzer_get_hw_param(&la_hw);
     /* device name */
     sump_writeByte((uint8_t)0x01);
-    sump_write_data((uint8_t *)"ESP32", 6);
+    sump_write_data((uint8_t *)"FELINI Logic Analyzer", 22);
     /* firmware version */
     sump_writeByte((uint8_t)0x02);
-    sump_write_data((uint8_t *)"0.00", 5);
+    sump_write_data((uint8_t *)"17092023", 9);
     /* sample memory */
     uint32_t capture_size = (la_hw.current_channels > 4) ? (la_hw.max_sample_cnt * (la_hw.current_channels / 8)) : la_hw.max_sample_cnt; // buff size bytes. 4 channels send as 8 channels
     sump_writeByte((uint8_t)0x21);

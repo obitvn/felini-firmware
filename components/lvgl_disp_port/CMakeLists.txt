@@ -1,10 +1,10 @@
 idf_component_register(
-    SRCS "lvgl_disp_port.c"
+    SRCS "lvgl_disp_port.cpp"
        
     INCLUDE_DIRS 
         "."
     REQUIRES 
         lvgl 
-        st7789v
         driver
+        LovyanGFX
         )

@@ -223,7 +223,8 @@ void st7789v_init(void) {
       {0xC2, {0x01}, 1},
       {0xC3, {0x0F}, 1},
       {0xC4, {0x20}, 1},
-      {0xC6, {0X01}, 1},  // Set to 0x28 if your display is flipped
+      {0xC6, {0X01}, 1}, // Set to 0x28 if your display is flipped
+      {0x35, {0x01}, 1}, // tearing_effect_on
       {0xD0, {0xa4, 0xa1}, 2},
 
       {0xE8, {0x03}, 1},
@@ -237,8 +238,8 @@ void st7789v_init(void) {
        {0xD0, 0x05, 0x09, 0x09, 0x08, 0x03, 0x24, 0x32, 0x32, 0x3B, 0x14, 0x13,
         0x28, 0x2F},
        14},
-      {0x2A, {0x00, 0x00, 0x01, 0x18}, 4}, //width
-      {0x2B, {0x00, 000, 0x00, 0xF0}, 4},  //high
+      {0x2A, {0x00, 0x00, 0x01, 0x18}, 4}, // width
+      {0x2B, {0x00, 000, 0x00, 0xF0}, 4},  // high
 
       {0x21, {0}, 0},
       {0x29, {0}, 0},
@@ -361,7 +362,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
       trans[i][5].flags = 0;
     }
   }
-  //Queue all transactions.
+  // Queue all transactions.
   for (int i = 0; i < chunk_total; i++) {
     for (int x = 0; x < 6; x++) {
       esp_err_t ret = spi_device_transmit(spi, &trans[i][x]);
@@ -370,6 +371,7 @@ void st7789v_flush(uint16_t x1, uint16_t x2, uint16_t y1, uint16_t y2,
       transfer_num++;
     }
   }
+
   //When we are here, the SPI driver is busy (in the background) getting the transactions sent. That happens
     //mostly using DMA, so the CPU doesn't have much to do here. We're not going to wait for the transaction to
     //finish because we may as well spend the time calculating the next line. When that is done, we can call

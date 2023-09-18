@@ -31,9 +31,10 @@
         "logic_analyzer_cdc.h": "c",
         "usb_jtag_serial_esp32s3.h": "c",
         "ringbuffer.h": "c",
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "compare": "c"
     },
     "idf.adapterTargetName": "esp32s3",
-    "idf.portWin": "COM18",
+    "idf.portWin": "COM11",
     "idf.flashType": "UART"
 }

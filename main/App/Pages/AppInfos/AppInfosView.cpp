@@ -104,7 +104,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.uartter,
         root,
         "UART",
-        "updown",
+        "terminal",
 
         "UART Terminal \n"
         "Live view\n"
@@ -117,7 +117,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.daplink,
         root,
         "DAPLink",
-        "link",
+        "daplink",
         
         "DAP Link debugger\n"
         "V2.2.3\n"
@@ -129,7 +129,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.logicanalyzer,
         root,
         "USB LA",
-        "box3d",
+        "logic_analyzer",
 
         "Logic Analyzer\n"
         "USB SUMPS\n"
@@ -154,7 +154,7 @@ void AppInfosView::Create(lv_obj_t* root)
         &ui.kaitokey,
         root,
         "FIDO2",
-        "terminal",
+        "key",
 
         "KaitoKey\n"
         "FIDO2 & U2F\n"
