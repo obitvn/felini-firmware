@@ -201,7 +201,6 @@ static void logic_analyzer_sump_task(void *arg)
         uint8_t cmd = sump_getCmd();
         sump_cmd_parser(cmd);
         vTaskDelay(pdMS_TO_TICKS(5));
-        // printf("r\n");
     }
 }
 
