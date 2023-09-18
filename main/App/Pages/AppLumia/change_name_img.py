@@ -1,7 +1,7 @@
 import os
 
-lastname = "AppInfos"
-replaceby = "AppList"
+lastname = "AppList"
+replaceby = "AppLumia"
 
 folder_path = "./"  # Đường dẫn đến thư mục chứa các tệp .c
 

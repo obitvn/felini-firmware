@@ -31,6 +31,7 @@
 #include "Pages/StatusBar/StatusBar.h"
 #include "Pages/IICDiscovery/IICDiscovery.h"
 #include "Pages/AppInfos/AppInfos.h"
+#include "Pages/AppLumia/AppLumia.h"
 #include "Pages/PowerSupply/PowerSupply.h"
 #include "Pages/ServoCtrl/ServoCtrl.h"
 #include "Pages/AnalogViewer/AnalogViewer.h"
@@ -100,6 +101,7 @@
     manager.Install("Template", "Pages/_Template");
     manager.Install("IICDiscovery", "Pages/IICDiscovery");
     manager.Install("AppInfos", "Pages/AppInfos");
+    manager.Install("AppLumia", "Pages/AppLumia");
     manager.Install("PowerSupply", "Pages/PowerSupply");
     manager.Install("ServoCtrl", "Pages/ServoCtrl");
     manager.Install("AnalogViewer", "Pages/AnalogViewer");
