@@ -91,19 +91,8 @@ static void disp_init(void)
 { 
     // st7789v_init();
     lcd.init(); // Initialize LovyanGFX
-    lcd.setColorDepth(24);
-    lcd.fillScreen(TFT_DARKCYAN);
-    vTaskDelay(pdMS_TO_TICKS(100));
-    lcd.fillScreen(TFT_VIOLET);
-    vTaskDelay(pdMS_TO_TICKS(100));
-    lcd.fillScreen(TFT_ORANGE);
-    vTaskDelay(pdMS_TO_TICKS(100));
-    lcd.fillScreen(TFT_RED);
-    vTaskDelay(pdMS_TO_TICKS(100));
-    lcd.fillScreen(TFT_BLUE);
-    vTaskDelay(pdMS_TO_TICKS(100));
-    lcd.fillScreen(TFT_GREEN);
-    vTaskDelay(pdMS_TO_TICKS(100));
+    lcd.setColorDepth(16);
+    lcd.fillScreen(TFT_BLACK);
 }
 
 volatile bool disp_flush_enabled = true;

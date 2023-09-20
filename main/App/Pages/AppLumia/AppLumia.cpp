@@ -99,7 +99,7 @@ void AppLumia::onEvent(lv_event_t *event)
 
     AppLumiaView::item_t *item_grp = ((AppLumiaView::item_t *)&instance->View.ui);
 
-    printf("event %d\r\n", code);
+    // printf("event %d\r\n", code);
 
     // if (obj == instance->root)
     // {

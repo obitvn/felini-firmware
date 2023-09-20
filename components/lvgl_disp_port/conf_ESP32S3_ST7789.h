@@ -1,5 +1,5 @@
 
-#define SPI_MODE 2
+#define SPI_MODE 0
 
 #define TFT_MOSI 11 // SDA
 #define TFT_MISO -1
@@ -32,8 +32,8 @@ public:
       auto cfg = _bus_instance.config();
       cfg.spi_host = SPI2_HOST;
       cfg.spi_mode = SPI_MODE;
-      cfg.freq_write = 800000000;
-      cfg.freq_read  =  16000000;
+      cfg.freq_write =  80000000;
+      cfg.freq_read  =  80000000;
       cfg.spi_3wire = true; // 受信をMOSIピンで行う場合はtrueを設定
       cfg.use_lock = true;  // トランザクションロックを使用する場合はtrueを設定
 
