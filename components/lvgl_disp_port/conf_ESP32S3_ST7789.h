@@ -9,6 +9,14 @@
 #define TFT_RST 13
 #define TFT_BCK_LT 17
 
+// #define TFT_MOSI 7 // SDA
+// #define TFT_MISO -1
+// #define TFT_SCLK 1 // SCL
+// #define TFT_DC 5
+// #define TFT_CS 4
+// #define TFT_RST 6
+// #define TFT_BCK_LT 17
+
 #define TFT_WIDTH 240
 #define TFT_HEIGHT 280
 
