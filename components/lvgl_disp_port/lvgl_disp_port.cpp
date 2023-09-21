@@ -50,27 +50,30 @@ void lv_port_disp_init(void)
     disp_drv.ver_res = 240;
     disp_drv.full_refresh = 1;
     lv_disp_drv_register(&disp_drv);
+
+
 }
 
+/// not using
 static void gui_task(void *pvParameter)
 {
+    // while(1)
+    // {
+    //     vTaskDelay(pdMS_TO_TICKS(1));
 
-    while(1)
-    {
-        vTaskDelay(pdMS_TO_TICKS(1));
-
-        if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
-        {
-            lv_task_handler();
-            xSemaphoreGive(lvgl_mutex);
-        }
-    }
+    //     if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
+    //     {
+    //         lv_task_handler();
+    //         xSemaphoreGive(lvgl_mutex);
+    //     }
+        
+    // }
 }
 
 void disp_task_create(void)
 {
 
-    xTaskCreatePinnedToCore(gui_task, "disp task", 1024*8, NULL, 2, NULL, 1);
+    // xTaskCreatePinnedToCore(gui_task, "disp task", 1024*8, NULL, 2, NULL, 1);
 
 }
 

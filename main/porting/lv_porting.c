@@ -7,7 +7,7 @@
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
 
-#include "lvgl_disp_port.h"
+#include "lvgl_disp_port.hpp"
 #include "lvgl_indev_port.h"
 
 void disp_drv_init(void);
@@ -58,7 +58,7 @@ void indev_drv_init(void)
 void lv_porting_delay(void)
 {
     // int a = 0;
-    vTaskDelay(pdMS_TO_TICKS(5));
+    vTaskDelay(pdMS_TO_TICKS(1));
 }
 
 #else

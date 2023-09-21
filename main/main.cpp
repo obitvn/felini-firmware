@@ -30,7 +30,6 @@ extern "C"
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     void app_main(void)
     {
-
 #else
     int main(int argc, char *argv[])
     {
@@ -40,10 +39,9 @@ extern "C"
         HAL::HAL_Init();
         App_Init();
         while (1)
-        {            
-                lv_task_handler();
-                lv_porting_delay();
-                
+        {
+            lv_task_handler();
+            lv_porting_delay();
         }
     }
 }
