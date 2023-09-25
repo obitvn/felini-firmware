@@ -22,7 +22,9 @@
     #include "esp_log.h"
     #define TAG "main"
 
+
 #endif
+
 
 extern "C"
 {
@@ -30,6 +32,7 @@ extern "C"
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     void app_main(void)
     {
+       
 #else
     int main(int argc, char *argv[])
     {
@@ -42,6 +45,7 @@ extern "C"
         {
             lv_task_handler();
             lv_porting_delay();
+            // lv_refr_now(NULL);
         }
     }
 }

@@ -32,13 +32,13 @@ void lv_port_disp_init(void)
 
     lv_color_t *buf_1 = (lv_color_t *)heap_caps_malloc(240 * 280 * 2, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     assert(buf_1 != NULL);
-    lv_color_t* buf_2 = (lv_color_t*)heap_caps_malloc(240 * 280 * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
-    assert(buf_2 != NULL);
+    // lv_color_t* buf_2 = (lv_color_t*)heap_caps_malloc(240 * 280 * 2,  MALLOC_CAP_SPIRAM  | MALLOC_CAP_8BIT);
+    // assert(buf_2 != NULL);
 
     memset(buf_1, 0, 240 * 280 * 2);
-    memset(buf_2, 0, 240 * 280 * 2);
+    // memset(buf_2, 0, 240 * 280 * 2);
 
-    lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, 240 * 280);
+    lv_disp_draw_buf_init(&disp_buf, buf_1, NULL, 240 * 280);
 
     /* Create display */
     static lv_disp_drv_t disp_drv;
@@ -50,51 +50,15 @@ void lv_port_disp_init(void)
     disp_drv.ver_res = 240;
     disp_drv.full_refresh = 1;
     lv_disp_drv_register(&disp_drv);
-
-
 }
-
-/// not using
-static void gui_task(void *pvParameter)
-{
-    // while(1)
-    // {
-    //     vTaskDelay(pdMS_TO_TICKS(1));
-
-    //     if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
-    //     {
-    //         lv_task_handler();
-    //         xSemaphoreGive(lvgl_mutex);
-    //     }
-        
-    // }
-}
-
-void disp_task_create(void)
-{
-
-    // xTaskCreatePinnedToCore(gui_task, "disp task", 1024*8, NULL, 2, NULL, 1);
-
-}
-
-esp_err_t lv_port_sem_take(void)
-{
-    return !xSemaphoreTake(lvgl_mutex, portMAX_DELAY);
-}
-
-esp_err_t lv_port_sem_give(void)
-{
-    return !xSemaphoreGive(lvgl_mutex);
-}
-
 
 
 /*Initialize your display and the required peripherals.*/
 static void disp_init(void) 
 { 
-    // st7789v_init();
     lcd.init(); // Initialize LovyanGFX
     lcd.setColorDepth(16);
+    lcd.setBrightness(50);
     lcd.fillScreen(TFT_BLACK);
 }
 
@@ -115,6 +79,7 @@ void disp_disable_update(void) { disp_flush_enabled = false; }
  *'lv_disp_flush_ready()' has to be called when finished.*/
 static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)
 {
+
     uint32_t w = (area->x2 - area->x1 + 1);
     uint32_t h = (area->y2 - area->y1 + 1);
 
@@ -122,9 +87,8 @@ static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_
     lcd.setAddrWindow(area->x1, area->y1, w, h);
     lcd.pushColors((uint16_t *)&color_p->full, w * h, true);
     lcd.endWrite();
-    // }
+    lv_disp_flush_ready(disp_drv);
 
     /*IMPORTANT!!!
      *Inform the graphics library that you are ready with the flushing*/
-    lv_disp_flush_ready(disp_drv);
 }

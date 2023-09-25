@@ -1,3 +1,5 @@
+
+
 #include "ServoCtrlView.h"
 #include <cstdio>
 
@@ -30,7 +32,15 @@ void ServoCtrlView::Create(lv_obj_t *root)
     lv_group_add_obj(arc_group, ui.arc.cont);
     lv_group_focus_obj(ui.arc.cont);
 
-    
+    lv_obj_t *spinbox = lv_spinbox_create(root);
+    lv_obj_remove_style_all(spinbox);
+    lv_obj_set_x(spinbox, 320);
+    lv_obj_set_y(spinbox, 320);
+    lv_spinbox_set_cursor_pos(spinbox, 0);
+    lv_spinbox_set_digit_format(spinbox, 1, 1);
+    lv_spinbox_set_range(spinbox, 0, 180);
+    lv_spinbox_set_step(spinbox, 1);
+    ui.spin.cont = spinbox;
 
     lv_obj_t *ui_ServoAngle = lv_label_create(root);
     lv_obj_set_width(ui_ServoAngle, LV_SIZE_CONTENT);  /// 1

@@ -3,6 +3,7 @@
 
 using namespace Page;
 
+#define CELL_SIZE 80
 
 void AppLumiaView::Create(lv_obj_t *root)
 {
@@ -13,12 +14,9 @@ void AppLumiaView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_tileView = lv_tileview_create(root);
 
-    lv_obj_set_width(ui_tileView, 275);
+    lv_obj_set_width(ui_tileView, 280);
     lv_obj_set_height(ui_tileView, 240);
     lv_obj_center(ui_tileView);
-
-    // lv_obj_set_x(ui_tileView, -10);
-    // lv_obj_set_y(ui_tileView, -20);
 
     lv_obj_set_align(ui_tileView, LV_ALIGN_CENTER);
 
@@ -32,30 +30,35 @@ void AppLumiaView::Create(lv_obj_t *root)
     /*Tile1: startMenu*/
     lv_obj_t *ui_tileStart = lv_tileview_add_tile(ui_tileView, 0, 0, LV_DIR_RIGHT);
 
-    static lv_coord_t col_dsc[] = {75, 75, 75, LV_GRID_TEMPLATE_LAST};
-    static lv_coord_t row_dsc[] = {75, 75, 75, 75, 75, 75, 75, LV_GRID_TEMPLATE_LAST};
+    static lv_coord_t col_dsc[] = {CELL_SIZE, CELL_SIZE, CELL_SIZE, LV_GRID_TEMPLATE_LAST};
+    static lv_coord_t row_dsc[] = {CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, LV_GRID_TEMPLATE_LAST};
 
     /*Create a container with grid*/
     lv_obj_t *cont = lv_obj_create(ui_tileStart);
-    lv_obj_set_style_grid_column_dsc_array(cont, col_dsc, 0);
-    lv_obj_set_style_grid_row_dsc_array(cont, row_dsc, 0);
-    lv_obj_set_size(cont, 275, 240);
-    lv_obj_center(cont);
-    lv_obj_set_layout(cont, LV_LAYOUT_GRID);
 
-    // lv_obj_set_style_pad_top(cont, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(cont, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(cont, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(cont, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(cont, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_OFF);
 
-    CreateItemCell("Pages/AnalogViewer", cont, "ADC", "analog", 0, 0, 1, &ui.analog);
-    CreateItemCell("Pages/ColorWheel", cont, "LED", "color", 1, 0, 2, &ui.ledcolor);
+    // lv_obj_set_style_pad_all(cont, 20, LV_PART_MAIN);
+    lv_obj_set_style_pad_left(cont, 12, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(cont, 10, LV_PART_MAIN);
+    lv_obj_set_style_pad_column(cont, 8, LV_PART_MAIN);
+    lv_obj_set_style_pad_row(cont, 8, LV_PART_MAIN);
+    lv_obj_set_style_grid_column_dsc_array(cont, col_dsc, 0);
+    lv_obj_set_style_grid_row_dsc_array(cont, row_dsc, 0);
+    lv_obj_set_size(cont, 280, 240);
+    lv_obj_center(cont);
+    lv_obj_set_layout(cont, LV_LAYOUT_GRID);
+
+    CreateItemCell("Pages/AnalogViewer", cont, "ADC", "analog", 0, 0, 2, &ui.analog);
+    CreateItemCell("Pages/ColorWheel", cont, "LED", "color", 2, 0, 1, &ui.ledcolor);
 
     CreateItemCell("Pages/Interval", cont, "Interval", "clock", 0, 1, 1, &ui.timekeeper);
     CreateItemCell("Pages/IICDiscovery", cont, "I2C", "i2cnetwork", 1, 1, 1, &ui.i2cscan);
-    CreateItemCell("Pages/PowerSupply", cont, "PD PPS", "power", 2, 1, 1, &ui.powerpd);
+    CreateItemCell("Pages/PowerSupply", cont, "PD PPS", "power", 1, 4, 2, &ui.powerpd);
 
     CreateItemCell("Pages/ServoCtrl", cont, "Servo", "volang", 0, 2, 1, &ui.ccpmservo);
     CreateItemCell("Pages/UARTViewer", cont, "UART", "terminal", 1, 2, 2, &ui.uartter);
@@ -64,9 +67,9 @@ void AppLumiaView::Create(lv_obj_t *root)
     CreateItemCell("Pages/LogicAnalyzer", cont, "USB LA", "logic_analyzer", 2, 3, 1, &ui.logicanalyzer);
 
     CreateItemCell("Pages/CandleLight", cont, "CAN Bus", "canbus", 0, 4, 1, &ui.usbcanbus);
-    CreateItemCell("Pages/KaitoKey", cont, "FIDO2", "key", 1, 4, 2, &ui.kaitokey);
+    CreateItemCell("Pages/KaitoKey", cont, "FIDO2", "key", 2, 1, 1, &ui.kaitokey);
 
-    CreateItemCell("Pages/Hertz", cont, "Hertz", "chip", 0, 5, 1, &ui.frequency);
+    CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 0, 5, 1, &ui.frequency);
     CreateItemCell("Pages/IMUSensor", cont, "IMU", "box3d", 1, 5, 1, &ui.imu);
 
 
@@ -74,7 +77,7 @@ void AppLumiaView::Create(lv_obj_t *root)
     lv_obj_t *ui_tileApps = lv_tileview_add_tile(ui_tileView, 1, 0, LV_DIR_LEFT);
     /*Create a list*/
     lv_obj_t *list1 = lv_list_create(ui_tileApps);
-    lv_obj_set_size(list1, 275, 240);
+    lv_obj_set_size(list1, 280, 240);
     lv_obj_center(list1);
 
     // lv_obj_set_style_pad_top(list1, 30, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -88,34 +91,32 @@ void AppLumiaView::Create(lv_obj_t *root)
 
     /*Add apps to the list*/
 
-    CreateItemList("Pages/AnalogViewer", list1, "ADC", "analog", "View Analog Signal\n"
-                                                                 "0 - 3300mV\n"
-                                                                 "View signal",
+    CreateItemList("Pages/AnalogViewer", list1, "Analog View", "analog", "Analog\n"
+                                                                 "0 - 3300mV "
+                                                                 "View signal\n",
                    &ui.analog);
-    CreateItemList("Pages/ColorWheel", list1, "LED", "color", "Control LED RGB\n"
-                                                              "LED WS2812\n"
-                                                              "LED FullColor\n"
-                                                              "DMX\n",
+    CreateItemList("Pages/ColorWheel", list1, "LED Control", "color", "Control LED\n"
+                                                              "LED WS2812 "
+                                                              "LED FullColor\n",
                    &ui.ledcolor);
 
-    CreateItemList("Pages/Interval", list1, "Interval", "clock", "Signal duration \n"
-                                                                 "Get pulse\n"
-                                                                 "View delay\n"
-                                                                 "v1.2.2",
+    CreateItemList("Pages/Interval", list1, "Interval Time", "clock", "Signal duration \n"
+                                                                 "Get pulse "
+                                                                 "View delay\n",
                    &ui.timekeeper);
-    CreateItemList("Pages/IICDiscovery", list1, "I2C", "i2cnetwork", "Scan Device\n"
+    CreateItemList("Pages/IICDiscovery", list1, "I2C Discovery", "i2cnetwork", "Scan Device\n"
                                                                      "Check version\n"
                                                                      "Read sensor\n",
                    &ui.i2cscan);
-    CreateItemList("Pages/PowerSupply", list1, "PD PPS", "power", "Power Supply ADJ\n"
+    CreateItemList("Pages/PowerSupply", list1, "PD PPS Power", "power", "Power Supply ADJ\n"
                                                                   "Support USB PPS\n",
                    &ui.powerpd);
 
-    CreateItemList("Pages/ServoCtrl", list1, "Servo", "volang", "CCPM Servo / ESC\n"
+    CreateItemList("Pages/ServoCtrl", list1, "Servo Control", "volang", "CCPM Servo / ESC\n"
                                                                 "Consistency Master\n"
                                                                 "V1.0.0",
                    &ui.ccpmservo);
-    CreateItemList("Pages/UARTViewer", list1, "UART", "terminal", "UART Terminal \n"
+    CreateItemList("Pages/UARTViewer", list1, "UART Viewer", "terminal", "UART Terminal \n"
                                                                   "Live view\n"
                                                                   "data on UART RX\n"
                                                                   "V1.2.2",
@@ -125,34 +126,34 @@ void AppLumiaView::Create(lv_obj_t *root)
                                                                  "V2.2.3\n"
                                                                  "USB UART\n",
                    &ui.daplink);
-    CreateItemList("Pages/LogicAnalyzer", list1, "USB LA", "logic_analyzer", "Logic Analyzer\n"
+    CreateItemList("Pages/LogicAnalyzer", list1, "Logic Analyzer", "logic_analyzer", "Logic Analyzer\n"
                                                                              "USB SUMPS\n"
                                                                              "V2.2.3\n",
                    &ui.logicanalyzer);
 
-    CreateItemList("Pages/CandleLight", list1, "CAN Bus", "canbus", "USB to CAN\n"
+    CreateItemList("Pages/CandleLight", list1, "CAN Viewer", "canbus", "USB to CAN\n"
                                                                     "CandleLight\n"
                                                                     "V2.2.3\n"
                                                                     "Socket CAN\n",
                    &ui.usbcanbus);
-    CreateItemList("Pages/KaitoKey", list1, "FIDO2", "key", "KaitoKey\n"
+    CreateItemList("Pages/KaitoKey", list1, "Security Key", "key", "KaitoKey\n"
                                                             "FIDO2 & U2F\n"
                                                             "Passwordless\n"
                                                             "V-30-08-2023\n",
                    &ui.kaitokey);
 
-    CreateItemList("Pages/Hertz", list1, "Hertz", "chip", "Measure Frequency\n"
-                                                          "Cycle\n"
-                                                          "V2.2.3\n"
-                                                          "Frequency counter\n",
+    CreateItemList("Pages/Hertz", list1, "Measure Frequency", "herzt", "Measure Frequency\n"
+                                                                      "Cycle\n"
+                                                                      "V2.2.3\n"
+                                                                      "Frequency counter\n",
                    &ui.frequency);
-    CreateItemList("Pages/IMUSensor", list1, "IMU", "box3d", "IMU Sensor\n"
-                                                             "3d Viewer\n"
-                                                             "V2.2.3\n",
+    CreateItemList("Pages/IMUSensor", list1, "IMU Sensor", "box3d", "IMU Sensor\n"
+                                                                    "3d Viewer\n"
+                                                                    "V2.2.3\n",
                    &ui.imu);
 }
 
-void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infos, item_t *item)
+void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infor, item_t *item)
 {
 
     lv_obj_t *obj;
@@ -174,15 +175,14 @@ void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const c
     lv_obj_set_style_bg_color(obj, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(obj, 50, LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_border_width(obj, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
-    //lv_obj_add_event_cb(obj, callback, LV_EVENT_ALL, name);
 
     label = lv_label_create(obj);
     item->labelInfo = label;
     lv_label_set_text(label, name);
     lv_obj_center(label);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
-    lv_obj_set_x(label, 100);
-    lv_obj_set_style_text_font(label, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_x(label, 60);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("sf_compact_17"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     icon = lv_img_create(obj);
     item->icon = icon;
@@ -213,7 +213,7 @@ void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const c
     lv_obj_set_style_shadow_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, col, size, LV_GRID_ALIGN_STRETCH, row, 1);
-    //lv_obj_add_event_cb(obj, callback, LV_EVENT_ALL, name);
+
     label = lv_label_create(obj);
     item->labelInfo = label;
     lv_label_set_text(label, name);
@@ -221,7 +221,7 @@ void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const c
     lv_obj_set_align(label, LV_ALIGN_BOTTOM_LEFT);
     lv_obj_set_x(label, -18);
     lv_obj_set_y(label, 12);
-    lv_obj_set_style_text_font(label, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("sf_compact_15"), LV_PART_MAIN | LV_STATE_DEFAULT);
     icon = lv_img_create(obj);
     item->icon = icon;
     lv_img_set_src(icon, ResourcePool::GetImage(img_src));

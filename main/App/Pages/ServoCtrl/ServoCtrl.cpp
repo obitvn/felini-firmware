@@ -114,23 +114,24 @@ void ServoCtrl::onEvent(lv_event_t *event)
         }
     }
 
-    ServoCtrlView::item_t *item_grp = ((ServoCtrlView::item_t *)&instance->View.ui);
-
-    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(ServoCtrlView::item_t); i++)
+    if (obj == instance->View.ui.arc.cont)
     {
-        if (obj == item_grp[i].cont) //
+        if (code == LV_EVENT_VALUE_CHANGED)
         {
-            if (code == LV_EVENT_VALUE_CHANGED) // update angle value
-            {
-                int16_t angle = lv_arc_get_value(obj);
-                lv_label_set_text_fmt(item_grp[i + 1].cont, "%d", angle);
-                printf("value changer %d\r\n", angle);
-                instance->Model.ServoUpdateAngle(angle);
-            }
-            if (code == LV_EVENT_KEY) // update angle value
-            {
-                printf("event pressed\r\n");
-            }
+            int16_t angle = lv_arc_get_value(obj);
+            lv_label_set_text_fmt(instance->View.ui.angle.cont, "%d", angle);
+            printf("value changer %d\r\n", angle);
+            instance->Model.ServoUpdateAngle(angle);
+            lv_spinbox_set_value(instance->View.ui.spin.cont, angle);
+        }
+    }
+
+    if (obj == instance->View.ui.spin.cont)
+    {
+        if (code == LV_EVENT_VALUE_CHANGED)
+        {
+            int16_t angle = lv_spinbox_get_value(obj);
+            lv_arc_set_value(instance->View.ui.arc.cont, angle);
         }
     }
 }

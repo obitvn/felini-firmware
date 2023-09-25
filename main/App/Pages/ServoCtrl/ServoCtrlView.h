@@ -24,6 +24,7 @@ public:
     {
         item_t arc;
         item_t angle;
+        item_t spin;
     } ui;
 
 public:

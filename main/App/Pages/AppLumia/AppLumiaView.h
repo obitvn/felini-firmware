@@ -41,7 +41,7 @@ public:
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infos, item_t *item);
+    void CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infor, item_t *item);
     void CreateItemCell(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, int col, int row, int size, item_t *item);
 
 public:

@@ -10,6 +10,25 @@
 #include "lvgl_disp_port.hpp"
 #include "lvgl_indev_port.h"
 
+#include "mcp23x17.h"
+
+#include "axp192.h"
+#include "i2c_manager.h"
+
+int32_t i2c_read(void *handle, uint8_t address, uint8_t reg, uint8_t *buffer, uint16_t size)
+{
+    return i2c_manager_read(I2C_NUM_0, address, reg, buffer, size);
+}
+
+int32_t i2c_write(void *handle, uint8_t address, uint8_t reg, const uint8_t *buffer, uint16_t size)
+{
+    return i2c_manager_write(I2C_NUM_0, address, reg, buffer, size);
+}
+
+axp192_t axp;
+
+
+
 void disp_drv_init(void);
 void indev_drv_init(void);
 
@@ -17,18 +36,72 @@ static void lv_tick_task(void *arg)
 {
     (void) arg;
 
-    lv_tick_inc(portTICK_PERIOD_MS);
+    lv_tick_inc(1);
 }
 
 void lv_porting_init(void)
 {
-    // static void *lv_buf = NULL;
-    // lv_buf = heap_caps_malloc(240*280*2, MALLOC_CAP_DMA);
-    // assert(lv_buf != NULL);
-    // printf("start up ++++++++++++++++++++++++++++++++++++++");
+    /* Add pointers to the glue functions. */
+    axp.read = &i2c_read;
+    axp.write = &i2c_write;
+
+    /* You could set the handle here. It can be pointer to anything. */
+    axp.handle = NULL;
+
+    axp192_init(&axp);
+
+    /* Be careful when setting voltages not to brick your board. */
+    axp192_ioctl(&axp, AXP192_DCDC1_SET_VOLTAGE, 0);
+    axp192_ioctl(&axp, AXP192_DCDC2_SET_VOLTAGE, 0);
+    axp192_ioctl(&axp, AXP192_DCDC3_SET_VOLTAGE, 3300);
+    axp192_ioctl(&axp, AXP192_LDOIO0_SET_VOLTAGE, 0);
+    axp192_ioctl(&axp, AXP192_LDO2_SET_VOLTAGE, 3000);
+    axp192_ioctl(&axp, AXP192_LDO3_SET_VOLTAGE, 3000);
+
+    axp192_ioctl(&axp, AXP192_SHUTDOWN_VOLTAGE, 3100);
+
+    axp192_ioctl(&axp, AXP192_DCDC1_DISABLE);
+    axp192_ioctl(&axp, AXP192_DCDC2_DISABLE);
+    axp192_ioctl(&axp, AXP192_DCDC3_ENABLE);
+    axp192_ioctl(&axp, AXP192_LDOIO0_DISABLE);
+    axp192_ioctl(&axp, AXP192_LDO2_ENABLE);
+    axp192_ioctl(&axp, AXP192_LDO3_ENABLE);
+    axp192_ioctl(&axp, AXP192_EXTEN_DISABLE);
+
+    axp192_ioctl(&axp, AXP192_COULOMB_COUNTER_ENABLE);
+
+
+    // for(int i=0; i<10; i++)
+    // {
+    //     float vacin, iacin, vvbus, ivbus, temp, pbat, vts, vbat, icharge, idischarge, vaps, cbat;
+
+    //     /* All ADC registers will be read as floats. */
+    //     axp192_read(&axp, AXP192_ACIN_VOLTAGE, &vacin);
+    //     axp192_read(&axp, AXP192_ACIN_CURRENT, &iacin);
+    //     axp192_read(&axp, AXP192_LDO23_VOLTAGE, &vvbus);
+    //     axp192_read(&axp, AXP192_VBUS_CURRENT, &ivbus);
+    //     axp192_read(&axp, AXP192_TEMP, &temp);
+    //     axp192_read(&axp, AXP192_TS_INPUT, &vts);
+    //     axp192_read(&axp, AXP192_BATTERY_POWER, &pbat);
+    //     axp192_read(&axp, AXP192_BATTERY_VOLTAGE, &vbat);
+    //     axp192_read(&axp, AXP192_CHARGE_CURRENT, &icharge);
+    //     axp192_read(&axp, AXP192_DISCHARGE_CURRENT, &idischarge);
+    //     axp192_read(&axp, AXP192_APS_VOLTAGE, &vaps);
+    //     axp192_read(&axp, AXP192_COULOMB_COUNTER, &cbat);
+
+    //     printf(
+    //         "vacin: %.2fV iacin: %.2fA vvbus: %.2fV ivbus: %.2fA vts: %.2fV temp: %.0fC "
+    //         "pbat: %.2fmW vbat: %.2fV icharge: %.2fA idischarge: %.2fA, vaps: %.2fV cbat: %.2fmAh\r\n",
+    //         vacin, iacin, vvbus, ivbus, vts, temp, pbat, vbat, icharge, idischarge, vaps, cbat);
+
+    //     vTaskDelay(200);
+    // }
+
+    mcp23x17_set_mode(NULL, 1, MCP23X17_GPIO_OUTPUT);
+    mcp23x17_set_level(NULL, 1, 1);
     lv_init();
     esp_register_freertos_tick_hook((void *)lv_tick_task);
-    // heap_caps_free(lv_buf);
+
     lv_port_disp_init();
 
 
@@ -58,7 +131,7 @@ void indev_drv_init(void)
 void lv_porting_delay(void)
 {
     // int a = 0;
-    vTaskDelay(pdMS_TO_TICKS(1));
+    vTaskDelay(5);
 }
 
 #else

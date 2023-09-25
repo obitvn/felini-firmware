@@ -32,7 +32,8 @@
         "usb_jtag_serial_esp32s3.h": "c",
         "ringbuffer.h": "c",
         "cstdint": "cpp",
-        "compare": "c"
+        "compare": "c",
+        "axp192.h": "c"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

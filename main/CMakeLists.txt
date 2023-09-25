@@ -41,6 +41,9 @@ idf_component_register(
         daplink
         usb_cherry
         logic_analyzer
+        axp192
+        mcp23x17
+        i2c_manager
 )
 
 
