@@ -62,7 +62,7 @@ namespace lgfx
           CMD_VDVVRHEN,2, 0x01, 0xFF,
           CMD_VRHS   , 1, 0x10,      // voltage VRHS
           CMD_VDVSET , 1, 0x20,
-          CMD_FRCTR2 , 1, 0x0f,      // 0x0f=60Hz
+          CMD_FRCTR2 , 1, 0x1b,      // 0x0f=60Hz   00 1f 1a(good) 20(bad)
           CMD_PWCTRL1, 2, 0xa4, 0xa1,
           CMD_RAMCTRL, 2, 0x00, 0xC0,
           //--------------------------------ST7789V gamma setting---------------------------------------//

@@ -131,7 +131,7 @@ void indev_drv_init(void)
 void lv_porting_delay(void)
 {
     // int a = 0;
-    vTaskDelay(5);
+    vTaskDelay(10);
 }
 
 #else
