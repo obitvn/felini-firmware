@@ -73,7 +73,11 @@ void ColorWheel::AttachEvent(lv_obj_t *obj)
 
 void ColorWheel::Update(lv_color_t *color)
 {
-    Model.Update((uint8_t)color->ch.red, (uint8_t)color->ch.green, (uint8_t)color->ch.blue);
+    uint16_t value = (uint16_t)color->full;
+    uint8_t r = (value >> 11) & 0b11111; // Lấy 5 bit đầu tiên
+    uint8_t g = (value >> 5) & 0b111111; // Lấy 6 bit tiếp theo
+    uint8_t b = value & 0b11111;         // Lấy 5 bit cuối cùng
+    Model.Update(r, g, b);
 }
 
 void ColorWheel::onTimer(lv_timer_t *timer)

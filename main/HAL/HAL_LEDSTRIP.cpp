@@ -12,7 +12,7 @@
 #define RMT_LED_STRIP_RESOLUTION_HZ 10000000 // 10MHz resolution, 1 tick = 0.1us (led strip needs a high resolution)
 #define RMT_LED_STRIP_GPIO_NUM 2
 
-#define EXAMPLE_LED_NUMBERS 4
+#define EXAMPLE_LED_NUMBERS 64
 #define EXAMPLE_CHASE_SPEED_MS 1
 
 static const char *TAG = "example";
@@ -51,7 +51,7 @@ extern "C"
 
     static void led_strip_task(void *pvParameter)
     {
-
+        ESP_LOGI(TAG, "Create LED Strip task...................");
         while (1)
         {
             for (int i = 0; i < 3; i++)
@@ -59,15 +59,15 @@ extern "C"
                 for (int j = i; j < EXAMPLE_LED_NUMBERS; j += 3)
                 {
                     led_strip_pixels[j * 3 + 0] = green;
-                    led_strip_pixels[j * 3 + 1] = blue;
-                    led_strip_pixels[j * 3 + 2] = red;
+                    led_strip_pixels[j * 3 + 1] = red;
+                    led_strip_pixels[j * 3 + 2] = blue;
                 }
                 // printf("r %ld g %ld b %ld\r\n", info->red, info->green, info->blue);
                 // Flush RGB values to LEDs
-                ESP_ERROR_CHECK(rmt_transmit(led_chan, led_encoder, led_strip_pixels, sizeof(led_strip_pixels), &tx_config));
+                rmt_transmit(led_chan, led_encoder, led_strip_pixels, sizeof(led_strip_pixels), &tx_config);
                 vTaskDelay(pdMS_TO_TICKS(EXAMPLE_CHASE_SPEED_MS));
                 memset(led_strip_pixels, 0, sizeof(led_strip_pixels));
-                ESP_ERROR_CHECK(rmt_transmit(led_chan, led_encoder, led_strip_pixels, sizeof(led_strip_pixels), &tx_config));
+                rmt_transmit(led_chan, led_encoder, led_strip_pixels, sizeof(led_strip_pixels), &tx_config);
                 vTaskDelay(pdMS_TO_TICKS(EXAMPLE_CHASE_SPEED_MS));
             }
             vTaskDelay(5);
@@ -105,12 +105,9 @@ void HAL::LEDSTRIP_GetInfo(LEDSTRIP_Info_t *info)
 
 void HAL::LEDSTRIP_Update(LEDSTRIP_Info_t *info)
 {
-    // R8 = (R5 * 527 + 23) >> 6;
-    // G8 = (G6 * 259 + 33) >> 6;
-    // B8 = (B5 * 527 + 23) >> 6;
-    red   = (info->red * 527 + 23) >> 6;
-    green = (info->green * 259 + 33) >> 6;
-    blue  = (info->blue * 527 + 23) >> 6;
+    red   = info->red;
+    green = info->green;
+    blue  = info->blue;
 }
 
 void HAL::LEDSTRIP_Deinit()
