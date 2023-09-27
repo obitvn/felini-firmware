@@ -156,6 +156,15 @@ namespace HAL
 
     typedef struct
     {
+        uint8_t red;
+        uint8_t green;
+        uint8_t blue;
+        bool status;
+        hal_cmd_t cmd;
+    } LEDSTRIP_Info_t;
+
+    typedef struct
+    {
         float volt;
         float current;
         float power;

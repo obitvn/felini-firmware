@@ -44,6 +44,7 @@ idf_component_register(
         axp192
         mcp23x17
         i2c_manager
+        led_strip
 )
 
 

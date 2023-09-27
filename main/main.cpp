@@ -31,10 +31,8 @@ extern "C"
 {
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
-    static SemaphoreHandle_t lvgl_mutex = NULL;
     void app_main(void)
     {
-        lvgl_mutex = xSemaphoreCreateMutex();
 #else
     int main(int argc, char *argv[])
     {
@@ -45,17 +43,8 @@ extern "C"
         App_Init();
         while (1)
         {
-
-#ifdef CONFIG_IDF_TARGET_ESP32S3
-            if(pdTRUE == xSemaphoreTake(lvgl_mutex, portMAX_DELAY))
-            {
-#endif
             lv_task_handler();
             lv_porting_delay();
-#ifdef CONFIG_IDF_TARGET_ESP32S3
-            xSemaphoreGive(lvgl_mutex);
-            }
-#endif
         }
     }
 }

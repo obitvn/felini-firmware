@@ -87,6 +87,12 @@ namespace HAL
     void RCServo_Update(RCServo_Info_t *info);
     void RCServo_Deinit();
 
+    /*LED Strip*/
+    void LEDSTRIP_Init();
+    void LEDSTRIP_GetInfo(LEDSTRIP_Info_t *info);
+    void LEDSTRIP_Update(LEDSTRIP_Info_t *info);
+    void LEDSTRIP_Deinit();
+
     /* PowerMeasure*/
     void PowerMeasure_Init();
     void PowerMeasure_GetInfo(PowerMeasure_Info_t *info);

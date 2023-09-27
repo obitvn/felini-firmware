@@ -13,9 +13,17 @@ public:
     void Delete();
 
 public:
-
-
 public:
+    typedef struct
+    {
+        lv_obj_t *cont;
+        const char *name;
+    } item_t;
+
+    struct
+    {
+        item_t color;
+    } ui;
 
 private:
 };

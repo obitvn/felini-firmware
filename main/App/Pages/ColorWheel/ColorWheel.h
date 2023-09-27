@@ -25,7 +25,7 @@ public:
     virtual void onViewDidUnload();
 
 private:
-    void Update();
+    void Update(lv_color_t *color);
     void AttachEvent(lv_obj_t *obj);
     void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);

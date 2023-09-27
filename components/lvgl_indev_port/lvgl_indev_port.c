@@ -24,8 +24,8 @@ void lv_port_indev_init(void)
     indev_drv.type = LV_INDEV_TYPE_ENCODER;
     indev_drv.long_press_time = 2000;      
     indev_drv.long_press_repeat_time = 500; 
-    indev_drv.gesture_min_velocity = 100;
-    indev_drv.gesture_limit = 100;
+    indev_drv.gesture_min_velocity = 250;
+    indev_drv.gesture_limit = 150;
     indev_drv.read_cb = encoder_read;
     indev_encoder = lv_indev_drv_register(&indev_drv);
 

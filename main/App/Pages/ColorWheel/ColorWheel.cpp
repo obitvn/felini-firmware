@@ -28,6 +28,8 @@ void ColorWheel::onViewLoad()
     View.Create(root);
 
     AttachEvent(root);
+    lv_obj_set_user_data(View.ui.color.cont, this);
+    lv_obj_add_event_cb(View.ui.color.cont, onEvent, LV_EVENT_ALL, this);
 }
 
 void ColorWheel::onViewDidLoad()
@@ -69,18 +71,15 @@ void ColorWheel::AttachEvent(lv_obj_t *obj)
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
-void ColorWheel::Update()
+void ColorWheel::Update(lv_color_t *color)
 {
-
+    Model.Update((uint8_t)color->ch.red, (uint8_t)color->ch.green, (uint8_t)color->ch.blue);
 }
 
 void ColorWheel::onTimer(lv_timer_t *timer)
 {
 
 }
-
-
-
 
 void ColorWheel::onEvent(lv_event_t *event)
 {
@@ -98,6 +97,15 @@ void ColorWheel::onEvent(lv_event_t *event)
             {
                 instance->Manager->Pop();
             }
+        }
+    }
+
+    if (obj == instance->View.ui.color.cont)
+    {
+        if (code == LV_EVENT_VALUE_CHANGED)
+        {
+            lv_color_t color_val = lv_colorwheel_get_rgb(instance->View.ui.color.cont);
+            instance->Update(&color_val);
         }
     }
 }

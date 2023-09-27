@@ -12,11 +12,13 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
     lv_obj_t *ui_Colorwheel1 = lv_colorwheel_create(root, true);
+    ui.color.cont = ui_Colorwheel1;
     lv_obj_set_width(ui_Colorwheel1, 160);
     lv_obj_set_height(ui_Colorwheel1, 160);
     lv_obj_set_x(ui_Colorwheel1, 0);
     lv_obj_set_y(ui_Colorwheel1, -15);
     lv_obj_set_align(ui_Colorwheel1, LV_ALIGN_CENTER);
+    
 
     lv_obj_t *ui_LabelAPP = lv_label_create(root);
     lv_obj_set_width(ui_LabelAPP, LV_SIZE_CONTENT);  /// 1
@@ -43,7 +45,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_img_set_src(ui_Pinmap, ResourcePool::GetImage("pin_color_wheel"));
     lv_obj_set_width(ui_Pinmap, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Pinmap, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Pinmap, 55);
+    lv_obj_set_x(ui_Pinmap, 82);
     lv_obj_set_y(ui_Pinmap, 97);
     lv_obj_set_align(ui_Pinmap, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Pinmap, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
@@ -52,8 +54,8 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_obj_t *ui_MapPos = lv_label_create(root);
     lv_obj_set_width(ui_MapPos, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_MapPos, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_MapPos, -112);
-    lv_obj_set_y(ui_MapPos, 69);
+    lv_obj_set_x(ui_MapPos, -99);
+    lv_obj_set_y(ui_MapPos, 75);
     lv_obj_set_align(ui_MapPos, LV_ALIGN_CENTER);
     lv_label_set_text(ui_MapPos, "ROW2");
     lv_obj_set_style_text_color(ui_MapPos, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -62,7 +64,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_obj_t *ui_LabelPin = lv_label_create(root);
     lv_obj_set_width(ui_LabelPin, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_LabelPin, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_LabelPin, -93);
+    lv_obj_set_x(ui_LabelPin, -80);
     lv_obj_set_y(ui_LabelPin, 101);
     lv_obj_set_align(ui_LabelPin, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelPin, "LED DATA pin");
