@@ -12,6 +12,7 @@ class IICDiscoveryModel
 public:
     void Init();
     void Deinit();
+    int  Scan(HAL::IIC_Info_t *iic_info);
 
 private:
     Account* account;

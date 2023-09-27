@@ -33,7 +33,8 @@
         "ringbuffer.h": "c",
         "cstdint": "cpp",
         "compare": "c",
-        "axp192.h": "c"
+        "axp192.h": "c",
+        "sstream": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",

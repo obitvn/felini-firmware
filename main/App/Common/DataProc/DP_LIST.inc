@@ -7,3 +7,4 @@ DP_DEF(DAPLinkHardware, 0);
 DP_DEF(StatusBar, 0);
 DP_DEF(INA2xxHardware, 0);
 DP_DEF(LogicAnalyzerHardware, 0);
+DP_DEF(IICHardware, 0);

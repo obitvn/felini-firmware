@@ -57,9 +57,10 @@ void lv_port_disp_init(void)
 static void disp_init(void) 
 { 
     lcd.init(); // Initialize LovyanGFX
+    lcd.fillScreen(TFT_BLACK);
     lcd.setColorDepth(16);
     lcd.setBrightness(50);
-    lcd.fillScreen(TFT_BLACK);
+    
 }
 
 volatile bool disp_flush_enabled = true;

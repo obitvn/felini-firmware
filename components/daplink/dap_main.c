@@ -233,26 +233,26 @@ void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
 
 void usbd_cdc_acm_set_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    if(mode_cdc)
-    {
+    // if(mode_cdc)
+    // {
         dap_line_coding.dwDTERate = line_coding->dwDTERate;
         dap_line_coding.bDataBits = line_coding->bDataBits;
         dap_line_coding.bParityType = line_coding->bParityType;
         dap_line_coding.bCharFormat = line_coding->bCharFormat;
         dap_uart_config(line_coding->dwDTERate, line_coding->bDataBits,
                         line_coding->bParityType, line_coding->bCharFormat);
-    }
+    // }
 }
 
 void usbd_cdc_acm_get_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    if (mode_cdc)
-    {
+    // if (mode_cdc)
+    // {
         line_coding->dwDTERate = dap_line_coding.dwDTERate;
         line_coding->bDataBits = dap_line_coding.bDataBits;
         line_coding->bParityType = dap_line_coding.bParityType;
         line_coding->bCharFormat = dap_line_coding.bCharFormat;
-    }
+    // }
 }
 
 void usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)
@@ -279,6 +279,11 @@ extern struct usb_msosv1_descriptor msosv1_desc;
 struct usbd_interface intf0;
 struct usbd_interface intf1;
 
+void cdc_uart_enable(bool mode)
+{
+    mode_cdc = mode;
+}
+
 static void daplink_task(void *pvParameter)
 {
     dap_platform_init();
@@ -290,6 +295,8 @@ static void daplink_task(void *pvParameter)
     usbd_add_interface(&dap_interface);
     usbd_add_endpoint(&dap_endpoint_recv);
     usbd_add_endpoint(&dap_endpoint_send);
+
+    cdc_uart_enable(true);
 
     /*!< cdc acm */
     usbd_add_interface(usbd_cdc_acm_init_intf(&intf0));
@@ -315,19 +322,14 @@ static void daplink_task(void *pvParameter)
         dap_cdc_send_from_ringbuff();
         dap_uart_send_from_ringbuff();
         vTaskDelay(pdMS_TO_TICKS(5));
-        // printf("-");
     }
-}
-
-void cdc_uart_enable(bool mode)
-{
-    mode_cdc  = mode;
 }
 
 static TaskHandle_t *xHandle_DAPLink = NULL;
 
 int daplink_start(void)
 {
+    
     if (xHandle_DAPLink != NULL)
     {
         vTaskDelete(xHandle_DAPLink);

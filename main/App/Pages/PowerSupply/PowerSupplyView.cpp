@@ -50,7 +50,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbVoltRead, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbVoltRead, 28 - 20);
     lv_obj_set_y(ui_LbVoltRead, 42 - 20);
-    lv_label_set_text(ui_LbVoltRead, "12.48 V");
+    lv_label_set_text(ui_LbVoltRead, "00.00 V");
     lv_obj_set_style_text_color(ui_LbVoltRead, lv_color_hex(0x4284E4), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbVoltRead, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbVoltRead, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -142,7 +142,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbCurrentRead, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbCurrentRead, 28 - 20);
     lv_obj_set_y(ui_LbCurrentRead, 111 - 20);
-    lv_label_set_text(ui_LbCurrentRead, "3.62 A");
+    lv_label_set_text(ui_LbCurrentRead, "0.00 A");
     lv_obj_set_style_text_color(ui_LbCurrentRead, lv_color_hex(0x40AD33), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbCurrentRead, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentRead, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -168,27 +168,6 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_color(ui_PowerButton, lv_color_hex(0x282626), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_bg_opa(ui_PowerButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
-    // lv_obj_t *ui_ConfirmButton = lv_obj_create(root);
-    // ui.confirm.button = ui_ConfirmButton;
-    // lv_obj_set_width(ui_ConfirmButton, 102);
-    // lv_obj_set_height(ui_ConfirmButton, 60);
-    // lv_obj_set_x(ui_ConfirmButton, 163 - 20);
-    // lv_obj_set_y(ui_ConfirmButton, 156 - 20);
-    // // lv_obj_add_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLL_ON_FOCUS); /// Flags
-    // // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-    // // lv_obj_clear_flag(ui_ConfirmButton, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-    // lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_bg_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_border_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_border_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_border_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_shadow_color(ui_ConfirmButton, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_shadow_opa(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_shadow_width(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_shadow_spread(ui_ConfirmButton, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_radius(ui_ConfirmButton, 15, LV_PART_MAIN | LV_STATE_PRESSED);
-    // lv_obj_set_style_bg_color(ui_ConfirmButton, lv_color_hex(0x282626), LV_PART_MAIN | LV_STATE_PRESSED);
-    // lv_obj_set_style_bg_opa(ui_ConfirmButton, 255, LV_PART_MAIN | LV_STATE_PRESSED);
 
     lv_obj_t *ui_lbpowerstate = lv_label_create(root);
     ui.power.set = ui_lbpowerstate;
@@ -226,7 +205,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbPowerConsume, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbPowerConsume, 27 - 20);
     lv_obj_set_y(ui_LbPowerConsume, 178 - 20);
-    lv_label_set_text(ui_LbPowerConsume, "65.23 W");
+    lv_label_set_text(ui_LbPowerConsume, "00.00 W");
     lv_obj_set_style_text_color(ui_LbPowerConsume, lv_color_hex(0xDA5136), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbPowerConsume, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbPowerConsume, ResourcePool::GetFont("sf_compact_medium_36"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -237,7 +216,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbVoltSet, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbVoltSet, 203 - 20);
     lv_obj_set_y(ui_LbVoltSet, 59 - 20);
-    lv_label_set_text(ui_LbVoltSet, "19.82");
+    lv_label_set_text(ui_LbVoltSet, "00.00");
     lv_obj_set_style_text_color(ui_LbVoltSet, lv_color_hex(0x13C0BE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbVoltSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbVoltSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -249,7 +228,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_height(ui_LbCurrentSet, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_LbCurrentSet, 207 - 20);
     lv_obj_set_y(ui_LbCurrentSet, 127 - 20);
-    lv_label_set_text(ui_LbCurrentSet, "2.82");
+    lv_label_set_text(ui_LbCurrentSet, "0.00");
     lv_obj_set_style_text_color(ui_LbCurrentSet, lv_color_hex(0x13C0BE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LbCurrentSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);

@@ -85,11 +85,28 @@ void IICDiscovery::Update()
 }
 
 uint8_t add=0;
-void IICDiscovery::onTimer(lv_timer_t *timer)
+
+void IICDiscovery::Update(lv_timer_t *timer)
 {
+    static HAL::IIC_Info_t iic_info;
+    iic_info.addr = add;
+    iic_info.cmd  = HAL::CMD_UPDATE;
+    Model.Scan(&iic_info);
     IICDiscovery *instance = (IICDiscovery *)timer->user_data;
     lv_bar_set_value(instance->View.ui.bar.cont, add, LV_ANIM_OFF);
     lv_label_set_text_fmt(instance->View.ui.addr.cont, "0x%02x", add++);
+    char data[10];
+    sprintf(data, "0x%02x ", iic_info.addr);
+    if (iic_info.status)
+    {
+        lv_textarea_add_text(instance->View.ui.terminal.cont, data);
+    }
+}
+
+void IICDiscovery::onTimer(lv_timer_t *timer)
+{
+    IICDiscovery *instance = (IICDiscovery *)timer->user_data;
+    instance->Update(timer);
 }
 
 

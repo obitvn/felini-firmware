@@ -76,7 +76,7 @@ void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
         pd_info->pd_stt = STATUS_POWER_NA;
 
     pd_info->get_voltage = PD_UFP.get_voltage();
-    pd_info->get_current = PD_UFP.get_current();
+    pd_info->get_current = PD_UFP.get_current(); 
 }
 
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)

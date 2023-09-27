@@ -54,6 +54,7 @@ void AnalogViewer::onViewDidDisappear()
 
 void AnalogViewer::onViewDidUnload()
 {
+    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
@@ -69,10 +70,13 @@ void AnalogViewer::AttachEvent(lv_obj_t *obj)
 
 void AnalogViewer::Update(lv_timer_t *timer)
 {
+    float val = 0;
     AnalogViewer *instance = (AnalogViewer *)timer->user_data;
     static HAL::INA2xx_Info_t ina;
+    ina.voltage = 0;
     Model.GetPDInfo(&ina);
     printf("upd pdate vol %f\n", ina.voltage);
+    if(ina.voltage != NULL) val = ina.voltage;
     lv_label_set_text_fmt(instance->View.ui.label.cont, "%.3f", (float)(ina.voltage));
     lv_chart_set_next_value(instance->View.ui.chart.cont, instance->View.ui.chart.ser, (lv_coord_t)(ina.voltage));
 }

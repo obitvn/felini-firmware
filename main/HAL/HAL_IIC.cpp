@@ -10,8 +10,8 @@
 #include "driver/gpio.h"
 #include <driver/i2c.h>
 
-#define IIC_SDA_PIN 18
-#define IIC_SCL_PIN 21
+#define IIC_SDA_PIN 2
+#define IIC_SCL_PIN 3
 
 static const char *TAG = "i2cscanner";
 
@@ -30,8 +30,23 @@ void HAL::IIC_Init()
 }
 
 void HAL::IIC_Scan(IIC_Info_t *info)
-{
+{       esp_err_t res;
+        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+        i2c_master_start(cmd);
+        i2c_master_write_byte(cmd, (info->addr << 1) | I2C_MASTER_WRITE, 1 /* expect ack */);
+        i2c_master_stop(cmd);
 
+        printf("finđing %d\n", info->addr); 
+
+        res = i2c_master_cmd_begin(I2C_NUM_0, cmd, 10 / portTICK_PERIOD_MS);
+        if (res == 0)
+        {
+            info->status = 1;
+            printf("match\n");
+        }
+        else
+            info->status = 0;
+        i2c_cmd_link_delete(cmd);
 }
 
 

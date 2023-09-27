@@ -122,7 +122,6 @@ void PowerSupply::onEvent(lv_event_t *event)
 
     if (obj == instance->root)
     {
-        // printf("root code event %d\r\n", code);
         if (LV_EVENT_GESTURE == code)
         {
             lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
@@ -223,14 +222,5 @@ void PowerSupply::onEvent(lv_event_t *event)
             }
         }
     }
-    // if (obj == instance->View.ui.confirm.button)
-    // {
-    //     if (code == LV_EVENT_PRESSED)
-    //     {
-    //         instance->confirm.btn_state = !instance->confirm.btn_state;
-    //         instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
-    //         instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
-    //         instance->Model.PDSetUp(instance->volt.value, instance->current.value, 1, PowerSupplyModel::PD_PDM_ON_OFF);
-    //     }
-    // }
+
 }
