@@ -34,6 +34,7 @@ idf_component_register(
         lvgl_disp_port
         lvgl_indev_port
         driver
+        esp_timer
         usb
         axp173
         fusb302
@@ -45,6 +46,8 @@ idf_component_register(
         mcp23x17
         i2c_manager
         led_strip
+        esp_hw_support
+
 )
 
 

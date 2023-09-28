@@ -15,10 +15,6 @@ Interval::~Interval()
 void Interval::onCustomAttrConfig()
 {
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500, lv_anim_path_ease_in);
-
-
-
-    
 }
 
 void Interval::onViewLoad()

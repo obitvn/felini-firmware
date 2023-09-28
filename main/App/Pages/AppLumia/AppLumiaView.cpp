@@ -142,7 +142,7 @@ void AppLumiaView::Create(lv_obj_t *root)
                                                             "V-30-08-2023\n",
                    &ui.kaitokey);
 
-    CreateItemList("Pages/Hertz", list1, "Measure Frequency", "herzt", "Measure Frequency\n"
+    CreateItemList("Pages/Hertz", list1, "Signal Generator", "herzt", "Signal Generator\n"
                                                                       "Cycle\n"
                                                                       "V2.2.3\n"
                                                                       "Frequency counter\n",
@@ -207,7 +207,7 @@ void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const c
     lv_obj_t *icon;
     item->app_src = app_src;
 
-    printf("app src %s\r\n", app_src);
+    // printf("app src %s\r\n", app_src);
     obj = lv_btn_create(parent);
     item->btn_cell = obj;
     lv_obj_set_style_shadow_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);

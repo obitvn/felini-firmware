@@ -163,6 +163,14 @@ namespace HAL
         hal_cmd_t cmd;
     } LEDSTRIP_Info_t;
 
+    typedef struct 
+    {
+        /* data */
+        uint32_t frequency;
+        uint32_t time;
+        hal_cmd_t cmd;
+    } IntervalTime_Info_t;
+
     typedef struct
     {
         float volt;

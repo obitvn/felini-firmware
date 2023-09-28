@@ -98,6 +98,12 @@ namespace HAL
     void PowerMeasure_GetInfo(PowerMeasure_Info_t *info);
     void PowerMeasure_Update(PowerMeasure_Info_t *info);
     void PowerMeasure_Deinit();
+
+    /*Interval Time*/
+    void IntervalTime_Init();
+    void IntervalTime_GetInfo(IntervalTime_Info_t *info);
+    void IntervalTime_Deinit();
+
 }
 
 #endif // !__cplusplus
