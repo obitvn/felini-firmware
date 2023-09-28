@@ -12,7 +12,7 @@
 #define RMT_LED_STRIP_RESOLUTION_HZ 10000000 // 10MHz resolution, 1 tick = 0.1us (led strip needs a high resolution)
 #define RMT_LED_STRIP_GPIO_NUM 2
 
-#define EXAMPLE_LED_NUMBERS 64
+#define EXAMPLE_LED_NUMBERS 16
 #define EXAMPLE_CHASE_SPEED_MS 1
 
 static const char *TAG = "example";
@@ -92,10 +92,10 @@ void HAL::LEDSTRIP_Init()
 
     ESP_LOGI(TAG, "Start LED rainbow chase");
 
-    if (led_strip_task_handle != NULL)
-    {
-        vTaskDelete(led_strip_task_handle);
-    }
+    // if (led_strip_task_handle != NULL)
+    // {
+    //     vTaskDelete(led_strip_task_handle);
+    // }
     xTaskCreate(led_strip_task, "led_strip_task", 1024 , NULL, 10, &led_strip_task_handle);
 }
 void HAL::LEDSTRIP_GetInfo(LEDSTRIP_Info_t *info)
@@ -116,4 +116,6 @@ void HAL::LEDSTRIP_Deinit()
     {
         vTaskDelete(led_strip_task_handle);
     }
+    rmt_disable(led_chan);
+    rmt_del_channel(led_chan);
 }

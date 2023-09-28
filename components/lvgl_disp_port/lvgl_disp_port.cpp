@@ -55,8 +55,10 @@ void lv_port_disp_init(void)
 
 /*Initialize your display and the required peripherals.*/
 static void disp_init(void) 
-{ 
+{
+    lcd.setBrightness(0);
     lcd.init(); // Initialize LovyanGFX
+    lcd.setBrightness(0);
     lcd.fillScreen(TFT_BLACK);
     lcd.setColorDepth(16);
     lcd.setBrightness(50);
