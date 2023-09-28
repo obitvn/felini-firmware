@@ -23,10 +23,10 @@ static int onEvent(Account* account, Account::EventParam_t* param)
         return Account::ERROR_NONE;
     }
 
-    if (param->event != Account::EVENT_SUB_PULL)
-    {
-        return Account::ERROR_UNSUPPORTED_REQUEST;
-    }
+    // if (param->event != Account::EVENT_SUB_PULL)
+    // {
+    //     return Account::ERROR_UNSUPPORTED_REQUEST;
+    // }
 
     if (param->size != sizeof(HAL::INA2xx_Info_t))
     {
