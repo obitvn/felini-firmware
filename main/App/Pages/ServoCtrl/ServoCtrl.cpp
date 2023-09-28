@@ -132,6 +132,7 @@ void ServoCtrl::onEvent(lv_event_t *event)
         {
             int16_t angle = lv_spinbox_get_value(obj);
             lv_arc_set_value(instance->View.ui.arc.cont, angle);
+            lv_label_set_text_fmt(instance->View.ui.angle.cont, "%d", angle);
         }
     }
 }
