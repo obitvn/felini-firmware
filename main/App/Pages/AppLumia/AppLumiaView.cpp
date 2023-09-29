@@ -67,7 +67,7 @@ void AppLumiaView::Create(lv_obj_t *root)
     CreateItemCell("Pages/LogicAnalyzer", cont, "USB LA", "logic_analyzer", 2, 3, 1, &ui.logicanalyzer);
 
     CreateItemCell("Pages/CandleLight", cont, "CAN Bus", "canbus", 0, 4, 1, &ui.usbcanbus);
-    CreateItemCell("Pages/KaitoKey", cont, "FIDO2", "key", 2, 1, 1, &ui.kaitokey);
+    CreateItemCell("Pages/KaitoKey", cont, "KEY", "key", 2, 1, 1, &ui.kaitokey);
 
     CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 0, 5, 1, &ui.frequency);
     CreateItemCell("Pages/IMUSensor", cont, "IMU", "box3d", 1, 5, 1, &ui.imu);
@@ -136,7 +136,7 @@ void AppLumiaView::Create(lv_obj_t *root)
                                                                     "V2.2.3\n"
                                                                     "Socket CAN\n",
                    &ui.usbcanbus);
-    CreateItemList("Pages/KaitoKey", list1, "Security Key", "key", "KaitoKey\n"
+    CreateItemList("Pages/KaitoKey", list1, "Pass Key", "key", "KaitoKey\n"
                                                             "FIDO2 & U2F\n"
                                                             "Passwordless\n"
                                                             "V-30-08-2023\n",

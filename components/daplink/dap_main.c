@@ -233,26 +233,26 @@ void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
 
 void usbd_cdc_acm_set_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    // if(mode_cdc)
-    // {
+    if(mode_cdc)
+    {
         dap_line_coding.dwDTERate = line_coding->dwDTERate;
         dap_line_coding.bDataBits = line_coding->bDataBits;
         dap_line_coding.bParityType = line_coding->bParityType;
         dap_line_coding.bCharFormat = line_coding->bCharFormat;
         dap_uart_config(line_coding->dwDTERate, line_coding->bDataBits,
                         line_coding->bParityType, line_coding->bCharFormat);
-    // }
+    }
 }
 
 void usbd_cdc_acm_get_line_coding(uint8_t intf, struct cdc_line_coding *line_coding)
 {
-    // if (mode_cdc)
-    // {
+    if (mode_cdc)
+    {
         line_coding->dwDTERate = dap_line_coding.dwDTERate;
         line_coding->bDataBits = dap_line_coding.bDataBits;
         line_coding->bParityType = dap_line_coding.bParityType;
         line_coding->bCharFormat = dap_line_coding.bCharFormat;
-    // }
+    }
 }
 
 void usbd_cdc_acm_set_dtr(uint8_t intf, bool dtr)

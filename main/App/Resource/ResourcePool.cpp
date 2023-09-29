@@ -109,8 +109,12 @@ extern "C"
         IMPORT_IMG(down_dap);
         IMPORT_IMG(pin_daplink);
         IMPORT_IMG(pin_color_wheel);
+        IMPORT_IMG(pin_logicanalyzer);
 
         IMPORT_IMG(alt_ldown);
+        IMPORT_IMG(mouse);
+        IMPORT_IMG(sigrok_logo);
+        IMPORT_IMG(setting);
         IMPORT_IMG(arrow_down);
         IMPORT_IMG(pin_canbus);
         IMPORT_IMG(pin_color_wheel);
