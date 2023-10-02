@@ -47,6 +47,7 @@ idf_component_register(
         i2c_manager
         led_strip
         esp_hw_support
+        freqcount
 
 )
 

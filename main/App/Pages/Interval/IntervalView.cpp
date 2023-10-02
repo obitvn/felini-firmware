@@ -34,17 +34,6 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_style_bg_opa(ui_Panel2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Panel2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_Label10 = lv_label_create(root);
-    lv_obj_set_width(ui_Label10, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_Label10, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Label10, 0);
-    lv_obj_set_y(ui_Label10, -25);
-    lv_obj_set_align(ui_Label10, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label10, "895.37");
-    lv_obj_set_style_text_color(ui_Label10, lv_color_hex(0x2C9CD9), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Label10, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label10, ResourcePool::GetFont("sf_compact_72"), LV_PART_MAIN | LV_STATE_DEFAULT);
-
     lv_obj_t *ui_Label11 = lv_label_create(root);
     lv_obj_set_width(ui_Label11, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label11, LV_SIZE_CONTENT); /// 1
@@ -56,6 +45,17 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_style_text_color(ui_Label11, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label11, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label11, ResourcePool::GetFont("sf_compact_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_t *ui_Label10 = lv_label_create(root);
+    lv_obj_set_width(ui_Label10, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_Label10, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_Label10, 0);
+    lv_obj_set_y(ui_Label10, -25);
+    lv_obj_set_align(ui_Label10, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label10, "895.37");
+    lv_obj_set_style_text_color(ui_Label10, lv_color_hex(0x2C9CD9), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Label10, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label10, ResourcePool::GetFont("sf_compact_72"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Label12 = lv_label_create(root);
     lv_obj_set_width(ui_Label12, LV_SIZE_CONTENT);  /// 1
