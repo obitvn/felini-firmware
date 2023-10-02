@@ -36,6 +36,7 @@ public:
         item_t frequency;
         item_t imu;
         item_t logicanalyzer;
+        item_t setting;
     } ui;
 
 public:

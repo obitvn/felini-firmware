@@ -67,11 +67,11 @@ void AppLumiaView::Create(lv_obj_t *root)
     CreateItemCell("Pages/LogicAnalyzer", cont, "USB LA", "logic_analyzer", 2, 3, 1, &ui.logicanalyzer);
 
     CreateItemCell("Pages/CandleLight", cont, "CAN Bus", "canbus", 0, 4, 1, &ui.usbcanbus);
-    CreateItemCell("Pages/KaitoKey", cont, "KEY", "key", 2, 1, 1, &ui.kaitokey);
+    CreateItemCell("Pages/KaitoKey", cont, "KEY", "key", 0, 5, 1, &ui.kaitokey);
 
-    CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 0, 5, 1, &ui.frequency);
+    CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 2, 1, 1, &ui.frequency); 
     CreateItemCell("Pages/IMUSensor", cont, "IMU", "box3d", 1, 5, 1, &ui.imu);
-
+    CreateItemCell("Pages/IMUSensor", cont, "Setting", "setting", 2, 5, 1, &ui.setting);
 
     /*Tile2: appList menu */
     lv_obj_t *ui_tileApps = lv_tileview_add_tile(ui_tileView, 1, 0, LV_DIR_LEFT);
@@ -151,6 +151,10 @@ void AppLumiaView::Create(lv_obj_t *root)
                                                                     "3d Viewer\n"
                                                                     "V2.2.3\n",
                    &ui.imu);
+    CreateItemList("Pages/IMUSensor", list1, "Setting", "setting", "Setting\n"
+                                                                    "3d Viewer\n"
+                                                                    "V2.2.3\n",
+                   &ui.setting);
 }
 
 void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infor, item_t *item)
