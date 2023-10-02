@@ -51,7 +51,7 @@ extern "C"
 
     static void led_strip_task(void *pvParameter)
     {
-        ESP_LOGI(TAG, "Create LED Strip task...................");
+        // ESP_LOGI(TAG, "Create LED Strip task...................");
         while (1)
         {
             for (int i = 0; i < 3; i++)
@@ -81,14 +81,14 @@ void HAL::LEDSTRIP_Init()
 
     ESP_LOGI(TAG, "Create RMT TX channel");
     
-    ESP_ERROR_CHECK(rmt_new_tx_channel(&tx_chan_config, &led_chan));
+    rmt_new_tx_channel(&tx_chan_config, &led_chan);
 
     ESP_LOGI(TAG, "Install led strip encoder");
     
-    ESP_ERROR_CHECK(rmt_new_led_strip_encoder(&led_encoder_config, &led_encoder));
+    rmt_new_led_strip_encoder(&led_encoder_config, &led_encoder);
 
     ESP_LOGI(TAG, "Enable RMT TX channel");
-    ESP_ERROR_CHECK(rmt_enable(led_chan));
+    rmt_enable(led_chan);
 
     ESP_LOGI(TAG, "Start LED rainbow chase");
 

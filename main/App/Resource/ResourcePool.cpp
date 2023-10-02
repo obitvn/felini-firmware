@@ -80,6 +80,7 @@ extern "C"
         IMPORT_IMG(wifi_connect);
 
         IMPORT_IMG(analog);
+        IMPORT_IMG(chutienthinh);
         IMPORT_IMG(power);
         IMPORT_IMG(box3d);
         IMPORT_IMG(canbus);
@@ -122,6 +123,7 @@ extern "C"
         IMPORT_IMG(pin_i2c);
         IMPORT_IMG(pin_servoch);
         IMPORT_IMG(pin_uart);
+        IMPORT_IMG(pin_pulse);
         IMPORT_IMG(up_double);
 
     }

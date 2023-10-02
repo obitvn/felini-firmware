@@ -6,59 +6,68 @@ using namespace Page;
 
 void UARTViewerView::Create(lv_obj_t *root)
 {
-    /*Change the active screen's background color*/
     lv_obj_set_style_border_width(root, 0, LV_PART_MAIN);
+    /*Change the active screen's background color*/
     lv_obj_set_style_bg_color(root, lv_color_hex(0), LV_PART_MAIN);
 
-    lv_obj_t *ui_IICAddress = lv_label_create(root);
-    lv_obj_set_width(ui_IICAddress, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_IICAddress, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_IICAddress, -70);
-    lv_obj_set_y(ui_IICAddress, -84);
-    lv_obj_set_align(ui_IICAddress, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_IICAddress, "UART");
-    lv_obj_set_style_text_color(ui_IICAddress, lv_color_hex(0xF80505), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_IICAddress, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_IICAddress, ResourcePool::GetFont("sf_compact_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_Label4 = lv_label_create(root);
+    lv_obj_set_width(ui_Label4, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_Label4, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_Label4, -105);
+    lv_obj_set_y(ui_Label4, 95);
+    lv_obj_set_align(ui_Label4, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label4, "UART");
+    lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0x0090FE), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label4, ResourcePool::GetFont("sf_compact_22"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_BarScanProgess = lv_bar_create(root);
-    lv_bar_set_value(ui_BarScanProgess, 25, LV_ANIM_OFF);
-    lv_obj_set_width(ui_BarScanProgess, 206);
-    lv_obj_set_height(ui_BarScanProgess, 10);
-    lv_obj_set_x(ui_BarScanProgess, -3);
-    lv_obj_set_y(ui_BarScanProgess, -46);
-    lv_obj_set_align(ui_BarScanProgess, LV_ALIGN_CENTER);
+    lv_obj_t *ui_Label5 = lv_label_create(root);
+    lv_obj_set_width(ui_Label5, LV_SIZE_CONTENT);  /// 1
+    lv_obj_set_height(ui_Label5, LV_SIZE_CONTENT); /// 1
+    lv_obj_set_x(ui_Label5, 83);
+    lv_obj_set_y(ui_Label5, 96);
+    lv_obj_set_align(ui_Label5, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label5, "921600 8N1");
+    lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xCF1031), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label5, ResourcePool::GetFont("sf_compact_20"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_Status = lv_label_create(root);
-    lv_obj_set_width(ui_Status, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_Status, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Status, 61);
-    lv_obj_set_y(ui_Status, -83);
-    lv_obj_set_align(ui_Status, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Status, "921600\n 8n1\n parity");
-    lv_obj_set_style_text_color(ui_Status, lv_color_hex(0x06FD5A), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Status, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_t *ui_Image4 = lv_img_create(root);
+    lv_img_set_src(ui_Image4, ResourcePool::GetImage("pin_uart"));
+    lv_obj_set_width(ui_Image4, LV_SIZE_CONTENT);  /// 79
+    lv_obj_set_height(ui_Image4, LV_SIZE_CONTENT); /// 16
+    lv_obj_set_x(ui_Image4, -11);
+    lv_obj_set_y(ui_Image4, 94);
+    lv_obj_set_align(ui_Image4, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_Image4, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
+    lv_obj_clear_flag(ui_Image4, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-    
+    lv_obj_t *ui_TextArea1 = lv_textarea_create(root);
+    ui.text.cont = ui_TextArea1;
+    lv_obj_remove_style_all(ui_TextArea1);
+    lv_obj_set_width(ui_TextArea1, 280);
+    lv_obj_set_height(ui_TextArea1, 180);
+    lv_obj_set_x(ui_TextArea1, 0);
+    lv_obj_set_y(ui_TextArea1, 0);
+    lv_obj_set_align(ui_TextArea1, LV_ALIGN_TOP_MID);
+    lv_obj_set_style_radius(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_textarea_set_placeholder_text(ui_TextArea1, "I (46) boot: Multicore bootloader \nI (49) boot: chip revision: v0.2I (579) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator\n");
+    lv_obj_set_style_text_color(ui_TextArea1, lv_color_hex(0x39D82B), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_TextArea1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_TextArea1, lv_color_hex(0x1c1c1c), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_TextArea1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_width(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_pad(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_width(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    lv_obj_set_style_outline_pad(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    lv_obj_clear_flag(ui_TextArea1, LV_OBJ_FLAG_CLICK_FOCUSABLE); /// Flags
+    lv_obj_set_style_border_width(ui_TextArea1, 0, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
-    lv_obj_t *ui_PinMapIMG = lv_img_create(root);
-    lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pin_uart"));
-    lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_PinMapIMG, 17);
-    lv_obj_set_y(ui_PinMapIMG, 105);
-    lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
-    lv_obj_clear_flag(ui_PinMapIMG, LV_OBJ_FLAG_SCROLLABLE); /// Flags
-
-    lv_obj_t *ui_LogScani2c = lv_textarea_create(root);
-    lv_obj_set_width(ui_LogScani2c, 217);
-    lv_obj_set_height(ui_LogScani2c, 117);
-    lv_obj_set_x(ui_LogScani2c, -3);
-    lv_obj_set_y(ui_LogScani2c, 28);
-    lv_obj_set_align(ui_LogScani2c, LV_ALIGN_CENTER);
-    lv_textarea_set_text(ui_LogScani2c, "0x52 found at 122.32s\n0x22 found at version qwfe\n");
-    lv_textarea_set_placeholder_text(ui_LogScani2c, "Placeholder...");
+    lv_obj_t *ui_Keyboard1 = lv_keyboard_create(root);
+    lv_obj_set_width(ui_Keyboard1, 280);
+    lv_obj_set_height(ui_Keyboard1, 120);
+    lv_obj_set_align(ui_Keyboard1, LV_ALIGN_CENTER);
 }
 
 
