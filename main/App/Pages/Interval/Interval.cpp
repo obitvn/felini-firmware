@@ -22,7 +22,8 @@ void Interval::onViewLoad()
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
-
+    timer = lv_timer_create(onTimer, 1000, this);
+    lv_timer_set_repeat_count(timer, -1); // infinity
     AttachEvent(root);
 }
 
@@ -52,6 +53,7 @@ void Interval::onViewDidDisappear()
 
 void Interval::onViewDidUnload()
 {
+    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
@@ -65,14 +67,40 @@ void Interval::AttachEvent(lv_obj_t *obj)
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_SCROLLABLE);
 }
 
-void Interval::Update()
+void Interval::Update(lv_timer_t *timer)
 {
+    float val = 0;
+    Interval *instance = (Interval *)timer->user_data;
+    static HAL::IntervalTime_Info_t f;
+    f.frequency = 0;
+    Model.Update(&f);
+    if (f.frequency != NULL)
+        val = f.frequency;
 
+    if(val > 1000000) 
+    {
+        val = val / 1000000;
+        lv_label_set_text_fmt(instance->View.ui.time.cont, "%.2f nS", (float)((1/val) * 1000));
+        lv_label_set_text(instance->View.ui.unit.cont, "Mhz");
+    }
+    else if(val > 1000) 
+    {
+        val = val / 1000;
+        lv_label_set_text_fmt(instance->View.ui.time.cont, "%.2f uS", (float)((1/val) * 1000));
+        lv_label_set_text(instance->View.ui.unit.cont, "Khz");
+    }
+    else 
+    {
+        lv_label_set_text_fmt(instance->View.ui.time.cont, "%.2f mS", (float)((1/val) * 1000));
+        lv_label_set_text(instance->View.ui.unit.cont, "Hz");
+    }
+    lv_label_set_text_fmt(instance->View.ui.freq.cont, "%.2f", (float)(val));
 }
 
 void Interval::onTimer(lv_timer_t *timer)
 {
-
+    Interval *instance = (Interval *)timer->user_data;
+    instance->Update(timer);
 }
 
 

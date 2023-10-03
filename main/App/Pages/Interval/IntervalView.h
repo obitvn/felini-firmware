@@ -22,6 +22,8 @@ public:
     struct
     {
         item_t freq;
+        item_t unit;
+        item_t time;
     } ui;
 
 public:

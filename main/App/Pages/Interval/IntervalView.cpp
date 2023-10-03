@@ -47,6 +47,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_Label11, ResourcePool::GetFont("sf_compact_32"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Label10 = lv_label_create(root);
+    ui.freq.cont = ui_Label10;
     lv_obj_set_width(ui_Label10, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label10, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Label10, 0);
@@ -80,6 +81,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_Label13, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Label14 = lv_label_create(root);
+    ui.unit.cont = ui_Label14;
     lv_obj_set_width(ui_Label14, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label14, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Label14, 86);
@@ -91,6 +93,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_style_text_font(ui_Label14, ResourcePool::GetFont("sf_compact_22"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Label15 = lv_label_create(root);
+    ui.time.cont = ui_Label15;
     lv_obj_set_width(ui_Label15, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label15, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Label15, -48);

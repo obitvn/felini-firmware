@@ -25,7 +25,7 @@ public:
     virtual void onViewDidUnload();
 
 private:
-    void Update();
+    void Update(lv_timer_t *timer);
     void AttachEvent(lv_obj_t *obj);
     void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);
@@ -34,6 +34,9 @@ private:
 private:
     IntervalView View;
     IntervalModel Model;
+
+private:
+    lv_timer_t *timer;
 };
 
 }

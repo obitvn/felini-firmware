@@ -58,6 +58,6 @@ DATA_PROC_INIT_DEF(IntervalTimeHardware)
 {
     account->Subscribe("IntervalModel");
     account->SetEventCallback(onEvent);
-    account->SetTimerPeriod(200);
+    account->SetTimerPeriod(1000);
     account->SetTimerEnable(0);
 }

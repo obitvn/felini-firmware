@@ -75,6 +75,8 @@ static const char *TAG = "intervalTime";
 TaskHandle_t interval_time_task_handle = NULL;
 TaskHandle_t frequency_count_task_handle = NULL;
 
+uint32_t freq = 0;
+
 extern "C"
 {
 
@@ -83,11 +85,11 @@ extern "C"
     {
         ESP_LOGI(TAG, "Create IntervalTime task...................");
 
-        // frequency_init();
-        uint32_t freq=0;
+        frequency_init();
+        
         while (1)
         {
-            // freq = frequency_hz();
+            freq = frequency_hz();
             printf("frequency %ld Hz\r\n", freq);
             vTaskDelay(100);
         }
@@ -103,14 +105,16 @@ void HAL::IntervalTime_Init()
 }
 void HAL::IntervalTime_GetInfo(IntervalTime_Info_t *info)
 {
-
+    info->frequency = freq;
+    info->cmd = CMD_UPDATE;
+    info->time = 0;
 }
 
 void HAL::IntervalTime_Deinit()
 {
+    frequency_deinit();
     if (interval_time_task_handle != NULL)
     {
-        vTaskDelete(frequency_count_task_handle);
         vTaskDelete(interval_time_task_handle);
     }
 }
