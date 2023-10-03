@@ -1,4 +1,7 @@
 #include "encoder.h"
+#include "esp_log.h"
+#include "driver/pulse_cnt.h"
+#include "driver/gpio.h"
 
 static rotary_encoder_t *encoder = NULL; /* Encoder */
 static SemaphoreHandle_t mutex = NULL;
@@ -9,12 +12,61 @@ static bool encoder_diff_disable = false;   /* Get the encoder value, true means
 
 key_state_t encoder_push_state;
 
+pcnt_unit_handle_t pcnt_unit_encoder = NULL;
+
 void input_task_create(void);
+
+
+void pcnt_config(int chanel_A, int chanel_B)
+{
+
+    pcnt_unit_config_t unit_config = {
+        .high_limit = 10000,
+        .low_limit = -10000,
+    };
+
+    ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit_encoder));
+
+
+    pcnt_glitch_filter_config_t filter_config = {
+        .max_glitch_ns = 8000,
+    };
+    ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit_encoder, &filter_config));
+
+    pcnt_chan_config_t chan_a_config = {
+        .edge_gpio_num = chanel_A,
+        .level_gpio_num = chanel_B,
+    };
+    pcnt_channel_handle_t pcnt_chan_a = NULL;
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_encoder, &chan_a_config, &pcnt_chan_a));
+
+    pcnt_chan_config_t chan_b_config = {
+        .edge_gpio_num = chanel_B,
+        .level_gpio_num = chanel_A,
+    };
+    pcnt_channel_handle_t pcnt_chan_b = NULL;
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_encoder, &chan_b_config, &pcnt_chan_b));
+
+    ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_a, PCNT_CHANNEL_EDGE_ACTION_DECREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
+    ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_a, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
+    ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_b, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_DECREASE));
+    ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_b, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
+
+    pcnt_unit_enable(pcnt_unit_encoder);
+    pcnt_unit_clear_count(pcnt_unit_encoder);
+    pcnt_unit_start(pcnt_unit_encoder);
+}
+
+int32_t get_value_encoder(void)
+{
+    int32_t pulse_count;
+    pcnt_unit_get_count(pcnt_unit_encoder, &pulse_count);
+    return pulse_count;
+}
 
 /* Encoder configuration */
 void encoder_config(void)
 {
-    uint32_t pcnt_unit = 0;
 
     input_task_create();
 
@@ -32,12 +84,14 @@ void encoder_config(void)
     gpio_config(&io_conf);
 
     /* 2. Configure encoders A and B */
-    rotary_encoder_config_t config = ROTARY_ENCODER_DEFAULT_CONFIG((rotary_encoder_dev_t)pcnt_unit, ENCODER_A_PIN, ENCODER_B_PIN);
-    ESP_ERROR_CHECK(rotary_encoder_new_ec11(&config, &encoder));
-    ESP_ERROR_CHECK(encoder->set_glitch_filter(encoder, 1));    /* filter */
-    ESP_ERROR_CHECK(encoder->start(encoder));
+    // rotary_encoder_config_t config = ROTARY_ENCODER_DEFAULT_CONFIG((rotary_encoder_dev_t)&pcnt_unit_encoder, ENCODER_A_PIN, ENCODER_B_PIN);
+    // ESP_ERROR_CHECK(rotary_encoder_new_ec11(&config, &encoder));
+    // ESP_ERROR_CHECK(encoder->set_glitch_filter(encoder, 1));    /* filter */
+    // ESP_ERROR_CHECK(encoder->start(encoder));
 
-    last_cnt = encoder->get_counter_value(encoder);             /* Get the initial value of the encoder */
+    pcnt_config(ENCODER_B_PIN, ENCODER_A_PIN);
+
+    last_cnt = get_value_encoder();             /* Get the initial value of the encoder */
 }
 
 static key_state_t encoder_push_scan(void)
@@ -69,14 +123,14 @@ static void encoder_task(void *pvParameter)
             if(!encoder_diff_disable)
             {
                 int32_t dir = 0;
-                int32_t cnt = encoder->get_counter_value(encoder); /* Get encoder value */
+                int32_t cnt = get_value_encoder(); /* Get encoder value */
 
                 /* Direction judgment */
-                if(cnt - last_cnt < 0 && cnt - last_cnt <= -3)
+                if(cnt - last_cnt < 0 && cnt - last_cnt <= -2)
                 {
                     dir = -1;                   /* Anticlockwise rotation */
                 }
-                else if(cnt - last_cnt > 0 && cnt - last_cnt >= 3)
+                else if(cnt - last_cnt > 0 && cnt - last_cnt >= 2)
                 {
                     dir = 1;                    /* clockwise rotation */
                 }

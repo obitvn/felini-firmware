@@ -24,7 +24,7 @@
 #include "StatusBar.h"
 #include "Common/DataProc/DataProc.h"
 
-#define CONFIG_PLACE_NAME "obit test"
+#define CONFIG_PLACE_NAME "FELINI"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-function-type"
@@ -207,32 +207,33 @@ static lv_obj_t *StatusBar_Create(lv_obj_t *par)
 
     /* message */
     lv_obj_t *img = lv_img_create(cont);
-    lv_img_set_src(img, ResourcePool::GetImage("message"));
+    // lv_img_set_src(img, ResourcePool::GetImage("message"));
     lv_obj_align(img, LV_ALIGN_LEFT_MID, 5, 0);
     ui.msg = img;
 
     /* alarm */
     img = lv_img_create(cont);
-    lv_img_set_src(img, ResourcePool::GetImage("alarm"));
+    // lv_img_set_src(img, ResourcePool::GetImage("alarm"));
     lv_obj_align_to(img, ui.msg, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
     ui.alarm = img;
 
     /* locate */
     img = lv_img_create(cont);
-    lv_img_set_src(img, ResourcePool::GetImage("location"));
+    // lv_img_set_src(img, ResourcePool::GetImage("location"));
     lv_obj_align_to(img, ui.alarm, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
     ui.locate.location = img;
 
     lv_obj_t *label = lv_label_create(cont);
     lv_obj_add_style(label, &style, 0);
     lv_label_set_text(label, (char *)CONFIG_PLACE_NAME);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFF1055), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_align_to(label, ui.locate.location, LV_ALIGN_OUT_RIGHT_MID, 2, 0);
     ui.locate.label = label;
 
     /* clock */
     label = lv_label_create(cont);
     lv_obj_add_style(label, &style, 0);
-    lv_label_set_text(label, "00:00");
+    // lv_label_set_text(label, "00:00");
     lv_obj_center(label);
     ui.labelClock = label;
 
@@ -246,13 +247,13 @@ static lv_obj_t *StatusBar_Create(lv_obj_t *par)
 
     /* wifi */
     img = lv_img_create(cont);
-    lv_img_set_src(img, ResourcePool::GetImage("wifi_connect"));
+    // lv_img_set_src(img, ResourcePool::GetImage("wifi_connect"));
     lv_obj_align_to(img, ui.battery.img, LV_ALIGN_OUT_LEFT_MID, -3, 0);
     ui.wifi = img;
 
     /* sd card */
     img = lv_img_create(cont);
-    lv_img_set_src(img, ResourcePool::GetImage("sd_card"));
+    // lv_img_set_src(img, ResourcePool::GetImage("sd_card"));
     lv_obj_align_to(img, ui.wifi, LV_ALIGN_OUT_LEFT_MID, -3, 0);
     ui.imgSD = img;
 

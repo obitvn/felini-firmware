@@ -77,36 +77,21 @@ TaskHandle_t frequency_count_task_handle = NULL;
 
 extern "C"
 {
-    static void window_start_callback(void)
-    {
-        ESP_LOGI(TAG, "Begin sampling");
-    }
 
-    static void frequency_callback(double hz)
-    {
-        ESP_LOGI(TAG, "Frequency %f Hz", hz);
-    }
 
     static void interval_time_task(void *pvParameter)
     {
         ESP_LOGI(TAG, "Create IntervalTime task...................");
 
-        // frequency_count_configuration_t *config = (frequency_count_configuration_t *)malloc(sizeof(*config));
-        // config->pcnt_gpio = (gpio_num_t)GPIO_SIGNAL_INPUT;
-        // config->pcnt_unit = (pcnt_unit_t)PCNT_UNIT;
-        // config->pcnt_channel = PCNT_CHANNEL;
-        // config->rmt_gpio = (gpio_num_t)GPIO_RMT_GATE;
-        // config->rmt_channel = RMT_CHANNEL;
-        // config->rmt_clk_div = RMT_CLK_DIV;
-        // config->rmt_max_blocks = 2;
-        // config->sampling_period_seconds = SAMPLE_PERIOD;
-        // config->sampling_window_seconds = WINDOW_DURATION;
-        // config->filter_length = FILTER_LENGTH;
-        // config->window_start_callback = &window_start_callback;
-        // config->frequency_update_callback = &frequency_callback;
-
-        // // task takes ownership of allocated memory
-        // xTaskCreate(&frequency_count_task_function, "frequency_count_task", 4096, config, 5, &frequency_count_task_handle);
+        // frequency_init();
+        uint32_t freq=0;
+        while (1)
+        {
+            // freq = frequency_hz();
+            printf("frequency %ld Hz\r\n", freq);
+            vTaskDelay(100);
+        }
+        
     }
 }
 
@@ -114,7 +99,7 @@ extern "C"
 /* IntervalTime*/
 void HAL::IntervalTime_Init()
 {
-    xTaskCreate(interval_time_task, "interval_time_task", 1024*2, NULL, 10, &interval_time_task_handle);
+    xTaskCreate(interval_time_task, "interval_time_task", 1024*8, NULL, 10, &interval_time_task_handle);
 }
 void HAL::IntervalTime_GetInfo(IntervalTime_Info_t *info)
 {
