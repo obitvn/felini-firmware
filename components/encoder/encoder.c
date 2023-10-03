@@ -3,7 +3,7 @@
 #include "driver/pulse_cnt.h"
 #include "driver/gpio.h"
 
-static rotary_encoder_t *encoder = NULL; /* Encoder */
+
 static SemaphoreHandle_t mutex = NULL;
 
 static int32_t last_cnt;                    /* Encoder last count value */

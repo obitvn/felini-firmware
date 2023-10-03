@@ -55,21 +55,16 @@ void AppLumiaView::Create(lv_obj_t *root)
 
     CreateItemCell("Pages/AnalogViewer", cont, "ADC", "analog", 0, 0, 2, &ui.analog);
     CreateItemCell("Pages/ColorWheel", cont, "LED", "color", 2, 0, 1, &ui.ledcolor);
-
     CreateItemCell("Pages/Interval", cont, "Interval", "clock", 0, 1, 1, &ui.timekeeper);
     CreateItemCell("Pages/IICDiscovery", cont, "I2C", "i2cnetwork", 1, 1, 1, &ui.i2cscan);
-    CreateItemCell("Pages/PowerSupply", cont, "PD PPS", "power", 1, 4, 2, &ui.powerpd);
-
+    CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 2, 1, 1, &ui.frequency);
     CreateItemCell("Pages/ServoCtrl", cont, "Servo", "volang", 0, 2, 1, &ui.ccpmservo);
     CreateItemCell("Pages/UARTViewer", cont, "UART", "terminal", 1, 2, 2, &ui.uartter);
-
     CreateItemCell("Pages/DAPLink", cont, "DAPLink", "daplink", 0, 3, 2, &ui.daplink);
     CreateItemCell("Pages/LogicAnalyzer", cont, "USB LA", "logic_analyzer", 2, 3, 1, &ui.logicanalyzer);
-
     CreateItemCell("Pages/CandleLight", cont, "CAN Bus", "canbus", 0, 4, 1, &ui.usbcanbus);
+    CreateItemCell("Pages/PowerSupply", cont, "PD PPS", "power", 1, 4, 2, &ui.powerpd);
     CreateItemCell("Pages/KaitoKey", cont, "KEY", "key", 0, 5, 1, &ui.kaitokey);
-
-    CreateItemCell("Pages/Hertz", cont, "Hertz", "herzt", 2, 1, 1, &ui.frequency); 
     CreateItemCell("Pages/IMUSensor", cont, "IMU", "box3d", 1, 5, 1, &ui.imu);
     CreateItemCell("Pages/IMUSensor", cont, "Setting", "setting", 2, 5, 1, &ui.setting);
 

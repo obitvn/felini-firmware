@@ -1,7 +1,5 @@
 #ifndef __MY_ENCODER_H
 #define __MY_ENCODER_H
-
-#include "rotary_encoder.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
