@@ -34,7 +34,7 @@ void UARTViewer::onViewLoad()
     lv_obj_add_event_cb(View.ui.keyboard.cont, onEvent, LV_EVENT_ALL, this);
     lv_obj_add_event_cb(View.ui.text.cont, onEvent, LV_EVENT_ALL, this);
 
-    timer = lv_timer_create(onTimer, 50, this);
+    timer = lv_timer_create(onTimer, 20, this);
     lv_timer_set_repeat_count(timer, -1); // infinity
 }
 
@@ -64,6 +64,7 @@ void UARTViewer::onViewDidDisappear()
 
 void UARTViewer::onViewDidUnload()
 {
+    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
     View.Delete();
     Model.Deinit();
@@ -85,8 +86,7 @@ void UARTViewer::Update(lv_timer_t *timer)
     Model.Update(&uart);
     if(uart.receive != NULL)
     {
-        printf("text: %s\n", uart.receive);
-        lv_textarea_add_text(instance->View.ui.text.cont, uart.receive);
+        lv_textarea_set_placeholder_text(instance->View.ui.text.cont, uart.receive);
     }
 }
 
@@ -112,7 +112,7 @@ void UARTViewer::onEvent(lv_event_t *event)
         {
             if (lv_indev_get_type(lv_indev_get_act()) != LV_INDEV_TYPE_KEYPAD)
             {
-                lv_obj_clear_flag(instance->View.ui.keyboard.cont, LV_OBJ_FLAG_HIDDEN);
+                // lv_obj_clear_flag(instance->View.ui.keyboard.cont, LV_OBJ_FLAG_HIDDEN);
             }
         }
 

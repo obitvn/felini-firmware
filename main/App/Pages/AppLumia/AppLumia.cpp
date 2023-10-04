@@ -21,7 +21,7 @@ void AppLumia::onCustomAttrConfig()
 
 void AppLumia::onViewLoad()
 {
-    StatusBar::Appear(true);
+    StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
     AttachEvent(root);

@@ -24,7 +24,7 @@ void UARTViewerView::Create(lv_obj_t *root)
     lv_obj_t *ui_Label5 = lv_label_create(root);
     lv_obj_set_width(ui_Label5, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label5, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Label5, 83);
+    lv_obj_set_x(ui_Label5, -11);
     lv_obj_set_y(ui_Label5, 96);
     lv_obj_set_align(ui_Label5, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label5, "921600 8N1");
@@ -36,7 +36,7 @@ void UARTViewerView::Create(lv_obj_t *root)
     lv_img_set_src(ui_Image4, ResourcePool::GetImage("pin_uart"));
     lv_obj_set_width(ui_Image4, LV_SIZE_CONTENT);  /// 79
     lv_obj_set_height(ui_Image4, LV_SIZE_CONTENT); /// 16
-    lv_obj_set_x(ui_Image4, -11);
+    lv_obj_set_x(ui_Image4, 100);
     lv_obj_set_y(ui_Image4, 94);
     lv_obj_set_align(ui_Image4, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Image4, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
@@ -44,14 +44,15 @@ void UARTViewerView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_TextArea1 = lv_textarea_create(root);
     ui.text.cont = ui_TextArea1;
+    lv_textarea_set_max_length(ui_TextArea1, 2048);
     lv_obj_remove_style_all(ui_TextArea1);
     lv_obj_set_width(ui_TextArea1, 280);
-    lv_obj_set_height(ui_TextArea1, 180);
+    lv_obj_set_height(ui_TextArea1, 200);
     lv_obj_set_x(ui_TextArea1, 0);
-    lv_obj_set_y(ui_TextArea1, 0);
-    lv_obj_set_align(ui_TextArea1, LV_ALIGN_TOP_MID);
+    lv_obj_set_y(ui_TextArea1, -20);
+    lv_obj_set_align(ui_TextArea1, LV_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_TextArea1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_textarea_set_placeholder_text(ui_TextArea1, "I (46) boot: Multicore bootloader \nI (49) boot: chip revision: v0.2I (579) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator\n");
+    lv_textarea_set_placeholder_text(ui_TextArea1, "");
     lv_obj_set_style_text_color(ui_TextArea1, lv_color_hex(0x39D82B), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_TextArea1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_TextArea1, lv_color_hex(0x1c1c1c), LV_PART_MAIN | LV_STATE_DEFAULT);

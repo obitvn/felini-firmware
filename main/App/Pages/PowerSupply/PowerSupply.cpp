@@ -84,9 +84,9 @@ void PowerSupply::onViewDidDisappear()
 
 void PowerSupply::onViewDidUnload()
 {
+    lv_timer_del(timer);
     Model.Deinit();
     View.Delete();
-    lv_timer_del(timer);
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
 }
 

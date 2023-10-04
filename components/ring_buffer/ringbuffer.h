@@ -19,7 +19,7 @@ extern "C"
  * can be contained in the buffer.
  * The buffer size must be a power of two.
 */
-#define RING_BUFFER_SIZE 128
+#define RING_BUFFER_SIZE 1024
 
 #if (RING_BUFFER_SIZE & (RING_BUFFER_SIZE - 1)) != 0
 #error "RING_BUFFER_SIZE must be a power of two"
@@ -30,7 +30,7 @@ extern "C"
  * and the indicies of the buffer.
  * Must be able to fit \c RING_BUFFER_SIZE .
  */
-typedef uint8_t ring_buffer_size_t;
+typedef uint32_t ring_buffer_size_t;
 
 /**
  * Used as a modulo operator
@@ -105,6 +105,9 @@ ring_buffer_size_t ring_buffer_dequeue_arr(ring_buffer_t *buffer, char *data, ri
  * @return 1 if data was returned; 0 otherwise.
  */
 uint8_t ring_buffer_peek(ring_buffer_t *buffer, char *data, ring_buffer_size_t index);
+
+
+ring_buffer_size_t ring_buffer_get_peek(ring_buffer_t *buffer, char *data, ring_buffer_size_t len);
 
 
 /**

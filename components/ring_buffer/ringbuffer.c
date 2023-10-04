@@ -42,6 +42,7 @@ uint8_t ring_buffer_dequeue(ring_buffer_t *buffer, char *data) {
   return 1;
 }
 
+
 ring_buffer_size_t ring_buffer_dequeue_arr(ring_buffer_t *buffer, char *data, ring_buffer_size_t len) {
   if(ring_buffer_is_empty(buffer)) {
     /* No items */
@@ -54,6 +55,37 @@ ring_buffer_size_t ring_buffer_dequeue_arr(ring_buffer_t *buffer, char *data, ri
     cnt++;
     data_ptr++;
   }
+  return cnt;
+}
+
+uint8_t ring_buffer_dequeue_peek(ring_buffer_t *buffer, char *data)
+{
+  if (ring_buffer_is_empty(buffer))
+  {
+    /* No items */
+    return 0;
+  }
+
+  *data = buffer->buffer[buffer->tail_index];
+  return 1;
+}
+
+ring_buffer_size_t ring_buffer_get_peek(ring_buffer_t *buffer, char *data, ring_buffer_size_t len)
+{
+
+  ring_buffer_size_t cnt = 0;
+  char *data_ptr = data;
+  uint32_t tail = buffer->tail_index;
+
+  while (cnt < len)
+  {
+    cnt++;
+    *data_ptr = buffer->buffer[tail];
+    tail++;
+    data_ptr++;
+    if (tail > RING_BUFFER_SIZE) tail = 0;
+  }
+
   return cnt;
 }
 
