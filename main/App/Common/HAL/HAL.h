@@ -103,6 +103,11 @@ namespace HAL
     void IntervalTime_Init();
     void IntervalTime_GetInfo(IntervalTime_Info_t *info);
     void IntervalTime_Deinit();
+    
+    /*UART Viewer*/
+    void UART_Init(UART_Info_t *info);
+    void UART_Update(UART_Info_t *info);
+    void UART_Deinit();
 
 }
 

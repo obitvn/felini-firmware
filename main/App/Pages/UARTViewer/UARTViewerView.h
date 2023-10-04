@@ -23,6 +23,7 @@ public:
     struct
     {
         item_t text;
+        item_t keyboard;
     } ui;
 
 private:

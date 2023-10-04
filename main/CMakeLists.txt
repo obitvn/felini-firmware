@@ -19,6 +19,11 @@ file(GLOB_RECURSE SOURCES
     "./HAL/*.cpp"
 )
 
+# Tìm các tệp trong thư mục HAL/HAL_SIM và loại trừ chúng
+file(GLOB_RECURSE HAL_SIM_SOURCES "./HAL/HAL_SIM/*.c" "./HAL/HAL_SIM/*.cpp")
+list(REMOVE_ITEM SOURCES ${HAL_SIM_SOURCES})
+
+
 set(includes 
     "porting"
     "."
@@ -28,7 +33,7 @@ set(includes
 
 idf_component_register(
     SRCS "main.cpp" ${SOURCES}
-    INCLUDE_DIRS "." ${includes}
+    INCLUDE_DIRS  ${includes}
     REQUIRES 
         lvgl
         lvgl_disp_port

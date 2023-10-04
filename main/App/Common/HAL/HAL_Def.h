@@ -124,11 +124,14 @@ namespace HAL
         daplink_cmd_t cmd;
     } DAPLink_Info_t;
 
-    typedef enum 
+    typedef enum
     {
         CMD_START = 0,
         CMD_UPDATE,
         CMD_STOP,
+        CMD_SEND,
+        CMD_RECV,
+        CMD_SETUP,
     } hal_cmd_t;
 
     typedef enum ina2xx_cmd
@@ -153,6 +156,17 @@ namespace HAL
         bool status;
         hal_cmd_t cmd;
     } IIC_Info_t;
+
+    typedef struct 
+    {
+        uint32_t baud;
+        char *send;
+        uint32_t send_length;
+        char *receive;
+        uint32_t recv_length;
+        bool status;
+        hal_cmd_t cmd;
+    } UART_Info_t;
 
     typedef struct
     {

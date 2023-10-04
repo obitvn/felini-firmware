@@ -65,9 +65,11 @@ void UARTViewerView::Create(lv_obj_t *root)
     lv_obj_set_style_border_width(ui_TextArea1, 0, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
     lv_obj_t *ui_Keyboard1 = lv_keyboard_create(root);
+    ui.keyboard.cont = ui_Keyboard1;
     lv_obj_set_width(ui_Keyboard1, 280);
     lv_obj_set_height(ui_Keyboard1, 120);
     lv_obj_set_align(ui_Keyboard1, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_Keyboard1, LV_OBJ_FLAG_HIDDEN);
 }
 
 
