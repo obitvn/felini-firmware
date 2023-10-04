@@ -24,6 +24,7 @@ public:
     {
         item_t text;
         item_t keyboard;
+        item_t baud;
     } ui;
 
 private:
