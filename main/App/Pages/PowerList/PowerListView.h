@@ -1,12 +1,12 @@
-#ifndef __AppLumia_VIEW_H
-#define __AppLumia_VIEW_H
+#ifndef __PowerList_VIEW_H
+#define __PowerList_VIEW_H
 
 #include "../Page.h"
 
 namespace Page
 {
 
-class AppLumiaView
+class PowerListView
 {
 
 public:
@@ -18,7 +18,7 @@ public:
         lv_obj_t *icon;
         lv_obj_t *labelInfo;
         lv_obj_t *labelData;
-        const char *app_src;
+        float     volt;
     } item_t;
 
     struct
@@ -37,14 +37,12 @@ public:
         item_t imu;
         item_t logicanalyzer;
         item_t setting;
-        item_t powerlist;
     } ui;
 
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infor, item_t *item);
-    void CreateItemCell(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, int col, int row, int size, item_t *item);
+    void CreateItemCell(float voltage, lv_obj_t *parent, const char *name, uint32_t color,  int col, int row, int size, item_t *item);
 
 public:
 

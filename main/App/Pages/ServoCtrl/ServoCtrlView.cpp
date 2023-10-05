@@ -104,6 +104,6 @@ void ServoCtrlView::Create(lv_obj_t *root)
 
 void ServoCtrlView::Delete()
 {
-    printf("ServoCtrlView::Delete()");
+    printf("ServoCtrlView::Delete()\n");
 }
 

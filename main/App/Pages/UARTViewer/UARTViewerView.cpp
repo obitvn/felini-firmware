@@ -79,6 +79,6 @@ void UARTViewerView::Create(lv_obj_t *root)
 
 void UARTViewerView::Delete()
 {
-    printf("UARTViewerView::Delete()");
+    printf("UARTViewerView::Delete()\n");
 }
 

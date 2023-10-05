@@ -67,6 +67,7 @@ void AppLumiaView::Create(lv_obj_t *root)
     CreateItemCell("Pages/KaitoKey", cont, "KEY", "key", 0, 5, 1, &ui.kaitokey);
     CreateItemCell("Pages/IMUSensor", cont, "IMU", "box3d", 1, 5, 1, &ui.imu);
     CreateItemCell("Pages/IMUSensor", cont, "Setting", "setting", 2, 5, 1, &ui.setting);
+    CreateItemCell("Pages/PowerList", cont, "PowerList", "power", 0, 6, 1, &ui.powerlist);
 
     /*Tile2: appList menu */
     lv_obj_t *ui_tileApps = lv_tileview_add_tile(ui_tileView, 1, 0, LV_DIR_LEFT);
@@ -150,6 +151,10 @@ void AppLumiaView::Create(lv_obj_t *root)
                                                                     "3d Viewer\n"
                                                                     "V2.2.3\n",
                    &ui.setting);
+    CreateItemList("Pages/PowerList", list1, "PowerList", "power", "Setting\n"
+                                                                   "3d Viewer\n"
+                                                                   "V2.2.3\n",
+                   &ui.powerlist);
 }
 
 void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, const char *infor, item_t *item)
@@ -233,6 +238,6 @@ void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const c
 
 void AppLumiaView::Delete()
 {
-    printf("AppLumiaView::Delete()");
+    printf("AppLumiaView::Delete()\n");
 }
 

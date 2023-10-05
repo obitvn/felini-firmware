@@ -109,6 +109,6 @@ void DAPLinkView::Create(lv_obj_t *root)
 
 void DAPLinkView::Delete()
 {
-    printf("DAPLinkView::Delete()");
+    printf("DAPLinkView::Delete()\n");
 }
 

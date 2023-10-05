@@ -247,6 +247,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_spinbox_set_range(spinbox, 0, 29999);
     lv_spinbox_set_step(spinbox, 1);
     ui.spin.button = spinbox;
+
 }
 
 void PowerSupplyView::FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t state, int *div)
@@ -323,7 +324,7 @@ void PowerSupplyView::OutFocusLabel(lv_obj_t *label)
 
 void PowerSupplyView::Delete()
 {
-    printf("PowerSupplyView::Delete()");
+    printf("PowerSupplyView::Delete()\n");
 }
 
 

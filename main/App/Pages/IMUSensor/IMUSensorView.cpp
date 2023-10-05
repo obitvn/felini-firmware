@@ -75,6 +75,6 @@ void IMUSensorView::Create(lv_obj_t *root)
 
 void IMUSensorView::Delete()
 {
-    printf("IMUSensorView::Delete()");
+    printf("IMUSensorView::Delete()\n");
 }
 

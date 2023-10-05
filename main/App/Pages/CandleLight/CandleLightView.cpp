@@ -64,6 +64,6 @@ void CandleLightView::Create(lv_obj_t *root)
 
 void CandleLightView::Delete()
 {
-    printf("CandleLightView::Delete()");
+    printf("CandleLightView::Delete()\n");
 }
 

@@ -94,6 +94,6 @@ void AnalogViewerView::Create(lv_obj_t *root)
 
 void AnalogViewerView::Delete()
 {
-    printf("AnalogViewerView::Delete()");
+    printf("AnalogViewerView::Delete()\n");
 }
 

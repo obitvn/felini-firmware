@@ -26,6 +26,6 @@ void KaitoKeyView::Create(lv_obj_t *root)
 
 void KaitoKeyView::Delete()
 {
-    printf("KaitoKeyView::Delete()");
+    printf("KaitoKeyView::Delete()\n");
 }
 

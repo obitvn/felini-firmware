@@ -78,6 +78,6 @@ void ColorWheelView::Create(lv_obj_t *root)
 
 void ColorWheelView::Delete()
 {
-    printf("ColorWheelView::Delete()");
+    printf("ColorWheelView::Delete()\n");
 }
 

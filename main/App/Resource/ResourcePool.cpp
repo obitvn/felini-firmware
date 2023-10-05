@@ -125,7 +125,11 @@ extern "C"
         IMPORT_IMG(pin_uart);
         IMPORT_IMG(pin_pulse);
         IMPORT_IMG(up_double);
+        IMPORT_IMG(triangles);
+        IMPORT_IMG(wall);
 
+
+        
     }
 
 } /* extern "C" */

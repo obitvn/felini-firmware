@@ -120,6 +120,6 @@ void IntervalView::Create(lv_obj_t *root)
 
 void IntervalView::Delete()
 {
-    printf("IntervalView::Delete()");
+    printf("IntervalView::Delete()\n");
 }
 

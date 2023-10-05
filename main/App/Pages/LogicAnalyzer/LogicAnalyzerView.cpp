@@ -83,6 +83,6 @@ void LogicAnalyzerView::Create(lv_obj_t *root)
 
 void LogicAnalyzerView::Delete()
 {
-    printf("LogicAnalyzerView::Delete()");
+    printf("LogicAnalyzerView::Delete()\n");
 }
 

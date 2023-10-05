@@ -126,6 +126,6 @@ void HertzView::Create(lv_obj_t *root)
 
 void HertzView::Delete()
 {
-    printf("HertzView::Delete()");
+    printf("HertzView::Delete()\n");
 }
 

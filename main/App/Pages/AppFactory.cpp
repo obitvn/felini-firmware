@@ -38,6 +38,7 @@
 #include "Pages/IMUSensor/IMUSensor.h"
 #include "Pages/KaitoKey/KaitoKey.h"
 #include "Pages/LogicAnalyzer/LogicAnalyzer.h"
+#include "Pages/PowerList/PowerList.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -67,6 +68,7 @@ PageBase *AppFactory::CreatePage(const char *name)
     APP_CLASS_MATCH(IMUSensor);
     APP_CLASS_MATCH(KaitoKey);
     APP_CLASS_MATCH(LogicAnalyzer);
+    APP_CLASS_MATCH(PowerList);
 
     return nullptr;
 }

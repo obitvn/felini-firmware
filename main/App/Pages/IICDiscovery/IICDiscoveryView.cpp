@@ -69,6 +69,6 @@ void IICDiscoveryView::Create(lv_obj_t *root)
 
 void IICDiscoveryView::Delete()
 {
-    printf("IICDiscoveryView::Delete()");
+    printf("IICDiscoveryView::Delete()\n");
 }
 
