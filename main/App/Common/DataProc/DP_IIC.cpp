@@ -17,11 +17,6 @@ static int onEvent(Account* account, Account::EventParam_t* param)
         return Account::ERROR_NONE;
     }
 
-    if (param->event != Account::EVENT_SUB_PULL)
-    {
-        return Account::ERROR_UNSUPPORTED_REQUEST;
-    }
-
     if (param->size != sizeof(HAL::IIC_Info_t))
     {
         printf("Account::ERROR_SIZE_MISMATCH\r\n");
@@ -38,7 +33,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
             account->SetTimerEnable(1);
             break;
         case HAL::CMD_UPDATE:
-            printf("INA update value");
+            printf("INA update value\n");
             HAL::IIC_Scan(info);
             break;
         case HAL::CMD_STOP:

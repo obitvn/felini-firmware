@@ -10,7 +10,7 @@
 
 void HAL::IIC_Init()
 {
-
+    printf("HAL sim iic init\n");
 }
 
 void HAL::IIC_Scan(IIC_Info_t *info)

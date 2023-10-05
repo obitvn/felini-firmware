@@ -21,7 +21,7 @@ void IICDiscoveryModel::Deinit()
 int IICDiscoveryModel::Scan(HAL::IIC_Info_t *iic_info)
 {
     iic_info->cmd = HAL::CMD_UPDATE;
-    if (account->Pull("INA2xxHardware", iic_info, sizeof(HAL::INA2xx_Info_t)) != Account::ERROR_NONE)
+    if (account->Pull("IICHardware", iic_info, sizeof(HAL::IIC_Info_t)) != Account::ERROR_NONE)
     {
         return 1;
     }

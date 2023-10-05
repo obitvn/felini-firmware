@@ -24,7 +24,7 @@ void IICDiscoveryView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_BarScanProgess = lv_bar_create(root);
     ui.bar.cont = ui_BarScanProgess;
-    lv_bar_set_range(ui_BarScanProgess, 0, 255);
+    lv_bar_set_range(ui_BarScanProgess, 0x03, 0x78);
     lv_bar_set_value(ui_BarScanProgess, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_BarScanProgess, 220);
     lv_obj_set_height(ui_BarScanProgess, 10);
@@ -39,7 +39,7 @@ void IICDiscoveryView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Status, 61);
     lv_obj_set_y(ui_Status, -83);
     lv_obj_set_align(ui_Status, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Status, "Scaniing");
+    lv_label_set_text(ui_Status, "Scanning");
     lv_obj_set_style_text_color(ui_Status, lv_color_hex(0x06FD5A), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Status, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -47,7 +47,7 @@ void IICDiscoveryView::Create(lv_obj_t *root)
     lv_img_set_src(ui_PinMapIMG, ResourcePool::GetImage("pin_i2c"));
     lv_obj_set_width(ui_PinMapIMG, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_PinMapIMG, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_PinMapIMG, 17);
+    lv_obj_set_x(ui_PinMapIMG, 0);
     lv_obj_set_y(ui_PinMapIMG, 105);
     lv_obj_set_align(ui_PinMapIMG, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PinMapIMG, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
@@ -55,13 +55,40 @@ void IICDiscoveryView::Create(lv_obj_t *root)
 
     lv_obj_t *ui_LogScani2c = lv_textarea_create(root);
     ui.terminal.cont = ui_LogScani2c;
+    // lv_obj_set_width(ui_LogScani2c, 220);
+    // lv_obj_set_height(ui_LogScani2c, 117);
+    // lv_obj_set_x(ui_LogScani2c, -3);
+    // lv_obj_set_y(ui_LogScani2c, 28);
+    // lv_obj_set_align(ui_LogScani2c, LV_ALIGN_CENTER);
+    // lv_textarea_set_text(ui_LogScani2c, "");
+    // lv_obj_set_style_border_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_outline_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_outline_pad(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_outline_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    // lv_obj_set_style_outline_pad(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    // lv_obj_clear_flag(ui_LogScani2c, LV_OBJ_FLAG_CLICK_FOCUSABLE); /// Flags
+    lv_textarea_set_max_length(ui_LogScani2c, 2048);
+    lv_obj_remove_style_all(ui_LogScani2c);
     lv_obj_set_width(ui_LogScani2c, 220);
     lv_obj_set_height(ui_LogScani2c, 117);
     lv_obj_set_x(ui_LogScani2c, -3);
     lv_obj_set_y(ui_LogScani2c, 28);
     lv_obj_set_align(ui_LogScani2c, LV_ALIGN_CENTER);
-    lv_textarea_set_text(ui_LogScani2c, "0x52 found at 122.32s\n0x22 found at version qwfe\n0x52 found at 122.32s\n0x22 found at version qwfe\n0x52 found at 122.32s\n0x22 found at version qwfe\n");
-    lv_textarea_set_placeholder_text(ui_LogScani2c, "Placeholder...");
+    lv_obj_set_style_radius(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_textarea_set_placeholder_text(ui_LogScani2c, "");
+    lv_obj_set_style_radius(ui_LogScani2c, 8, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LogScani2c, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_color(ui_LogScani2c, lv_color_hex(0x39D82B), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_LogScani2c, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_LogScani2c, lv_color_hex(0x1c1c1c), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_LogScani2c, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_pad(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_width(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    lv_obj_set_style_outline_pad(ui_LogScani2c, 0, LV_PART_MAIN | LV_STATE_FOCUSED);
+    lv_obj_clear_flag(ui_LogScani2c, LV_OBJ_FLAG_CLICK_FOCUSABLE); /// Flags
+    lv_obj_set_style_border_width(ui_LogScani2c, 0, LV_PART_SELECTED | LV_STATE_DEFAULT);
 }
 
 

@@ -53,7 +53,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label10, 0);
     lv_obj_set_y(ui_Label10, -25);
     lv_obj_set_align(ui_Label10, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label10, "895.37");
+    lv_label_set_text(ui_Label10, "0");
     lv_obj_set_style_text_color(ui_Label10, lv_color_hex(0x2C9CD9), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label10, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label10, ResourcePool::GetFont("sf_compact_72"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -99,7 +99,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label15, -48);
     lv_obj_set_y(ui_Label15, 27);
     lv_obj_set_align(ui_Label15, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label15, "11116.85 pS");
+    lv_label_set_text(ui_Label15, "0 pS");
     lv_obj_set_style_text_color(ui_Label15, lv_color_hex(0x7E52CC), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label15, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label15, ResourcePool::GetFont("sf_compact_22"), LV_PART_MAIN | LV_STATE_DEFAULT);

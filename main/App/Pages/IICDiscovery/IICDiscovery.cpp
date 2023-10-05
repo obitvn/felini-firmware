@@ -4,6 +4,8 @@
 
 using namespace Page;
 
+uint8_t add = 3;
+
 IICDiscovery::IICDiscovery()
 {
 }
@@ -23,6 +25,7 @@ void IICDiscovery::onCustomAttrConfig()
 
 void IICDiscovery::onViewLoad()
 {
+    add = 3;
     StatusBar::Appear(false);
     Model.Init();
     View.Create(root);
@@ -84,7 +87,7 @@ void IICDiscovery::Update()
 
 }
 
-uint8_t add=0;
+
 
 void IICDiscovery::Update(lv_timer_t *timer)
 {
@@ -95,10 +98,17 @@ void IICDiscovery::Update(lv_timer_t *timer)
     IICDiscovery *instance = (IICDiscovery *)timer->user_data;
     lv_bar_set_value(instance->View.ui.bar.cont, add, LV_ANIM_OFF);
     lv_label_set_text_fmt(instance->View.ui.addr.cont, "0x%02x", add++);
+    if(add > 0x78) 
+    {
+        add = 3;
+        lv_textarea_add_text(instance->View.ui.terminal.cont, "\n");
+    }
     char data[10];
     sprintf(data, "0x%02x ", iic_info.addr);
+    
     if (iic_info.status)
     {
+        printf("find 0x%02x\r\n", iic_info.addr);
         lv_textarea_add_text(instance->View.ui.terminal.cont, data);
     }
 }

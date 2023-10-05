@@ -10,14 +10,16 @@
 #include "driver/gpio.h"
 #include <driver/i2c.h>
 
-#define IIC_SDA_PIN 2
-#define IIC_SCL_PIN 3
+#define IIC_SDA_PIN 3
+#define IIC_SCL_PIN 2
 
 static const char *TAG = "i2cscanner";
 
+// https://learn.adafruit.com/i2c-addresses/the-list
 
 void HAL::IIC_Init()
 {
+    printf("IIC_Init()\n");
     i2c_config_t conf;
     conf.mode = I2C_MODE_MASTER;
     conf.sda_io_num = IIC_SDA_PIN;
@@ -57,5 +59,6 @@ void HAL::IIC_GetInfo(IIC_Info_t *info)
 
 void HAL::IIC_Deinit()
 {
-    i2c_driver_delete(I2C_NUM_1);
+        printf("IIC_DeInit()\n");
+        i2c_driver_delete(I2C_NUM_1);
 }
