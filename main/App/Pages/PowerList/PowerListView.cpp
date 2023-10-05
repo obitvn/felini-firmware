@@ -31,7 +31,7 @@ void PowerListView::Create(lv_obj_t *root)
     lv_obj_t *ui_tileStart = lv_tileview_add_tile(ui_tileView, 0, 0, LV_DIR_RIGHT);
 
     static lv_coord_t col_dsc[] = {CELL_SIZE, CELL_SIZE, CELL_SIZE, LV_GRID_TEMPLATE_LAST};
-    static lv_coord_t row_dsc[] = {CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, LV_GRID_TEMPLATE_LAST};
+    static lv_coord_t row_dsc[] = {CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE, LV_GRID_TEMPLATE_LAST};
 
     /*Create a container with grid*/
     lv_obj_t *cont = lv_obj_create(ui_tileStart);
@@ -60,17 +60,23 @@ void PowerListView::Create(lv_obj_t *root)
     CreateItemCell(3.7, cont, "", 0x6d6ed8, 2, 0, 1);
     CreateItemCell(4.2, cont, "", 0x43b3db, 0, 1, 1);
     CreateItemCell(4.8, cont, "", 0x94339c, 1, 1, 1);
-    CreateItemCell(5.0, cont, "", 0x2c78a0,  2, 1, 1);
+    CreateItemCell(5.0, cont, "", 0x2c78a0,  2, 1, 2);
     CreateItemCell(5.5, cont, "", 0x16b0a0, 0, 2, 1);
-    CreateItemCell(6.4, cont, "", 0x16b0a0, 1, 2, 2);
+    CreateItemCell(6.4, cont, "", 0x16b0a0, 1, 2, 1);
     CreateItemCell(7.4, cont, "", 0x43b3db, 0, 3, 2);
     CreateItemCell(8.4, cont, "", 0x2c78a0, 2, 3, 1);
     CreateItemCell(10.6, cont, "", 0x16b0a0, 0, 4, 1);
-    CreateItemCell(11.1, cont, "", 0x16b0a0, 1, 4, 2);
+    CreateItemCell(11.1, cont, "", 0x16b0a0, 1, 4, 1);
+    CreateItemCell(12, cont, "", 0x16b0a0, 1, 4, 2);
     CreateItemCell(13.2, cont, "", 0x6d6ed8, 0, 5, 1);
     CreateItemCell(14.2, cont, "", 0x6d6ed8, 1, 5, 1);
+    CreateItemCell(15, cont, "", 0x16b0a0, 1, 4, 1);
     CreateItemCell(16.8, cont, "", 0x43b3db, 2, 5, 1);
-    CreateItemCell(16.8, cont, "", 0x94339c, 2, 5, 1);
+    CreateItemCell(18, cont, "", 0x16b0a0, 2, 5, 1);
+    CreateItemCell(20, cont, "", 0x94339c, 0, 6, 1);
+
+
+
 }
 
 void PowerListView::CreateItemCell(float voltage, lv_obj_t *parent, const char *name, uint32_t color, int col, int row, int size)
@@ -79,6 +85,13 @@ void PowerListView::CreateItemCell(float voltage, lv_obj_t *parent, const char *
     lv_obj_t *obj;
     lv_obj_t *icon;
     ui.item[index_item].volt = voltage;
+
+    if ((index_col == 2)&&(size > 1))
+    {
+        index_col = 0;
+        index_row++;
+    }
+    
 
     // printf("app src %s\r\n", app_src);
     obj = lv_btn_create(parent);
@@ -89,7 +102,7 @@ void PowerListView::CreateItemCell(float voltage, lv_obj_t *parent, const char *
     lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(obj, lv_color_hex(color), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(obj, 128, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, col, size, LV_GRID_ALIGN_STRETCH, row, 1);
+    lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, index_col, size, LV_GRID_ALIGN_STRETCH, index_row, 1);
 
     label = lv_label_create(obj);
     ui.item[index_item].label = label;
@@ -102,6 +115,12 @@ void PowerListView::CreateItemCell(float voltage, lv_obj_t *parent, const char *
     lv_obj_clear_flag(label, LV_OBJ_FLAG_SCROLLABLE);
     
     index_item ++;
+    index_col += size;
+    if(index_col > 2) 
+    {
+        index_col = 0;
+        index_row ++;
+    }
 
 }
 

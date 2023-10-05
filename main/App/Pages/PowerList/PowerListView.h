@@ -36,6 +36,8 @@ public:
 public:
 public:
     uint32_t index_item;
+    uint32_t index_col;
+    uint32_t index_row;
 };
 
 }
