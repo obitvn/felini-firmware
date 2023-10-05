@@ -31,9 +31,9 @@ void PowerList::onViewLoad()
     lv_obj_clear_flag(root, LV_OBJ_FLAG_GESTURE_BUBBLE);
     lv_obj_clear_flag(root, LV_OBJ_FLAG_SCROLLABLE);
 
-    PowerListView::item_t *item_grp = ((PowerListView::item_t *)&View.ui);
+    PowerListView::item_t *item_grp = ((PowerListView::item_t *)&View.ui.item[0]);
 
-    for (int i = 0; i < sizeof(View.ui) / sizeof(PowerListView::item_t); i++)
+    for (int i = 0; i < View.index_item; i++)
     {
         AttachEvent(item_grp[i].btn_cell);
     }
@@ -96,7 +96,7 @@ void PowerList::onEvent(lv_event_t *event)
     lv_event_code_t code = lv_event_get_code(event);
     PowerList *instance = (PowerList *)lv_obj_get_user_data(obj);
 
-    PowerListView::item_t *item_grp = ((PowerListView::item_t *)&instance->View.ui);
+    PowerListView::item_t *item_grp = ((PowerListView::item_t *)&instance->View.ui.item[0]);
 
     if (obj == instance->root)
     {
@@ -107,16 +107,39 @@ void PowerList::onEvent(lv_event_t *event)
             {
                 instance->Manager->Pop();
             }
+            else if (LV_DIR_LEFT == dir)
+            {
+                instance->Manager->Push("Pages/PowerSupply");
+            }
         }
+        
     }
 
-    for (int i = 0; i < sizeof(instance->View.ui) / sizeof(PowerListView::item_t); i++)
+
+    for (int i = 0; i < instance->View.index_item; i++)
     {
-        if ((obj == item_grp[i].btn) || (obj == item_grp[i].btn_cell))
+        if (obj == item_grp[i].btn_cell)
         {
             if (code == LV_EVENT_CLICKED)
             {
-                // instance->Manager->Push(item_grp[i].app_src); // load page mới
+                item_grp[i].state = !item_grp[i].state;
+                if(item_grp[i].state)
+                {
+                    for (int j = 0; j < instance->View.index_item; j++)
+                    {
+                        item_grp[j].state = false;
+                        lv_obj_set_style_bg_color(item_grp[j].btn_cell, lv_color_hex(item_grp[j].color), LV_PART_MAIN | LV_STATE_DEFAULT);
+                    }
+                    item_grp[i].state = true ;
+                    instance->Model.PDCMD(item_grp[i].volt, 3, true);
+                    lv_obj_set_style_bg_color(obj, lv_color_hex(0xe61e0c), LV_PART_MAIN | LV_STATE_DEFAULT);
+                }
+                else
+                {
+                    instance->Model.PDCMD(0, 0, false);
+                    lv_obj_set_style_bg_color(item_grp[i].btn_cell, lv_color_hex(item_grp[i].color), LV_PART_MAIN | LV_STATE_DEFAULT);
+                }
+
             }
         }
     }

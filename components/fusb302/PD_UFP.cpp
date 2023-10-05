@@ -125,7 +125,7 @@ void PD_UFP_core_c::init_PPS(uint16_t PPS_voltage, uint8_t PPS_current, enum PD_
 
 void PD_UFP_core_c::stop(void)
 {
-    i2c_manager_close(I2C_NUM_0);
+    // i2c_manager_close(I2C_NUM_0);
 }
 
 void PD_UFP_core_c::run(void)

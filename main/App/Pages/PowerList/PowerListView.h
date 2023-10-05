@@ -14,42 +14,28 @@ public:
     {
         lv_obj_t *cont;
         lv_obj_t *btn_cell;
-        lv_obj_t *btn;
-        lv_obj_t *icon;
-        lv_obj_t *labelInfo;
-        lv_obj_t *labelData;
+        lv_obj_t *label;
         float     volt;
+        bool state;
+        uint32_t color;
     } item_t;
 
     struct
     {
-        item_t analog;
-        item_t ledcolor;
-        item_t timekeeper;
-        item_t i2cscan;
-        item_t powerpd;
-        item_t ccpmservo;
-        item_t uartter;
-        item_t daplink;
-        item_t usbcanbus;
-        item_t kaitokey;
-        item_t frequency;
-        item_t imu;
-        item_t logicanalyzer;
-        item_t setting;
+        item_t item[64];
     } ui;
 
 public:
     void Create(lv_obj_t* root);
     void Delete();
-    void CreateItemCell(float voltage, lv_obj_t *parent, const char *name, uint32_t color,  int col, int row, int size, item_t *item);
+    void CreateItemCell(float voltage, lv_obj_t *parent, const char *name, uint32_t color,  int col, int row, int size);
 
 public:
 
 
 public:
-
-private:
+public:
+    uint32_t index_item;
 };
 
 }

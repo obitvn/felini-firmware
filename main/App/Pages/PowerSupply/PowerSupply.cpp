@@ -85,8 +85,8 @@ void PowerSupply::onViewDidDisappear()
 void PowerSupply::onViewDidUnload()
 {
     lv_timer_del(timer);
-    Model.Deinit();
     View.Delete();
+    Model.Deinit();
     SetCustomLoadAnimType(PageManager::LOAD_ANIM_OVER_BOTTOM, 500, lv_anim_path_ease_in);
 }
 
@@ -128,6 +128,10 @@ void PowerSupply::onEvent(lv_event_t *event)
             if (LV_DIR_RIGHT == dir)
             {
                 instance->Manager->Pop();
+            }
+            else if (LV_DIR_LEFT == dir)
+            {
+                instance->Manager->Push("Pages/PowerList");
             }
         }
     }

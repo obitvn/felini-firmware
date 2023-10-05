@@ -12,7 +12,7 @@
 #define TAG "PD HAL"
 class PD_UFP_c PD_UFP;
 
-TaskHandle_t usb_pd_task_handle;
+TaskHandle_t usb_pd_task_handle = NULL;
 
 extern "C"
 {
@@ -52,6 +52,7 @@ void HAL::PowerPD_Deinit()
     if (usb_pd_task_handle != NULL)
     {
         vTaskDelete(usb_pd_task_handle);
+        usb_pd_task_handle = NULL;
     }
     PD_UFP.stop();
 }
