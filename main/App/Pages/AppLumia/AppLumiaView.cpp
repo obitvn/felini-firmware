@@ -168,22 +168,19 @@ void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const c
     lv_obj_t *label;
 
 
-
     obj = lv_btn_create(parent);
     item->btn = obj;
-
+    lv_obj_remove_style_all(obj);
     lv_obj_set_width(obj, lv_pct(100));
+    lv_obj_set_align(obj, LV_ALIGN_CENTER);
     lv_obj_set_style_shadow_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(obj, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(obj, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    // lv_obj_set_style_bg_color(obj, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    // lv_obj_set_style_bg_color(obj, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_opa(obj, 100, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(obj, 180, LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_set_style_bg_opa(obj, 180, LV_PART_MAIN | LV_STATE_FOCUSED);
-
+    lv_obj_set_style_bg_color(obj, lv_color_hex(0x0), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(obj, 50, LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_bg_opa(obj, 50, LV_PART_MAIN | LV_STATE_FOCUSED);
     lv_obj_set_style_border_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     label = lv_label_create(obj);
@@ -192,22 +189,25 @@ void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const c
     lv_obj_center(label);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_obj_set_x(label, 60);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("sf_compact_17"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     icon = lv_img_create(obj);
     item->icon = icon;
+    lv_obj_set_x(icon, 8);
     lv_img_set_src(icon, ResourcePool::GetImage(img_src));
     lv_obj_set_width(icon, LV_SIZE_CONTENT);
     lv_obj_set_height(icon, LV_SIZE_CONTENT);
-    // lv_obj_set_x(icon, 5);
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_obj_add_flag(icon, LV_OBJ_FLAG_ADV_HITTEST);
     lv_obj_clear_flag(icon, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_style_bg_color(icon, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(icon, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(icon, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_color(icon, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_opa(icon, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(icon, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+
 }
 
 void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const char *name, const char *img_src, int col, int row, int size, item_t *item)
@@ -223,6 +223,7 @@ void AppLumiaView::CreateItemCell(const char *app_src, lv_obj_t *parent, const c
     lv_obj_set_style_shadow_width(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(obj, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(obj, 120, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(obj, lv_color_hex(0x0091f7), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_grid_cell(obj, LV_GRID_ALIGN_STRETCH, col, size, LV_GRID_ALIGN_STRETCH, row, 1);
 
     label = lv_label_create(obj);
