@@ -132,7 +132,7 @@ void PowerList::onEvent(lv_event_t *event)
                     }
                     item_grp[i].state = true ;
                     instance->Model.PDCMD(item_grp[i].volt, 3, true);
-                    lv_obj_set_style_bg_color(obj, lv_color_hex(0xe61e0c), LV_PART_MAIN | LV_STATE_DEFAULT);
+                    lv_obj_set_style_bg_color(obj, lv_color_hex(0xff0000), LV_PART_MAIN | LV_STATE_DEFAULT);
                 }
                 else
                 {
