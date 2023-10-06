@@ -101,6 +101,7 @@ void PowerListView::CreateItemCell(float voltage, lv_obj_t *parent, const char *
     label = lv_label_create(obj);
     ui.item[index_item].label = label;
     lv_label_set_text_fmt(label, "%.1f", voltage);
+    lv_obj_set_style_text_color(label, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("sf_compact_medium_24"), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_width(label, LV_SIZE_CONTENT);
     lv_obj_set_height(label, LV_SIZE_CONTENT);

@@ -127,9 +127,7 @@ extern "C"
         IMPORT_IMG(up_double);
         IMPORT_IMG(triangles);
         IMPORT_IMG(wall);
-
-
-        
+        IMPORT_IMG(pulsechart);
     }
 
 } /* extern "C" */

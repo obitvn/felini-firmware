@@ -108,7 +108,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_img_set_src(ui_Image6, ResourcePool::GetImage("pin_pulse"));
     lv_obj_set_width(ui_Image6, LV_SIZE_CONTENT);  /// 50
     lv_obj_set_height(ui_Image6, LV_SIZE_CONTENT); /// 34
-    lv_obj_set_x(ui_Image6, 76+10);
+    lv_obj_set_x(ui_Image6, 94);
     lv_obj_set_y(ui_Image6, 102);
     lv_obj_set_align(ui_Image6, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_Image6, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
