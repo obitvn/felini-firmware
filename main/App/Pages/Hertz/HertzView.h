@@ -13,10 +13,24 @@ public:
     void Delete();
 
 public:
+    typedef struct
+    {
+        lv_obj_t *cont;
+        lv_obj_t *btn;
+        float value;
+        bool state;
+    } item_t;
 
+    struct
+    {
+        item_t frequency;
+        item_t unit;
+        item_t duty;
+        item_t panel;
+        item_t spin;
+    } ui;
 
 public:
-
 private:
 };
 

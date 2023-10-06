@@ -35,7 +35,8 @@
         "compare": "c",
         "axp192.h": "c",
         "sstream": "cpp",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "set": "cpp"
     },
     "idf.adapterTargetName": "esp32s3",
     "idf.portWin": "COM11",
