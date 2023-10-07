@@ -27,7 +27,7 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label2, -5);
     lv_obj_set_y(ui_Label2, -31);
     lv_obj_set_align(ui_Label2, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label2, "USB Connected");
+    lv_label_set_text(ui_Label2, "Connect to USB");
     lv_obj_set_style_text_color(ui_Label2, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label2, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -62,24 +62,24 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_ADV_HITTEST);  /// Flags
     lv_obj_clear_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE); /// Flags
 
-    lv_obj_t *ui_Switch1 = lv_switch_create(root);
-    lv_obj_set_width(ui_Switch1, 50);
-    lv_obj_set_height(ui_Switch1, 25);
-    lv_obj_set_x(ui_Switch1, -103);
-    lv_obj_set_y(ui_Switch1, 17);
-    lv_obj_set_align(ui_Switch1, LV_ALIGN_CENTER);
-    switch_cont = ui_Switch1;
+    // lv_obj_t *ui_Switch1 = lv_switch_create(root);
+    // lv_obj_set_width(ui_Switch1, 50);
+    // lv_obj_set_height(ui_Switch1, 25);
+    // lv_obj_set_x(ui_Switch1, -103);
+    // lv_obj_set_y(ui_Switch1, 17);
+    // lv_obj_set_align(ui_Switch1, LV_ALIGN_CENTER);
+    // switch_cont = ui_Switch1;
 
-    lv_obj_t *ui_Label3 = lv_label_create(root);
-    lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);  /// 1
-    lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Label3, -42);
-    lv_obj_set_y(ui_Label3, 17);
-    lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label3, "SWD");
-    lv_obj_set_style_text_color(ui_Label3, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Label3, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label3, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_t *ui_Label3 = lv_label_create(root);
+    // lv_obj_set_width(ui_Label3, LV_SIZE_CONTENT);  /// 1
+    // lv_obj_set_height(ui_Label3, LV_SIZE_CONTENT); /// 1
+    // lv_obj_set_x(ui_Label3, -42);
+    // lv_obj_set_y(ui_Label3, 17);
+    // lv_obj_set_align(ui_Label3, LV_ALIGN_CENTER);
+    // lv_label_set_text(ui_Label3, "SWD");
+    // lv_obj_set_style_text_color(ui_Label3, lv_color_hex(0x08A3FB), LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_text_opa(ui_Label3, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // lv_obj_set_style_text_font(ui_Label3, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_t *pindaplinkObj = lv_img_create(root);
     lv_img_set_src(pindaplinkObj, ResourcePool::GetImage("pin_daplink"));
@@ -95,13 +95,13 @@ void DAPLinkView::Create(lv_obj_t *root)
     lv_obj_t *ui_Label4 = lv_label_create(root);
     lv_obj_set_width(ui_Label4, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label4, LV_SIZE_CONTENT); /// 1
-    lv_obj_set_x(ui_Label4, 4);
-    lv_obj_set_y(ui_Label4, 44);
+    lv_obj_set_x(ui_Label4, -20);
+    lv_obj_set_y(ui_Label4, 40);
     lv_obj_set_align(ui_Label4, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label4, "connection pins is row 2");
     lv_obj_set_style_text_color(ui_Label4, lv_color_hex(0xFB0808), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label4, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label4, ResourcePool::GetFont("sf_compact_14"), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label4, ResourcePool::GetFont("sf_compact_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 

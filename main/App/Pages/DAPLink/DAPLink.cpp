@@ -1,6 +1,7 @@
 #include "DAPLink.h"
 #include <cstdio>
 
+// openocd -f interface/cmsis-dap.cfg -f target/stm32f4x.cfg -c "init" -c "reset halt" -c "flash read_bank 0 path_to_output_file.bin 0x08000 0x10000"
 
 using namespace Page;
 

@@ -19,16 +19,16 @@
 #define __WEAK __attribute__((weak))
 #endif
 
-#define PIN_SWCLK_TCK               GPIO_NUM_5
-#define PIN_SWDIO_TMS               GPIO_NUM_4
-#define PIN_TDI                     GPIO_NUM_6
-#define PIN_TDO                     GPIO_NUM_7
+#define PIN_SWCLK_TCK               GPIO_NUM_7
+#define PIN_SWDIO_TMS               GPIO_NUM_6
+#define PIN_TDI                     GPIO_NUM_5
+#define PIN_TDO                     GPIO_NUM_4
 #define PIN_nRESET                  GPIO_NUM_1
 // #define LED_CONNECTED               GPIO_NUM_41
 // #define LED_RUNNING                 GPIO_NUM_42
 
-#define DAP_UART_TX                 GPIO_NUM_2
-#define DAP_UART_RX                 GPIO_NUM_3
+#define DAP_UART_TX                 GPIO_NUM_43
+#define DAP_UART_RX                 GPIO_NUM_44
 
 #define DAP_CPU_CLOCK 0U
 
