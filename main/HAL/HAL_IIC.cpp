@@ -11,8 +11,8 @@
 #include "driver/gpio.h"
 #include <driver/i2c.h>
 
-#define IIC_SDA_PIN 6
-#define IIC_SCL_PIN 7
+#define IIC_SDA_PIN 7
+#define IIC_SCL_PIN 6
 
 #define I2C_NUM_PORT I2C_NUM_1
 

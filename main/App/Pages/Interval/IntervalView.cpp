@@ -64,7 +64,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label12, -97+10);
     lv_obj_set_y(ui_Label12, 92);
     lv_obj_set_align(ui_Label12, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label12, "ROW ONE");
+    lv_label_set_text(ui_Label12, "ROW TWO");
     lv_obj_set_style_text_color(ui_Label12, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label12, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label12, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -75,7 +75,7 @@ void IntervalView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label13, -101+10);
     lv_obj_set_y(ui_Label13, 108);
     lv_obj_set_align(ui_Label13, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label13, "(TOP)");
+    lv_label_set_text(ui_Label13, "(BOT)");
     lv_obj_set_style_text_color(ui_Label13, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label13, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label13, ResourcePool::GetFont("sf_compact_18"), LV_PART_MAIN | LV_STATE_DEFAULT);

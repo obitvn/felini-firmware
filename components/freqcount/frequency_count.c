@@ -17,7 +17,7 @@
 
 #define TAG "frequency_counter"
 
-#define PULSE_GPIO_INPUT 2
+#define PULSE_GPIO_INPUT 1
 #define PULSE_PCNT_HIGH_LIMIT 32000
 #define PULSE_SAMPLE_TIME (1000*1000)
 
