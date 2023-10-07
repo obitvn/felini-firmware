@@ -48,7 +48,7 @@ void HertzView::Create(lv_obj_t *root)
     lv_obj_t *ui_Label4 = lv_label_create(root);
     ui.frequency.cont = ui_Label4;
     ui.frequency.value = 0;
-    ui.frequency.state - false;
+    ui.frequency.state = false;
     lv_obj_set_width(ui_Label4, LV_SIZE_CONTENT);  /// 1
     lv_obj_set_height(ui_Label4, LV_SIZE_CONTENT); /// 1
     lv_obj_set_x(ui_Label4, -79);

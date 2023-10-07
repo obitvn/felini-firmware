@@ -10,7 +10,6 @@
 #include "lvgl_disp_port.hpp"
 #include "lvgl_indev_port.h"
 
-#include "mcp23x17.h"
 
 #include "axp192.h"
 #include "i2c_manager.h"
@@ -55,8 +54,8 @@ void lv_porting_init(void)
     axp192_ioctl(&axp, AXP192_DCDC2_SET_VOLTAGE, 0);
     axp192_ioctl(&axp, AXP192_DCDC3_SET_VOLTAGE, 3300);
     axp192_ioctl(&axp, AXP192_LDOIO0_SET_VOLTAGE, 0);
-    axp192_ioctl(&axp, AXP192_LDO2_SET_VOLTAGE, 3000);
-    axp192_ioctl(&axp, AXP192_LDO3_SET_VOLTAGE, 3000);
+    axp192_ioctl(&axp, AXP192_LDO2_SET_VOLTAGE, 3300);
+    axp192_ioctl(&axp, AXP192_LDO3_SET_VOLTAGE, 3300);
 
     axp192_ioctl(&axp, AXP192_SHUTDOWN_VOLTAGE, 3100);
 
@@ -97,8 +96,7 @@ void lv_porting_init(void)
     //     vTaskDelay(200);
     // }
 
-    mcp23x17_set_mode(NULL, 1, MCP23X17_GPIO_OUTPUT);
-    mcp23x17_set_level(NULL, 1, 1);
+
     lv_init();
     esp_register_freertos_tick_hook((void *)lv_tick_task);
 

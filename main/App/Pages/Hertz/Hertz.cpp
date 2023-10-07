@@ -219,7 +219,7 @@ void Hertz::onEvent(lv_event_t *event)
             }
             else if (instance->View.ui.duty.state)
             {
-                lv_label_set_text_fmt(instance->View.ui.duty.cont, "%.0f %", val);
+                lv_label_set_text_fmt(instance->View.ui.duty.cont, "%.0f%%", val);
             }
         }
     }
