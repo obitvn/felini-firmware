@@ -35,8 +35,13 @@ static int onEvent(Account* account, Account::EventParam_t* param)
             HAL::RCServo_Update(info);
             break;
 
+        case HAL::SERVO_CMD_SETUP:
+            HAL::RCServo_SetFreq(info);
+            break;
+
         case HAL::SERVO_CMD_Deinit:
             HAL::RCServo_Deinit();
+            break;
 
         default:
             break;

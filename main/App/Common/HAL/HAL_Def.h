@@ -80,6 +80,7 @@ namespace HAL
     {
         SERVO_CMD_INIT,
         SERVO_CMD_UPDATE,
+        SERVO_CMD_SETUP,
         SERVO_CMD_Deinit,
     } RCServo_Cmd_t;
 
@@ -92,6 +93,8 @@ namespace HAL
         int16_t max_degree;
         uint16_t min_pulse_with; // Minimum pulse width in microsecond
         uint16_t max_pulse_with;
+        uint32_t frequency;
+        uint8_t duty;
     } RCServo_Info_t;
 
 

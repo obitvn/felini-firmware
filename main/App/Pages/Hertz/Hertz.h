@@ -34,6 +34,7 @@ private:
 private:
     HertzView View;
     HertzModel Model;
+
 };
 
 }

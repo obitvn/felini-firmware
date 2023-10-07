@@ -18,6 +18,11 @@ void HAL::RCServo_GetInfo(RCServo_Info_t *info)
     // info->running = is_RCServo_running();
 }
 
+void HAL::RCServo_SetFreq(RCServo_Info_t *info)
+{
+    
+}
+
 void HAL::RCServo_Update(RCServo_Info_t *info)
 {
 

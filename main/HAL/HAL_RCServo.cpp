@@ -7,6 +7,7 @@
 #include "freertos/task.h"
 #include "esp_log.h"
 #include "driver/mcpwm_prelude.h"
+#include "driver/ledc.h"
 
 static const char *TAG = "example";
 
@@ -24,6 +25,8 @@ mcpwm_timer_handle_t timer = NULL;
 mcpwm_cmpr_handle_t comparator = NULL;
 mcpwm_oper_handle_t oper = NULL;
 mcpwm_gen_handle_t generator = NULL;
+
+bool freq_gen = false;
 
 static inline uint32_t example_angle_to_compare(int angle)
 {
@@ -93,6 +96,37 @@ void HAL::RCServo_Init()
 void HAL::RCServo_GetInfo(RCServo_Info_t *info)
 {
 
+}
+
+void HAL::RCServo_SetFreq(RCServo_Info_t *info)
+{
+    freq_gen = true;
+
+
+    if(info->frequency <1000) info->frequency = 1000;
+    info->duty = 50;
+
+    uint32_t duty_res = 16384 * (info->duty/100);
+
+    // Prepare and then apply the LEDC PWM timer configuration
+    ledc_timer_config_t ledc_timer = {
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .duty_resolution = LEDC_TIMER_14_BIT,
+        .timer_num = LEDC_TIMER_0,
+        .freq_hz = info->frequency, // Set output frequency
+        .clk_cfg = LEDC_AUTO_CLK};
+    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+
+    // Prepare and then apply the LEDC PWM channel configuration
+    ledc_channel_config_t ledc_channel = {
+        .gpio_num = SERVO_PULSE_GPIO,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .channel = LEDC_CHANNEL_0,
+        .intr_type = LEDC_INTR_DISABLE,
+        .timer_sel = LEDC_TIMER_0,
+        .duty = info->duty, // Set duty to 0%
+        .hpoint = 0};
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
 }
 
 void HAL::RCServo_Update(RCServo_Info_t *info)

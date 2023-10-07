@@ -84,6 +84,7 @@ namespace HAL
     /* RCServo*/
     void RCServo_Init();
     void RCServo_GetInfo(RCServo_Info_t *info);
+    void RCServo_SetFreq(RCServo_Info_t *info);
     void RCServo_Update(RCServo_Info_t *info);
     void RCServo_Deinit();
 
