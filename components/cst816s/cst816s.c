@@ -124,8 +124,11 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     uint16_t point_x = 0;
     uint16_t point_y = 0;
 
-    point_x = (data_raw[3] | ((data_raw[2] & 0x0F) << 8));
-    point_y = (data_raw[5] | ((data_raw[4] & 0x0F) << 8));
+    // point_x = (data_raw[3] | ((data_raw[2] & 0x0F) << 8));
+    // point_y = (data_raw[5] | ((data_raw[4] & 0x0F) << 8));
+
+    point_x = ((data_raw[2] & 0xF) << 8) + data_raw[3];
+    point_y = ((data_raw[4] & 0xF) << 8) + data_raw[5];
 
     int temp;
     temp = point_y;
@@ -143,6 +146,10 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     if(point_x > TOUCH_HORIZONTAL_X) 
         data->point.x = 0;
     else data->point.x = point_x;
+
+    if(point_x < 0 ) point_x = 0;
+    if(point_y < 0 ) point_y = 0;
+
 
     if(point_y > TOUCH_VERTICAL_Y) 
         data->point.y = 0;
@@ -178,6 +185,7 @@ bool cst816_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->key = LV_KEY_HOME;
     }
 
-    // ESP_LOGI(TAG, "gestureID %x, points %d, event %d X=%u Y=%u", gestureID, points, event, data->point.x, data->point.y);
+    // printf("%u,%u\n",data->point.x, data->point.y);
+
     return false;
 }
