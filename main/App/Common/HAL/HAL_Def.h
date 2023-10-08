@@ -66,8 +66,9 @@ namespace HAL
         uint16_t max_power;
         uint16_t set_voltage;
         uint16_t set_current;
-        uint16_t get_voltage;
-        uint16_t get_current;
+        float get_power; //mW
+        float get_voltage; //mV
+        float get_current; //mA
         PowerPD_type_t pd_type;
         PowerPD_cmd_t pd_cmd;
         PowerPD_stt_t pd_stt;

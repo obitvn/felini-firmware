@@ -30,7 +30,7 @@ ring_buffer_t rxuart_ring_buffer;
 
 static const char *TAG = "UART TEST";
 
-#define BUF_SIZE (2048)
+#define BUF_SIZE (1024)
 
 uint8_t rxdata[BUF_SIZE];
 uint32_t rxdata_len;

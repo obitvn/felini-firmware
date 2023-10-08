@@ -103,11 +103,13 @@ void PowerSupply::Update(lv_timer_t *timer)
     HAL::PowerPD_Info_t pd;
     PowerSupply *instance = (PowerSupply *)timer->user_data;
     Model.GetPDInfo(&pd);
-    printf("upd pdate vol %d\n ccurrent %d", pd.get_voltage, pd.get_current);
+    // printf("upd pdate vol %d\n ccurrent %d\n", pd.get_voltage, pd.get_current);
+    
     if(!setup)
     {
         lv_spinbox_set_value(instance->View.ui.voltage.cont, pd.get_voltage);
         lv_spinbox_set_value(instance->View.ui.current.cont, pd.get_current);
+        lv_label_set_text_fmt(instance->View.ui.power.cont, "%.2f W", pd.get_power);
     }
 }
 
@@ -175,7 +177,7 @@ void PowerSupply::onEvent(lv_event_t *event)
                 lv_obj_clear_state(instance->View.ui.current.cont, LV_STATE_FOCUSED);
                 lv_label_set_text_fmt(instance->View.ui.set_volt.cont, "%.3f", (float)((float)instance->volt.value / 1000));
                 lv_label_set_text_fmt(instance->View.ui.set_amp.cont, "%.1f", (float)(instance->current.value / 10));
-                lv_label_set_text_fmt(instance->View.ui.status.cont, "ATIVATE");
+                lv_label_set_text_fmt(instance->View.ui.status.cont, "ACTIVATE");
                 lv_obj_set_style_text_color(instance->View.ui.status.cont, lv_color_hex(0x15CC34), LV_PART_MAIN | LV_STATE_DEFAULT);
             }
             else

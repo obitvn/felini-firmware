@@ -201,9 +201,9 @@ void AppLumiaView::CreateItemList(const char *app_src, lv_obj_t *parent, const c
     lv_obj_set_align(label, LV_ALIGN_LEFT_MID);
     lv_obj_add_flag(icon, LV_OBJ_FLAG_ADV_HITTEST);
     lv_obj_clear_flag(icon, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_style_bg_color(icon, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(icon, lv_color_hex(0x056cff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(icon, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(icon, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(icon, lv_color_hex(0x056cff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_opa(icon, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(icon, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 

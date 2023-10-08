@@ -85,7 +85,9 @@ void PowerSupplyModel::GetPDInfo(HAL::PowerPD_Info_t *pd)
         return;
     }
     pd->get_voltage = ina.voltage*1000;
-    pd->get_current = ina.current*1000;
+    pd->get_current = ina.current/1000;
+    pd->get_power   = ina.power/1000;
+    
 }
 
 int PowerSupplyModel::onTimer(Account *account)

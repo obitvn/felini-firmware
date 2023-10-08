@@ -235,7 +235,10 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_style_text_opa(ui_LbCurrentSet, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LbCurrentSet, ResourcePool::GetFont("sf_compact_medium_16"), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-
+    lv_obj_clear_state(ui.voltage.cont, LV_STATE_FOCUSED);
+    lv_obj_clear_state(ui.current.cont, LV_STATE_FOCUSED);
+    lv_label_set_text_fmt(ui.status.cont, "DEATIVATE");
+    lv_obj_set_style_text_color(ui.status.cont, lv_color_hex(0xe5534b), LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void PowerSupplyView::FocusEditLabel(lv_obj_t *set, lv_obj_t *label, uint8_t state, int *div)
