@@ -4,6 +4,8 @@
 
 using namespace Page;
 
+bool setup = false;
+
 PowerSupply::PowerSupply()
 {
 }
@@ -51,7 +53,7 @@ void PowerSupply::onViewLoad()
     PowerSupplyView::item_t *item_grp = ((PowerSupplyView::item_t *)&View.ui);
     for (int i = 0; i < sizeof(View.ui) / sizeof(PowerSupplyView::item_t); i++)
     {
-        AttachEvent(item_grp[i].button);
+        AttachEvent(item_grp[i].cont);
     }
 
     // AttachEvent((View.ui.slider.button));
@@ -96,17 +98,23 @@ void PowerSupply::AttachEvent(lv_obj_t *obj)
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
 }
 
-void PowerSupply::Update()
+void PowerSupply::Update(lv_timer_t *timer)
 {
     HAL::PowerPD_Info_t pd;
+    PowerSupply *instance = (PowerSupply *)timer->user_data;
     Model.GetPDInfo(&pd);
     printf("upd pdate vol %d\n", pd.get_voltage);
+    if(!setup)
+    {
+        lv_spinbox_set_value(instance->View.ui.voltage.cont, pd.get_voltage);
+        lv_spinbox_set_value(instance->View.ui.current.cont, pd.get_current);
+    }
 }
 
 void PowerSupply::onTimer(lv_timer_t *timer)
 {
     PowerSupply *instance = (PowerSupply *)timer->user_data;
-    instance->Update();
+    instance->Update(timer);
 }
 
 
@@ -136,95 +144,52 @@ void PowerSupply::onEvent(lv_event_t *event)
         }
     }
 
-    if(obj == instance->View.ui.spin.button)
+    if (obj == instance->View.ui.voltage.cont)
     {
         if (code == LV_EVENT_VALUE_CHANGED)
         {
-            float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
-            printf("value change %f\r\n", level);
-            switch (instance->config.status)
-            {
-                case PowerSupply::PD_SET_CURRENT:
-                {
-                    lv_label_set_text_fmt(instance->View.ui.current.set, "%.3f", (float)(level / 1000));
-                    instance->current.value =  (float)(level / 1000);
-                    break;
-                }
-                case PowerSupply::PD_SET_VOLT:
-                {
-                    lv_label_set_text_fmt(instance->View.ui.voltage.set, "%.3f", (float)(level / 1000));
-                    instance->volt.value = (float)(level / 1000);
-                    break;
-                }
-                case PowerSupply::PD_SET_POWER_ON:
-                {
-                    printf("power on \r\n");
-                    break;
-                }
-                default:
-                    lv_spinbox_set_value(instance->View.ui.spin.button, 0);
-                    break;
-            }
+            instance->volt.value = lv_spinbox_get_value(obj);
         }
     }
 
-    if(obj == instance->View.ui.power.button)
+    if (obj == instance->View.ui.current.cont)
+    {
+        if (code == LV_EVENT_VALUE_CHANGED)
+        {
+            instance->current.value = lv_spinbox_get_value(obj);
+        }
+    }
+
+    if(obj == instance->View.ui.power_btn.cont)
     {
         if (code == LV_EVENT_PRESSED)
         {
             instance->Model.PDSetUp(instance->volt.value, instance->current.value, instance->power.btn_state, PowerSupplyModel::PD_PDM_ON_OFF);
             if (instance->power.btn_state)
             {
-                instance->config.status = PowerSupply::PD_SET_POWER_ON;
-                lv_label_set_text_fmt(instance->View.ui.power.set, "ATIVATE");
-                lv_obj_set_style_text_color(instance->View.ui.power.set, lv_color_hex(0x15CC34), LV_PART_MAIN | LV_STATE_DEFAULT);
+                setup = false;
+                instance->Model.PDSetUp(instance->volt.value, instance->current.value, false, PowerSupplyModel::PD_PDM_ON_CONFIG);
+                instance->Model.PDSetUp(instance->volt.value, instance->current.value, true, PowerSupplyModel::PD_PDM_ON_OFF);
+                // printf("volt %d, cur %ld\n", instance->volt.value, instance->current.value);
+                lv_obj_clear_state(instance->View.ui.voltage.cont, LV_STATE_FOCUSED);
+                lv_obj_clear_state(instance->View.ui.current.cont, LV_STATE_FOCUSED);
+                lv_label_set_text_fmt(instance->View.ui.set_volt.cont, "%.3f", (float)((float)instance->volt.value / 1000));
+                lv_label_set_text_fmt(instance->View.ui.set_amp.cont, "%.1f", (float)(instance->current.value / 10));
+                lv_label_set_text_fmt(instance->View.ui.status.cont, "ATIVATE");
+                lv_obj_set_style_text_color(instance->View.ui.status.cont, lv_color_hex(0x15CC34), LV_PART_MAIN | LV_STATE_DEFAULT);
             }
             else
             {
+                setup = true;
                 instance->config.status = PowerSupply::PD_SET_RELEASED;
-                lv_label_set_text_fmt(instance->View.ui.power.set, "DEATIVATE");
-                lv_obj_set_style_text_color(instance->View.ui.power.set, lv_color_hex(0xe5534b), LV_PART_MAIN | LV_STATE_DEFAULT);
+                lv_label_set_text_fmt(instance->View.ui.status.cont, "DEATIVATE");
+                lv_obj_set_style_text_color(instance->View.ui.status.cont, lv_color_hex(0xe5534b), LV_PART_MAIN | LV_STATE_DEFAULT);
+                instance->Model.PDSetUp(0, 0, false, PowerSupplyModel::PD_PDM_ON_OFF);
             }
             instance->power.btn_state = !instance->power.btn_state;
         }
     }
-    if (obj == instance->View.ui.current.button)
-    {
-        if (code == LV_EVENT_PRESSED)
-        {
-            instance->current.btn_state = !instance->current.btn_state;
-            instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, 0, &instance->volt.div);
-            instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, instance->current.btn_state, &instance->current.div);
-            if (instance->current.btn_state > 0)
-            {
-                instance->config.status = PowerSupply::PD_SET_CURRENT;
-            }
-            else
-            {
-                float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
-                lv_label_set_text_fmt(instance->View.ui.current.label, "%.3f", (float)(instance->current.value));
-                instance->config.status = PowerSupply::PD_SET_RELEASED;
-            }
-        }
-    }
-    if (obj == instance->View.ui.voltage.button)
-    {
-        if (code == LV_EVENT_PRESSED)
-        {
-            instance->volt.btn_state = !instance->volt.btn_state;
-            instance->View.FocusEditLabel(instance->View.ui.current.set, instance->View.ui.current.label, 0, &instance->current.div);
-            instance->View.FocusEditLabel(instance->View.ui.voltage.set, instance->View.ui.voltage.label, instance->volt.btn_state, &instance->volt.div);
-            if (instance->volt.btn_state > 0)
-            {
-                instance->config.status = PowerSupply::PD_SET_VOLT;
-            }
-            else
-            {
-                float level = (float)lv_spinbox_get_value(instance->View.ui.spin.button);
-                lv_label_set_text_fmt(instance->View.ui.voltage.label, "%.3f", (float)(instance->volt.value));
-                instance->config.status = PowerSupply::PD_SET_RELEASED;
-            }
-        }
-    }
+
+
 
 }

@@ -34,7 +34,7 @@ void PowerSupplyModel::Deinit()
     account->Notify("INA2xxHardware", &ina_info, sizeof(ina_info));
 }
 
-void PowerSupplyModel::PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode)
+void PowerSupplyModel::PDSetUp(uint16_t voltage, uint16_t current, bool powctrl, PDSetUp_mode_t mode)
 {
     HAL::PowerPD_Info_t info_val;
     
@@ -44,15 +44,24 @@ void PowerSupplyModel::PDSetUp(float voltage, float current, bool powctrl, PDSet
             if (powctrl)
             {
                 info_val.pd_cmd = HAL::PD_PDO_ON;
-                printf("volt %.3f, current %.3f\r\n", voltage, current);
-                info_val.set_voltage = voltage*1000;
-                info_val.set_current = current*1000;
+                // printf("volt %.3f, current %.3f\r\n", voltage, current);
+                info_val.set_voltage = voltage;
+                info_val.set_current = current;
             }
             else
             {
                 info_val.pd_cmd = HAL::PD_PDO_OFF;
             }
             break;
+        case PD_PDM_ON_CONFIG:
+            {
+                info_val.pd_cmd = HAL::PD_PDO_SETUP;
+                // printf("volt %.3f, current %.3f\r\n", voltage, current);
+                info_val.set_voltage = voltage;
+                info_val.set_current = current;
+                break;
+            }
+
         
         default:
             break;

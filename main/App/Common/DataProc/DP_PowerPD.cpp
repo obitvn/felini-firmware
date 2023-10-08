@@ -55,8 +55,11 @@ static int onEvent(Account* account, Account::EventParam_t* param)
             break;
 
         case HAL::PD_PDO_ON:
-            HAL::PowerPD_Config(info);
             HAL::PowerPD_PowerOn();
+            break;
+
+        case HAL::PD_PDO_SETUP:
+            HAL::PowerPD_Config(info);
             break;
 
         default:

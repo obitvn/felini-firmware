@@ -23,7 +23,8 @@ public:
     void Deinit();
     void Update(HAL::PowerPD_Info_t *pd);
     void GetPDInfo(HAL::PowerPD_Info_t *pd);
-    void PDSetUp(float voltage, float current, bool powctrl, PDSetUp_mode_t mode);
+    void PDSetUp(uint16_t voltage, uint16_t current, bool powctrl, PDSetUp_mode_t mode);
+
 public:
     HAL::PowerPD_Info_t PDInfo;
 

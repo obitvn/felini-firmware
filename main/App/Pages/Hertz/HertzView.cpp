@@ -101,7 +101,7 @@ void HertzView::Create(lv_obj_t *root)
     lv_spinbox_set_digit_format(duty_spinbox, 2, 0);
     lv_spinbox_set_range(duty_spinbox, 0, 99);
     lv_spinbox_set_step(duty_spinbox, 1);
-    lv_spinbox_set_value(freq_spinbox, 50);
+    lv_spinbox_set_value(duty_spinbox, 50);
     lv_obj_set_style_bg_color(duty_spinbox, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(duty_spinbox, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(duty_spinbox, LV_FONT_MONTSERRAT_30, LV_PART_INDICATOR);

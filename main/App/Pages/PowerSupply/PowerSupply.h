@@ -25,7 +25,7 @@ public:
     virtual void onViewDidUnload();
 
 private:
-    void Update();
+    void Update(lv_timer_t *timer);
     void AttachEvent(lv_obj_t *obj);
     void ViewUpdatePos(lv_event_t *event);
     static void onTimer(lv_timer_t* timer);
@@ -67,7 +67,7 @@ private:
     {
         /* data */
         uint8_t btn_state;
-        float value;
+        uint16_t value;
         uint16_t minval;
         uint16_t maxval;
         uint16_t step;
@@ -80,7 +80,7 @@ private:
     item_state current;
     item_state power;
     item_state confirm;
-    item_state slider;
+
 
     lv_timer_t *timer;
 
