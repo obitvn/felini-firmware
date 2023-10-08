@@ -108,38 +108,20 @@ void Hertz::onEvent(lv_event_t *event)
 
     if(obj == instance->View.ui.frequency.cont)
     {
-        // if (code == LV_EVENT_VALUE_CHANGED)
-        // {
-        //     float val = (float)lv_spinbox_get_value(instance->View.ui.spin.btn);
-        //     printf("value change %f\r\n", val);
-        //     if (instance->View.ui.frequency.state)
-        //     {
-        //         sfreq = val;
-        //         if (val > 1000000)
-        //         {
-        //             val = val / 1000000;
-        //             lv_label_set_text_fmt(instance->View.ui.frequency.cont, "%.0f", (float)(val/ 1000000));
-        //             lv_label_set_text(instance->View.ui.unit.cont, "Mhz");
-        //         }
-        //         else if (val > 1000)
-        //         {
-        //             val = val / 1000;
-        //             lv_label_set_text_fmt(instance->View.ui.frequency.cont, "%.0f", (float)( val / 1000));
-        //             lv_label_set_text(instance->View.ui.unit.cont, "Khz");
-        //         }
-        //         else
-        //         {
-        //             lv_label_set_text_fmt(instance->View.ui.frequency.cont, "%.0f", (float)(val));
-        //             lv_label_set_text(instance->View.ui.unit.cont, "Hz");
-        //         }
-        //     }
-        //     else if (instance->View.ui.duty.state)
-        //     {
-        //         sduty = val;
-        //         lv_label_set_text_fmt(instance->View.ui.duty.cont, "%.0f%%", val);
-        //     }
-        //     instance->Model.Update(sfreq, sduty);
-        // }
+        if (code == LV_EVENT_VALUE_CHANGED)
+        {
+            sfreq = lv_spinbox_get_value(obj);
+            instance->Model.Update(sfreq, sduty);
+        }
+    }
+
+    if (obj == instance->View.ui.duty.cont)
+    {
+        if (code == LV_EVENT_VALUE_CHANGED)
+        {
+            sduty = lv_spinbox_get_value(obj);
+            instance->Model.Update(sfreq, sduty);
+        }
     }
 
     if (obj == instance->root)
