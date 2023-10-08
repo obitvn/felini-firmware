@@ -15,7 +15,8 @@ Dự án được xây dựng dựa trên esp-idf 5.1 và khung lvgl 8.x và vsc
 
 ## 2. Phần mềm
 
-
+Các tính năng trên felini hoạt động độc lập dưới dạng các ứng dụng riêng biệt, được phân tách bởi mô hình MVC và tách biệt phần cứng qua lớp phần cứng trừ tượng HAL.
+Thông tin chi tiết về dự án có trên [Hackaday](https://hackaday.io/project/192130-felini-revolutionary-pocket-sized-electronic-lab)
 
 ## 3. Sự nhìn nhận
 
