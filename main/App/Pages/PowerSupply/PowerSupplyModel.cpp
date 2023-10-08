@@ -79,6 +79,7 @@ void PowerSupplyModel::GetPDInfo(HAL::PowerPD_Info_t *pd)
     memset(pd, 0, sizeof(HAL::PowerPD_Info_t));
     HAL::INA2xx_Info_t ina;
     memset(&ina, 0, sizeof(HAL::INA2xx_Info_t));
+    ina.cmd = HAL::INA_UPDATE;
     if (account->Pull("INA2xxHardware", &ina, sizeof(HAL::INA2xx_Info_t)) != Account::ERROR_NONE)
     {
         return;

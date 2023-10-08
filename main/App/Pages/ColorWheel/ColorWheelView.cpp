@@ -57,7 +57,7 @@ void ColorWheelView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_MapPos, -99);
     lv_obj_set_y(ui_MapPos, 75);
     lv_obj_set_align(ui_MapPos, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_MapPos, "ROW2");
+    lv_label_set_text(ui_MapPos, "ROW1");
     lv_obj_set_style_text_color(ui_MapPos, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_MapPos, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 

@@ -103,8 +103,9 @@ void HAL::RCServo_SetFreq(RCServo_Info_t *info)
     freq_gen = true;
 
 
-    if(info->frequency <1000) info->frequency = 1000;
-    info->duty = 50;
+    if(info->frequency <1000) info->frequency = 2000;
+    if(info->duty < 0) info->duty = 50 ;
+
 
     uint32_t duty_res = 16384 * (info->duty/100);
 

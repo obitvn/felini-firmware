@@ -70,9 +70,9 @@ void HAL::IntervalTime_GetInfo(IntervalTime_Info_t *info)
 
 void HAL::IntervalTime_Deinit()
 {
-    frequency_deinit();
     if (interval_time_task_handle != NULL)
     {
         vTaskDelete(interval_time_task_handle);
     }
+    frequency_deinit();
 }

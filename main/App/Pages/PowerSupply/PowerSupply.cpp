@@ -103,7 +103,7 @@ void PowerSupply::Update(lv_timer_t *timer)
     HAL::PowerPD_Info_t pd;
     PowerSupply *instance = (PowerSupply *)timer->user_data;
     Model.GetPDInfo(&pd);
-    printf("upd pdate vol %d\n", pd.get_voltage);
+    printf("upd pdate vol %d\n ccurrent %d", pd.get_voltage, pd.get_current);
     if(!setup)
     {
         lv_spinbox_set_value(instance->View.ui.voltage.cont, pd.get_voltage);
