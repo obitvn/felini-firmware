@@ -45,7 +45,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
             account->SetTimerEnable(1);
             break;
         case HAL::INA_UPDATE:
-            printf("INA update value");
+            // printf("INA update value");
             HAL::INA2xx_GetInfo(info);
             break;
         case HAL::INA_STOP:

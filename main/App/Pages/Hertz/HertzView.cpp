@@ -76,7 +76,7 @@ void HertzView::Create(lv_obj_t *root)
     lv_spinbox_set_digit_format(freq_spinbox, 5, 0);
     lv_spinbox_set_range(freq_spinbox, 0, 99999);
     lv_spinbox_set_step(freq_spinbox, 1);
-    lv_spinbox_set_value(freq_spinbox, 1000);
+    lv_spinbox_set_value(freq_spinbox, 5000);
     lv_obj_set_style_bg_color(freq_spinbox, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(freq_spinbox, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(freq_spinbox, LV_FONT_MONTSERRAT_30, LV_PART_INDICATOR);
@@ -120,7 +120,7 @@ void HertzView::Create(lv_obj_t *root)
     lv_obj_set_x(ui_Label5, -40);
     lv_obj_set_y(ui_Label5, -12);
     lv_obj_set_align(ui_Label5, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label5, "kHz");
+    lv_label_set_text(ui_Label5, "Hz");
     lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0x2C9CD9), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 

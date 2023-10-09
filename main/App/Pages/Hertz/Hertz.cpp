@@ -30,7 +30,7 @@ void Hertz::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    sfreq = 1000;
+    sfreq = 5000;
     sduty = 50;
 
     lv_obj_set_user_data(root, this);

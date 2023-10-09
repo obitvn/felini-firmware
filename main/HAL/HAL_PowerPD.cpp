@@ -13,6 +13,7 @@
 class PD_UFP_c PD_UFP;
 
 TaskHandle_t usb_pd_task_handle = NULL;
+static float vol_init= 5;
 
 extern "C"
 {
@@ -24,16 +25,16 @@ extern "C"
         gpio_set_level((gpio_num_t)45, 0);
 
         // PD_UFP.init(PD_POWER_OPTION_MAX_20V);
-        PD_UFP.init_PPS(PPS_V(5), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);
+        PD_UFP.init_PPS(PPS_V(vol_init), PPS_A(2.0), PD_POWER_OPTION_MAX_POWER);
         while (1)
         {
             /* code */
             PD_UFP.run();
-            // if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
-            // {
-            //     ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
-            //     PD_UFP.get_power_info(NULL);
-            // }
+            if (PD_UFP.get_voltage() >= PD_V(5.0) && PD_UFP.get_current() >= PD_A(1.5))
+            {
+                // ESP_LOGI(TAG, "volt %d, current %d\n", PD_UFP.get_voltage() * 50, PD_UFP.get_current() * 10);
+                // PD_UFP.get_power_info(NULL);
+            }
             vTaskDelay(5);
         }
         }
@@ -42,7 +43,7 @@ extern "C"
 void HAL::PowerPD_Init()
 {
     ESP_LOGI(TAG, "power_pd_c init \r\n");
-    xTaskCreate(usb_pd_task, "usb_pd_task", 1024 * 8, NULL, 10, &usb_pd_task_handle);
+    xTaskCreate(usb_pd_task, "usb_pd_task", 1024 * 8, NULL, 8, &usb_pd_task_handle);
 }
 
 void HAL::PowerPD_Deinit()
@@ -83,6 +84,13 @@ void HAL::PowerPD_Update(PowerPD_Info_t *pd_info)
 void HAL::PowerPD_Config(PowerPD_Info_t *pd_info)
 {
     printf("config %d v %d A \n", pd_info->set_voltage / 1000, pd_info->set_current / 1000);
+    vol_init = pd_info->set_voltage / 1000;
+
+    if(pd_info->set_current > 3000) pd_info->set_current = 3000;
+    if(pd_info->set_current < 0) pd_info->set_current = 3000;
+
+    if(pd_info->set_voltage < 3000) pd_info->set_current = 5000;
+
     PD_UFP.set_PPS(PPS_V(pd_info->set_voltage/1000), PPS_A(pd_info->set_current/1000));
 }
 

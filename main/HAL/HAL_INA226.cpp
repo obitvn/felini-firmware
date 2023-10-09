@@ -47,7 +47,7 @@ void HAL::INA2xx_GetInfo(INA2xx_Info_t *info)
     info->current = ina226.getCurrent_mA();
     info->power = ina226.getBusPower();
 
-    printf("volt %f cur %f pow %f\n", info->voltage, info->current, info->power);
+    // printf("volt %f cur %f pow %f\n", info->voltage, info->current, info->power);
 }
 
 void HAL::INA2xx_Deinit()

@@ -34,6 +34,8 @@ void PowerListModel::PDCMD(float voltage, float current, bool powctrl)
 
 
     account->Notify("PowerPD", &info_val, sizeof(HAL::PowerPD_Info_t));
+    info_val.pd_cmd = HAL::PD_PDO_SETUP;
+    account->Notify("PowerPD", &info_val, sizeof(HAL::PowerPD_Info_t));
 }
 
 void PowerListModel::Deinit()

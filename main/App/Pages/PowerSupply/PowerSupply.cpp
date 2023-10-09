@@ -4,7 +4,7 @@
 
 using namespace Page;
 
-bool setup = false;
+bool setup = true;
 
 PowerSupply::PowerSupply()
 {
@@ -55,6 +55,10 @@ void PowerSupply::onViewLoad()
     {
         AttachEvent(item_grp[i].cont);
     }
+
+    setup = true;
+    lv_obj_clear_state(View.ui.voltage.cont, LV_STATE_FOCUSED);
+    lv_obj_clear_state(View.ui.current.cont, LV_STATE_FOCUSED);
 
     // AttachEvent((View.ui.slider.button));
     // AttachEvent(View.ui.spin.button);
@@ -139,10 +143,10 @@ void PowerSupply::onEvent(lv_event_t *event)
             {
                 instance->Manager->Pop();
             }
-            else if (LV_DIR_LEFT == dir)
-            {
-                instance->Manager->Push("Pages/PowerList");
-            }
+            // else if (LV_DIR_LEFT == dir)
+            // {
+            //     instance->Manager->Push("Pages/PowerList");
+            // }
         }
     }
 

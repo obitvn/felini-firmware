@@ -42,6 +42,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_obj_set_align(volt_spinbox, LV_ALIGN_CENTER);
     lv_spinbox_set_digit_format(volt_spinbox, 5, 2);
     lv_spinbox_set_range(volt_spinbox, 0, 99999);
+    lv_spinbox_set_cursor_pos(volt_spinbox, 0);
     lv_spinbox_set_step(volt_spinbox, 1);
     lv_spinbox_set_value(volt_spinbox, 5000);
     lv_obj_set_style_bg_color(volt_spinbox, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -136,6 +137,7 @@ void PowerSupplyView::Create(lv_obj_t *root)
     lv_spinbox_set_digit_format(ampe_spinbox, 2, 1);
     lv_spinbox_set_range(ampe_spinbox, 0, 35);
     lv_spinbox_set_step(ampe_spinbox, 1);
+    lv_spinbox_set_cursor_pos(ampe_spinbox, 0);
     lv_spinbox_set_value(ampe_spinbox, 22);
     lv_obj_set_style_bg_color(ampe_spinbox, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ampe_spinbox, 0, LV_PART_MAIN | LV_STATE_DEFAULT);

@@ -107,10 +107,10 @@ void PowerList::onEvent(lv_event_t *event)
             {
                 instance->Manager->Pop();
             }
-            else if (LV_DIR_LEFT == dir)
-            {
-                instance->Manager->Push("Pages/PowerSupply");
-            }
+            // else if (LV_DIR_LEFT == dir)
+            // {
+            //     instance->Manager->Push("Pages/PowerSupply");
+            // }
         }
         
     }
@@ -131,11 +131,13 @@ void PowerList::onEvent(lv_event_t *event)
                         lv_obj_set_style_bg_color(item_grp[j].btn_cell, lv_color_hex(item_grp[j].color), LV_PART_MAIN | LV_STATE_DEFAULT);
                     }
                     item_grp[i].state = true ;
-                    instance->Model.PDCMD(item_grp[i].volt, 3, true);
+                    instance->Model.PDCMD(item_grp[i].volt, 2, true);
+                    printf("on voltage\n");
                     lv_obj_set_style_bg_color(obj, lv_color_hex(0xff0000), LV_PART_MAIN | LV_STATE_DEFAULT);
                 }
                 else
                 {
+                    printf("offffffffffffff voltage\n");
                     instance->Model.PDCMD(0, 0, false);
                     lv_obj_set_style_bg_color(item_grp[i].btn_cell, lv_color_hex(item_grp[i].color), LV_PART_MAIN | LV_STATE_DEFAULT);
                 }

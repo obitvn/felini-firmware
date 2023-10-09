@@ -17,7 +17,7 @@
 
 #define TAG "frequency_counter"
 
-#define PULSE_GPIO_INPUT 1
+#define PULSE_GPIO_INPUT 2
 #define PULSE_PCNT_HIGH_LIMIT 32000
 #define PULSE_SAMPLE_TIME (1000*1000)
 
@@ -135,8 +135,8 @@ uint32_t frequency_hz(void)
         count++;
         if (count > (PULSE_SAMPLE_TIME / 10000 + 2))
         {
-            pcnt_unit_stop(pcnt_unit);
-            pcnt_unit_disable(pcnt_unit);
+            // pcnt_unit_stop(pcnt_unit);
+            // pcnt_unit_disable(pcnt_unit);
             // pcnt_unit_get_count(pcnt_unit, &pulse_count);
             pulse_count = 0;
             break;

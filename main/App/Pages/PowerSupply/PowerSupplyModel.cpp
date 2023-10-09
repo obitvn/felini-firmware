@@ -56,7 +56,7 @@ void PowerSupplyModel::PDSetUp(uint16_t voltage, uint16_t current, bool powctrl,
         case PD_PDM_ON_CONFIG:
             {
                 info_val.pd_cmd = HAL::PD_PDO_SETUP;
-                // printf("volt %.3f, current %.3f\r\n", voltage, current);
+                printf("volt %d, current %d\r\n", voltage, current);
                 info_val.set_voltage = voltage;
                 info_val.set_current = current;
                 break;

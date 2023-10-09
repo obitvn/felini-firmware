@@ -9,6 +9,10 @@
 #include "driver/mcpwm_prelude.h"
 #include "driver/ledc.h"
 
+#include "driver/rmt_tx.h"
+#include "musical_score_encoder.h"
+#include <string.h>
+
 static const char *TAG = "example";
 
 // Please consult the datasheet of your servo before changing the following parameters
@@ -27,6 +31,7 @@ mcpwm_oper_handle_t oper = NULL;
 mcpwm_gen_handle_t generator = NULL;
 
 bool freq_gen = false;
+static bool set_freq = false;
 
 static inline uint32_t example_angle_to_compare(int angle)
 {
@@ -92,15 +97,22 @@ void HAL::RCServo_Init()
 
     // int angle = 0;
     // int step = 2;
+    set_freq = false;
 }
 void HAL::RCServo_GetInfo(RCServo_Info_t *info)
 {
 
 }
 
+
+#define RMT_BUZZER_RESOLUTION_HZ 1000000 // 1MHz resolution
+
+
+
 void HAL::RCServo_SetFreq(RCServo_Info_t *info)
 {
     freq_gen = true;
+
 
     printf("set freq %ld, duty %d\n", info->frequency, info->duty);
 
@@ -110,25 +122,79 @@ void HAL::RCServo_SetFreq(RCServo_Info_t *info)
 
     uint32_t duty_res = 16384 * (info->duty/100);
 
-    // Prepare and then apply the LEDC PWM timer configuration
-    ledc_timer_config_t ledc_timer = {
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .duty_resolution = LEDC_TIMER_14_BIT,
-        .timer_num = LEDC_TIMER_0,
-        .freq_hz = info->frequency, // Set output frequency
-        .clk_cfg = LEDC_AUTO_CLK};
-    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+    // // Prepare and then apply the LEDC PWM timer configuration
+    // ledc_timer_config_t ledc_timer = {
+    //     .speed_mode = LEDC_LOW_SPEED_MODE,
+    //     .duty_resolution = LEDC_TIMER_14_BIT,
+    //     .timer_num = LEDC_TIMER_0,
+    //     .freq_hz = info->frequency, // Set output frequency
+    //     .clk_cfg = LEDC_AUTO_CLK};
+    // ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
 
-    // Prepare and then apply the LEDC PWM channel configuration
-    ledc_channel_config_t ledc_channel = {
-        .gpio_num = SERVO_PULSE_GPIO,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel = LEDC_CHANNEL_0,
-        .intr_type = LEDC_INTR_DISABLE,
-        .timer_sel = LEDC_TIMER_0,
-        .duty = info->duty, // Set duty to 0%
-        .hpoint = 0};
-    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+    // // Prepare and then apply the LEDC PWM channel configuration
+    // ledc_channel_config_t ledc_channel = {
+    //     .gpio_num = SERVO_PULSE_GPIO,
+    //     .speed_mode = LEDC_LOW_SPEED_MODE,
+    //     .channel = LEDC_CHANNEL_0,
+    //     .intr_type = LEDC_INTR_DISABLE,
+    //     .timer_sel = LEDC_TIMER_0,
+    //     .duty = info->duty, // Set duty to 0%
+    //     .hpoint = 0};
+    // ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+    /**
+     * @brief Musical Score: Beethoven's Ode to joy
+     */
+
+
+    static buzzer_musical_score_t score;
+
+    ESP_LOGI(TAG, "Create RMT TX channel");
+    rmt_channel_handle_t buzzer_chan = NULL;
+    rmt_tx_channel_config_t tx_chan_config = {
+        .gpio_num = (gpio_num_t)1,
+
+        .clk_src = RMT_CLK_SRC_DEFAULT, // select source clock
+        .resolution_hz = RMT_BUZZER_RESOLUTION_HZ,
+
+        .mem_block_symbols = 64,
+        .trans_queue_depth = 10, // set the maximum number of transactions that can pend in the background
+    };
+    
+
+    ESP_LOGI(TAG, "Install musical score encoder");
+    rmt_encoder_handle_t score_encoder = NULL;
+    musical_score_encoder_config_t encoder_config = {
+        .resolution = RMT_BUZZER_RESOLUTION_HZ};
+
+
+
+    ESP_LOGI(TAG, "Enable RMT TX channel");
+
+    if (set_freq)
+    {
+        rmt_del_channel(buzzer_chan);
+    }
+
+    ESP_ERROR_CHECK(rmt_new_tx_channel(&tx_chan_config, &buzzer_chan));
+    ESP_ERROR_CHECK(rmt_new_musical_score_encoder(&encoder_config, &score_encoder));
+    ESP_ERROR_CHECK(rmt_enable(buzzer_chan));
+        
+
+
+    ESP_LOGI(TAG, "Playing Beethoven's Ode to joy...");
+
+    score.freq_hz =info->frequency;
+    score.duration_ms = 0;
+
+
+    rmt_transmit_config_t tx_config = {
+            .loop_count = -1,
+        };
+
+
+    ESP_ERROR_CHECK(rmt_transmit(buzzer_chan, score_encoder, &score, sizeof(buzzer_musical_score_t), &tx_config));
+
+    set_freq = true;
 }
 
 void HAL::RCServo_Update(RCServo_Info_t *info)
