@@ -17,7 +17,7 @@
 
 #define TAG "frequency_counter"
 
-#define PULSE_GPIO_INPUT 2
+#define PULSE_GPIO_INPUT 1
 #define PULSE_PCNT_HIGH_LIMIT 32000
 #define PULSE_SAMPLE_TIME (1000*1000)
 
@@ -83,6 +83,7 @@ static void oneshot_timer_callback(void *arg)
 {
 
     esp_timer_handle_t periodic_timer_handle = (esp_timer_handle_t)arg;
+    timer_mes = false;
     pcnt_unit_stop(pcnt_unit);
     uint32_t pcount;
     pcnt_unit_get_count(pcnt_unit, &pcount);
@@ -125,24 +126,25 @@ uint32_t frequency_hz(void)
     uint32_t count=0;
     timer_mes = true;
     pulse_count = 0;
-    pcnt_unit_enable(pcnt_unit);
+    // pcnt_unit_enable(pcnt_unit);
     pcnt_unit_clear_count(pcnt_unit);
     esp_timer_start_once(oneshot_timer, PULSE_SAMPLE_TIME);
     pcnt_unit_start(pcnt_unit);
     while (timer_mes)
     {
         vTaskDelay(10);
-        count++;
-        if (count > (PULSE_SAMPLE_TIME / 10000 + 2))
-        {
-            // pcnt_unit_stop(pcnt_unit);
-            // pcnt_unit_disable(pcnt_unit);
-            // pcnt_unit_get_count(pcnt_unit, &pulse_count);
-            pulse_count = 0;
-            break;
-        } 
+        // count++;
+        // if (count > (PULSE_SAMPLE_TIME / 10000*2))
+        // {
+        //     // pcnt_unit_stop(pcnt_unit);
+        //     // pcnt_unit_disable(pcnt_unit);
+        //     // pcnt_unit_get_count(pcnt_unit, &pulse_count);
+        //     printf("error\n");
+        //     pulse_count = 0;
+        //     break;
+        // } 
     }
-    frequency = pulse_count *((float)(1000000 / PULSE_SAMPLE_TIME )* 2) ;
+    frequency = pulse_count *((float)(1000000 / PULSE_SAMPLE_TIME )* 0.5) ;
     pulse_count = 0;
     count = 0;
     printf("caculate frequency %ld\r\n", frequency);
