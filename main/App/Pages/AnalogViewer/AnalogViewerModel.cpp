@@ -6,10 +6,15 @@ void AnalogViewerModel::Init()
 {
     account = new Account("AnalogViewerModel", DataProc::Center(), 0, this);
     account->Subscribe("INA2xxHardware");
+    account->Subscribe("PowerPD");
     account->SetEventCallback(onEvent);
     HAL::INA2xx_Info_t ina_info;
     ina_info.cmd = HAL::INA_START;
     account->Notify("INA2xxHardware", &ina_info, sizeof(ina_info));
+
+    HAL::PowerPD_Info_t info_val;
+    info_val.pd_cmd = HAL::PD_PDO_ON;
+    account->Notify("PowerPD", &info_val, sizeof(info_val));
 }
 
 void AnalogViewerModel::Deinit()
@@ -17,6 +22,10 @@ void AnalogViewerModel::Deinit()
     HAL::INA2xx_Info_t ina_info;
     ina_info.cmd = HAL::INA_STOP;
     account->Notify("INA2xxHardware", &ina_info, sizeof(ina_info));
+
+    HAL::PowerPD_Info_t info_val;
+    info_val.pd_cmd = HAL::PD_PDO_OFF;
+    account->Notify("PowerPD", &info_val, sizeof(info_val));
 }
 
 void AnalogViewerModel::GetPDInfo(HAL::INA2xx_Info_t *ina)

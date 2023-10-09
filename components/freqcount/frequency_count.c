@@ -146,7 +146,7 @@ uint32_t frequency_hz(void)
     pulse_count = 0;
     count = 0;
     printf("caculate frequency %ld\r\n", frequency);
-    pcnt_unit_stop(pcnt_unit);
+    // pcnt_unit_stop(pcnt_unit);
 
     return frequency;
 }

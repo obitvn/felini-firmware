@@ -35,6 +35,7 @@ void HertzModel::Update(uint32_t frequency, uint8_t duty)
     info_val.frequency = frequency;
     info_val.duty = duty;
     info_val.mode = 1;
+    printf("herzt set freq %ld, duty %d\n", frequency, duty);
     account->Notify("RCServoHardware", &info_val, sizeof(info_val));
 }
 

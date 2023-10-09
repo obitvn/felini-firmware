@@ -30,8 +30,8 @@ void Hertz::onViewLoad()
     Model.Init();
     View.Create(root);
 
-    sfreq = 301000;
-    sduty = 1;
+    sfreq = 1000;
+    sduty = 50;
 
     lv_obj_set_user_data(root, this);
     lv_obj_add_event_cb(root, onEvent, LV_EVENT_GESTURE, this);
