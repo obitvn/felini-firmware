@@ -66,6 +66,67 @@ static void disp_init(void)
 }
 
 volatile bool disp_flush_enabled = true;
+volatile uint32_t time_now=0, time_old=0;
+
+const uint8_t frInIdleModeHz[] = {
+    119, // RTNB 00h
+    111, // RTNB 01h
+    105, // RTNB 02h
+    99,  // RTNB 03h
+    94,  // RTNB 04h
+    90,  // RTNB 05h
+    86,  // RTNB 06h
+    82,  // RTNB 07h
+    78,  // RTNB 08h
+    75,  // RTNB 09h
+    72,  // RTNB 0Ah
+    69,  // RTNB 0Bh
+    67,  // RTNB 0Ch
+    64,  // RTNB 0Dh
+    62,  // RTNB 0Eh
+    60,  // RTNB 0Fh
+    58,  // RTNB 10h
+    57,  // RTNB 11h
+    55,  // RTNB 12h
+    53,  // RTNB 13h
+    52,  // RTNB 14h
+    50,  // RTNB 15h
+    49,  // RTNB 16h
+    48,  // RTNB 17h
+    46,  // RTNB 18h
+    45,  // RTNB 19h
+    44,  // RTNB 1Ah
+    43,  // RTNB 1Bh
+    42,  // RTNB 1Ch
+    41,  // RTNB 1Dh
+    40,  // RTNB 1Eh
+    39   // RTNB 1Fh
+};
+
+uint8_t findNearestValueIndex(uint8_t value)
+{
+    uint8_t nearestIndex = 0;
+    uint8_t nearestDifference = abs(value - frInIdleModeHz[0]);
+
+    for (uint8_t i = 1; i < sizeof(frInIdleModeHz) / sizeof(frInIdleModeHz[0]); i++)
+    {
+        uint8_t difference = abs(value - frInIdleModeHz[i]);
+        if (difference < nearestDifference)
+        {
+            nearestIndex = i;
+            nearestDifference = difference;
+        }
+    }
+
+    return nearestIndex;
+}
+
+void spicommand(uint8_t cmd, uint8_t data)
+{
+    lcd.writeCommand(cmd); // Read, issue command
+    lcd.writeData(data);    // Read, issue argument
+
+}
 
 /* Enable updating the screen (the flushing process) when disp_flush() is called
  * by LVGL
@@ -86,11 +147,22 @@ static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_
     uint32_t w = (area->x2 - area->x1 + 1);
     uint32_t h = (area->y2 - area->y1 + 1);
 
+    time_now = lv_tick_get();
+
+    float time_diff = (float)(time_now - time_old)/ 1000;
+    float freq = (1/time_diff);
+
+    // printf("freq %f timediff %f\r\n", freq, time_diff);
+
+    spicommand(0xC6, findNearestValueIndex((uint8_t)freq) +45);
+
     lcd.startWrite();
     lcd.setAddrWindow(area->x1, area->y1, w, h);
     lcd.pushColors((uint16_t *)&color_p->full, w * h, true);
     lcd.endWrite();
     lv_disp_flush_ready(disp_drv);
+
+    time_old = time_now;
 
     /*IMPORTANT!!!
      *Inform the graphics library that you are ready with the flushing*/
