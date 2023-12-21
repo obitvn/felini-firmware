@@ -26,7 +26,6 @@
 #endif
 
 
-
 extern "C"
 {
 

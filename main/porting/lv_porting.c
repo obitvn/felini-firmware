@@ -11,7 +11,7 @@
 #include "lvgl_indev_port.h"
 
 
-#include "axp192.h"
+#include "rk816.h"
 #include "i2c_manager.h"
 
 int32_t i2c_read(void *handle, uint8_t address, uint8_t reg, uint8_t *buffer, uint16_t size)
@@ -23,8 +23,6 @@ int32_t i2c_write(void *handle, uint8_t address, uint8_t reg, const uint8_t *buf
 {
     return i2c_manager_write(I2C_NUM_0, address, reg, buffer, size);
 }
-
-axp192_t axp;
 
 
 
@@ -40,62 +38,8 @@ static void lv_tick_task(void *arg)
 
 void lv_porting_init(void)
 {
-    /* Add pointers to the glue functions. */
-    axp.read = &i2c_read;
-    axp.write = &i2c_write;
-
-    /* You could set the handle here. It can be pointer to anything. */
-    axp.handle = NULL;
-
-    axp192_init(&axp);
-
-    /* Be careful when setting voltages not to brick your board. */
-    axp192_ioctl(&axp, AXP192_DCDC1_SET_VOLTAGE, 0);
-    axp192_ioctl(&axp, AXP192_DCDC2_SET_VOLTAGE, 0);
-    axp192_ioctl(&axp, AXP192_DCDC3_SET_VOLTAGE, 3300);
-    axp192_ioctl(&axp, AXP192_LDOIO0_SET_VOLTAGE, 0);
-    axp192_ioctl(&axp, AXP192_LDO2_SET_VOLTAGE, 3300);
-    axp192_ioctl(&axp, AXP192_LDO3_SET_VOLTAGE, 3300);
-
-    axp192_ioctl(&axp, AXP192_SHUTDOWN_VOLTAGE, 3100);
-
-    axp192_ioctl(&axp, AXP192_DCDC1_DISABLE);
-    axp192_ioctl(&axp, AXP192_DCDC2_DISABLE);
-    axp192_ioctl(&axp, AXP192_DCDC3_ENABLE);
-    axp192_ioctl(&axp, AXP192_LDOIO0_DISABLE);
-    axp192_ioctl(&axp, AXP192_LDO2_ENABLE);
-    axp192_ioctl(&axp, AXP192_LDO3_ENABLE);
-    axp192_ioctl(&axp, AXP192_EXTEN_DISABLE);
-
-    axp192_ioctl(&axp, AXP192_COULOMB_COUNTER_ENABLE);
-
-
-    // for(int i=0; i<10; i++)
-    // {
-    //     float vacin, iacin, vvbus, ivbus, temp, pbat, vts, vbat, icharge, idischarge, vaps, cbat;
-
-    //     /* All ADC registers will be read as floats. */
-    //     axp192_read(&axp, AXP192_ACIN_VOLTAGE, &vacin);
-    //     axp192_read(&axp, AXP192_ACIN_CURRENT, &iacin);
-    //     axp192_read(&axp, AXP192_LDO23_VOLTAGE, &vvbus);
-    //     axp192_read(&axp, AXP192_VBUS_CURRENT, &ivbus);
-    //     axp192_read(&axp, AXP192_TEMP, &temp);
-    //     axp192_read(&axp, AXP192_TS_INPUT, &vts);
-    //     axp192_read(&axp, AXP192_BATTERY_POWER, &pbat);
-    //     axp192_read(&axp, AXP192_BATTERY_VOLTAGE, &vbat);
-    //     axp192_read(&axp, AXP192_CHARGE_CURRENT, &icharge);
-    //     axp192_read(&axp, AXP192_DISCHARGE_CURRENT, &idischarge);
-    //     axp192_read(&axp, AXP192_APS_VOLTAGE, &vaps);
-    //     axp192_read(&axp, AXP192_COULOMB_COUNTER, &cbat);
-
-    //     printf(
-    //         "vacin: %.2fV iacin: %.2fA vvbus: %.2fV ivbus: %.2fA vts: %.2fV temp: %.0fC "
-    //         "pbat: %.2fmW vbat: %.2fV icharge: %.2fA idischarge: %.2fA, vaps: %.2fV cbat: %.2fmAh\r\n",
-    //         vacin, iacin, vvbus, ivbus, vts, temp, pbat, vbat, icharge, idischarge, vaps, cbat);
-
-    //     vTaskDelay(200);
-    // }
-
+    
+    rk816_init_power();
 
     lv_init();
     esp_register_freertos_tick_hook((void *)lv_tick_task);
@@ -104,6 +48,26 @@ void lv_porting_init(void)
 
 
     lv_port_indev_init();
+
+    // int sec, min, hour, day, month, year, week;
+    // rk816_rtc_get_time(&sec, &min, &hour, &day, &month, &year, &week);
+    // printf("get time sec %d, min %d, hour %d, day %d, month %d, year %d, week %d\r\n", sec, min, hour, day, month, year, week);
+    
+    // rk816_rtc_set_time(12, 45, 14, 21, 8, 2089, 31);
+
+    // vTaskDelay(3000);
+    
+    // rk816_rtc_get_time(&sec, &min, &hour, &day, &month, &year, &week);
+    // printf("get time sec %d, min %d, hour %d, day %d, month %d, year %d, week %d\r\n", sec, min, hour, day, month, year, week);
+    // int button=0;
+    // while (1)
+    // {
+    //     button = rk816_poll_pwrkey();
+    //     printf("button %d state \r\n", button);
+    //     vTaskDelay(200);
+    // }
+    
+
 }
 
 void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p)

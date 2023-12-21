@@ -13,7 +13,7 @@ typedef enum key_state
 
 #define ENCODER_A_PIN 38                /* Encoder A terminal */
 #define ENCODER_B_PIN 39                /* Encoder B end */
-#define ENCODER_PUSH_PIN 0              /* Encoder KEY */
+#define ENCODER_PUSH_PIN 3              /* Encoder KEY */
 #define ENCODER_PUSH_GPIO_PIN_SEL (1ULL << ENCODER_PUSH_PIN) /* Encoder KEY GPIO bit mask */
 
 void encoder_config(void);            /* Encoder configuration */

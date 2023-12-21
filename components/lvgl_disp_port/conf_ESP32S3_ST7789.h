@@ -1,5 +1,5 @@
 
-#define SPI_MODE 0
+#define SPI_MODE 3
 
 #define TFT_MOSI 11 // SDA
 #define TFT_MISO -1

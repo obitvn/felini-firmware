@@ -53,6 +53,7 @@ idf_component_register(
         esp_hw_support
         freqcount
         buzzer
+        rk816
 
 )
 

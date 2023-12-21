@@ -77,8 +77,8 @@ void encoder_config(void)
         .intr_type = GPIO_INTR_DISABLE,                
         .pin_bit_mask = ENCODER_PUSH_GPIO_PIN_SEL,
         .mode = GPIO_MODE_INPUT,
-        .pull_down_en = 1,                              /* Allow dropdown */
-        .pull_up_en = 0,
+        .pull_down_en = 0,                              /* Allow dropdown */
+        .pull_up_en = 1,
     };
 
     gpio_config(&io_conf);
@@ -88,6 +88,9 @@ void encoder_config(void)
     // ESP_ERROR_CHECK(rotary_encoder_new_ec11(&config, &encoder));
     // ESP_ERROR_CHECK(encoder->set_glitch_filter(encoder, 1));    /* filter */
     // ESP_ERROR_CHECK(encoder->start(encoder));
+
+    gpio_set_pull_mode(ENCODER_A_PIN, GPIO_PULLUP_ONLY);
+    gpio_set_pull_mode(ENCODER_B_PIN, GPIO_PULLUP_ONLY);
 
     pcnt_config(ENCODER_B_PIN, ENCODER_A_PIN);
 
